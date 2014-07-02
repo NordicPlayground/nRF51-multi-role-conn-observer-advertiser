@@ -144,7 +144,6 @@ static uint8_t timeslot_rng_pool_index;
 /**@brief Callback handlers
  */
 static void sd_assert_cb(uint32_t pc, uint16_t line_num, const uint8_t *file_name);
-static void timeslot_event_handler(uint32_t ev);
 static nrf_radio_signal_callback_return_param_t * timeslot_signal_cb(uint8_t sig);
 
 /**@brief Local function prototypes.
@@ -226,42 +225,6 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
   while (1);
 }
 
-void timeslot_event_handler (uint32_t ev)
-{
-	uint8_t err_code;
-
-	DBG_TIMESLOT_EVENT_HANDLER_BEGIN
-	g_ev = ev;
-
-	switch (ev)
-	{
-		case NRF_EVT_RADIO_SESSION_IDLE:
-		case NRF_EVT_RADIO_BLOCKED:
-			/* Request a new timeslot */
-			err_code = sd_radio_request (&g_timeslot_req_earliest);
-			ASSERT(err_code == NRF_SUCCESS);
-			break;
-
-		case NRF_EVT_RADIO_SESSION_CLOSED:
-			break;
-		
-		case NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN:
-			ASSERT(false);
-			break;
-
-		case NRF_EVT_RADIO_CANCELED:
-			ASSERT(false);
-			break;
-
-		default:
-			/* This should not happen */
-			__LOG ("%s: Program failure, undefined event = %d", __FUNCTION__, ev);
-			ASSERT(false);
-	}
-
-	DBG_TIMESLOT_EVENT_HANDLER_END
-}
-
 nrf_radio_signal_callback_return_param_t *timeslot_signal_cb (uint8_t sig)
 {
 	uint8_t rand_byte;
@@ -335,7 +298,36 @@ void SD_EVT_IRQHandler (void)
   err_code = sd_evt_get(&ev);
 	ASSERT (err_code == NRF_SUCCESS);
 
-	timeslot_event_handler(ev);
+	DBG_TIMESLOT_EVENT_HANDLER_BEGIN
+	g_ev = ev;
+
+	switch (ev)
+	{
+		case NRF_EVT_RADIO_SESSION_IDLE:
+		case NRF_EVT_RADIO_BLOCKED:
+			/* Request a new timeslot */
+			err_code = sd_radio_request (&g_timeslot_req_earliest);
+			ASSERT(err_code == NRF_SUCCESS);
+			break;
+
+		case NRF_EVT_RADIO_SESSION_CLOSED:
+			break;
+		
+		case NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN:
+			ASSERT(false);
+			break;
+
+		case NRF_EVT_RADIO_CANCELED:
+			ASSERT(false);
+			break;
+
+		default:
+			/* This should not happen */
+			__LOG ("%s: Program failure, undefined event = %d", __FUNCTION__, ev);
+			ASSERT(false);
+	}
+
+	DBG_TIMESLOT_EVENT_HANDLER_END
 }
 
 /**@brief Logging function, used for formated output on the UART.
