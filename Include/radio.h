@@ -30,16 +30,17 @@
 #ifndef __RADIO_H__
 #define __RADIO_H__
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /* Initializes the radio. Assumes that the HF crystal is started */
 void radio_init(uint8_t channel);
 
-/* Configures radio for receive and immediately populates buff with the received packet */
-void radio_receive(uint8_t *buff);
+/* Configures radio to receive, and starts reception. */
+void radio_receive_prepare_and_start (uint8_t *buff, bool prepare_tx);
 
-/* Configure radio for transmit and immediately transmits the packet in buff */
-void radio_transmit(uint8_t *buff);
+/* Configure radio to transmit */
+void radio_transmit_prepare (uint8_t *buff);
 
 /* Abort radio transmit and return to disabled state */
 void radio_transmit_abort(void);

@@ -30,18 +30,25 @@
 #ifndef __SCANNER_H__
 #define __SCANNER_H__
 
+#include "btle.h"
+
 #include <stdbool.h>
 
 typedef enum
 {
-	SCANNER_STATE_WAITING = 0,
-	SCANNER_STATE_RECEIVED = 1
+  SCANNER_STATE_IDLE,
+  SCANNER_STATE_INIT_ERROR,
+  SCANNER_STATE_READY,
+  SCANNER_STATE_WAIT_TO_SCAN_ADV,
+  SCANNER_STATE_SCAN_ADV,
+  SCANNER_STATE_WAIT_TO_SEND_REQ,
+  SCANNER_STATE_SEND_REQ,
+  SCANNER_STATE_WAIT_TO_SCAN_RSP,
+  SCANNER_STATE_SCAN_RSP
 } scanner_state_t;
 
-void scanner_event_start(void);
-void scanner_event_radio(void);
-void scanner_event_timer(void);
-void scanner_event_extend_succeed(void);
-void scanner_event_extend_failed(void);
+btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev);
+btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param);
+btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param);
 
 #endif /* __SCANNER_H__ */

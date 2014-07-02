@@ -29,6 +29,7 @@
  */
 #include "boards.h"
 
+#include "btle.h"
 #include "conf.h"
 #include "core_cminstr.h"
 #include "radio.h"
@@ -54,49 +55,22 @@
 *****************************************************************************/
 
 /**@brief Disable logging to UART by commenting out this line. It is recomended to do this if
- * if you want to study timing in the example using a logic analyzer. 
+ * if you want to study timing in the example using a logic analyzer.
  */
 #define USE_UART_LOGGING
 
-/**@brief Macro defined to output log data on the UART or not, based on the USE_UART_LOGGING flag. 
- * If logging is disabled, it will just yield a NOP instruction. 
+/**@brief Macro defined to output log data on the UART or not, based on the USE_UART_LOGGING flag.
+ * If logging is disabled, it will just yield a NOP instruction.
  */
 #ifdef USE_UART_LOGGING
 #define __LOG(F, ...) (test_logf("TIMESLOT_TEST_LOG: %s: %d: " #F "\r\n", __FILE__, __LINE__, ##__VA_ARGS__))
 #else
-	#define __LOG(F, ...) (void)__NOP()
+  #define __LOG(F, ...) (void)__NOP()
 #endif
 
-/**@brief Defining GPIO pins used for looking at timing in the example. 
- * For the PCA10001 board (Nordic Evaluation Kit) the pins matches 
- * PO.00 - PO.07 and P0.12-P0.15 (PO.08-11 is the UART).
- * For the PCA10005 (Nordic Development Kit) the pins matches P1 1-8 and 
- * PO.16-23 and PO.28-31 (PO.24-27 is the UART).
- */
-
-#define DBG_TIMESLOT_BEGIN 		      	             nrf_gpio_pin_set(0);
-#define DBG_TIMESLOT_END      			               nrf_gpio_pin_clear(0);
-#define DBG_TIMESLOT_SIGNAL_HANDLER_BEGIN          nrf_gpio_pin_set(1);
-#define DBG_TIMESLOT_SIGNAL_HANDLER_END            nrf_gpio_pin_clear(1);
-#define DBG_TIMESLOT_EVENT_HANDLER_BEGIN           nrf_gpio_pin_set(2);
-#define DBG_TIMESLOT_EVENT_HANDLER_END             nrf_gpio_pin_clear(2);
-#define DBG_TIMESLOT_START_SIGNAL                  nrf_gpio_pin_set(3); nrf_gpio_pin_clear(3);
-#define DBG_TIMESLOT_RADIO_SIGNAL                  nrf_gpio_pin_set(4); nrf_gpio_pin_clear(4);
-#define DBG_TIMESLOT_MULTITIMER_SIGNAL             nrf_gpio_pin_set(5); nrf_gpio_pin_clear(5);
-#define DBG_TIMESLOT_EXTENDED_SUCCEEDED_SIGNAL     nrf_gpio_pin_set(6); nrf_gpio_pin_clear(6);
-#define DBG_TIMESLOT_EXTENDED_FAILED_SIGNAL        nrf_gpio_pin_set(7); nrf_gpio_pin_clear(7);
-#define DBG_RADIO_EVENT_END									       nrf_gpio_pin_set(24); nrf_gpio_pin_clear(24);
-#define DBG_RADIO_EVENT_DISABLED						       nrf_gpio_pin_set(25); nrf_gpio_pin_clear(25);
-#define DBG_RADIO_EVENT_READY							 	       nrf_gpio_pin_set(26); nrf_gpio_pin_clear(26);
-#define DBG_RADIO_EVENT_ADDRESS						 	       nrf_gpio_pin_set(27); nrf_gpio_pin_clear(27);
-#define DBG_RADIO_STATE										 	       nrf_gpio_pin_set(28); nrf_gpio_pin_clear(28);
-
-/**@brief Defines for Timeslot parameters
- */
 #define TIMESLOT_LENGTH_US 10000
 #define TIMESLOT_DISTANCE_US 20000
-#define TIMESLOT_TIMEOUT_US 10000
-#define TIMESLOT_RNG_LEN 10
+
 
 /*****************************************************************************
 * Static Globals
@@ -117,25 +91,22 @@ static uint8_t  g_nrf_assert_file_name[100];
  */
 static uint32_t g_ev;
 
-/**@brief Global variables for timeslot requests and return values.
+/**@brief Global variables for the scanner
  */
-
-static nrf_radio_signal_callback_return_param_t g_signal_callback_return_param;
-
-static nrf_radio_request_t g_timeslot_req_earliest =
-{NRF_RADIO_REQ_TYPE_EARLIEST,
-.params.earliest = {NRF_RADIO_HFCLK_CFG_DEFAULT, NRF_RADIO_PRIORITY_NORMAL,
-	TIMESLOT_LENGTH_US, TIMESLOT_TIMEOUT_US}
+static btle_cmd_param_le_write_scan_parameters_t scan_param = {
+  BTLE_SCAN_TYPE_ACTIVE,
+  TIMESLOT_DISTANCE_US,
+  TIMESLOT_LENGTH_US,
+  BTLE_ADDR_TYPE_PUBLIC,
+  BTLE_SCAN_FILTER_ACCEPT_ANY
 };
 
-static nrf_radio_request_t g_timeslot_req_normal =
-{NRF_RADIO_REQ_TYPE_NORMAL,
-.params.normal = {NRF_RADIO_HFCLK_CFG_DEFAULT, NRF_RADIO_PRIORITY_NORMAL,
-	TIMESLOT_DISTANCE_US, TIMESLOT_LENGTH_US}
+static btle_cmd_param_le_write_scan_enable_t scan_enable = {
+  BTLE_SCAN_MODE_ENABLE,
+  BTLE_SCAN_DUPLICATE_FILTER_DISABLE
 };
 
-static uint8_t timeslot_rng_pool[TIMESLOT_RNG_LEN];
-static uint8_t timeslot_rng_pool_index;
+bool sw_interrupt = false;
 
 /*****************************************************************************
 * Static Functions
@@ -144,7 +115,6 @@ static uint8_t timeslot_rng_pool_index;
 /**@brief Callback handlers
  */
 static void sd_assert_cb(uint32_t pc, uint16_t line_num, const uint8_t *file_name);
-static nrf_radio_signal_callback_return_param_t * timeslot_signal_cb(uint8_t sig);
 
 /**@brief Local function prototypes.
  */
@@ -152,139 +122,92 @@ static void test_logf(const char *fmt, ...);
 
 int main(void)
 {
-	uint8_t err_code = NRF_SUCCESS;
-	
-	/* Silence the compiler */
-	(void) g_sd_assert_pc;
-	(void) g_ev;
-	
-	nrf_gpio_cfg_output (LED_0);
-	nrf_gpio_cfg_output (LED_1);
-	nrf_gpio_range_cfg_output (0, 7);
-	nrf_gpio_range_cfg_output (24, 31);
+  uint8_t err_code = NRF_SUCCESS;
+  btle_event_t btle_ev;
+  btle_status_codes_t btle_err_code = BTLE_STATUS_CODE_SUCCESS;
+  
+  /* Silence the compiler */
+  (void) g_sd_assert_pc;
+  (void) g_ev;
+  
+  nrf_gpio_cfg_output (LED_0);
+  nrf_gpio_cfg_output (LED_1);
+  nrf_gpio_range_cfg_output (0, 7);
 
-	nrf_gpio_pin_set (LED_0);
-	
-	simple_uart_config (RTS_PIN_NUMBER, TX_PIN_NUMBER, CTS_PIN_NUMBER, RX_PIN_NUMBER, HWFC);
+  nrf_gpio_pin_set (LED_0);
 
-	__LOG("Program init", __FUNCTION__);
-	
-	err_code = sd_softdevice_enable ((uint32_t) NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
-	ASSERT (err_code == NRF_SUCCESS);
-	__LOG ("Softdevice enabled");
-	
-	err_code = sd_nvic_EnableIRQ(SD_EVT_IRQn);
-	ASSERT (err_code == NRF_SUCCESS);
-	__LOG ("Interrupt enabled");
-	
-	err_code = sd_rand_application_vector_get(&timeslot_rng_pool[0], TIMESLOT_RNG_LEN);
-	ASSERT (err_code == NRF_SUCCESS);
-	__LOG ("Timeslot RNG pool populated");
-	
-	err_code = sd_radio_session_open (timeslot_signal_cb);
-	ASSERT (err_code == NRF_SUCCESS);
-	__LOG ("Radio session opened");
-	
-	err_code = sd_radio_request (&g_timeslot_req_earliest);
-	ASSERT (err_code == NRF_SUCCESS);
-	__LOG ("Timeslot requested");
+  simple_uart_config (RTS_PIN_NUMBER, TX_PIN_NUMBER, CTS_PIN_NUMBER, RX_PIN_NUMBER, HWFC);
 
-	while (true)
-	{
-		uint8_t cr = simple_uart_get ();
-		if (cr == 'Q')
-		{
-			sd_radio_session_close();
-			__LOG ("Program end");
-			while(true);
-		}	
-	}
+  __LOG("Program init", __FUNCTION__);
+
+  err_code = sd_softdevice_enable ((uint32_t) NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
+  ASSERT (err_code == NRF_SUCCESS);
+  __LOG ("Softdevice enabled");
+
+  err_code = sd_nvic_EnableIRQ(SD_EVT_IRQn);
+  ASSERT (err_code == NRF_SUCCESS);
+
+  err_code = sd_nvic_SetPriority(SWI0_IRQn, NRF_APP_PRIORITY_LOW);
+  ASSERT (err_code == NRF_SUCCESS);
+
+  err_code = sd_nvic_EnableIRQ(SWI0_IRQn);
+  ASSERT (err_code == NRF_SUCCESS);
+  
+  __LOG ("Interrupts enabled");
+  
+  btle_err_code = btle_scan_param_set (scan_param);
+  ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
+  __LOG ("Scanner parameters set");
+  
+  btle_err_code = btle_scan_enable_set (scan_enable);
+  ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
+  __LOG ("Scanner enabled");
+
+
+  while (true)
+  {
+    /*
+    uint8_t cr = simple_uart_get ();
+    if (cr == 'Q')
+    {
+      sd_radio_session_close();
+      __LOG ("Program end");
+      while(true);
+    }
+    */
+    
+    if (sw_interrupt)
+    {
+      btle_scan_ev_get (&btle_ev);
+      
+      __LOG("PACKET (type = %d)", btle_ev.params.le_advertising_report_event.event_type);
+      sw_interrupt = false;
+    }
+  }
 }
 
 /**@brief Assert callback handler for SoftDevice asserts. */
 void sd_assert_cb (uint32_t pc, uint16_t line_num, const uint8_t *file_name)
 {
   g_sd_assert_line_num = line_num;
-	g_sd_assert_pc = pc;
-	memset ((void*)g_sd_assert_file_name, 0x00, sizeof(g_sd_assert_file_name));
+  g_sd_assert_pc = pc;
+  memset ((void*)g_sd_assert_file_name, 0x00, sizeof(g_sd_assert_file_name));
   (void) strncpy ((char*) g_sd_assert_file_name, (const char*) file_name, sizeof(g_sd_assert_file_name) - 1);
-  
- 	__LOG("%s: SOFTDEVICE ASSERT: line = %d file = %s", __FUNCTION__, g_sd_assert_line_num, g_sd_assert_file_name);
+
+   __LOG("%s: SOFTDEVICE ASSERT: line = %d file = %s", __FUNCTION__, g_sd_assert_line_num, g_sd_assert_file_name);
 
   while(1);
 }
 
 void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
 {
-	g_nrf_assert_line_num = line_num;
-	memset((void*)g_nrf_assert_file_name, 0x00, sizeof (g_nrf_assert_file_name));
+  g_nrf_assert_line_num = line_num;
+  memset((void*)g_nrf_assert_file_name, 0x00, sizeof (g_nrf_assert_file_name));
   (void) strncpy ((char*) g_nrf_assert_file_name, (const char*) file_name, sizeof (g_nrf_assert_file_name) - 1);
-  
- 	__LOG("%s: NRF ASSERT: line = %d file = %s", __FUNCTION__, g_nrf_assert_line_num, g_nrf_assert_file_name);
+
+   __LOG("%s: NRF ASSERT: line = %d file = %s", __FUNCTION__, g_nrf_assert_line_num, g_nrf_assert_file_name);
 
   while (1);
-}
-
-nrf_radio_signal_callback_return_param_t *timeslot_signal_cb (uint8_t sig)
-{
-	uint8_t rand_byte;
-
-	switch (sig)
-	{
-		case NRF_RADIO_CALLBACK_SIGNAL_TYPE_START:
-			//DBG_TIMESLOT_START_SIGNAL
-			DBG_TIMESLOT_BEGIN
-			scanner_event_start();
-			
-			/* TIMER0 setup */
-			NRF_TIMER0->TASKS_CLEAR = 1;
-			NRF_TIMER0->EVENTS_COMPARE[0] = 0;
-			NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
-			NRF_TIMER0->CC[0] = TIMESLOT_TIMEOUT_US - 200;
-			NVIC_EnableIRQ(TIMER0_IRQn);
-			
-			g_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_NONE;
-			break;
-
-		case NRF_RADIO_CALLBACK_SIGNAL_TYPE_RADIO:
-			//DBG_TIMESLOT_RADIO_SIGNAL
-			if (NRF_RADIO->EVENTS_DISABLED != 0)
-			{
-				scanner_event_radio();
-				NRF_RADIO->EVENTS_DISABLED = 0;			
-			}
-			break;
-
-		case NRF_RADIO_CALLBACK_SIGNAL_TYPE_MULTITIMER:
-			//DBG_TIMESLOT_MULTITIMER_SIGNAL
-			DBG_TIMESLOT_END
-		
-			NRF_TIMER0->EVENTS_COMPARE[0] = 0;
-			NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE0_Msk;
-			NVIC_DisableIRQ(TIMER0_IRQn);
-		
-			scanner_event_timer();
-
-			rand_byte = timeslot_rng_pool[timeslot_rng_pool_index++];
-			g_timeslot_req_normal.params.normal.distance_us = TIMESLOT_DISTANCE_US + rand_byte;
-			g_signal_callback_return_param.params.request.p_next = &g_timeslot_req_normal;
-			g_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END;
-			break;
-
-		case NRF_RADIO_CALLBACK_SIGNAL_TYPE_EXTEND_SUCCEEDED:
-			//DBG_TIMESLOT_EXTENDED_SUCCEEDED_SIGNAL	
-			scanner_event_extend_succeed();
-			break;
-
-		case NRF_RADIO_CALLBACK_SIGNAL_TYPE_EXTEND_FAILED:
-			//DBG_TIMESLOT_EXTENDED_FAILED_SIGNAL
-			scanner_event_extend_failed();
-			break;
-	}
-
-	DBG_TIMESLOT_SIGNAL_HANDLER_END
-
-	return &g_signal_callback_return_param;	
 }
 
 /**@brief BLE Stack event interrupt
@@ -292,42 +215,44 @@ nrf_radio_signal_callback_return_param_t *timeslot_signal_cb (uint8_t sig)
  */
 void SD_EVT_IRQHandler (void)
 {
-	uint32_t ev;
-	uint8_t err_code = NRF_SUCCESS;
+  uint32_t ev;
 
-  err_code = sd_evt_get(&ev);
-	ASSERT (err_code == NRF_SUCCESS);
+  ASSERT (sd_evt_get(&ev) == NRF_SUCCESS);
 
-	DBG_TIMESLOT_EVENT_HANDLER_BEGIN
-	g_ev = ev;
+  g_ev = ev;
 
-	switch (ev)
-	{
-		case NRF_EVT_RADIO_SESSION_IDLE:
-		case NRF_EVT_RADIO_BLOCKED:
-			/* Request a new timeslot */
-			err_code = sd_radio_request (&g_timeslot_req_earliest);
-			ASSERT(err_code == NRF_SUCCESS);
-			break;
+  switch (ev)
+  {
+    case NRF_EVT_RADIO_SESSION_IDLE:
+    case NRF_EVT_RADIO_BLOCKED:
+      /* Request a new timeslot */
+      ASSERT (btle_scan_enable_set (scan_enable) == BTLE_STATUS_CODE_SUCCESS);
+      break;
 
-		case NRF_EVT_RADIO_SESSION_CLOSED:
-			break;
-		
-		case NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN:
-			ASSERT(false);
-			break;
+    case NRF_EVT_RADIO_SESSION_CLOSED:
+      break;
+    
+    case NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN:
+      ASSERT(false);
+      break;
 
-		case NRF_EVT_RADIO_CANCELED:
-			ASSERT(false);
-			break;
+    case NRF_EVT_RADIO_CANCELED:
+      ASSERT(false);
+      break;
 
-		default:
-			/* This should not happen */
-			__LOG ("%s: Program failure, undefined event = %d", __FUNCTION__, ev);
-			ASSERT(false);
-	}
+    default:
+      /* This should not happen */
+      __LOG ("%s: Program failure, undefined event = %d", __FUNCTION__, ev);
+      ASSERT(false);
+  }
+}
 
-	DBG_TIMESLOT_EVENT_HANDLER_END
+/**@brief Timeslot event interrupt
+ *        Triggered whenever an event is ready to be pulled
+ */
+void SWI0_IRQHandler(void)
+{
+  sw_interrupt = true;
 }
 
 /**@brief Logging function, used for formated output on the UART.
@@ -335,15 +260,15 @@ void SD_EVT_IRQHandler (void)
 void test_logf(const char *fmt, ...)
 {
   int16_t res = 0;
-	static uint8_t buf[150];
-	
+  static uint8_t buf[150];
+  
   va_list args;
   va_start(args, fmt);
-	
-  res = vsnprintf((char*) buf, sizeof(buf), fmt,	args);
-	ASSERT(res >= 0 && res <= (sizeof buf) - 1);
+  
+  res = vsnprintf((char*) buf, sizeof(buf), fmt,  args);
+  ASSERT(res >= 0 && res <= (sizeof buf) - 1);
 
-	simple_uart_putstring(buf);
-	
+  simple_uart_putstring(buf);
+  
   va_end(args);
 }
