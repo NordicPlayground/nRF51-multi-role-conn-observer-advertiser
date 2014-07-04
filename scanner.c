@@ -110,8 +110,6 @@ static btle_ev_param_le_advertising_report_t m_adv_report;
  */
 
 static nrf_radio_signal_callback_return_param_t m_signal_callback_return_param;
-static uint8_t timeslot_rng_pool[TIMESLOT_RNG_LEN];
-static uint8_t timeslot_rng_pool_index;
 
 /*****************************************************************************
 * Static Functions
@@ -180,8 +178,6 @@ static uint32_t m_btle_report_generate (btle_ev_param_le_advertising_report_t *r
 
 static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
 {
-  uint8_t rand_byte;
-
   switch (sig)
   {
     case NRF_RADIO_CALLBACK_SIGNAL_TYPE_START:
@@ -318,8 +314,6 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
         NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE0_Msk;
         NVIC_DisableIRQ(TIMER0_IRQn);
 
-        rand_byte = timeslot_rng_pool[timeslot_rng_pool_index++];
-        m_timeslot_req_normal.params.normal.distance_us += rand_byte;
         m_signal_callback_return_param.params.request.p_next = &m_timeslot_req_normal;
         m_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END;
       }
@@ -377,19 +371,10 @@ btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev)
 
 btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param)
 {
-  uint32_t err_code;
-
   switch (m_scanner_state)
   {
     case SCANNER_STATE_IDLE:
       m_scanner_state = SCANNER_STATE_READY;
-
-      err_code = sd_rand_application_vector_get(&timeslot_rng_pool[0], TIMESLOT_RNG_LEN);
-      if (err_code != NRF_SUCCESS)
-      {
-        m_scanner_state = SCANNER_STATE_INIT_ERROR;
-        return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
-      }
       /* Fall-through */
 
     case SCANNER_STATE_READY:
