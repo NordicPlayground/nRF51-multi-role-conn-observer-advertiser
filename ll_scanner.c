@@ -157,6 +157,10 @@ static void m_state_idle_exit (void)
 
 static void m_state_receive_adv_entry (void)
 {
+  m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
+
+  radio_init(39);
+  radio_receive_prepare_and_start (m_rx_buf, true);
 }
 
 static void m_state_receive_adv_exit (void)
@@ -317,8 +321,6 @@ btle_status_codes_t ll_scan_prepare (btle_scan_types_t scan_type, btle_address_t
 
 btle_status_codes_t ll_scan_start (void)
 { 
-  m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
-
   /* Capture timer value when radio reaches END, so that we can call
    * START after 150us.
    */
@@ -356,10 +358,9 @@ btle_status_codes_t ll_scan_start (void)
   NRF_PPI->CH[DBG_RADIO_TIMER].TEP = (uint32_t) (&NRF_GPIOTE->TASKS_OUT[DBG_RADIO_TIMER]);
   NRF_PPI->CHENSET = (1 << DBG_RADIO_TIMER);
 
-  radio_init(39);
-  radio_receive_prepare_and_start (m_rx_buf, true);
-
   NVIC_EnableIRQ(TIMER0_IRQn);
+
+  m_state_receive_adv_entry();
 
   return BTLE_STATUS_CODE_SUCCESS;
 }
