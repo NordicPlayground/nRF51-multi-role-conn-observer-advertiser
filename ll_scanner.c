@@ -281,18 +281,12 @@ void ll_scan_timer_cb (void)
   switch (m_scanner.state)
   {
     case SCANNER_STATE_RECEIVE_ADV:
-      NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
-      NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
       break;
 
     case SCANNER_STATE_SEND_REQ:
-      NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
-      NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
       break;
 
     case SCANNER_STATE_RECEIVE_SCAN_RSP:
-      NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
-      NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
       break;
 
     default:
