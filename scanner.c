@@ -181,7 +181,7 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
   switch (sig)
   {
     case NRF_RADIO_CALLBACK_SIGNAL_TYPE_START:
-      m_scanner_state = SCANNER_STATE_WAIT_TO_SCAN_ADV;
+      m_scanner_state = SCANNER_STATE_RECEIVE_ADV;
 
       /* TIMER0 setup */
       NRF_TIMER0->TASKS_CLEAR = 1;
@@ -240,7 +240,7 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
           switch (m_scanner_state)
           {
             /* Packet received */
-            case SCANNER_STATE_SCAN_ADV:
+            case SCANNER_STATE_RECEIVE_ADV:
               /* Abort immediately if packet has invalid CRC */
               if (NRF_RADIO->CRCSTATUS == 0)
               {
@@ -259,7 +259,7 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
                   /* Prepare to send SCAN_REQ. */
                   memcpy(&m_tx_buf[9], &m_rx_buf[3], 6);
                   radio_transmit_prepare (m_tx_buf);
-                  m_scanner_state = SCANNER_STATE_WAIT_TO_SEND_REQ;
+                  m_scanner_state = SCANNER_STATE_SEND_REQ;
                   break;
 
                 /* These packets do not require response. All we do here is generate an
@@ -280,12 +280,12 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
              */
             case SCANNER_STATE_SEND_REQ:
               radio_receive_prepare_and_start (m_rx_buf, false);
-              m_scanner_state = SCANNER_STATE_WAIT_TO_SCAN_RSP;
+              m_scanner_state = SCANNER_STATE_RECEIVE_SCAN_RSP;
               break;
 
-            case SCANNER_STATE_SCAN_RSP:
+            case SCANNER_STATE_RECEIVE_SCAN_RSP:
               radio_receive_prepare_and_start (m_rx_buf, false);
-              m_scanner_state = SCANNER_STATE_WAIT_TO_SCAN_ADV;
+              m_scanner_state = SCANNER_STATE_RECEIVE_ADV;
             default:
               break;
           }
@@ -310,20 +310,17 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
       {
         switch (m_scanner_state)
         {
-          case SCANNER_STATE_WAIT_TO_SCAN_ADV:
-            m_scanner_state = SCANNER_STATE_SCAN_ADV;
+          case SCANNER_STATE_RECEIVE_ADV:
             NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
             NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
             break;
 
-          case SCANNER_STATE_WAIT_TO_SEND_REQ:
-            m_scanner_state = SCANNER_STATE_SEND_REQ;
+          case SCANNER_STATE_SEND_REQ:
             NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
             NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
             break;
 
-          case SCANNER_STATE_WAIT_TO_SCAN_RSP:
-            m_scanner_state = SCANNER_STATE_SCAN_RSP;
+          case SCANNER_STATE_RECEIVE_SCAN_RSP:
             NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
             NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
             break;
