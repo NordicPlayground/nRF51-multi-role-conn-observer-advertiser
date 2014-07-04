@@ -260,8 +260,6 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
                   memcpy(&m_tx_buf[9], &m_rx_buf[3], 6);
                   radio_transmit_prepare (m_tx_buf);
                   m_scanner_state = SCANNER_STATE_WAIT_TO_SEND_REQ;
-                  m_btle_report_generate (&m_adv_report, m_rx_buf);
-                  NVIC_SetPendingIRQ (SWI0_IRQn);
                   break;
 
                 /* These packets do not require response. All we do here is generate an
@@ -270,18 +268,6 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
                 case PACKET_TYPE_ADV_DIRECT_IND:
                 case PACKET_TYPE_ADV_NONCONN_IND:
                   radio_transmit_abort();
-                  m_btle_report_generate (&m_adv_report, m_rx_buf);
-                  NVIC_SetPendingIRQ (SWI0_IRQn);
-                  break;
-
-                /* SCAN_RSP has been received and we should simply resume scanning */
-                case PACKET_TYPE_SCAN_RSP:
-                  /* Received SCAN_RSP */
-                  radio_receive_prepare_and_start (m_rx_buf, false);
-                  m_btle_report_generate (&m_adv_report, m_rx_buf);
-                  NVIC_SetPendingIRQ (SWI0_IRQn);
-                  m_scanner_state = SCANNER_STATE_WAIT_TO_SCAN_ADV;
-
                   break;
 
                 default:
@@ -294,11 +280,12 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
              */
             case SCANNER_STATE_SEND_REQ:
               radio_receive_prepare_and_start (m_rx_buf, false);
-              m_btle_report_generate (&m_adv_report, m_rx_buf);
-              NVIC_SetPendingIRQ (SWI0_IRQn);
               m_scanner_state = SCANNER_STATE_WAIT_TO_SCAN_RSP;
               break;
 
+            case SCANNER_STATE_SCAN_RSP:
+              radio_receive_prepare_and_start (m_rx_buf, false);
+              m_scanner_state = SCANNER_STATE_WAIT_TO_SCAN_ADV;
             default:
               break;
           }
