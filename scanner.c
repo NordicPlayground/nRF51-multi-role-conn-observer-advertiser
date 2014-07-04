@@ -357,11 +357,11 @@ btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters
 {
   switch (m_scanner_state)
   {
-    case SCANNER_STATE_IDLE:
-      m_scanner_state = SCANNER_STATE_READY;
+    case SCANNER_STATE_INIT:
+      m_scanner_state = SCANNER_STATE_IDLE;
       /* Fall-through */
 
-    case SCANNER_STATE_READY:
+    case SCANNER_STATE_IDLE:
       m_scan_param = param;
 
       m_timeslot_req_earliest.params.earliest.length_us = m_scan_param.scan_window;
@@ -395,7 +395,7 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
         return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
       }
 
-      m_scanner_state = SCANNER_STATE_READY;
+      m_scanner_state = SCANNER_STATE_IDLE;
       break;
 
     case BTLE_SCAN_MODE_DISABLE:
@@ -405,7 +405,7 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
         return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
       }
 
-      m_scanner_state = SCANNER_STATE_IDLE;
+      m_scanner_state = SCANNER_STATE_INIT;
       break;
   }
 
