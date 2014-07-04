@@ -149,6 +149,7 @@ static void m_state_init_exit (void)
 
 static void m_state_idle_entry (void)
 {
+  m_scanner.state = SCANNER_STATE_IDLE;
 }
 
 static void m_state_idle_exit (void)
@@ -303,7 +304,8 @@ btle_status_codes_t ll_scan_prepare (btle_scan_types_t scan_type, btle_address_t
   
   if (m_scanner.state == SCANNER_STATE_INITIALIZED)
   {
-    m_scanner.state = SCANNER_STATE_IDLE;
+    m_state_init_exit ();
+    m_state_idle_entry ();
   }
   else if (m_scanner.state == SCANNER_STATE_IDLE)
   {
@@ -311,10 +313,6 @@ btle_status_codes_t ll_scan_prepare (btle_scan_types_t scan_type, btle_address_t
     m_scanner.params.own_address_type = address_type;
     m_scanner.params.scanning_filter_policy = filter_policy;
   }
-  
-  /* Go to SCANNER_STATE_IDLE */
-  m_state_init_exit();
-  m_state_idle_entry ();
   
   return BTLE_STATUS_CODE_SUCCESS;
 }
