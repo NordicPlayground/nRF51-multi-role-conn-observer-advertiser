@@ -177,7 +177,7 @@ void radio_transmit_prepare (uint8_t *buff)
   NRF_RADIO->SHORTS = RADIO_SHORTS_END_DISABLE_Msk | RADIO_SHORTS_DISABLED_RXEN_Msk;
 }
 
-void radio_transmit_abort (void)
+void radio_disable (void)
 {
   /* Clear events */
   NRF_RADIO->EVENTS_DISABLED = 0;

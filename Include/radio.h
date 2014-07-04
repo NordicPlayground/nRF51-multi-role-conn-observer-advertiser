@@ -46,7 +46,7 @@ void radio_receive_prepare_and_start (uint8_t *buff, bool prepare_tx);
 /* Configure radio to transmit */
 void radio_transmit_prepare (uint8_t *buff);
 
-/* Abort radio transmit and return to disabled state */
-void radio_transmit_abort(void);
+/* Return to disabled state */
+void radio_disable (void);
 
 #endif /* __RADIO_H__ */

@@ -65,10 +65,12 @@ typedef enum
 typedef enum
 {
   PACKET_TYPE_ADV_IND = 0x00,
+  PACKET_TYPE_ADV_DIRECT_IND = 0x01,
   PACKET_TYPE_ADV_NONCONN_IND = 0x02,
+  PACKET_TYPE_CONNECT_REQ = 0x03,
   PACKET_TYPE_SCAN_RSP = 0x04,
-  PACKET_TYPE_ADV_SCAN_IND = 0x06,
-  PACKET_TYPE_ADV_DIRECT_IND = 0x08
+  PACKET_TYPE_SCAN_REQ = 0x05,
+  PACKET_TYPE_ADV_SCAN_IND = 0x06
 } m_packet_type_t;
 
 typedef struct
@@ -145,6 +147,7 @@ static void m_state_init_entry (void)
 
 static void m_state_init_exit (void)
 {
+  /* Nothing to do */
 }
 
 static void m_state_idle_entry (void)
@@ -154,30 +157,39 @@ static void m_state_idle_entry (void)
 
 static void m_state_idle_exit (void)
 {
+  /* Nothing to do */
 }
 
 static void m_state_receive_adv_entry (void)
 {
-  m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
-
-  radio_init(39);
   radio_receive_prepare_and_start (m_rx_buf, true);
+  
+  m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
 }
 
 static void m_state_receive_adv_exit (void)
 {
+  /* TODO */
 }
 
 static void m_state_send_scan_req_entry (void)
 {
+  memcpy(&m_tx_buf[9], &m_rx_buf[3], 6);
+  radio_transmit_prepare (m_tx_buf);
+  
+  m_scanner.state = SCANNER_STATE_SEND_REQ;
 }
 
 static void m_state_send_scan_req_exit (void)
 {
+  /* Nothing to do */
 }
 
 static void m_state_receive_scan_rsp_entry (void)
 {
+  radio_receive_prepare_and_start (m_rx_buf, false);
+  
+  m_scanner.state = SCANNER_STATE_RECEIVE_SCAN_RSP;
 }
 
 static void m_state_receive_scan_rsp_exit (void)
@@ -190,57 +202,77 @@ static void m_state_receive_scan_rsp_exit (void)
 
 void ll_scan_radio_cb (bool crc_valid)
 {
-  switch (m_scanner.state)
+  if (crc_valid)
   {
-    /* Packet received */
-    case SCANNER_STATE_RECEIVE_ADV:
-      /* Abort immediately if packet has invalid CRC */
-      if (NRF_RADIO->CRCSTATUS == 0)
-      {
-        radio_transmit_abort();
+    switch (m_scanner.state)
+    {
+      /* Packet received */
+      case SCANNER_STATE_RECEIVE_ADV:
+        switch (m_rx_buf[0] & 0x0F)
+        {
+          /* If active scanning is enabled, these packets should be reponded to with
+           * a SCAN_REQ, and we should wait for a SCAN_RSP.
+           */
+          case PACKET_TYPE_ADV_IND:
+          case PACKET_TYPE_ADV_SCAN_IND:
+            /* TODO: Send SCAN_REQ for ADV_IND and ADV_SCAN_IND only if this is enabled. */
+            /* Prepare to send SCAN_REQ. */
+            m_state_receive_adv_exit ();
+            m_state_send_scan_req_entry ();
+            break;
+
+          /* These packets do not require response. All we do here is generate an
+           * advertisement report and signal the application.
+           */
+          /* TODO: Only re-initialize radio if scan is active */
+          case PACKET_TYPE_ADV_DIRECT_IND:
+          case PACKET_TYPE_ADV_NONCONN_IND:
+            m_state_receive_adv_exit ();
+            radio_disable();
+            m_state_receive_adv_entry ();
+            break;
+
+          case PACKET_TYPE_CONNECT_REQ:
+          case PACKET_TYPE_SCAN_RSP:
+          case PACKET_TYPE_SCAN_REQ:
+          default:
+            radio_disable();
+        }
         break;
-      }
 
-      switch (m_rx_buf[0] & 0x0F)
-      {
-        /* If active scanning is enabled, these packets should be reponded to with
-         * a SCAN_REQ, and we should wait for a SCAN_RSP.
-         */
-        case PACKET_TYPE_ADV_IND:
-        case PACKET_TYPE_ADV_SCAN_IND:
-          /* TODO: Send SCAN_REQ for ADV_IND and ADV_SCAN_IND only if this is enabled. */
-          /* Prepare to send SCAN_REQ. */
-          memcpy(&m_tx_buf[9], &m_rx_buf[3], 6);
-          radio_transmit_prepare (m_tx_buf);
-          m_scanner.state = SCANNER_STATE_SEND_REQ;
+      /* SCAN_REQ has been transmitted, and we must configure the radio to
+       * listen for the incoming SCAN_RSP.
+       */
+      case SCANNER_STATE_SEND_REQ:
+        m_state_send_scan_req_exit ();
+        m_state_receive_scan_rsp_entry ();
+        break;
+
+      case SCANNER_STATE_RECEIVE_SCAN_RSP:
+        m_state_receive_scan_rsp_exit ();
+        m_state_receive_adv_entry ();
+        break;
+      
+      case SCANNER_STATE_NOT_INITIALIZED:
+      case SCANNER_STATE_INITIALIZED:
+      case SCANNER_STATE_IDLE:
+      default:
+        break;
+    }
+  }
+  else
+  {
+    /* CRC not valid */
+    switch (m_scanner.state)
+    {
+      /* Packet received */
+      case SCANNER_STATE_RECEIVE_ADV:
+          radio_disable();
           break;
-
-        /* These packets do not require response. All we do here is generate an
-         * advertisement report and signal the application.
-         */
-        case PACKET_TYPE_ADV_DIRECT_IND:
-        case PACKET_TYPE_ADV_NONCONN_IND:
-          radio_transmit_abort();
-          break;
-
-        default:
-          radio_transmit_abort();
-      }
-      break;
-
-    /* SCAN_REQ has been transmitted, and we must configure the radio to
-     * listen for the incoming SCAN_RSP.
-     */
-    case SCANNER_STATE_SEND_REQ:
-      radio_receive_prepare_and_start (m_rx_buf, false);
-      m_scanner.state = SCANNER_STATE_RECEIVE_SCAN_RSP;
-      break;
-
-    case SCANNER_STATE_RECEIVE_SCAN_RSP:
-      radio_receive_prepare_and_start (m_rx_buf, false);
-      m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
-    default:
-      break;
+      
+      default:
+        break;
+    }
   }
 }
 
@@ -359,6 +391,7 @@ btle_status_codes_t ll_scan_start (void)
   NVIC_EnableIRQ(TIMER0_IRQn);
 
   m_state_idle_exit ();
+  radio_init(39);
   m_state_receive_adv_entry ();
 
   return BTLE_STATUS_CODE_SUCCESS;
