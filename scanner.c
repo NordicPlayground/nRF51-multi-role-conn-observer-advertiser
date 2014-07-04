@@ -152,7 +152,7 @@ static uint32_t m_btle_event_type_get (btle_report_event_type_t *type, uint8_t *
 static uint32_t m_btle_address_type_get (btle_address_type_t *type, uint8_t *packet)
 {
   *type = (btle_address_type_t) ((packet[0] & 0x40) >> 7) ? BTLE_ADDR_TYPE_RANDOM : BTLE_ADDR_TYPE_PUBLIC;
-  
+
   return NRF_SUCCESS;
 }
 
@@ -174,7 +174,7 @@ static uint32_t m_btle_report_generate (btle_ev_param_le_advertising_report_t *r
   }
 
   report->rssi = 0;
-  
+
   return NRF_SUCCESS;
 }
 
@@ -192,38 +192,38 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
       NRF_TIMER0->EVENTS_COMPARE[0] = 0;
       NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
       NRF_TIMER0->CC[0] = m_scan_param.scan_window - 500;
-    
+
       /* Capture timer value when radio reaches END, so that we can call
        * START after 150us.
        */
       NRF_PPI->CH[5].EEP = (uint32_t) (&NRF_RADIO->EVENTS_END);
       NRF_PPI->CH[5].TEP = (uint32_t) (&NRF_TIMER0->TASKS_CAPTURE[1]);
       NRF_PPI->CHENSET = PPI_CHENSET_CH5_Msk;
-    
+
       /* Toggle pin when radio reaches END (RX or TX) */
       NRF_GPIOTE->CONFIG[DBG_RADIO_END] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
                               GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                              DBG_RADIO_END << GPIOTE_CONFIG_PSEL_Pos | 
+                              DBG_RADIO_END << GPIOTE_CONFIG_PSEL_Pos |
                               GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
 
       NRF_PPI->CH[DBG_RADIO_END].EEP = (uint32_t) (&NRF_RADIO->EVENTS_END);
       NRF_PPI->CH[DBG_RADIO_END].TEP = (uint32_t) (&NRF_GPIOTE->TASKS_OUT[DBG_RADIO_END]);
       NRF_PPI->CHENSET = (1 << DBG_RADIO_END);
-    
+
       /* Toggle pin when radio reaches READY (RX or TX) */
       NRF_GPIOTE->CONFIG[DBG_RADIO_READY] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
                               GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                              DBG_RADIO_READY << GPIOTE_CONFIG_PSEL_Pos | 
+                              DBG_RADIO_READY << GPIOTE_CONFIG_PSEL_Pos |
                               GPIOTE_CONFIG_OUTINIT_High << GPIOTE_CONFIG_OUTINIT_Pos;
 
       NRF_PPI->CH[DBG_RADIO_READY].EEP = (uint32_t) (&NRF_RADIO->EVENTS_READY);
       NRF_PPI->CH[DBG_RADIO_READY].TEP = (uint32_t) (&NRF_GPIOTE->TASKS_OUT[DBG_RADIO_READY]);
       NRF_PPI->CHENSET = (1 << DBG_RADIO_READY);
-    
+
       /* Toggle pin when timer triggers radio START (TX) */
       NRF_GPIOTE->CONFIG[DBG_RADIO_TIMER] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
                               GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                              DBG_RADIO_TIMER << GPIOTE_CONFIG_PSEL_Pos | 
+                              DBG_RADIO_TIMER << GPIOTE_CONFIG_PSEL_Pos |
                               GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
 
       NRF_PPI->CH[DBG_RADIO_TIMER].EEP = (uint32_t) (&(NRF_TIMER0->EVENTS_COMPARE[1]));
@@ -232,9 +232,9 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
 
       radio_init(39);
       radio_receive_prepare_and_start (m_rx_buf, true);
-      
+
       NVIC_EnableIRQ(TIMER0_IRQn);
-      
+
       m_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_NONE;
       break;
 
@@ -317,13 +317,13 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
         NRF_TIMER0->EVENTS_COMPARE[0] = 0;
         NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE0_Msk;
         NVIC_DisableIRQ(TIMER0_IRQn);
-        
+
         rand_byte = timeslot_rng_pool[timeslot_rng_pool_index++];
         m_timeslot_req_normal.params.normal.distance_us += rand_byte;
         m_signal_callback_return_param.params.request.p_next = &m_timeslot_req_normal;
         m_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END;
       }
-      
+
       /* Check the T_IFS counter */
       if (NRF_TIMER0->EVENTS_COMPARE[1] != 0)
       {
@@ -334,13 +334,13 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
             NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
             NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
             break;
-          
+
           case SCANNER_STATE_WAIT_TO_SEND_REQ:
             m_scanner_state = SCANNER_STATE_SEND_REQ;
             NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
             NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
             break;
-          
+
           case SCANNER_STATE_WAIT_TO_SCAN_RSP:
             m_scanner_state = SCANNER_STATE_SCAN_RSP;
             NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
