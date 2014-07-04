@@ -30,12 +30,25 @@
 #include "radio.h"
 
 #include "channel_resolver.h"
+#include "ll_scanner.h"
 
 #include "nrf_gpio.h"
+#include "nrf_soc.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
+
+/*****************************************************************************
+* Local definitions
+*****************************************************************************/
+
+/*****************************************************************************
+* Static Globals
+*****************************************************************************/
+
+/**@brief Global variables for timeslot requests and return values.
+ */
 
 /*****************************************************************************
 * Static Functions

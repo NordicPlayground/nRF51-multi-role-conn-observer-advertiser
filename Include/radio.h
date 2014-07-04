@@ -30,8 +30,12 @@
 #ifndef __RADIO_H__
 #define __RADIO_H__
 
+#include "nrf_soc.h"
+
 #include <stdbool.h>
 #include <stdint.h>
+
+nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig);
 
 /* Initializes the radio. Assumes that the HF crystal is started */
 void radio_init(uint8_t channel);

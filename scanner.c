@@ -31,6 +31,7 @@
 #include "scanner.h"
 
 #include "btle.h"
+#include "ll_scanner.h"
 #include "radio.h"
 
 #include "nrf_soc.h"
@@ -44,46 +45,16 @@
 * Local definitions
 *****************************************************************************/
 
-/**@brief Defining GPIO pins used for looking at timing in the example.
- * For the PCA10001 board (Nordic Evaluation Kit) the pins matches
- * PO.00 - PO.07 and P0.12-P0.15 (PO.08-11 is the UART).
- * For the PCA10005 (Nordic Development Kit) the pins matches P1 1-8 and
- * PO.16-23 and PO.28-31 (PO.24-27 is the UART).
- */
-
-#define DBG_RADIO_END                        0
-#define DBG_RADIO_READY                      1
-#define DBG_RADIO_TIMER                      2
-
 /**@brief Defines for Timeslot parameters
  */
 #define TIMESLOT_TIMEOUT_US 10000
 #define TIMESLOT_RNG_LEN 10
 
-/**@brief Defines for packet types
- */
-#define PACKET_TYPE_ADV_IND           0x00
-#define PACKET_TYPE_ADV_DIRECT_IND    0x08
-#define PACKET_TYPE_ADV_SCAN_IND      0x06
-#define PACKET_TYPE_ADV_NONCONN_IND   0x02
-#define PACKET_TYPE_SCAN_RSP          0x04
-
 /*****************************************************************************
 * Static Globals
 *****************************************************************************/
 
-static btle_cmd_param_le_write_scan_parameters_t m_scan_param;
-static scanner_state_t m_scanner_state;
-static uint8_t m_rx_buf[255];
-static uint8_t m_tx_buf[] =
-{
-  0xC3,                               // BLE Header (PDU_TYPE: SCAN_REQ, TXadd: 1 (random address), RXadd: 1 (random address)
-  0x0C,                               // Length of payload: 12
-  0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
-  0xDE, 0xDE, 0xDE, 0xDE, 0xDE, 0xDE, // InitAddr LSByte first
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // AdvAddr LSByte first
-};
-
+static nrf_radio_signal_callback_return_param_t m_signal_callback_return_param;
 static nrf_radio_request_t m_timeslot_req_earliest = {
   NRF_RADIO_REQ_TYPE_EARLIEST,
   .params.earliest = {
@@ -93,7 +64,6 @@ static nrf_radio_request_t m_timeslot_req_earliest = {
     TIMESLOT_TIMEOUT_US
   }
 };
-
 static nrf_radio_request_t m_timeslot_req_normal = {
   NRF_RADIO_REQ_TYPE_NORMAL,
   .params.normal = {
@@ -106,20 +76,15 @@ static nrf_radio_request_t m_timeslot_req_normal = {
 
 static btle_ev_param_le_advertising_report_t m_adv_report;
 
-/**@brief Global variables for timeslot requests and return values.
- */
-
-static nrf_radio_signal_callback_return_param_t m_signal_callback_return_param;
-
 /*****************************************************************************
 * Static Functions
 *****************************************************************************/
 
+#if 0
+
 static uint32_t m_btle_address_type_get (btle_address_type_t *type, uint8_t *packet);
 static uint32_t m_btle_event_type_get (btle_report_event_type_t *type, uint8_t *packet);
 static uint32_t m_btle_report_generate (btle_ev_param_le_advertising_report_t *report, uint8_t *packet);
-
-static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig);
 
 static uint32_t m_btle_event_type_get (btle_report_event_type_t *type, uint8_t *packet)
 {
@@ -176,60 +141,20 @@ static uint32_t m_btle_report_generate (btle_ev_param_le_advertising_report_t *r
   return NRF_SUCCESS;
 }
 
-static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
+#endif
+
+nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
 {
   switch (sig)
   {
     case NRF_RADIO_CALLBACK_SIGNAL_TYPE_START:
-      m_scanner_state = SCANNER_STATE_RECEIVE_ADV;
-
       /* TIMER0 setup */
       NRF_TIMER0->TASKS_CLEAR = 1;
       NRF_TIMER0->EVENTS_COMPARE[0] = 0;
       NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
-      NRF_TIMER0->CC[0] = m_scan_param.scan_window - 500;
-
-      /* Capture timer value when radio reaches END, so that we can call
-       * START after 150us.
-       */
-      NRF_PPI->CH[5].EEP = (uint32_t) (&NRF_RADIO->EVENTS_END);
-      NRF_PPI->CH[5].TEP = (uint32_t) (&NRF_TIMER0->TASKS_CAPTURE[1]);
-      NRF_PPI->CHENSET = PPI_CHENSET_CH5_Msk;
-
-      /* Toggle pin when radio reaches END (RX or TX) */
-      NRF_GPIOTE->CONFIG[DBG_RADIO_END] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
-                              GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                              DBG_RADIO_END << GPIOTE_CONFIG_PSEL_Pos |
-                              GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
-
-      NRF_PPI->CH[DBG_RADIO_END].EEP = (uint32_t) (&NRF_RADIO->EVENTS_END);
-      NRF_PPI->CH[DBG_RADIO_END].TEP = (uint32_t) (&NRF_GPIOTE->TASKS_OUT[DBG_RADIO_END]);
-      NRF_PPI->CHENSET = (1 << DBG_RADIO_END);
-
-      /* Toggle pin when radio reaches READY (RX or TX) */
-      NRF_GPIOTE->CONFIG[DBG_RADIO_READY] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
-                              GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                              DBG_RADIO_READY << GPIOTE_CONFIG_PSEL_Pos |
-                              GPIOTE_CONFIG_OUTINIT_High << GPIOTE_CONFIG_OUTINIT_Pos;
-
-      NRF_PPI->CH[DBG_RADIO_READY].EEP = (uint32_t) (&NRF_RADIO->EVENTS_READY);
-      NRF_PPI->CH[DBG_RADIO_READY].TEP = (uint32_t) (&NRF_GPIOTE->TASKS_OUT[DBG_RADIO_READY]);
-      NRF_PPI->CHENSET = (1 << DBG_RADIO_READY);
-
-      /* Toggle pin when timer triggers radio START (TX) */
-      NRF_GPIOTE->CONFIG[DBG_RADIO_TIMER] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
-                              GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                              DBG_RADIO_TIMER << GPIOTE_CONFIG_PSEL_Pos |
-                              GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
-
-      NRF_PPI->CH[DBG_RADIO_TIMER].EEP = (uint32_t) (&(NRF_TIMER0->EVENTS_COMPARE[1]));
-      NRF_PPI->CH[DBG_RADIO_TIMER].TEP = (uint32_t) (&NRF_GPIOTE->TASKS_OUT[DBG_RADIO_TIMER]);
-      NRF_PPI->CHENSET = (1 << DBG_RADIO_TIMER);
-
-      radio_init(39);
-      radio_receive_prepare_and_start (m_rx_buf, true);
-
-      NVIC_EnableIRQ(TIMER0_IRQn);
+      NRF_TIMER0->CC[0] = m_timeslot_req_normal.params.normal.length_us - 500;  
+    
+      ll_scan_start ();
 
       m_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_NONE;
       break;
@@ -237,58 +162,7 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
     case NRF_RADIO_CALLBACK_SIGNAL_TYPE_RADIO:
       if (NRF_RADIO->EVENTS_DISABLED != 0)
       {
-          switch (m_scanner_state)
-          {
-            /* Packet received */
-            case SCANNER_STATE_RECEIVE_ADV:
-              /* Abort immediately if packet has invalid CRC */
-              if (NRF_RADIO->CRCSTATUS == 0)
-              {
-                radio_transmit_abort();
-                break;
-              }
-
-              switch (m_rx_buf[0] & 0x0F)
-              {
-                /* If active scanning is enabled, these packets should be reponded to with
-                 * a SCAN_REQ, and we should wait for a SCAN_RSP.
-                 */
-                case PACKET_TYPE_ADV_IND:
-                case PACKET_TYPE_ADV_SCAN_IND:
-                  /* TODO: Send SCAN_REQ for ADV_IND and ADV_SCAN_IND only if this is enabled. */
-                  /* Prepare to send SCAN_REQ. */
-                  memcpy(&m_tx_buf[9], &m_rx_buf[3], 6);
-                  radio_transmit_prepare (m_tx_buf);
-                  m_scanner_state = SCANNER_STATE_SEND_REQ;
-                  break;
-
-                /* These packets do not require response. All we do here is generate an
-                 * advertisement report and signal the application.
-                 */
-                case PACKET_TYPE_ADV_DIRECT_IND:
-                case PACKET_TYPE_ADV_NONCONN_IND:
-                  radio_transmit_abort();
-                  break;
-
-                default:
-                  radio_transmit_abort();
-              }
-              break;
-
-            /* SCAN_REQ has been transmitted, and we must configure the radio to
-             * listen for the incoming SCAN_RSP.
-             */
-            case SCANNER_STATE_SEND_REQ:
-              radio_receive_prepare_and_start (m_rx_buf, false);
-              m_scanner_state = SCANNER_STATE_RECEIVE_SCAN_RSP;
-              break;
-
-            case SCANNER_STATE_RECEIVE_SCAN_RSP:
-              radio_receive_prepare_and_start (m_rx_buf, false);
-              m_scanner_state = SCANNER_STATE_RECEIVE_ADV;
-            default:
-              break;
-          }
+        ll_scan_radio_cb (NRF_RADIO->CRCSTATUS != 0);
         NRF_RADIO->EVENTS_DISABLED = 0;
       }
       break;
@@ -300,7 +174,7 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
         NRF_TIMER0->EVENTS_COMPARE[0] = 0;
         NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE0_Msk;
         NVIC_DisableIRQ(TIMER0_IRQn);
-
+        
         m_signal_callback_return_param.params.request.p_next = &m_timeslot_req_normal;
         m_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END;
       }
@@ -308,26 +182,7 @@ static nrf_radio_signal_callback_return_param_t *scanner_event_cb (uint8_t sig)
       /* Check the T_IFS counter */
       if (NRF_TIMER0->EVENTS_COMPARE[1] != 0)
       {
-        switch (m_scanner_state)
-        {
-          case SCANNER_STATE_RECEIVE_ADV:
-            NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
-            NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
-            break;
-
-          case SCANNER_STATE_SEND_REQ:
-            NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
-            NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
-            break;
-
-          case SCANNER_STATE_RECEIVE_SCAN_RSP:
-            NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
-            NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
-            break;
-
-          default:
-            break;
-        }
+        ll_scan_timer_cb ();
       }
       break;
 
@@ -355,25 +210,16 @@ btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev)
 
 btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param)
 {
-  switch (m_scanner_state)
-  {
-    case SCANNER_STATE_INIT:
-      m_scanner_state = SCANNER_STATE_IDLE;
-      /* Fall-through */
-
-    case SCANNER_STATE_IDLE:
-      m_scan_param = param;
-
-      m_timeslot_req_earliest.params.earliest.length_us = m_scan_param.scan_window;
-      m_timeslot_req_normal.params.normal.length_us = m_scan_param.scan_window;
-      m_timeslot_req_normal.params.normal.distance_us = m_scan_param.scan_interval;
-      break;
-
-    default:
-      return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
-  }
-
-  return BTLE_STATUS_CODE_SUCCESS;
+  btle_status_codes_t status;
+  
+  m_timeslot_req_earliest.params.earliest.length_us = param.scan_window;
+  m_timeslot_req_normal.params.normal.length_us = param.scan_window;
+  m_timeslot_req_normal.params.normal.distance_us = param.scan_interval;
+  
+  ll_scan_init();
+  status = ll_scan_prepare (param.scan_type, param.own_address_type, param.scanning_filter_policy);
+  
+  return status;
 }
 
 btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param)
@@ -383,7 +229,7 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
   switch (param.scan_enable)
   {
     case BTLE_SCAN_MODE_ENABLE:
-      err_code = sd_radio_session_open (scanner_event_cb);
+      err_code = sd_radio_session_open (radio_cb);
       if (err_code != NRF_SUCCESS)
       {
         return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
@@ -394,8 +240,6 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
       {
         return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
       }
-
-      m_scanner_state = SCANNER_STATE_IDLE;
       break;
 
     case BTLE_SCAN_MODE_DISABLE:
@@ -404,8 +248,6 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
       {
         return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
       }
-
-      m_scanner_state = SCANNER_STATE_INIT;
       break;
   }
 

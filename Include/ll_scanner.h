@@ -27,15 +27,25 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef __SCANNER_H__
-#define __SCANNER_H__
+#ifndef __LL_SCANNER_H__
+#define __LL_SCANNER_H__
 
 #include "btle.h"
 
 #include <stdbool.h>
 
-btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev);
-btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param);
-btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param);
+/** @brief Callback for events on the radio */
+void ll_scan_radio_cb (bool crc_valid);
+void ll_scan_timer_cb (void);
 
-#endif /* __SCANNER_H__ */
+btle_status_codes_t ll_scan_init (void);
+btle_status_codes_t ll_scan_reset (void);
+btle_status_codes_t ll_scan_start (void);
+btle_status_codes_t ll_scan_stop (void);
+
+btle_status_codes_t ll_scan_prepare (btle_scan_types_t scan_type, btle_address_type_t address_type, btle_scan_filter_policy_t filter_policy);
+btle_status_codes_t ll_scan_type_configure (btle_scan_types_t scan_type);
+btle_status_codes_t ll_scan_address_type_configure (btle_address_type_t own_address_type);
+btle_status_codes_t ll_scan_filter_policy_configure (btle_scan_filter_policy_t scanning_filter_policy);
+
+#endif /* __LL_SCANNER_H__ */
