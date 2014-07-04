@@ -385,7 +385,6 @@ btle_status_codes_t ll_scan_start (void)
   NVIC_EnableIRQ(TIMER0_IRQn);
 
   m_state_idle_exit ();
-  radio_init(39);
   m_state_receive_adv_entry ();
 
   return BTLE_STATUS_CODE_SUCCESS;

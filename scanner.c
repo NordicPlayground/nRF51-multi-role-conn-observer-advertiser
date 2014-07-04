@@ -183,6 +183,8 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
       /* Check the T_IFS counter */
       if (NRF_TIMER0->EVENTS_COMPARE[1] != 0)
       {
+        NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
+        NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
         ll_scan_timer_cb ();
       }
       break;
