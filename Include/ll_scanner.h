@@ -44,8 +44,5 @@ btle_status_codes_t ll_scan_start (void);
 btle_status_codes_t ll_scan_stop (void);
 
 btle_status_codes_t ll_scan_prepare (btle_scan_types_t scan_type, btle_address_type_t address_type, btle_scan_filter_policy_t filter_policy);
-btle_status_codes_t ll_scan_type_configure (btle_scan_types_t scan_type);
-btle_status_codes_t ll_scan_address_type_configure (btle_address_type_t own_address_type);
-btle_status_codes_t ll_scan_filter_policy_configure (btle_scan_filter_policy_t scanning_filter_policy);
 
 #endif /* __LL_SCANNER_H__ */

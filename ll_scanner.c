@@ -368,21 +368,3 @@ btle_status_codes_t ll_scan_stop (void)
 {
   return BTLE_STATUS_CODE_SUCCESS;
 }
-
-btle_status_codes_t ll_scan_type_configure (btle_scan_types_t scan_type)
-{
-  m_scanner.params.scan_type = scan_type;
-  return BTLE_STATUS_CODE_SUCCESS;
-}
-
-btle_status_codes_t ll_scan_address_type_configure (btle_address_type_t own_address_type)
-{
-  m_scanner.params.own_address_type = own_address_type;
-  return BTLE_STATUS_CODE_SUCCESS;
-}
-
-btle_status_codes_t ll_scan_filter_policy_configure (btle_scan_filter_policy_t scanning_filter_policy)
-{
-  m_scanner.params.scanning_filter_policy = scanning_filter_policy;
-  return BTLE_STATUS_CODE_SUCCESS;
-}
