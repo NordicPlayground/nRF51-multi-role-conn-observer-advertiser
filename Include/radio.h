@@ -46,6 +46,17 @@ void radio_disable (void);
 /* Set radio buffer */
 void radio_buffer_configure (uint8_t * const buff);
 
+/* Enable capture of RSSI */
+void radio_rssi_enable (void);
+
+/* End RSSI capture */
+void radio_rssi_disable (void);
+
+/* Get captured RSSI value.
+ * Returns true if a valid rssi value was placed in sample, or false.
+ */
+bool radio_rssi_get (uint8_t * const sample);
+
 /* Configures radio to receive */
 void radio_rx_prepare (bool start_immediately);
 

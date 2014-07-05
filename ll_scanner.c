@@ -91,6 +91,10 @@ static struct
 * Static Globals
 *****************************************************************************/
 
+
+static uint8_t m_rssi;
+static bool m_rssi_valid;
+
 static uint8_t m_rx_buf[255];
 static uint8_t m_tx_buf[] =
 {
@@ -173,6 +177,7 @@ static void m_state_receive_adv_entry (void)
 {
   radio_buffer_configure (&m_rx_buf[0]);
   radio_rx_prepare (true);
+  radio_rssi_enable ();
  
   /* Only go directly to TX if we're doing active scanning */
   if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
@@ -185,7 +190,8 @@ static void m_state_receive_adv_entry (void)
 
 static void m_state_receive_adv_exit (void)
 {
-  /* TODO */
+  m_rssi_valid = radio_rssi_get (&m_rssi);
+  radio_rssi_disable ();
 }
 
 static void m_state_send_scan_req_entry (void)
@@ -206,12 +212,15 @@ static void m_state_receive_scan_rsp_entry (void)
 {
   radio_buffer_configure (&m_rx_buf[0]);
   radio_rx_prepare (false);
+  radio_rssi_enable ();
   
   m_scanner.state = SCANNER_STATE_RECEIVE_SCAN_RSP;
 }
 
 static void m_state_receive_scan_rsp_exit (void)
 {
+  m_rssi_valid = radio_rssi_get (&m_rssi);
+  radio_rssi_disable ();
 }
 
 /*****************************************************************************

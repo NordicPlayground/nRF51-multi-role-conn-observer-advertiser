@@ -153,8 +153,32 @@ void radio_buffer_configure (uint8_t * const buff)
     NRF_RADIO->PACKETPTR = (uint32_t) buff;
 }
 
+void radio_rssi_enable (void)
+{
+  NRF_RADIO->EVENTS_RSSIEND = 0;
+  NRF_RADIO->SHORTS |= RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
+}
 
+void radio_rssi_disable (void)
+{
+  NRF_RADIO->SHORTS &= ~RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
+}
 
+bool radio_rssi_get (uint8_t * const sample)
+{
+  /* First check if sample is available */
+  if (NRF_RADIO->EVENTS_RSSIEND == 0)
+  {
+    return false;
+  }
+  
+  /* Clear event */
+  NRF_RADIO->EVENTS_RSSIEND = 0;
+  
+  *sample = (NRF_RADIO->RSSISAMPLE & RADIO_RSSISAMPLE_RSSISAMPLE_Msk);
+  
+  return true;
+}
 void radio_rx_prepare (bool start_immediately)
 {
   /* Clear events */
