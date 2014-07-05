@@ -46,11 +46,11 @@ void radio_buffer_configure (uint8_t * const buff);
 /* Change to TX mode on packet receipt */
 void radio_mode_switch_on_receipt (void);
 
-/* Configures radio to receive, and starts reception. */
-void radio_receive_prepare_and_start (void);
+/* Configures radio to receive */
+void radio_receive_prepare (bool start_immediately);
 
 /* Configure radio to transmit */
-void radio_transmit_prepare (void);
+void radio_transmit_prepare (bool start_immediately);
 
 /* Return to disabled state */
 void radio_disable (void);
