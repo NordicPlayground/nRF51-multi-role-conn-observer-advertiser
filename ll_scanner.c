@@ -163,7 +163,7 @@ static void m_state_idle_exit (void)
 static void m_state_receive_adv_entry (void)
 {
   radio_buffer_configure (&m_rx_buf[0]);
-  radio_receive_prepare (true);
+  radio_rx_prepare (true);
  
   /* Only go directly to TX if we're doing active scanning */
   if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
@@ -183,7 +183,7 @@ static void m_state_send_scan_req_entry (void)
 {
   memcpy(&m_tx_buf[9], &m_rx_buf[3], 6);
   radio_buffer_configure (&m_tx_buf[0]);
-  radio_transmit_prepare (false);
+  radio_tx_prepare (false);
   
   m_scanner.state = SCANNER_STATE_SEND_REQ;
 }
@@ -196,7 +196,7 @@ static void m_state_send_scan_req_exit (void)
 static void m_state_receive_scan_rsp_entry (void)
 {
   radio_buffer_configure (&m_rx_buf[0]);
-  radio_receive_prepare (false);
+  radio_rx_prepare (false);
   
   m_scanner.state = SCANNER_STATE_RECEIVE_SCAN_RSP;
 }

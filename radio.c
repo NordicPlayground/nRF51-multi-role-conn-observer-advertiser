@@ -146,7 +146,7 @@ void radio_tx_mode_on_receipt (void)
   NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
 }
 
-void radio_receive_prepare (bool start_immediately)
+void radio_rx_prepare (bool start_immediately)
 {
   /* Clear events */
   NRF_RADIO->EVENTS_DISABLED = 0;
@@ -167,7 +167,7 @@ void radio_receive_prepare (bool start_immediately)
   }
 }
 
-void radio_transmit_prepare (bool start_immediately)
+void radio_tx_prepare (bool start_immediately)
 {
   /* Clear events */
   NRF_RADIO->EVENTS_DISABLED = 0;

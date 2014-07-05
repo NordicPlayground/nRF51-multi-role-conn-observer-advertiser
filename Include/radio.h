@@ -47,10 +47,10 @@ void radio_buffer_configure (uint8_t * const buff);
 void radio_tx_mode_on_receipt (void);
 
 /* Configures radio to receive */
-void radio_receive_prepare (bool start_immediately);
+void radio_rx_prepare (bool start_immediately);
 
 /* Configure radio to transmit */
-void radio_transmit_prepare (bool start_immediately);
+void radio_tx_prepare (bool start_immediately);
 
 /* Return to disabled state */
 void radio_disable (void);
