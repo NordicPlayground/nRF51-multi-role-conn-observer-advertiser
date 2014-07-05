@@ -141,7 +141,7 @@ void radio_buffer_configure (uint8_t * const buff)
     NRF_RADIO->PACKETPTR = (uint32_t) buff;
 }
 
-void radio_mode_switch_on_receipt (void)
+void radio_tx_mode_on_receipt (void)
 {
   NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
 }

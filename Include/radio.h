@@ -44,7 +44,7 @@ void radio_init(uint8_t channel);
 void radio_buffer_configure (uint8_t * const buff);
 
 /* Change to TX mode on packet receipt */
-void radio_mode_switch_on_receipt (void);
+void radio_tx_mode_on_receipt (void);
 
 /* Configures radio to receive */
 void radio_receive_prepare (bool start_immediately);
