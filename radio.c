@@ -136,15 +136,24 @@ void radio_init (uint8_t channel)
   NVIC_EnableIRQ(RADIO_IRQn);
 }
 
+void radio_disable (void)
+{
+  /* Clear events */
+  NRF_RADIO->EVENTS_DISABLED = 0;
+
+  /* Set shorts */
+  NRF_RADIO->SHORTS = 0;
+
+  /* Abort TX */
+  NRF_RADIO->TASKS_DISABLE = 1;
+}
+
 void radio_buffer_configure (uint8_t * const buff)
 {
     NRF_RADIO->PACKETPTR = (uint32_t) buff;
 }
 
-void radio_tx_mode_on_receipt (void)
-{
-  NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
-}
+
 
 void radio_rx_prepare (bool start_immediately)
 {
@@ -167,6 +176,11 @@ void radio_rx_prepare (bool start_immediately)
   }
 }
 
+void radio_tx_mode_on_receipt (void)
+{
+  NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
+}
+
 void radio_tx_prepare (bool start_immediately)
 {
   /* Clear events */
@@ -186,16 +200,4 @@ void radio_tx_prepare (bool start_immediately)
   {
     m_tifs_timer ();
   }
-}
-
-void radio_disable (void)
-{
-  /* Clear events */
-  NRF_RADIO->EVENTS_DISABLED = 0;
-
-  /* Set shorts */
-  NRF_RADIO->SHORTS = 0;
-
-  /* Abort TX */
-  NRF_RADIO->TASKS_DISABLE = 1;
 }
