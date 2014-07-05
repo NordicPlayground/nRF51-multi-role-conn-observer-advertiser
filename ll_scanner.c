@@ -106,6 +106,9 @@ static uint8_t m_tx_buf[] =
 * Static Function prototypes
 *****************************************************************************/
 
+/**@brief Generate report */
+static void m_adv_report_generate (uint8_t * const pkt);
+
 /**@brief Entry function for SCANNER_STATE_INIT */
 static void m_state_init_entry (void);
 
@@ -139,6 +142,12 @@ static void m_state_receive_scan_rsp_exit (void);
 /*****************************************************************************
 * Static Function definitions
 *****************************************************************************/
+
+static void m_adv_report_generate (uint8_t * const pkt)
+{
+  /* TODO */
+  return;
+}
 
 static void m_state_init_entry (void)
 {
@@ -244,20 +253,32 @@ void ll_scan_radio_cb (bool crc_valid)
          */
         case PACKET_TYPE_ADV_IND:
         case PACKET_TYPE_ADV_SCAN_IND:
+          m_state_receive_adv_exit ();
+        
+          m_adv_report_generate (m_rx_buf);
+
           /* If we're doing active scanning, prepare to send SCAN REQ, otherwise
            * loop back around to receive a new advertisement.
            */
           m_state_receive_adv_exit ();
-          m_state_send_scan_req_entry ();
+
+          if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
+          {
+            m_state_send_scan_req_entry ();
+          }
+          else
+          {
+            m_state_receive_adv_entry ();
+          }
           break;
 
-        /* These packets do not require response. All we do here is generate an
-         * advertisement report and signal the application.
+        /* These packets do not require response.
          */
         case PACKET_TYPE_ADV_DIRECT_IND:
         case PACKET_TYPE_ADV_NONCONN_IND:
           m_state_receive_adv_exit ();
           radio_disable();
+          m_adv_report_generate (m_rx_buf);
           m_state_receive_adv_entry ();
           break;
 
@@ -279,6 +300,7 @@ void ll_scan_radio_cb (bool crc_valid)
 
     case SCANNER_STATE_RECEIVE_SCAN_RSP:
       m_state_receive_scan_rsp_exit ();
+      m_adv_report_generate (m_rx_buf);
       m_state_receive_adv_entry ();
       break;
 
