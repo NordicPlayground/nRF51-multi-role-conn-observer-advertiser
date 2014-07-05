@@ -136,14 +136,14 @@ void radio_init (uint8_t channel)
   NVIC_EnableIRQ(RADIO_IRQn);
 }
 
-void radio_receive_prepare_and_start (uint8_t *buff, bool prepare_tx)
+void radio_buffer_configure (uint8_t * const buff)
+{
+    NRF_RADIO->PACKETPTR = (uint32_t) buff;
+}
+
+void radio_receive_prepare_and_start (bool prepare_tx)
 {
   m_tifs_timer ();
-  
-  memset (buff, 0, 256);
-
-  /* Set receive buffer */
-  NRF_RADIO->PACKETPTR = (uint32_t) &buff[0];
 
   /* Clear events */
   NRF_RADIO->EVENTS_DISABLED = 0;
@@ -160,12 +160,9 @@ void radio_receive_prepare_and_start (uint8_t *buff, bool prepare_tx)
   }
 }
 
-void radio_transmit_prepare (uint8_t *buff)
+void radio_transmit_prepare (void)
 {
   m_tifs_timer ();
-  
-  /* Set transmit buffer */
-  NRF_RADIO->PACKETPTR = (uint32_t) &buff[0];
 
   /* Clear events */
   NRF_RADIO->EVENTS_DISABLED = 0;

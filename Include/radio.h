@@ -40,11 +40,14 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig);
 /* Initializes the radio. Assumes that the HF crystal is started */
 void radio_init(uint8_t channel);
 
+/* Set radio buffer */
+void radio_buffer_configure (uint8_t * const buff);
+
 /* Configures radio to receive, and starts reception. */
-void radio_receive_prepare_and_start (uint8_t *buff, bool prepare_tx);
+void radio_receive_prepare_and_start (bool prepare_tx);
 
 /* Configure radio to transmit */
-void radio_transmit_prepare (uint8_t *buff);
+void radio_transmit_prepare (void);
 
 /* Return to disabled state */
 void radio_disable (void);
