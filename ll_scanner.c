@@ -163,8 +163,9 @@ static void m_state_idle_exit (void)
 static void m_state_receive_adv_entry (void)
 {
   radio_buffer_configure (&m_rx_buf[0]);
-  radio_receive_prepare_and_start (true);
-  
+  radio_receive_prepare_and_start ();
+  radio_mode_switch_on_receipt ();
+
   m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
 }
 
@@ -190,7 +191,7 @@ static void m_state_send_scan_req_exit (void)
 static void m_state_receive_scan_rsp_entry (void)
 {
   radio_buffer_configure (&m_rx_buf[0]);
-  radio_receive_prepare_and_start (false);
+  radio_receive_prepare_and_start ();
   
   m_scanner.state = SCANNER_STATE_RECEIVE_SCAN_RSP;
 }

@@ -141,7 +141,12 @@ void radio_buffer_configure (uint8_t * const buff)
     NRF_RADIO->PACKETPTR = (uint32_t) buff;
 }
 
-void radio_receive_prepare_and_start (bool prepare_tx)
+void radio_mode_switch_on_receipt (void)
+{
+  NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
+}
+
+void radio_receive_prepare_and_start (void)
 {
   m_tifs_timer ();
 
@@ -153,11 +158,6 @@ void radio_receive_prepare_and_start (bool prepare_tx)
 
   /* Set shorts */
   NRF_RADIO->SHORTS = RADIO_SHORTS_END_DISABLE_Msk;
-  
-  if (prepare_tx)
-  {
-    NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
-  }
 }
 
 void radio_transmit_prepare (void)

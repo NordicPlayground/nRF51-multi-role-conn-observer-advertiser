@@ -43,8 +43,11 @@ void radio_init(uint8_t channel);
 /* Set radio buffer */
 void radio_buffer_configure (uint8_t * const buff);
 
+/* Change to TX mode on packet receipt */
+void radio_mode_switch_on_receipt (void);
+
 /* Configures radio to receive, and starts reception. */
-void radio_receive_prepare_and_start (bool prepare_tx);
+void radio_receive_prepare_and_start (void);
 
 /* Configure radio to transmit */
 void radio_transmit_prepare (void);
