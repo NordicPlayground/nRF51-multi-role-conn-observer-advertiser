@@ -198,10 +198,11 @@ void radio_rx_prepare (bool start_immediately)
   if (start_immediately)
   {
     NRF_RADIO->SHORTS |= RADIO_SHORTS_READY_START_Msk;
+    NRF_RADIO->TIFS = 0;
   }
   else
   {
-    m_tifs_timer ();
+    NRF_RADIO->TIFS = 149;
   }
 }
 
