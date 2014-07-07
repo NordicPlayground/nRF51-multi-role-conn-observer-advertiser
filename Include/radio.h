@@ -70,6 +70,6 @@ void radio_rx_prepare (bool start_immediately);
 void radio_tx_mode_on_receipt (void);
 
 /* Configure radio to transmit */
-void radio_tx_prepare (bool start_immediately);
+void radio_tx_prepare (void);
 
 #endif /* __RADIO_H__ */

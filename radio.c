@@ -210,7 +210,7 @@ void radio_tx_mode_on_receipt (void)
   NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
 }
 
-void radio_tx_prepare (bool start_immediately)
+void radio_tx_prepare (void)
 {
   /* Clear events */
   NRF_RADIO->EVENTS_DISABLED = 0;
@@ -221,14 +221,7 @@ void radio_tx_prepare (bool start_immediately)
   /* Set shorts */
   NRF_RADIO->SHORTS = RADIO_SHORTS_END_DISABLE_Msk | RADIO_SHORTS_DISABLED_RXEN_Msk;
   
-  if (start_immediately)
-  {
-    NRF_RADIO->SHORTS |= RADIO_SHORTS_READY_START_Msk;
-  }
-  else
-  {
-    m_tifs_timer ();
-  }
+  m_tifs_timer ();
 }
 
 void radio_tifs_cb (void)
