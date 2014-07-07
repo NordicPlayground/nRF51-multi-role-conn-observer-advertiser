@@ -317,16 +317,14 @@ btle_status_codes_t ll_scan_prepare (btle_scan_types_t scan_type, btle_address_t
     return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
   }
   
+  m_scanner.params.scan_type = scan_type;
+  m_scanner.params.own_address_type = address_type;
+  m_scanner.params.scanning_filter_policy = filter_policy;
+  
   if (m_scanner.state == SCANNER_STATE_INITIALIZED)
   {
     m_state_init_exit ();
     m_state_idle_entry ();
-  }
-  else if (m_scanner.state == SCANNER_STATE_IDLE)
-  {
-    m_scanner.params.scan_type = scan_type;
-    m_scanner.params.own_address_type = address_type;
-    m_scanner.params.scanning_filter_policy = filter_policy;
   }
   
   return BTLE_STATUS_CODE_SUCCESS;
