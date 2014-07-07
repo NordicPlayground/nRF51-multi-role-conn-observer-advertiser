@@ -171,6 +171,8 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
       /* Check the timeslot cleanup counter */
       if (NRF_TIMER0->EVENTS_COMPARE[0] != 0)
       {
+        ll_scan_stop ();
+        
         NRF_TIMER0->EVENTS_COMPARE[0] = 0;
         NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE0_Msk;
         NVIC_DisableIRQ(TIMER0_IRQn);
