@@ -99,7 +99,7 @@ static struct
 static uint8_t m_rssi;
 static bool m_rssi_valid;
 
-static uint8_t m_rx_buf[255];
+static uint8_t m_rx_buf[40];
 static uint8_t m_tx_buf[] =
 {
   0xC3,                               // BLE Header (PDU_TYPE: SCAN_REQ, TXadd: 1 (random address), RXadd: 1 (random address)
