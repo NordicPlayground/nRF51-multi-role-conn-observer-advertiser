@@ -224,8 +224,6 @@ static void m_state_receive_scan_rsp_entry (void)
 
 static void m_state_receive_scan_rsp_exit (void)
 {
-  radio_rx_timeout_disable ();
-  
   m_rssi_valid = radio_rssi_get (&m_rssi);
   radio_rssi_disable ();
 }

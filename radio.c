@@ -74,13 +74,6 @@ static enum
 
 void radio_init (uint8_t channel)
 {
-  /* Capture timer value when radio reaches DISABLED, so that we can
-   * time out on SCAN_RSP receive.
-   */
-  NRF_PPI->CH[5].EEP = (uint32_t) (&NRF_RADIO->EVENTS_DISABLED);
-  NRF_PPI->CH[5].TEP = (uint32_t) (&NRF_TIMER0->TASKS_CAPTURE[1]);
-  NRF_PPI->CHENSET = PPI_CHENSET_CH5_Msk;
-  
   /* Enable power to RADIO */
   NRF_RADIO->POWER = 1;
 
@@ -135,8 +128,8 @@ void radio_init (uint8_t channel)
   NRF_RADIO->EVENTS_READY = 0;
   NRF_RADIO->EVENTS_ADDRESS = 0;
   
-  /* Enable interrupt on DISABLED event */
-  NRF_RADIO->INTENSET = RADIO_INTENSET_DISABLED_Msk;
+  /* Enable interrupt on events */
+  NRF_RADIO->INTENSET = RADIO_INTENSET_ADDRESS_Msk | RADIO_INTENSET_DISABLED_Msk;
   
   /* Enable RADIO interrupts */
   NVIC_ClearPendingIRQ(RADIO_IRQn);
@@ -215,26 +208,42 @@ void radio_rx_prepare (bool start_immediately)
 
 void radio_rx_timeout_init (void)
 {
-  /* Set PPI to trigger transmission start on timer event */
-  NRF_PPI->CH[4].EEP = (uint32_t) (&NRF_TIMER0->EVENTS_COMPARE[1]);
-  NRF_PPI->CH[4].TEP = (uint32_t) (&NRF_RADIO->TASKS_START);
+  /* Capture timer value when radio reaches DISABLED, so that we can
+   * time out if we don't get a SCAN_RSP.
+   */
+  NRF_PPI->CH[4].EEP = (uint32_t) (&NRF_RADIO->EVENTS_DISABLED);
+  NRF_PPI->CH[4].TEP = (uint32_t) (&NRF_TIMER0->TASKS_CAPTURE[1]);
   NRF_PPI->CHENSET = PPI_CHENSET_CH4_Msk;
 }
 
 /* Set timer to trigger if we don't receive a packet in time */
 void radio_rx_timeout_enable (void)
 {
-  /* Configure transmit enable timer to trigger after packet 
-   *should have been received.
+  /* Trigger timeout at 200us after radio disabled event.
    */
   NRF_TIMER0->EVENTS_COMPARE[1] = 0;
-  NRF_TIMER0->CC[1] += 500;
+  NRF_TIMER0->CC[1] += 200;
   NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE1_Msk;
+  
+  /* Capture timer on radio address event.
+   */
+  NRF_PPI->CH[5].EEP = (uint32_t) (&NRF_RADIO->EVENTS_ADDRESS);
+  NRF_PPI->CH[5].TEP = (uint32_t) (&NRF_TIMER0->TASKS_CAPTURE[1]);
+  NRF_PPI->CHENSET = PPI_CHENSET_CH5_Msk;
+  
+  /* Disable radio on timeout.
+  */
+  NRF_PPI->CH[6].EEP = (uint32_t) (&NRF_TIMER0->EVENTS_COMPARE[1]);
+  NRF_PPI->CH[6].TEP = (uint32_t) (&NRF_RADIO->TASKS_DISABLE);
+  NRF_PPI->CHENSET = PPI_CHENSET_CH6_Msk;
 }
 
 void radio_rx_timeout_disable (void)
 {
+  NRF_TIMER0->CC[1] = 0;
   NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
+  NRF_PPI->CHENCLR = PPI_CHENCLR_CH5_Msk;
+  NRF_PPI->CHENCLR = PPI_CHENCLR_CH6_Msk;
 }
 
 void radio_tx_mode_on_receipt (void)
@@ -277,6 +286,15 @@ void radio_event_cb (void)
         break;
     }
     NRF_RADIO->EVENTS_DISABLED = 0;
+  }
+  
+  if (NRF_RADIO->EVENTS_ADDRESS != 0)
+  {
+    if (m_radio_dir == RADIO_DIR_RX)
+    {
+      radio_rx_timeout_disable ();      
+    }
+    NRF_RADIO->EVENTS_ADDRESS = 0;
   }
 }
 
