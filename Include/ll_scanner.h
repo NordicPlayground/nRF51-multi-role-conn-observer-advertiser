@@ -40,8 +40,9 @@
 #include <stdbool.h>
 
 /** @brief Callback for events on the radio */
-void ll_scan_radio_cb (bool crc_valid);
+void ll_scan_rx_cb (bool crc_valid);
 void ll_scan_timeout_cb (void);
+void ll_scan_tx_cb (void);
 
 btle_status_codes_t ll_scan_init (void);
 btle_status_codes_t ll_scan_reset (void);

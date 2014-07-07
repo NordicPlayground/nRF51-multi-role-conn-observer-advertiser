@@ -232,7 +232,7 @@ static void m_state_receive_scan_rsp_exit (void)
 * Interface Functions
 *****************************************************************************/
 
-void ll_scan_radio_cb (bool crc_valid)
+void ll_scan_rx_cb (bool crc_valid)
 {
   /* Received invalid packet */
   if (!crc_valid)
@@ -304,18 +304,27 @@ void ll_scan_radio_cb (bool crc_valid)
       }
       break;
 
+    case SCANNER_STATE_RECEIVE_SCAN_RSP:
+      m_state_receive_scan_rsp_exit ();
+      m_adv_report_generate (m_rx_buf);
+      m_state_receive_adv_entry ();
+      break;
+
+    default:
+      break;
+  }
+}
+
+void ll_scan_tx_cb (void)
+{
+    switch (m_scanner.state)
+  {
     /* SCAN_REQ has been transmitted, and we must configure the radio to
      * listen for the incoming SCAN_RSP.
      */
     case SCANNER_STATE_SEND_REQ:
       m_state_send_scan_req_exit ();
       m_state_receive_scan_rsp_entry ();
-      break;
-
-    case SCANNER_STATE_RECEIVE_SCAN_RSP:
-      m_state_receive_scan_rsp_exit ();
-      m_adv_report_generate (m_rx_buf);
-      m_state_receive_adv_entry ();
       break;
 
     default:

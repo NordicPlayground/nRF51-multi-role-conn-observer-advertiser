@@ -48,6 +48,15 @@
 * Local definitions
 *****************************************************************************/
 
+/**@brief Possible scanner states
+ */
+static enum
+{
+  RADIO_DIR_NONE = 0,
+  RADIO_DIR_RX,
+  RADIO_DIR_TX
+} m_radio_dir;
+
 /*****************************************************************************
 * Static Globals
 *****************************************************************************/
@@ -139,6 +148,8 @@ void radio_init (uint8_t channel)
   /* Enable RADIO interrupts */
   NVIC_ClearPendingIRQ(RADIO_IRQn);
   NVIC_EnableIRQ(RADIO_IRQn);
+  
+  m_radio_dir = RADIO_DIR_NONE;
 }
 
 void radio_disable (void)
@@ -151,6 +162,8 @@ void radio_disable (void)
 
   /* Abort TX */
   NRF_RADIO->TASKS_DISABLE = 1;
+  
+  m_radio_dir = RADIO_DIR_NONE;
 }
 
 void radio_buffer_configure (uint8_t * const buff)
@@ -204,6 +217,8 @@ void radio_rx_prepare (bool start_immediately)
   {
     NRF_RADIO->TIFS = 149;
   }
+  
+  m_radio_dir = RADIO_DIR_RX;
 }
 
 void radio_tx_mode_on_receipt (void)
@@ -223,6 +238,8 @@ void radio_tx_prepare (void)
   NRF_RADIO->SHORTS = RADIO_SHORTS_END_DISABLE_Msk | RADIO_SHORTS_DISABLED_RXEN_Msk;
   
   m_tifs_timer ();
+  
+  m_radio_dir = RADIO_DIR_TX;
 }
 
 void radio_event_cb (void)
@@ -231,9 +248,18 @@ void radio_event_cb (void)
   
   if (NRF_RADIO->EVENTS_DISABLED != 0)
   {
-    crc_valid = NRF_RADIO->CRCSTATUS != 0;
-    ll_scan_radio_cb (crc_valid);
-    
+    switch (m_radio_dir)
+    {
+      case RADIO_DIR_RX:
+        crc_valid = NRF_RADIO->CRCSTATUS != 0;
+        ll_scan_rx_cb (crc_valid);
+        break;
+      case RADIO_DIR_TX:
+        ll_scan_tx_cb ();
+        break;
+      default:
+        break;
+    }
     NRF_RADIO->EVENTS_DISABLED = 0;
   }
 }
