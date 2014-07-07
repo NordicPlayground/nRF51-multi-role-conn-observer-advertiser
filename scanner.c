@@ -164,11 +164,7 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
       break;
 
     case NRF_RADIO_CALLBACK_SIGNAL_TYPE_RADIO:
-      if (NRF_RADIO->EVENTS_DISABLED != 0)
-      {
-        ll_scan_radio_cb (NRF_RADIO->CRCSTATUS != 0);
-        NRF_RADIO->EVENTS_DISABLED = 0;
-      }
+      radio_event_cb ();
       break;
 
     case NRF_RADIO_CALLBACK_SIGNAL_TYPE_TIMER0:

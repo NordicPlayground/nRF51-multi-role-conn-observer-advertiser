@@ -225,6 +225,19 @@ void radio_tx_prepare (void)
   m_tifs_timer ();
 }
 
+void radio_event_cb (void)
+{
+  bool crc_valid;
+  
+  if (NRF_RADIO->EVENTS_DISABLED != 0)
+  {
+    crc_valid = NRF_RADIO->CRCSTATUS != 0;
+    ll_scan_radio_cb (crc_valid);
+    
+    NRF_RADIO->EVENTS_DISABLED = 0;
+  }
+}
+
 void radio_tifs_cb (void)
 {
   /* Nothing to do here */

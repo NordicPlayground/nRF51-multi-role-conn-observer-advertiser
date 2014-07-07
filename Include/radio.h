@@ -40,6 +40,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+void radio_event_cb (void);
 void radio_tifs_cb (void);
 void radio_timeout_cb (void);
 
