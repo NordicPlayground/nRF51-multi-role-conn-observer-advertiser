@@ -40,7 +40,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig);
+void radio_tifs_cb (void);
+void radio_timeout_cb (void);
 
 /* Initializes the radio. Assumes that the HF crystal is started */
 void radio_init(uint8_t channel);

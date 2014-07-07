@@ -158,7 +158,6 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
       NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
       NRF_TIMER0->CC[0] = m_timeslot_req_normal.params.normal.length_us - 500;  
 
-      radio_init(39);
       ll_scan_start ();
 
       m_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_NONE;
@@ -189,7 +188,16 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
       {
         NRF_PPI->CHENCLR = PPI_CHENCLR_CH4_Msk;
         NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
-        ll_scan_timer_cb ();
+        
+        radio_tifs_cb ();
+      }
+      
+      /* Check the timeout counter */
+      if (NRF_TIMER0->EVENTS_COMPARE[2] != 0)
+      {
+        NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE2_Msk;
+        
+        radio_timeout_cb ();
       }
       break;
 

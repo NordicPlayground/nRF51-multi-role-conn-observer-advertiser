@@ -179,6 +179,7 @@ static void m_state_idle_exit (void)
 
 static void m_state_receive_adv_entry (void)
 {
+  radio_init (39);
   radio_buffer_configure (&m_rx_buf[0]);
   radio_rx_prepare (true);
   radio_rssi_enable ();
@@ -322,17 +323,14 @@ void ll_scan_radio_cb (bool crc_valid)
   }
 }
 
-void ll_scan_timer_cb (void)
+void ll_scan_timeout_cb (void)
 {
   switch (m_scanner.state)
   {
-    case SCANNER_STATE_RECEIVE_ADV:
-      break;
-
-    case SCANNER_STATE_SEND_REQ:
-      break;
-
     case SCANNER_STATE_RECEIVE_SCAN_RSP:
+      m_state_receive_scan_rsp_exit ();
+      radio_disable ();
+      m_state_receive_adv_entry ();
       break;
 
     default:

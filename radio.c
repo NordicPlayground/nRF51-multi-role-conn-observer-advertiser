@@ -230,3 +230,12 @@ void radio_tx_prepare (bool start_immediately)
     m_tifs_timer ();
   }
 }
+
+void radio_tifs_cb (void)
+{
+  /* Nothing to do here */
+}
+
+void radio_timeout_cb (void)
+{
+}
