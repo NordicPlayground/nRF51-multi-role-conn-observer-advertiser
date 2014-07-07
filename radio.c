@@ -68,26 +68,19 @@ static enum
 * Static Functions
 *****************************************************************************/
 
-/* Configure COMPARE[1] to trigger START at 150us from previous END */
-static void m_tifs_timer (void)
-{
-  /* Configure transmit enable timer to trigger 150us from now */
-  NRF_TIMER0->EVENTS_COMPARE[1] = 0;
-  NRF_TIMER0->CC[1] += 150;
-  NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE1_Msk;
-
-  /* Set PPI to trigger transmission start on timer event */
-  NRF_PPI->CH[4].EEP = (uint32_t) (&NRF_TIMER0->EVENTS_COMPARE[1]);
-  NRF_PPI->CH[4].TEP = (uint32_t) (&NRF_RADIO->TASKS_START);
-  NRF_PPI->CHENSET = PPI_CHENSET_CH4_Msk;
-}
-
 /*****************************************************************************
 * Interface Functions
 *****************************************************************************/
 
 void radio_init (uint8_t channel)
 {
+  /* Capture timer value when radio reaches DISABLED, so that we can
+   * time out on SCAN_RSP receive.
+   */
+  NRF_PPI->CH[5].EEP = (uint32_t) (&NRF_RADIO->EVENTS_DISABLED);
+  NRF_PPI->CH[5].TEP = (uint32_t) (&NRF_TIMER0->TASKS_CAPTURE[1]);
+  NRF_PPI->CHENSET = PPI_CHENSET_CH5_Msk;
+  
   /* Enable power to RADIO */
   NRF_RADIO->POWER = 1;
 
@@ -206,11 +199,10 @@ void radio_rx_prepare (bool start_immediately)
   NRF_RADIO->TASKS_RXEN = 1;
 
   /* Set shorts */
-  NRF_RADIO->SHORTS = RADIO_SHORTS_END_DISABLE_Msk;
+  NRF_RADIO->SHORTS = RADIO_SHORTS_READY_START_Msk | RADIO_SHORTS_END_DISABLE_Msk;
   
   if (start_immediately)
   {
-    NRF_RADIO->SHORTS |= RADIO_SHORTS_READY_START_Msk;
     NRF_RADIO->TIFS = 0;
   }
   else
@@ -219,6 +211,30 @@ void radio_rx_prepare (bool start_immediately)
   }
   
   m_radio_dir = RADIO_DIR_RX;
+}
+
+void radio_rx_timeout_init (void)
+{
+  /* Set PPI to trigger transmission start on timer event */
+  NRF_PPI->CH[4].EEP = (uint32_t) (&NRF_TIMER0->EVENTS_COMPARE[1]);
+  NRF_PPI->CH[4].TEP = (uint32_t) (&NRF_RADIO->TASKS_START);
+  NRF_PPI->CHENSET = PPI_CHENSET_CH4_Msk;
+}
+
+/* Set timer to trigger if we don't receive a packet in time */
+void radio_rx_timeout_enable (void)
+{
+  /* Configure transmit enable timer to trigger after packet 
+   *should have been received.
+   */
+  NRF_TIMER0->EVENTS_COMPARE[1] = 0;
+  NRF_TIMER0->CC[1] += 500;
+  NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE1_Msk;
+}
+
+void radio_rx_timeout_disable (void)
+{
+  NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
 }
 
 void radio_tx_mode_on_receipt (void)
@@ -235,9 +251,9 @@ void radio_tx_prepare (void)
   NRF_RADIO->TASKS_TXEN = 1;
   
   /* Set shorts */
-  NRF_RADIO->SHORTS = RADIO_SHORTS_END_DISABLE_Msk | RADIO_SHORTS_DISABLED_RXEN_Msk;
+  NRF_RADIO->SHORTS = RADIO_SHORTS_READY_START_Msk | RADIO_SHORTS_END_DISABLE_Msk | RADIO_SHORTS_DISABLED_RXEN_Msk;
   
-  m_tifs_timer ();
+  NRF_RADIO->TIFS = 149;  
   
   m_radio_dir = RADIO_DIR_TX;
 }
@@ -271,4 +287,5 @@ void radio_tifs_cb (void)
 
 void radio_timeout_cb (void)
 {
+  ll_scan_timeout_cb ();
 }

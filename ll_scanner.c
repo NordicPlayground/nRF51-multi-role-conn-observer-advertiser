@@ -179,7 +179,6 @@ static void m_state_idle_exit (void)
 
 static void m_state_receive_adv_entry (void)
 {
-  radio_init (39);
   radio_buffer_configure (&m_rx_buf[0]);
   radio_rx_prepare (true);
   radio_rssi_enable ();
@@ -218,12 +217,15 @@ static void m_state_receive_scan_rsp_entry (void)
   radio_buffer_configure (&m_rx_buf[0]);
   radio_rx_prepare (false);
   radio_rssi_enable ();
+  radio_rx_timeout_enable ();
   
   m_scanner.state = SCANNER_STATE_RECEIVE_SCAN_RSP;
 }
 
 static void m_state_receive_scan_rsp_exit (void)
 {
+  radio_rx_timeout_disable ();
+  
   m_rssi_valid = radio_rssi_get (&m_rssi);
   radio_rssi_disable ();
 }
@@ -396,13 +398,6 @@ btle_status_codes_t ll_scan_config (btle_scan_types_t scan_type, btle_address_ty
 
 btle_status_codes_t ll_scan_start (void)
 { 
-  /* Capture timer value when radio reaches END, so that we can call
-   * START after 150us.
-   */
-  NRF_PPI->CH[5].EEP = (uint32_t) (&NRF_RADIO->EVENTS_END);
-  NRF_PPI->CH[5].TEP = (uint32_t) (&NRF_TIMER0->TASKS_CAPTURE[1]);
-  NRF_PPI->CHENSET = PPI_CHENSET_CH5_Msk;
-
   /* Toggle pin when radio reaches END (RX or TX) */
   NRF_GPIOTE->CONFIG[DBG_RADIO_END] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
                           GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
@@ -436,6 +431,10 @@ btle_status_codes_t ll_scan_start (void)
   NVIC_EnableIRQ(TIMER0_IRQn);
 
   m_state_idle_exit ();
+  
+  radio_init (39);
+  radio_rx_timeout_init ();
+  
   m_state_receive_adv_entry ();
 
   return BTLE_STATUS_CODE_SUCCESS;

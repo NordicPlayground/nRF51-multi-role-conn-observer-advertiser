@@ -67,6 +67,18 @@ bool radio_rssi_get (uint8_t * const sample);
 /* Configures radio to receive */
 void radio_rx_prepare (bool start_immediately);
 
+/* Initialize packet receive timeout */
+void radio_rx_timeout_init (void);
+
+/* Enable packet receive timeout */
+void radio_rx_timeout_enable (void);
+
+/* Disable packet receive timeout */
+void radio_rx_timeout_disable (void);
+
+/* Enable SCAN_RSP receive timeout */
+void radio_timeout_enable (void);
+
 /* Change to TX mode on packet receipt */
 void radio_tx_mode_on_receipt (void);
 
