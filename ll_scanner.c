@@ -96,6 +96,9 @@ static struct
 *****************************************************************************/
 
 
+static uint32_t m_packets_invalid;
+static uint32_t m_packets_valid;
+
 static uint8_t m_rssi;
 static bool m_rssi_valid;
 
@@ -240,12 +243,16 @@ void ll_scan_rx_cb (bool crc_valid)
     switch(m_scanner.state)
     {
       case SCANNER_STATE_RECEIVE_ADV:
+        m_packets_invalid++;
+      
         m_state_receive_adv_exit ();
         radio_disable ();
         m_state_receive_adv_entry ();
         break;
 
       case SCANNER_STATE_RECEIVE_SCAN_RSP:
+        m_packets_invalid++;
+      
         m_state_receive_scan_rsp_exit ();
         radio_disable ();
         m_state_receive_adv_entry ();
@@ -257,9 +264,11 @@ void ll_scan_rx_cb (bool crc_valid)
   }
   
   switch (m_scanner.state)
-  {
+  {  
     /* Packet received */
     case SCANNER_STATE_RECEIVE_ADV:
+      m_packets_valid++;
+    
       switch (m_rx_buf[0] & 0x0F)
       {
         /* If active scanning is enabled, these packets should be reponded to with
@@ -305,6 +314,8 @@ void ll_scan_rx_cb (bool crc_valid)
       break;
 
     case SCANNER_STATE_RECEIVE_SCAN_RSP:
+      m_packets_valid++;
+
       m_state_receive_scan_rsp_exit ();
       m_adv_report_generate (m_rx_buf);
       m_state_receive_adv_entry ();
