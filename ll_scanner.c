@@ -211,77 +211,57 @@ static void m_state_receive_scan_rsp_exit (void)
 
 void ll_scan_radio_cb (bool crc_valid)
 {
-  if (crc_valid)
+  switch (m_scanner.state)
   {
-    switch (m_scanner.state)
-    {
-      /* Packet received */
-      case SCANNER_STATE_RECEIVE_ADV:
-        switch (m_rx_buf[0] & 0x0F)
-        {
-          /* If active scanning is enabled, these packets should be reponded to with
-           * a SCAN_REQ, and we should wait for a SCAN_RSP.
+    /* Packet received */
+    case SCANNER_STATE_RECEIVE_ADV:
+      switch (m_rx_buf[0] & 0x0F)
+      {
+        /* If active scanning is enabled, these packets should be reponded to with
+         * a SCAN_REQ, and we should wait for a SCAN_RSP.
+         */
+        case PACKET_TYPE_ADV_IND:
+        case PACKET_TYPE_ADV_SCAN_IND:
+          /* If we're doing active scanning, prepare to send SCAN REQ, otherwise
+           * loop back around to receive a new advertisement.
            */
-          case PACKET_TYPE_ADV_IND:
-          case PACKET_TYPE_ADV_SCAN_IND:
-            /* TODO: Send SCAN_REQ for ADV_IND and ADV_SCAN_IND only if this is enabled. */
-            /* Prepare to send SCAN_REQ. */
-            m_state_receive_adv_exit ();
-            m_state_send_scan_req_entry ();
-            break;
-
-          /* These packets do not require response. All we do here is generate an
-           * advertisement report and signal the application.
-           */
-          /* TODO: Only re-initialize radio if scan is active */
-          case PACKET_TYPE_ADV_DIRECT_IND:
-          case PACKET_TYPE_ADV_NONCONN_IND:
-            m_state_receive_adv_exit ();
-            radio_disable();
-            m_state_receive_adv_entry ();
-            break;
-
-          case PACKET_TYPE_CONNECT_REQ:
-          case PACKET_TYPE_SCAN_RSP:
-          case PACKET_TYPE_SCAN_REQ:
-          default:
-            radio_disable();
-        }
-        break;
-
-      /* SCAN_REQ has been transmitted, and we must configure the radio to
-       * listen for the incoming SCAN_RSP.
-       */
-      case SCANNER_STATE_SEND_REQ:
-        m_state_send_scan_req_exit ();
-        m_state_receive_scan_rsp_entry ();
-        break;
-
-      case SCANNER_STATE_RECEIVE_SCAN_RSP:
-        m_state_receive_scan_rsp_exit ();
-        m_state_receive_adv_entry ();
-        break;
-      
-      case SCANNER_STATE_NOT_INITIALIZED:
-      case SCANNER_STATE_INITIALIZED:
-      case SCANNER_STATE_IDLE:
-      default:
-        break;
-    }
-  }
-  else
-  {
-    /* CRC not valid */
-    switch (m_scanner.state)
-    {
-      /* Packet received */
-      case SCANNER_STATE_RECEIVE_ADV:
-          radio_disable();
+          m_state_receive_adv_exit ();
+          m_state_send_scan_req_entry ();
           break;
-      
-      default:
-        break;
-    }
+
+        /* These packets do not require response. All we do here is generate an
+         * advertisement report and signal the application.
+         */
+        case PACKET_TYPE_ADV_DIRECT_IND:
+        case PACKET_TYPE_ADV_NONCONN_IND:
+          m_state_receive_adv_exit ();
+          radio_disable();
+          m_state_receive_adv_entry ();
+          break;
+
+        /* This should not have happened */
+        default:
+          m_state_receive_adv_exit ();
+          radio_disable();
+          m_state_receive_adv_entry();
+      }
+      break;
+
+    /* SCAN_REQ has been transmitted, and we must configure the radio to
+     * listen for the incoming SCAN_RSP.
+     */
+    case SCANNER_STATE_SEND_REQ:
+      m_state_send_scan_req_exit ();
+      m_state_receive_scan_rsp_entry ();
+      break;
+
+    case SCANNER_STATE_RECEIVE_SCAN_RSP:
+      m_state_receive_scan_rsp_exit ();
+      m_state_receive_adv_entry ();
+      break;
+
+    default:
+      break;
   }
 }
 
