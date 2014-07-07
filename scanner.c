@@ -224,7 +224,7 @@ btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters
   m_timeslot_req_normal.params.normal.distance_us = param.scan_interval;
   
   ll_scan_init();
-  status = ll_scan_prepare (param.scan_type, param.own_address_type, param.scanning_filter_policy);
+  status = ll_scan_config (param.scan_type, param.own_address_type, param.scanning_filter_policy);
   
   return status;
 }
