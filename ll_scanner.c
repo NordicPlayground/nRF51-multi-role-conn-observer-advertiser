@@ -164,8 +164,13 @@ static void m_state_receive_adv_entry (void)
 {
   radio_buffer_configure (&m_rx_buf[0]);
   radio_receive_prepare_and_start ();
-  radio_mode_switch_on_receipt ();
-
+ 
+  /* Only go directly to TX if we're doing active scanning */
+  if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
+  {
+    radio_mode_switch_on_receipt ();
+  }
+  
   m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
 }
 
