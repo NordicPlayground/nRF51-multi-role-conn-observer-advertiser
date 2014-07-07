@@ -211,6 +211,28 @@ static void m_state_receive_scan_rsp_exit (void)
 
 void ll_scan_radio_cb (bool crc_valid)
 {
+  /* Received invalid packet */
+  if (!crc_valid)
+  {
+    switch(m_scanner.state)
+    {
+      case SCANNER_STATE_RECEIVE_ADV:
+        m_state_receive_adv_exit ();
+        radio_disable ();
+        m_state_receive_adv_entry ();
+        break;
+
+      case SCANNER_STATE_RECEIVE_SCAN_RSP:
+        m_state_receive_scan_rsp_exit ();
+        radio_disable ();
+        m_state_receive_adv_entry ();
+        break;
+
+      default:
+        break;
+    }
+  }
+  
   switch (m_scanner.state)
   {
     /* Packet received */
