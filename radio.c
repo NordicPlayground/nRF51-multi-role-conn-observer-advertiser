@@ -163,25 +163,24 @@ void radio_rssi_enable (void)
   NRF_RADIO->SHORTS |= RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
 }
 
-void radio_rssi_disable (void)
+uint8_t radio_rssi_get (void)
 {
-  NRF_RADIO->SHORTS &= ~RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
-}
+  uint8_t sample;
 
-bool radio_rssi_get (uint8_t * const sample)
-{
   /* First check if sample is available */
-  if (NRF_RADIO->EVENTS_RSSIEND == 0)
+  if (NRF_RADIO->EVENTS_RSSIEND != 0)
   {
-    return false;
+    sample = (NRF_RADIO->RSSISAMPLE & RADIO_RSSISAMPLE_RSSISAMPLE_Msk);
+  }
+  else
+  {
+    sample = RADIO_RSSI_INVALID;
   }
   
   /* Clear event */
   NRF_RADIO->EVENTS_RSSIEND = 0;
-  
-  *sample = (NRF_RADIO->RSSISAMPLE & RADIO_RSSISAMPLE_RSSISAMPLE_Msk);
-  
-  return true;
+
+  return sample;
 }
 void radio_rx_prepare (bool start_immediately)
 {
@@ -276,6 +275,9 @@ void radio_event_cb (void)
     switch (m_radio_dir)
     {
       case RADIO_DIR_RX:
+        /* Disable RSSISTART short so sample isn't overwritten */
+        NRF_RADIO->SHORTS &= ~RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
+      
         crc_valid = NRF_RADIO->CRCSTATUS != 0;
         ll_scan_rx_cb (crc_valid);
         break;

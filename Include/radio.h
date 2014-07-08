@@ -40,6 +40,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define RADIO_RSSI_INVALID 255
+
 void radio_event_cb (void);
 void radio_tifs_cb (void);
 void radio_timeout_cb (void);
@@ -53,16 +55,13 @@ void radio_disable (void);
 /* Set radio buffer */
 void radio_buffer_configure (uint8_t * const buff);
 
-/* Enable capture of RSSI */
+/* Enable capture of RSSI. Will automatically disable after capture. */
 void radio_rssi_enable (void);
 
-/* End RSSI capture */
-void radio_rssi_disable (void);
-
-/* Get captured RSSI value.
- * Returns true if a valid rssi value was placed in sample, or false.
+/* Get captured RSSI value. A value of RADIO_RSSI_INVALID indicates an
+ * invalid RSSI value.
  */
-bool radio_rssi_get (uint8_t * const sample);
+uint8_t radio_rssi_get (void);
 
 /* Configures radio to receive */
 void radio_rx_prepare (bool start_immediately);

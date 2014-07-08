@@ -100,7 +100,6 @@ static uint32_t m_packets_invalid;
 static uint32_t m_packets_valid;
 
 static uint8_t m_rssi;
-static bool m_rssi_valid;
 
 static uint8_t m_rx_buf[40];
 static uint8_t m_tx_buf[] =
@@ -197,8 +196,7 @@ static void m_state_receive_adv_entry (void)
 
 static void m_state_receive_adv_exit (void)
 {
-  m_rssi_valid = radio_rssi_get (&m_rssi);
-  radio_rssi_disable ();
+  m_rssi = radio_rssi_get ();
 }
 
 static void m_state_send_scan_req_entry (void)
@@ -227,8 +225,7 @@ static void m_state_receive_scan_rsp_entry (void)
 
 static void m_state_receive_scan_rsp_exit (void)
 {
-  m_rssi_valid = radio_rssi_get (&m_rssi);
-  radio_rssi_disable ();
+  m_rssi = radio_rssi_get ();
 }
 
 /*****************************************************************************
