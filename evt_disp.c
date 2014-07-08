@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "evt_dispatcher.h"
+#include "evt_disp.h"
 
 #include "evt_fifo.h"
 #include "nrf_soc.h"
