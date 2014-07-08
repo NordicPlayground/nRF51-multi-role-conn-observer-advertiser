@@ -173,6 +173,7 @@ int main(void)
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner enabled");
 
+  nrf_adv_conn_init ();
 
   while (true)
   {
