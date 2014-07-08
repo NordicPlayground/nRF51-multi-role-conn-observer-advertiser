@@ -204,6 +204,20 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
 * Interface Functions
 *****************************************************************************/
 
+btle_status_codes_t btle_scan_init (void)
+{
+  uint32_t err_code = NRF_SUCCESS;
+  btle_status_codes_t status = BTLE_STATUS_CODE_SUCCESS;
+
+  err_code = sd_radio_session_open (radio_cb);
+  if (err_code != NRF_SUCCESS)
+  {
+    status = BTLE_STATUS_CODE_COMMAND_DISALLOWED;
+  }
+  
+  return status;
+}
+
 btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev)
 {
   p_ev->event_code = BTLE_EVENT_LE_ADVERTISING_REPORT;
@@ -234,12 +248,6 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
   switch (param.scan_enable)
   {
     case BTLE_SCAN_MODE_ENABLE:
-      err_code = sd_radio_session_open (radio_cb);
-      if (err_code != NRF_SUCCESS)
-      {
-        return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
-      }
-
       err_code = sd_radio_request (&m_timeslot_req_earliest);
       if (err_code != NRF_SUCCESS)
       {

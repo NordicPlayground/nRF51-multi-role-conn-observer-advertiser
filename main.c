@@ -161,6 +161,10 @@ int main(void)
   
   __LOG ("Interrupts enabled");
   
+  btle_err_code = btle_scan_init ();
+  ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
+  __LOG ("Scanner parameters set");
+  
   btle_err_code = btle_scan_param_set (scan_param);
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner parameters set");

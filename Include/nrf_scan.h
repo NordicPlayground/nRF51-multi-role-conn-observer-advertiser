@@ -39,6 +39,7 @@
 
 #include <stdbool.h>
 
+btle_status_codes_t btle_scan_init (void);
 btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev);
 btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param);
 btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param);
