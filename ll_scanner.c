@@ -214,6 +214,8 @@ static void m_adv_report_generate (uint8_t * const pkt)
       return;
   }
   
+  m_scanner.reports[index].valid_packets = m_packets_valid;
+  m_scanner.reports[index].invalid_packets = m_packets_invalid;
   memcpy (m_scanner.reports[index].report.address, &pkt[3], BTLE_DEVICE_ADDRESS__SIZE);
   m_scanner.reports[index].report.address_type = pkt[1] & 0x01 ? BTLE_ADDR_TYPE_RANDOM : BTLE_ADDR_TYPE_PUBLIC;
   m_scanner.reports[index].report.length_data = pkt[2] & 0xFC;
