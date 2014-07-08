@@ -37,8 +37,10 @@
 #include "btle.h"
 #include "conf.h"
 #include "core_cminstr.h"
+#include "nrf_adv_conn.h"
 #include "nrf_scan.h"
 
+#include "ble.h"
 #include "nrf51.h"
 #include "nrf51_bitfields.h"
 #include "nrf_assert.h"
@@ -93,7 +95,7 @@ static uint8_t  g_nrf_assert_file_name[100];
 
 /**@brief Global variables used for storing assert information from the timeslot event handler.
  */
-static uint32_t g_ev;
+static uint32_t g_evt;
 
 /**@brief Global variables for the scanner
  */
@@ -132,7 +134,7 @@ int main(void)
   
   /* Silence the compiler */
   (void) g_sd_assert_pc;
-  (void) g_ev;
+  (void) g_evt;
   
   nrf_gpio_cfg_output (LED_0);
   nrf_gpio_cfg_output (LED_1);
@@ -209,35 +211,43 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
  */
 void SD_EVT_IRQHandler (void)
 {
-  uint32_t ev;
-
-  ASSERT (sd_evt_get(&ev) == NRF_SUCCESS);
-
-  g_ev = ev;
-
-  switch (ev)
+  uint32_t evt;
+  ble_evt_t ble_evt;
+  uint16_t len;
+  
+  while (sd_evt_get(&evt) == NRF_SUCCESS)
   {
-    case NRF_EVT_RADIO_SESSION_IDLE:
-    case NRF_EVT_RADIO_BLOCKED:
-      /* Request a new timeslot */
-      ASSERT (btle_scan_enable_set (scan_enable) == BTLE_STATUS_CODE_SUCCESS);
-      break;
+    g_evt = evt;
 
-    case NRF_EVT_RADIO_SESSION_CLOSED:
-      break;
-    
-    case NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN:
-      ASSERT(false);
-      break;
+    switch (evt)
+    {
+      case NRF_EVT_RADIO_SESSION_IDLE:
+      case NRF_EVT_RADIO_BLOCKED:
+        /* Request a new timeslot */
+        ASSERT (btle_scan_enable_set (scan_enable) == BTLE_STATUS_CODE_SUCCESS);
+        break;
 
-    case NRF_EVT_RADIO_CANCELED:
-      ASSERT(false);
-      break;
+      case NRF_EVT_RADIO_SESSION_CLOSED:
+        break;
+      
+      case NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN:
+        ASSERT(false);
+        break;
 
-    default:
-      /* This should not happen */
-      __LOG ("%s: Program failure, undefined event = %d", __FUNCTION__, ev);
-      ASSERT(false);
+      case NRF_EVT_RADIO_CANCELED:
+        ASSERT(false);
+        break;
+
+      default:
+        /* This should not happen */
+        __LOG ("%s: Program failure, undefined event = %d", __FUNCTION__, evt);
+        ASSERT(false);
+    }
+  }
+  
+  while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
+  {
+    nrf_adv_conn_evt_handler(&ble_evt);
   }
 }
 
