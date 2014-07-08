@@ -170,16 +170,6 @@ int main(void)
 
   while (true)
   {
-    /*
-    uint8_t cr = simple_uart_get ();
-    if (cr == 'Q')
-    {
-      sd_radio_session_close();
-      __LOG ("Program end");
-      while(true);
-    }
-    */
-    
     if (sw_interrupt)
     {
       btle_scan_ev_get (&btle_ev);
