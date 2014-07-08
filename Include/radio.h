@@ -43,7 +43,6 @@
 #define RADIO_RSSI_INVALID 255
 
 void radio_event_cb (void);
-void radio_tifs_cb (void);
 void radio_timeout_cb (void);
 
 /* Initializes the radio. Assumes that the HF crystal is started */

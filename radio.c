@@ -300,11 +300,6 @@ void radio_event_cb (void)
   }
 }
 
-void radio_tifs_cb (void)
-{
-  /* Nothing to do here */
-}
-
 void radio_timeout_cb (void)
 {
   ll_scan_timeout_cb ();
