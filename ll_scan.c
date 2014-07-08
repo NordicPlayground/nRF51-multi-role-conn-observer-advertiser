@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ll_scanner.h"
+#include "ll_scan.h"
 
 #include "btle.h"
 #include "radio.h"

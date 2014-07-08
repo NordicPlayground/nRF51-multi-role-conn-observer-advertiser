@@ -35,7 +35,7 @@
 #include "radio.h"
 
 #include "channel_resolver.h"
-#include "ll_scanner.h"
+#include "ll_scan.h"
 
 #include "nrf_gpio.h"
 #include "nrf_soc.h"

@@ -37,8 +37,7 @@
 #include "btle.h"
 #include "conf.h"
 #include "core_cminstr.h"
-#include "radio.h"
-#include "scanner.h"
+#include "nrf_scan.h"
 
 #include "nrf51.h"
 #include "nrf51_bitfields.h"

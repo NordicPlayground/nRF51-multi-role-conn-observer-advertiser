@@ -32,10 +32,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "scanner.h"
+#include "nrf_scan.h"
 
 #include "btle.h"
-#include "ll_scanner.h"
+#include "ll_scan.h"
 #include "radio.h"
 
 #include "nrf_soc.h"
