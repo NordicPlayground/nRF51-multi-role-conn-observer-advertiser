@@ -348,8 +348,6 @@ void ll_scan_rx_cb (bool crc_valid)
           /* If we're doing active scanning, prepare to send SCAN REQ, otherwise
            * loop back around to receive a new advertisement.
            */
-          m_state_receive_adv_exit ();
-
           if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
           {
             m_state_send_scan_req_entry ();
@@ -366,8 +364,6 @@ void ll_scan_rx_cb (bool crc_valid)
           /* If we're doing active scanning, prepare to send SCAN REQ, otherwise
            * loop back around to receive a new advertisement.
            */
-          m_state_receive_adv_exit ();
-
           if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
           {
             m_state_send_scan_req_entry ();
