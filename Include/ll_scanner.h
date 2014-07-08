@@ -39,6 +39,14 @@
 
 #include <stdbool.h>
 
+/** @brief Struct for advertisement reports */
+typedef struct
+{
+  uint32_t valid_packets;
+  uint32_t invalid_packets;
+  btle_ev_param_le_advertising_report_t report;
+} scanner_adv_rep_t;
+
 /** @brief Callback for events on the radio */
 void ll_scan_rx_cb (bool crc_valid);
 void ll_scan_timeout_cb (void);

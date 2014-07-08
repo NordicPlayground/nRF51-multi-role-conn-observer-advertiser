@@ -52,6 +52,16 @@
 #define DBG_RADIO_READY                      1
 #define DBG_RADIO_TIMER                      2
 
+/**@brief Advertisement report indexes
+ */
+#define REPORT_BUF_SIZE 2
+#define REPORT_ADV_INDEX 0
+#define REPORT_RSP_INDEX 1
+
+/**@brief Packet buffer size
+ */
+#define RX_BUF_SIZE 37
+
 /**@brief Possible scanner states
  */
 typedef enum
@@ -77,6 +87,8 @@ typedef enum
   PACKET_TYPE_ADV_SCAN_IND = 0x06
 } m_packet_type_t;
 
+/**@brief Scanner parameters
+ */
 typedef struct
 {
   btle_scan_types_t scan_type;
@@ -84,10 +96,13 @@ typedef struct
   btle_scan_filter_policy_t scanning_filter_policy;
 } scanner_params_t;
 
+/**@brief Scanner variables
+ */
 static struct
 {
   scanner_params_t params;
   m_state_t state;
+  scanner_adv_rep_t reports[REPORT_BUF_SIZE];
 } m_scanner;
   
 
@@ -101,7 +116,7 @@ static uint32_t m_packets_valid;
 
 static uint8_t m_rssi;
 
-static uint8_t m_rx_buf[40];
+static uint8_t m_rx_buf[RX_BUF_SIZE];
 static uint8_t m_tx_buf[] =
 {
   0xC3,                               // BLE Header (PDU_TYPE: SCAN_REQ, TXadd: 1 (random address), RXadd: 1 (random address)
@@ -110,7 +125,6 @@ static uint8_t m_tx_buf[] =
   0xDE, 0xDE, 0xDE, 0xDE, 0xDE, 0xDE, // InitAddr LSByte first
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // AdvAddr LSByte first
 };
-
 
 /*****************************************************************************
 * Static Function prototypes
@@ -155,8 +169,60 @@ static void m_state_receive_scan_rsp_exit (void);
 
 static void m_adv_report_generate (uint8_t * const pkt)
 {
-  /* TODO */
-  return;
+  uint8_t index;
+  bool has_data;
+  
+  /* Validate the RSSI value. It is 7 bits, so a value above 0x7F is invalid */
+  if (m_rssi > 0x7F)
+  {
+    return;
+  }
+
+  switch (pkt[0] & 0x0F)
+  {
+    case PACKET_TYPE_ADV_IND:
+      index = REPORT_ADV_INDEX;
+      has_data = true;
+      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_IND;
+      break;
+
+    case PACKET_TYPE_ADV_SCAN_IND:
+      index = REPORT_ADV_INDEX;
+      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_SCAN_IND;
+      break;
+
+    case PACKET_TYPE_ADV_DIRECT_IND:
+      index = REPORT_ADV_INDEX;
+      has_data = false;
+      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_DIRECT_IND;
+      break;
+
+    case PACKET_TYPE_ADV_NONCONN_IND:
+      index = REPORT_ADV_INDEX;
+      has_data = true;
+      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_NONCONN_IND;
+      
+      break;
+    
+    case PACKET_TYPE_SCAN_RSP:
+      index = REPORT_RSP_INDEX;
+      has_data = true;
+      m_scanner.reports[REPORT_RSP_INDEX].report.event_type = BTLE_REPORT_TYPE_SCAN_RSP;
+      break;
+    
+    default:
+      return;
+  }
+  
+  memcpy (m_scanner.reports[index].report.address, &pkt[3], BTLE_DEVICE_ADDRESS__SIZE);
+  m_scanner.reports[index].report.address_type = pkt[1] & 0x01 ? BTLE_ADDR_TYPE_RANDOM : BTLE_ADDR_TYPE_PUBLIC;
+  m_scanner.reports[index].report.length_data = pkt[2] & 0xFC;
+  m_scanner.reports[index].report.rssi = m_rssi;
+  
+  if (has_data)
+  {
+    memcpy(m_scanner.reports[index].report.report_data, &pkt[9], BTLE_ADVERTISING_DATA__SIZE);
+  }
 }
 
 static void m_state_init_entry (void)
@@ -181,6 +247,7 @@ static void m_state_idle_exit (void)
 
 static void m_state_receive_adv_entry (void)
 {
+  memset ((void *) m_rx_buf, '\0', RX_BUF_SIZE);
   radio_buffer_configure (&m_rx_buf[0]);
   radio_rx_prepare (true);
   radio_rssi_enable ();
@@ -215,6 +282,7 @@ static void m_state_send_scan_req_exit (void)
 
 static void m_state_receive_scan_rsp_entry (void)
 {
+  memset ((void *) m_rx_buf, '\0', RX_BUF_SIZE);
   radio_buffer_configure (&m_rx_buf[0]);
   radio_rx_prepare (false);
   radio_rssi_enable ();
@@ -272,9 +340,26 @@ void ll_scan_rx_cb (bool crc_valid)
          * a SCAN_REQ, and we should wait for a SCAN_RSP.
          */
         case PACKET_TYPE_ADV_IND:
+          m_state_receive_adv_exit ();
+
+          m_adv_report_generate (m_rx_buf);
+
+          /* If we're doing active scanning, prepare to send SCAN REQ, otherwise
+           * loop back around to receive a new advertisement.
+           */
+          m_state_receive_adv_exit ();
+
+          if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
+          {
+            m_state_send_scan_req_entry ();
+          }
+          else
+          {
+            m_state_receive_adv_entry ();
+          }
+          break;
         case PACKET_TYPE_ADV_SCAN_IND:
           m_state_receive_adv_exit ();
-        
           m_adv_report_generate (m_rx_buf);
 
           /* If we're doing active scanning, prepare to send SCAN REQ, otherwise
@@ -295,6 +380,12 @@ void ll_scan_rx_cb (bool crc_valid)
         /* These packets do not require response.
          */
         case PACKET_TYPE_ADV_DIRECT_IND:
+          m_state_receive_adv_exit ();
+          radio_disable();
+          m_adv_report_generate (m_rx_buf);
+          m_state_receive_adv_entry ();
+          break;
+        
         case PACKET_TYPE_ADV_NONCONN_IND:
           m_state_receive_adv_exit ();
           radio_disable();
@@ -315,6 +406,7 @@ void ll_scan_rx_cb (bool crc_valid)
 
       m_state_receive_scan_rsp_exit ();
       m_adv_report_generate (m_rx_buf);
+
       m_state_receive_adv_entry ();
       break;
 
