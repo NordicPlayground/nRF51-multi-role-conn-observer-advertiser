@@ -244,6 +244,7 @@ btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters
 btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param)
 {
   uint32_t err_code = NRF_SUCCESS;
+  btle_status_codes_t status = BTLE_STATUS_CODE_SUCCESS;
 
   switch (param.scan_enable)
   {
@@ -251,7 +252,7 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
       err_code = sd_radio_request (&m_timeslot_req_earliest);
       if (err_code != NRF_SUCCESS)
       {
-        return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
+        status = BTLE_STATUS_CODE_COMMAND_DISALLOWED;
       }
       break;
 
@@ -259,10 +260,10 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
       err_code = sd_radio_session_close ();
       if (err_code != NRF_SUCCESS)
       {
-        return BTLE_STATUS_CODE_COMMAND_DISALLOWED;
+        status = BTLE_STATUS_CODE_COMMAND_DISALLOWED;
       }
       break;
   }
 
-  return BTLE_STATUS_CODE_SUCCESS;
+  return status;
 }
