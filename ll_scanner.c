@@ -221,7 +221,8 @@ static void m_adv_report_generate (uint8_t * const pkt)
   
   if (has_data)
   {
-    memcpy(m_scanner.reports[index].report.report_data, &pkt[9], BTLE_ADVERTISING_DATA__SIZE);
+    m_scanner.reports[index].report.length_data = (pkt[2] & 0xFC) - BTLE_DEVICE_ADDRESS__SIZE;
+    memcpy(m_scanner.reports[index].report.report_data, &pkt[9], m_scanner.reports[index].report.length_data);
   }
 }
 
