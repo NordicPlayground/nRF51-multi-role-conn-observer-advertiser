@@ -100,17 +100,19 @@ static uint32_t g_evt;
 
 /**@brief Global variables for the scanner
  */
+ 
+/* These are the parameters for the scanner running in the timeslot */
 static btle_cmd_param_le_write_scan_parameters_t scan_param = {
-  BTLE_SCAN_TYPE_ACTIVE,
-  TIMESLOT_DISTANCE_US,
-  TIMESLOT_LENGTH_US,
-  BTLE_ADDR_TYPE_PUBLIC,
-  BTLE_SCAN_FILTER_ACCEPT_ANY
+  BTLE_SCAN_TYPE_ACTIVE,          /* Active scanning. SCAN_REQ packets may be sent */
+  TIMESLOT_DISTANCE_US,           /* Time from controller starts its last scan until it begins the next scan */
+  TIMESLOT_LENGTH_US,             /* Duration of the scan */
+  BTLE_ADDR_TYPE_PUBLIC,          /* Use public address type */
+  BTLE_SCAN_FILTER_ACCEPT_ANY     /* Accept anyone (whitelist unsupported for now) */
 };
 
 static btle_cmd_param_le_write_scan_enable_t scan_enable = {
-  BTLE_SCAN_MODE_ENABLE,
-  BTLE_SCAN_DUPLICATE_FILTER_DISABLE
+  BTLE_SCAN_MODE_ENABLE,              /* Enable scanner */
+  BTLE_SCAN_DUPLICATE_FILTER_DISABLE  /* Do not filter duplicates */
 };
 
 bool sw_interrupt = false;
