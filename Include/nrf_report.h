@@ -32,8 +32,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __REPORTS_H__
-#define __REPORTS_H__
+#ifndef __NRF_REPORT_H__
+#define __NRF_REPORT_H__
 
 #include "btle.h"
 
@@ -47,4 +47,4 @@ typedef struct
   btle_event_t event;
 } nrf_report_t;
 
-#endif /* __REPORTS_H__ */
+#endif /* __NRF_REPORT_H__ */
