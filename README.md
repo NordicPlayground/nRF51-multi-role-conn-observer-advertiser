@@ -1,11 +1,22 @@
-# TIMESLOT ADVERTISER
+# TIMESLOT ADVERTISER - OBSERVER
 
 This project utilizes the Concurrent Multi-protocol Timeslot API in the Nordic
-Semiconductor S110 SoftDevice for the   nRF51-series micro-controllers to run a
-scannable advertiser concurrently with a SoftDevice powered BLE Device.
+Semiconductor S110 v7.0 SoftDevice for the   nRF51-series micro-controllers to run a
+scannable advertiser concurrently with the SoftDevice.
+
+This project also contains an example to run a concurrent multi-protocol 
+observer concurrently with the Softdevice.
 
 The Timeslot advertiser accepts a subset of the HCI command interface to
 control various parameters of its behaviour.
+
+Scan Requests that arrive at the advertiser are also sent to the application.
+The scan requests are sent with the address, RSSI and a link quality indication.
+
+An experimental link quality indicator that counts the number of packets with
+CRC failures and the number packets with successful CRC has been addeed.
+This allows the application to have some awareness of the link quality.
+The link quality is returned by the observer and by the scannable advertiser.
 
 ## Example code
 
