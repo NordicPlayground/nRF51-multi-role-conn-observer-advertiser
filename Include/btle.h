@@ -401,6 +401,7 @@ typedef enum
   BTLE_VS_EVENT_NRF_LL_EVENT_WINLIM_AUTO_OFF_OCCURRED,
   BTLE_VS_EVENT_NRF_LL_EVENT_RSSI_CHANGED,
   BTLE_VS_EVENT_NRF_LL_EVENT_CONNECTION_COMPLETE,
+  BTLE_VS_EVENT_NRF_LL_EVENT_SCAN_REQ_REPORT,
 /* End - Vendor Specific Events. */
 } btle_event_code_t;
 
@@ -804,6 +805,17 @@ typedef struct
   uint16_t                  latency;
 } nrf_ev_param_config_local_conn_latency_t;
 
+typedef struct
+{
+  uint8_t                   num_reports;
+  btle_report_event_type_t  event_type;
+  btle_address_type_t       scan_address_type;
+  uint8_t                   scan_address[BTLE_DEVICE_ADDRESS__SIZE];
+  btle_address_type_t       adv_address_type;
+  uint8_t                   adv_address[BTLE_DEVICE_ADDRESS__SIZE];
+  uint8_t                   rssi;
+} nrf_ev_param_le_scan_req_report_t;
+
 /*
   End - Return parameters to be used by events.
  */
@@ -1179,6 +1191,7 @@ typedef struct
     nrf_ev_param_rssi_changed_t                                nrf_rssi_changed_event;
     nrf_ev_param_connection_complete_t                         nrf_connection_complete_event;
     nrf_ev_param_config_local_conn_latency_t                   nrf_config_local_conn_latency;
+    nrf_ev_param_le_scan_req_report_t                          nrf_scan_req_report_event;
 /* End - Vendor Specific Events. */
   } params;
 } btle_event_t;
