@@ -182,7 +182,15 @@ int main(void)
     {
       while (btle_scan_ev_get (&report) != BTLE_STATUS_CODE_COMMAND_DISALLOWED)
       {
-        __LOG("PACKET (len = %d)", report.event.params.le_advertising_report_event.length_data);
+        __LOG("Type: %X, Addr: %X:%X:%X:%X:%X:%X, RSSI: %i",
+          report.event.params.le_advertising_report_event.event_type,
+          report.event.params.le_advertising_report_event.address[5],
+          report.event.params.le_advertising_report_event.address[4],
+          report.event.params.le_advertising_report_event.address[3],
+          report.event.params.le_advertising_report_event.address[2],
+          report.event.params.le_advertising_report_event.address[1],
+          report.event.params.le_advertising_report_event.address[0],
+          report.event.params.le_advertising_report_event.rssi);
       }
       
       __LOG("Done");
