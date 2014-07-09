@@ -1,2 +1,0 @@
-Revision			SDK version
-912				5.2.0.39364

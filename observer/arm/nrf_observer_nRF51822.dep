@@ -1,0 +1,211 @@
+Dependencies for Project 'nrf_observer', Target 'nRF51822': (DO NOT MODIFY !)
+F (..\main.c)(0x53BD4B2B)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\main.o --omf_browse .\_build\main.crf --depend .\_build\main.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\boards.h)(0x53B299E6)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\boards\pca10003.h)(0x53B299E8)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_gpio.h)(0x53B299DC)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\btle.h)(0x53BD4DA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\observer\Include\nrf_adv_conn.h)(0x53BD214B)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_ranges.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_types.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gap.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_svc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_l2cap.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_err.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gatt.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gattc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gatts.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\nrf_scan.h)(0x53BD46AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_soc.h)(0x53A149A4)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error_soc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_assert.h)(0x53B299DC)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_delay.h)(0x53B299DC)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_deprecated.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\compiler_abstraction.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_sdm.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error_sdm.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\simple_uart.h)(0x53B299E8)
+I (C:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C80BA4)
+F (..\nrf_adv_conn.c)(0x53BD4286)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\nrf_adv_conn.o --omf_browse .\_build\nrf_adv_conn.crf --depend .\_build\nrf_adv_conn.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\observer\Include\nrf_adv_conn.h)(0x53BD214B)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_ranges.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_types.h)(0x53A149A4)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gap.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_svc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_l2cap.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_err.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gatt.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gattc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gatts.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\ble\ble_advdata.h)(0x53B299E8)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\app_common\app_util.h)(0x53B299DA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\compiler_abstraction.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_assert.h)(0x53B299DC)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_gpio.h)(0x53B299DC)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C80BA4)
+F (..\..\..\..\..\..\Source\templates\arm\arm_startup_nrf51.s)(0x53B29B12)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include--list .\_build\arm_startup_nrf51.lst --xref -o .\_build\arm_startup_nrf51.o --depend .\_build\arm_startup_nrf51.d)
+F (..\..\..\..\..\..\Source\templates\system_nrf51.c)(0x53B29B12)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\system_nrf51.o --omf_browse .\_build\system_nrf51.crf --depend .\_build\system_nrf51.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_deprecated.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\compiler_abstraction.h)(0x53B29B12)
+F (..\..\..\..\..\..\Source\simple_uart\simple_uart.c)(0x53B299D2)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\simple_uart.o --omf_browse .\_build\simple_uart.crf --depend .\_build\simple_uart.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_deprecated.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\compiler_abstraction.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\simple_uart.h)(0x53B299E8)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_delay.h)(0x53B299DC)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_gpio.h)(0x53B299DC)
+F (..\..\..\..\..\..\Source\ble\ble_advdata.c)(0x53B29978)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\ble_advdata.o --omf_browse .\_build\ble_advdata.crf --depend .\_build\ble_advdata.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\ble\ble_advdata.h)(0x53B299E8)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_ranges.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_types.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gap.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_svc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_l2cap.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_err.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gatt.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gattc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\ble_gatts.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\app_common\app_util.h)(0x53B299DA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\compiler_abstraction.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nordic_common.h)(0x53B299D4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\ble\ble_services\ble_srv_common.h)(0x53B299E6)
+F (..\..\btle_hci\fifo\nrf_report_disp.c)(0x53BD46E8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\nrf_report_disp.o --omf_browse .\_build\nrf_report_disp.crf --depend .\_build\nrf_report_disp.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\fifo\Include\nrf_report_disp.h)(0x53BD46D9)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\btle.h)(0x53BD4DA4)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_soc.h)(0x53A149A4)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_svc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error_soc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\fifo\Include\nrf_report_fifo.h)(0x53BD46D6)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C80BA4)
+F (..\..\btle_hci\fifo\nrf_report_fifo.c)(0x53BD46F2)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\nrf_report_fifo.o --omf_browse .\_build\nrf_report_fifo.crf --depend .\_build\nrf_report_fifo.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\fifo\Include\nrf_report_fifo.h)(0x53BD46D6)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\btle.h)(0x53BD4DA4)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\app_common\app_util.h)(0x53B299DA)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\compiler_abstraction.h)(0x53B29B12)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C80BA4)
+F (..\..\btle_hci\scanner\channel_resolver.c)(0x53BD4286)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\channel_resolver.o --omf_browse .\_build\channel_resolver.crf --depend .\_build\channel_resolver.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\channel_resolver.h)(0x53BD3D39)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_gpio.h)(0x53B299DC)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+F (..\..\btle_hci\scanner\ll_scan.c)(0x53BD4286)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\ll_scan.o --omf_browse .\_build\ll_scan.crf --depend .\_build\ll_scan.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\ll_scan.h)(0x53BD46D8)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\btle.h)(0x53BD4DA4)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\fifo\Include\nrf_report_disp.h)(0x53BD46D9)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_soc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_svc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error_soc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\radio.h)(0x53BD3D39)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C80BA4)
+F (..\..\btle_hci\scanner\nrf_scan.c)(0x53BD4286)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\nrf_scan.o --omf_browse .\_build\nrf_scan.crf --depend .\_build\nrf_scan.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\nrf_scan.h)(0x53BD46AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\btle.h)(0x53BD4DA4)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_soc.h)(0x53A149A4)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_svc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error_soc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\ll_scan.h)(0x53BD46D8)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\radio.h)(0x53BD3D39)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\fifo\Include\nrf_report_disp.h)(0x53BD46D9)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_gpio.h)(0x53B299DC)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C80BA4)
+F (..\..\btle_hci\scanner\radio.c)(0x53BD4286)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\scanner\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10003 -DSETUPA -DDEBUG_NRF -o .\_build\radio.o --omf_browse .\_build\radio.crf --depend .\_build\radio.d)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\radio.h)(0x53BD3D39)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_soc.h)(0x53A149A4)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C80BA4)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C80BA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_svc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51.h)(0x53B29B12)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x51C809AA)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x51C809AA)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\system_nrf51.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf51_bitfields.h)(0x53B29B12)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error_soc.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\s110\nrf_error.h)(0x53A149A4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\channel_resolver.h)(0x53BD3D39)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\btle_hci\scanner\Include\ll_scan.h)(0x53BD46D8)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Board\pca10001\s110\timeslot-scadv\Include\btle.h)(0x53BD4DA4)
+I (C:\cygwin64\home\momj\nrf51\nrf51_sdk_v6_0_0_43681\nrf51822\Include\nrf_gpio.h)(0x53B299DC)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C80BA4)

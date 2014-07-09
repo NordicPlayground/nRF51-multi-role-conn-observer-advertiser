@@ -32,29 +32,23 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __SCANNER_H__
-#define __SCANNER_H__
+#ifndef __LL_SCANNER_H__
+#define __LL_SCANNER_H__
 
 #include "btle.h"
 
-#include "nrf_soc.h"
-
 #include <stdbool.h>
 
-/* Initialize the timeslot scanner. The irq passed to the function will be triggered when
- * an advertising report is ready.
- */
-btle_status_codes_t btle_scan_init (IRQn_Type irq);
+/** @brief Callback for events on the radio */
+void ll_scan_rx_cb (bool crc_valid);
+void ll_scan_timeout_cb (void);
+void ll_scan_tx_cb (void);
 
-/* Get the next pending event. It is recommended that this function is called in a loop
- * in the event that more than one event is pending when an interrupt is triggered.
- */
-btle_status_codes_t btle_scan_ev_get (nrf_report_t *p_ev);
+btle_status_codes_t ll_scan_init (void);
+btle_status_codes_t ll_scan_reset (void);
+btle_status_codes_t ll_scan_start (void);
+btle_status_codes_t ll_scan_stop (void);
 
-/* Set the parameters for the scanner */
-btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param);
+btle_status_codes_t ll_scan_config (btle_scan_types_t scan_type, btle_address_type_t address_type, btle_scan_filter_policy_t filter_policy);
 
-/* Enable or disable scanning */
-btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param);
-
-#endif /* __SCANNER_H__ */
+#endif /* __LL_SCANNER_H__ */

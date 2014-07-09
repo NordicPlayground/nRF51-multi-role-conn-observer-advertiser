@@ -1,0 +1,11 @@
+arm/_build
+arm/ble_beacon.uvgui.*
+arm/ble_beacon.uvgui_trsn.bak
+arm/ble_beacon.uvopt
+arm/ble_beacon_uvopt.bak
+arm/ble_beacon_uvproj.bak
+arm/ble_beacon_nRF51822.dep
+arm/JLinkLog.*
+arm/JLinkSettings.*
+docs/
+scopedata/

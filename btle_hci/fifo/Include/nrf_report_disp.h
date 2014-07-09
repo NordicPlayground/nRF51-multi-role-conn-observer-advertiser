@@ -32,29 +32,38 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __SCANNER_H__
-#define __SCANNER_H__
+#ifndef __EVT_DISPATCHER_H__
+#define __EVT_DISPATCHER_H__
 
 #include "btle.h"
-
 #include "nrf_soc.h"
 
 #include <stdbool.h>
+#include <stdint.h>
 
-/* Initialize the timeslot scanner. The irq passed to the function will be triggered when
- * an advertising report is ready.
- */
-btle_status_codes_t btle_scan_init (IRQn_Type irq);
+/**
+* Initialize the event dispatcher.
+* Parameter irq must be a software interrupt (i.e. SWI0_IRQn - SWI9_IRQn)
+* The user will get an interrupt on APP LOW level whenever there's a pending 
+* event.
+*/
+uint32_t nrf_report_disp_init(IRQn_Type irq);
 
-/* Get the next pending event. It is recommended that this function is called in a loop
- * in the event that more than one event is pending when an interrupt is triggered.
- */
-btle_status_codes_t btle_scan_ev_get (nrf_report_t *p_ev);
+/**
+* Put an event in the dispatcher queue. Returns true
+* if dispatch is successful
+*/
+uint32_t nrf_report_disp_dispatch(nrf_report_t* evt);
 
-/* Set the parameters for the scanner */
-btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param);
+/**
+* Get event from dispatcher queue. Parameter evt
+* cannot be NULL. Returns true if fetch is successful.
+*/
+uint32_t nrf_report_disp_get(nrf_report_t* evt);
 
-/* Enable or disable scanning */
-btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param);
+/**
+* Returns whether there are any events in the dispatcher queue.
+*/
+uint32_t nrf_report_disp_pending(void);
 
-#endif /* __SCANNER_H__ */
+#endif /* __EVT_DISPATCHER_H__ */

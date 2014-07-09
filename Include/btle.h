@@ -808,11 +808,9 @@ typedef struct
 typedef struct
 {
   uint8_t                   num_reports;
-  btle_report_event_type_t  event_type;
-  btle_address_type_t       scan_address_type;
-  uint8_t                   scan_address[BTLE_DEVICE_ADDRESS__SIZE];
-  btle_address_type_t       adv_address_type;
-  uint8_t                   adv_address[BTLE_DEVICE_ADDRESS__SIZE];
+  uint8_t                   channel;
+  btle_address_type_t       address_type;
+  uint8_t                   address[BTLE_DEVICE_ADDRESS__SIZE];
   uint8_t                   rssi;
 } nrf_ev_param_le_scan_req_report_t;
 
@@ -1247,5 +1245,13 @@ typedef struct
     nrf_cmd_param_add_resolvable_address_t                      nrf_add_resolvable_address;
   } params;
 } btle_cmd_t;
+
+/** @brief Struct for advertiser and observer reports */
+typedef struct
+{
+  uint32_t valid_packets;
+  uint32_t invalid_packets;
+  btle_event_t event;
+} nrf_report_t;
 
 #endif /*BTLE_H__*/
