@@ -161,11 +161,11 @@
             <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
-            <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
+            <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
             <DriverSelection>4099</DriverSelection>
           </Flash1>
-          <bUseTDR>0</bUseTDR>
+          <bUseTDR>1</bUseTDR>
           <Flash2>Segger\JL2CM3.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -351,7 +351,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>NRF51 BOARD_PCA10003 SETUPA DEBUG_NRF</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Include;..\Include\arm;..\Include\sdk;..\Include\sdk\boards;..\..\..\nrf51822\Include;..\..\..\SD110\s110_nrf51822_7.0.0-4.prealpha_API\include</IncludePath>
+              <IncludePath>..\Include;..\Include\arm;..\Include\sdk;..\Include\sdk\boards;..\..\..\nrf51822\Include;..\..\..\nrf51822\Include\app_common;..\..\..\nrf51822\Include\ble;..\..\..\nrf51822\Include\ble\ble_services;..\..\..\SD110\s110_nrf51822_7.0.0-4.prealpha_API\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -403,29 +403,34 @@
               <FilePath>..\radio.c</FilePath>
             </File>
             <File>
-              <FileName>scanner.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\scanner.c</FilePath>
-            </File>
-            <File>
               <FileName>channel_resolver.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\channel_resolver.c</FilePath>
             </File>
             <File>
-              <FileName>ll_scanner.c</FileName>
+              <FileName>ll_scan.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\ll_scanner.c</FilePath>
+              <FilePath>..\ll_scan.c</FilePath>
             </File>
             <File>
-              <FileName>evt_dispatcher.c</FileName>
+              <FileName>nrf_adv_conn.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\evt_dispatcher.c</FilePath>
+              <FilePath>..\nrf_adv_conn.c</FilePath>
             </File>
             <File>
-              <FileName>evt_fifo.c</FileName>
+              <FileName>nrf_report_disp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\evt_fifo.c</FilePath>
+              <FilePath>..\nrf_report_disp.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_report_fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nrf_report_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_scan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nrf_scan.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -451,6 +456,11 @@
               <FileName>simple_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\nrf51822\Source\simple_uart\simple_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_advdata.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\nrf51822\Source\ble\ble_advdata.c</FilePath>
             </File>
           </Files>
         </Group>
