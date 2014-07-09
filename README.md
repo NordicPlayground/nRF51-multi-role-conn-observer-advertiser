@@ -11,10 +11,10 @@ The Timeslot advertiser accepts a subset of the HCI command interface to
 control various parameters of its behaviour.
 
 Scan Requests that arrive at the advertiser are also sent to the application.
-The scan requests are sent with the address, RSSI, channel and a link quality 
-indicator.
+The scan requests are sent with the address, RSSI, channel and an experimental
+link quality indicator.
 
-An experimental link quality indicator that counts the number of packets with
+The experimental link quality indicator that counts the number of packets with
 CRC failures and the number packets with successful CRC has been addeed.
 This allows the application to have some awareness of the link quality.
 The link quality is returned by the observer and by the scannable advertiser.
