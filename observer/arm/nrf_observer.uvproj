@@ -344,14 +344,14 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>0</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls>--c99</MiscControls>
               <Define>NRF51 BOARD_PCA10003 SETUPA DEBUG_NRF</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Include;..\Include\arm;..\..\Include;..\..\Include\sdk;..\..\Include\sdk\boards;..\..\btle_hci\fifo\Include;..\..\btle_hci\scanner\Include;..\..\..\..\..\..\Include;..\..\..\..\..\..\Include\app_common;..\..\..\..\..\..\Include\ble;..\..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\..\Include\s110</IncludePath>
+              <IncludePath>..\Include;..\..\Include;..\..\btle_hci\Include;..\..\btle_hci\fifo\Include;..\..\btle_hci\scanner\Include;..\..\..\..\..\..\Include;..\..\..\..\..\..\Include\app_common;..\..\..\..\..\..\Include\ble;..\..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\..\Include\s110</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -402,26 +402,6 @@
               <FileType>1</FileType>
               <FilePath>..\nrf_adv_conn.c</FilePath>
             </File>
-            <File>
-              <FileName>radio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\scanner\radio.c</FilePath>
-            </File>
-            <File>
-              <FileName>ll_scan.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\scanner\ll_scan.c</FilePath>
-            </File>
-            <File>
-              <FileName>nrf_scan.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\scanner\nrf_scan.c</FilePath>
-            </File>
-            <File>
-              <FileName>channel_resolver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\scanner\channel_resolver.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -430,17 +410,32 @@
             <File>
               <FileName>arm_startup_nrf51.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\include\sdk\core\arm_startup_nrf51.s</FilePath>
+              <FilePath>..\..\..\..\..\..\Source\templates\arm\arm_startup_nrf51.s</FilePath>
             </File>
             <File>
               <FileName>system_nrf51.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\include\sdk\core\system_nrf51.c</FilePath>
+              <FilePath>..\..\..\..\..\..\Source\templates\system_nrf51.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>lib</GroupName>
+          <Files>
+            <File>
+              <FileName>simple_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\Source\simple_uart\simple_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_advdata.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\Source\ble\ble_advdata.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>btle_hci</GroupName>
           <Files>
             <File>
               <FileName>nrf_report_disp.c</FileName>
@@ -453,14 +448,24 @@
               <FilePath>..\..\btle_hci\fifo\nrf_report_fifo.c</FilePath>
             </File>
             <File>
-              <FileName>simple_uart.c</FileName>
+              <FileName>channel_resolver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Source\simple_uart\simple_uart.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\channel_resolver.c</FilePath>
             </File>
             <File>
-              <FileName>ble_advdata.c</FileName>
+              <FileName>ll_scan.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Source\ble\ble_advdata.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\ll_scan.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_scan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\scanner\nrf_scan.c</FilePath>
+            </File>
+            <File>
+              <FileName>radio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\scanner\radio.c</FilePath>
             </File>
           </Files>
         </Group>

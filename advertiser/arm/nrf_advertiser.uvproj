@@ -30,7 +30,6 @@
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
           <SFDFile>SFD\Nordic\nRF51\nRF51822.sfr</SFDFile>
-          <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
@@ -98,7 +97,6 @@
           <StopOnExitCode>3</StopOnExitCode>
           <CustomArgument></CustomArgument>
           <IncludeLibraryModules></IncludeLibraryModules>
-          <ComprImg>1</ComprImg>
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
@@ -128,7 +126,6 @@
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
             <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
-            <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
             <UseTarget>1</UseTarget>
@@ -140,11 +137,9 @@
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>0</RestoreTracepoints>
-            <RestoreSysVw>1</RestoreSysVw>
-            <UsePdscDebugDescription>0</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>6</TargetSelection>
+          <TargetSelection>7</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -174,10 +169,6 @@
           <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3></Flash3>
           <Flash4></Flash4>
-          <pFcarmOut></pFcarmOut>
-          <pFcarmGrp></pFcarmGrp>
-          <pFcArmRoot></pFcArmRoot>
-          <FcArmLst>0</FcArmLst>
         </Utilities>
         <TargetArmAds>
           <ArmAdsMisc>
@@ -356,13 +347,11 @@
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
-            <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--c99</MiscControls>
-              <Define>NRF51 BOARD_PCA10001 SETUPA</Define>
+              <Define>NRF51 BOARD_PCA10001 SETUPA DEBUG_NRF</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Include;..\Include\arm;..\Include\sdk;..\Include\sdk\boards;..\..\..\..\s110\s110_nrf51822_7.0.0_API\include;..\..\..\..\nrf51822\Include\app_common;..\..\..\..\nrf51422\Include\ble;..\..\..\..\nrf51422\Include\ble\ble_services;..\..\..\..\nrf51822\Include\s110</IncludePath>
+              <IncludePath>..\Include;..\..\Include;..\..\btle_hci\Include;..\..\btle_hci\fifo\Include;..\..\btle_hci\advertiser\Include;..\..\..\..\..\..\Include;..\..\..\..\..\..\Include\app_common;..\..\..\..\..\..\Include\ble;..\..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\..\Include\s110</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -374,7 +363,6 @@
             <SwStkChk>0</SwStkChk>
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
-            <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -391,7 +379,6 @@
             <useFile>0</useFile>
             <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0x00000000</DataAddressRange>
-            <pXoBase></pXoBase>
             <ScatterFile></ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
@@ -411,44 +398,9 @@
               <FilePath>..\main.c</FilePath>
             </File>
             <File>
-              <FileName>sd-jam.c</FileName>
+              <FileName>nrf_adv_conn.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\sd-jam.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_rng.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ts_rng.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_whitelist.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ts_whitelist.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_advertiser.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ts_advertiser.c</FilePath>
-            </File>
-            <File>
-              <FileName>evt_fifo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\evt_fifo.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_evt_dispatcher.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ts_evt_dispatcher.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_hal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ts_hal.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_controller.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ts_controller.c</FilePath>
+              <FilePath>..\nrf_adv_conn.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -456,14 +408,14 @@
           <GroupName>core</GroupName>
           <Files>
             <File>
-              <FileName>system_nrf51.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\nrf51422\Source\templates\system_nrf51.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_startup_nrf51.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\..\nrf51422\Source\templates\arm\arm_startup_nrf51.s</FilePath>
+              <FilePath>..\..\..\..\..\..\Source\templates\arm\arm_startup_nrf51.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_nrf51.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\Source\templates\system_nrf51.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -471,14 +423,54 @@
           <GroupName>lib</GroupName>
           <Files>
             <File>
-              <FileName>ble_advdata.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\nrf51422\Source\ble\ble_advdata.c</FilePath>
-            </File>
-            <File>
               <FileName>simple_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\nrf51422\Source\simple_uart\simple_uart.c</FilePath>
+              <FilePath>..\..\..\..\..\..\Source\simple_uart\simple_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_advdata.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\Source\ble\ble_advdata.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>btle_hci</GroupName>
+          <Files>
+            <File>
+              <FileName>nrf_report_disp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\fifo\nrf_report_disp.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_report_fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\fifo\nrf_report_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_advertiser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\advertiser\nrf_advertiser.c</FilePath>
+            </File>
+            <File>
+              <FileName>ts_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\advertiser\ts_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>ts_peripheral.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\advertiser\ts_peripheral.c</FilePath>
+            </File>
+            <File>
+              <FileName>ts_rng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\advertiser\ts_rng.c</FilePath>
+            </File>
+            <File>
+              <FileName>ts_whitelist.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\btle_hci\advertiser\ts_whitelist.c</FilePath>
             </File>
           </Files>
         </Group>
