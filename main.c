@@ -164,7 +164,7 @@ int main(void)
   
   btle_err_code = btle_scan_init (SWI0_IRQn);
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
-  __LOG ("Scanner parameters set");
+  __LOG ("Scanner initialized");
   
   btle_err_code = btle_scan_param_set (scan_param);
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
