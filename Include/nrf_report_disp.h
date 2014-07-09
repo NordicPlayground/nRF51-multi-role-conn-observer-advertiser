@@ -36,6 +36,7 @@
 #define __EVT_DISPATCHER_H__
 
 #include "btle.h"
+#include "nrf_report.h"
 #include "nrf_soc.h"
 
 #include <stdbool.h>
@@ -47,23 +48,23 @@
 * The user will get an interrupt on APP LOW level whenever there's a pending 
 * event.
 */
-void evt_disp_init(IRQn_Type irq);
+uint32_t nrf_report_disp_init(IRQn_Type irq);
 
 /**
 * Put an event in the dispatcher queue. Returns true
 * if dispatch is successful
 */
-bool evt_disp_dispatch(btle_event_t* evt);
+uint32_t nrf_report_disp_dispatch(nrf_report_t* evt);
 
 /**
 * Get event from dispatcher queue. Parameter evt
 * cannot be NULL. Returns true if fetch is successful.
 */
-bool evt_disp_get(btle_event_t* evt);
+uint32_t nrf_report_disp_get(nrf_report_t* evt);
 
 /**
 * Returns whether there are any events in the dispatcher queue.
 */
-bool evt_disp_pending(void);
+uint32_t nrf_report_disp_pending(void);
 
 #endif /* __EVT_DISPATCHER_H__ */

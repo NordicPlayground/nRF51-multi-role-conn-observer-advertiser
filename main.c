@@ -46,6 +46,7 @@
 #include "nrf_assert.h"
 #include "nrf_delay.h"
 #include "nrf_gpio.h"
+#include "nrf_report.h"
 #include "nrf_sdm.h"
 #include "simple_uart.h"
 
@@ -129,7 +130,7 @@ static void test_logf(const char *fmt, ...);
 int main(void)
 {
   uint8_t err_code = NRF_SUCCESS;
-  btle_event_t btle_ev;
+  nrf_report_t report;
   btle_status_codes_t btle_err_code = BTLE_STATUS_CODE_SUCCESS;
   
   /* Silence the compiler */
@@ -161,7 +162,7 @@ int main(void)
   
   __LOG ("Interrupts enabled");
   
-  btle_err_code = btle_scan_init ();
+  btle_err_code = btle_scan_init (SWI0_IRQn);
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner parameters set");
   
@@ -173,15 +174,19 @@ int main(void)
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner enabled");
 
-  nrf_adv_conn_init ();
+  //nrf_adv_conn_init ();
 
   while (true)
   {
     if (sw_interrupt)
     {
-      btle_scan_ev_get (&btle_ev);
+      while (btle_scan_ev_get (&report) != BTLE_STATUS_CODE_COMMAND_DISALLOWED)
+      {
+        __LOG("PACKET (len = %d)", report.event.params.le_advertising_report_event.length_data);
+      }
       
-      __LOG("PACKET (type = %d)", btle_ev.params.le_advertising_report_event.event_type);
+      __LOG("Done");
+      
       sw_interrupt = false;
     }
   }
@@ -240,7 +245,7 @@ void SD_EVT_IRQHandler (void)
         break;
 
       case NRF_EVT_RADIO_CANCELED:
-        ASSERT(false);
+        ASSERT (btle_scan_enable_set (scan_enable) == BTLE_STATUS_CODE_SUCCESS);
         break;
 
       default:

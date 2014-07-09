@@ -32,69 +32,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "evt_disp.h"
+#ifndef __REPORTS_H__
+#define __REPORTS_H__
 
-#include "evt_fifo.h"
-#include "nrf_soc.h"
+#include "btle.h"
 
-/*****************************************************************************
-* Local definitions
-*****************************************************************************/
+#include <stdint.h>
 
-/* The event fifo buffer size. Must be at least 3 elements
- * to accommodate for 3 scan requests per advertising event.
- * Must also be power of two.
- */
-#define EVENT_DISPATCHER_FIFO_SIZE (8)
-
-/*****************************************************************************
-* Static Globals
-*****************************************************************************/
-
-static evt_fifo_t evt_fifo;
-static btle_event_t evt_buffer[EVENT_DISPATCHER_FIFO_SIZE];
-
-static IRQn_Type irq_type;
-
-/*****************************************************************************
-* Interface Functions
-*****************************************************************************/
-
-void evt_disp_init(IRQn_Type irq)
+/** @brief Struct for advertisement reports */
+typedef struct
 {
-	if (irq >= SWI0_IRQn && irq <= SWI5_IRQn)
-	{
-		irq_type = irq;
-		NVIC_SetPriority(irq, 3); /* APP LOW interrupt level */
-		NVIC_EnableIRQ(irq);
-		evt_fifo_init(&evt_fifo, &evt_buffer[0], EVENT_DISPATCHER_FIFO_SIZE);
-	}
-}
+  uint32_t valid_packets;
+  uint32_t invalid_packets;
+  btle_event_t event;
+} nrf_report_t;
 
-bool evt_disp_dispatch(btle_event_t* evt)
-{
-	if (NRF_SUCCESS == evt_fifo_put(&evt_fifo, evt))
-	{
-		NVIC_SetPendingIRQ(irq_type); /* Set interrupt */
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
-}
-
-bool evt_disp_get(btle_event_t* evt)
-{
-	if (NULL == evt)
-	{
-		return false;
-	}
-	
-	return (NRF_SUCCESS == evt_fifo_get(&evt_fifo, evt));
-}
-
-bool evt_disp_pending(void)
-{
-	return (NRF_SUCCESS == evt_fifo_pending(&evt_fifo));
-}
+#endif /* __REPORTS_H__ */

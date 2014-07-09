@@ -37,7 +37,7 @@
 #include "btle.h"
 #include "ll_scan.h"
 #include "radio.h"
-
+#include "nrf_report_disp.h"
 #include "nrf_soc.h"
 #include "nrf_gpio.h"
 
@@ -78,74 +78,9 @@ static nrf_radio_request_t m_timeslot_req_normal = {
   }
 };
 
-static btle_ev_param_le_advertising_report_t m_adv_report;
-
 /*****************************************************************************
 * Static Functions
 *****************************************************************************/
-
-#if 0
-
-static uint32_t m_btle_address_type_get (btle_address_type_t *type, uint8_t *packet);
-static uint32_t m_btle_event_type_get (btle_report_event_type_t *type, uint8_t *packet);
-static uint32_t m_btle_report_generate (btle_ev_param_le_advertising_report_t *report, uint8_t *packet);
-
-static uint32_t m_btle_event_type_get (btle_report_event_type_t *type, uint8_t *packet)
-{
-  switch (packet[0] & 0x0F)
-  {
-    case PACKET_TYPE_ADV_IND:
-      *type = BTLE_REPORT_TYPE_ADV_IND;
-      break;
-    case PACKET_TYPE_ADV_DIRECT_IND:
-      *type = BTLE_REPORT_TYPE_ADV_IND;
-      break;
-    case PACKET_TYPE_ADV_SCAN_IND:
-      *type = BTLE_REPORT_TYPE_ADV_IND;
-      break;
-    case PACKET_TYPE_ADV_NONCONN_IND:
-      *type = BTLE_REPORT_TYPE_ADV_IND;
-      break;
-    case PACKET_TYPE_SCAN_RSP:
-      *type = BTLE_REPORT_TYPE_ADV_IND;
-      break;
-    default:
-      return NRF_ERROR_INVALID_PARAM;
-  }
-
-  return NRF_SUCCESS;
-}
-
-static uint32_t m_btle_address_type_get (btle_address_type_t *type, uint8_t *packet)
-{
-  *type = (btle_address_type_t) ((packet[0] & 0x40) >> 7) ? BTLE_ADDR_TYPE_RANDOM : BTLE_ADDR_TYPE_PUBLIC;
-
-  return NRF_SUCCESS;
-}
-
-static uint32_t m_btle_report_generate (btle_ev_param_le_advertising_report_t *report, uint8_t *packet)
-{
-  report->num_reports = 1;
-  m_btle_event_type_get (&report->event_type, packet);
-  m_btle_address_type_get (&report->address_type, packet);
-  memcpy(report->address, &packet[3], BTLE_DEVICE_ADDRESS__SIZE);
-  report->length_data = packet[1];
-
-  /* Only copy advertising data for the packet types that have this. */
-  if (report->event_type == PACKET_TYPE_ADV_IND ||
-      report->event_type == PACKET_TYPE_ADV_SCAN_IND ||
-      report->event_type == PACKET_TYPE_ADV_NONCONN_IND ||
-      report->event_type == PACKET_TYPE_SCAN_RSP)
-  {
-    memcpy(report->report_data, &packet[9], BTLE_ADVERTISING_DATA__SIZE);
-  }
-
-  report->rssi = 0;
-
-  return NRF_SUCCESS;
-}
-
-#endif
 
 nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
 {
@@ -204,11 +139,13 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
 * Interface Functions
 *****************************************************************************/
 
-btle_status_codes_t btle_scan_init (void)
+btle_status_codes_t btle_scan_init (IRQn_Type irq)
 {
   uint32_t err_code = NRF_SUCCESS;
   btle_status_codes_t status = BTLE_STATUS_CODE_SUCCESS;
 
+  nrf_report_disp_init (irq);
+  
   err_code = sd_radio_session_open (radio_cb);
   if (err_code != NRF_SUCCESS)
   {
@@ -218,13 +155,16 @@ btle_status_codes_t btle_scan_init (void)
   return status;
 }
 
-btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev)
+btle_status_codes_t btle_scan_ev_get (nrf_report_t *p_ev)
 {
-  p_ev->event_code = BTLE_EVENT_LE_ADVERTISING_REPORT;
-  p_ev->opcode = BTLE_CMD_LE_WRITE_SCAN_ENABLE;
-  p_ev->params.le_advertising_report_event = m_adv_report;
+  btle_status_codes_t status = BTLE_STATUS_CODE_SUCCESS;
 
-  return BTLE_STATUS_CODE_SUCCESS;
+  if (nrf_report_disp_get (p_ev) != NRF_SUCCESS)
+  {
+    status = BTLE_STATUS_CODE_COMMAND_DISALLOWED;
+  }
+    
+  return status;
 }
 
 btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param)

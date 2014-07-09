@@ -35,6 +35,7 @@
 #include "ll_scan.h"
 
 #include "btle.h"
+#include "nrf_report_disp.h"
 #include "radio.h"
 
 #include <stdbool.h>
@@ -102,7 +103,6 @@ static struct
 {
   scanner_params_t params;
   m_state_t state;
-  scanner_adv_rep_t reports[REPORT_BUF_SIZE];
 } m_scanner;
   
 
@@ -169,8 +169,9 @@ static void m_state_receive_scan_rsp_exit (void);
 
 static void m_adv_report_generate (uint8_t * const pkt)
 {
-  uint8_t index;
   bool has_data;
+  nrf_report_t report;
+  btle_ev_param_le_advertising_report_t *adv_report = &report.event.params.le_advertising_report_event;
   
   /* Validate the RSSI value. It is 7 bits, so a value above 0x7F is invalid */
   if (m_rssi > 0x7F)
@@ -178,54 +179,53 @@ static void m_adv_report_generate (uint8_t * const pkt)
     return;
   }
 
+  report.event.event_code = BTLE_EVENT_LE_ADVERTISING_REPORT;
+  report.event.opcode = BTLE_CMD_NONE;
+  
   switch (pkt[0] & 0x0F)
   {
     case PACKET_TYPE_ADV_IND:
-      index = REPORT_ADV_INDEX;
       has_data = true;
-      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_IND;
+      adv_report->event_type = BTLE_REPORT_TYPE_ADV_IND;
       break;
 
     case PACKET_TYPE_ADV_SCAN_IND:
-      index = REPORT_ADV_INDEX;
-      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_SCAN_IND;
+      adv_report->event_type = BTLE_REPORT_TYPE_ADV_SCAN_IND;
       break;
 
     case PACKET_TYPE_ADV_DIRECT_IND:
-      index = REPORT_ADV_INDEX;
       has_data = false;
-      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_DIRECT_IND;
+      adv_report->event_type = BTLE_REPORT_TYPE_ADV_DIRECT_IND;
       break;
 
     case PACKET_TYPE_ADV_NONCONN_IND:
-      index = REPORT_ADV_INDEX;
       has_data = true;
-      m_scanner.reports[index].report.event_type = BTLE_REPORT_TYPE_ADV_NONCONN_IND;
+      adv_report->event_type = BTLE_REPORT_TYPE_ADV_NONCONN_IND;
       
       break;
     
     case PACKET_TYPE_SCAN_RSP:
-      index = REPORT_RSP_INDEX;
       has_data = true;
-      m_scanner.reports[REPORT_RSP_INDEX].report.event_type = BTLE_REPORT_TYPE_SCAN_RSP;
+      adv_report->event_type = BTLE_REPORT_TYPE_SCAN_RSP;
       break;
     
     default:
       return;
   }
   
-  m_scanner.reports[index].valid_packets = m_packets_valid;
-  m_scanner.reports[index].invalid_packets = m_packets_invalid;
-  memcpy (m_scanner.reports[index].report.address, &pkt[3], BTLE_DEVICE_ADDRESS__SIZE);
-  m_scanner.reports[index].report.address_type = pkt[1] & 0x01 ? BTLE_ADDR_TYPE_RANDOM : BTLE_ADDR_TYPE_PUBLIC;
-  m_scanner.reports[index].report.length_data = pkt[2] & 0xFC;
-  m_scanner.reports[index].report.rssi = m_rssi;
+  report.valid_packets = m_packets_valid;
+  report.invalid_packets = m_packets_invalid;
+  memcpy (adv_report->address, &pkt[3], BTLE_DEVICE_ADDRESS__SIZE);
+  adv_report->address_type = pkt[1] & 0x01 ? BTLE_ADDR_TYPE_RANDOM : BTLE_ADDR_TYPE_PUBLIC;
+  adv_report->rssi = m_rssi;
   
   if (has_data)
   {
-    m_scanner.reports[index].report.length_data = (pkt[2] & 0xFC) - BTLE_DEVICE_ADDRESS__SIZE;
-    memcpy(m_scanner.reports[index].report.report_data, &pkt[9], BTLE_ADVERTISING_DATA__SIZE);
+    adv_report->length_data = (pkt[2] & 0xFC) - BTLE_DEVICE_ADDRESS__SIZE;
+    memcpy(adv_report->report_data, &pkt[9], BTLE_ADVERTISING_DATA__SIZE);
   }
+  
+  nrf_report_disp_dispatch (&report);
 }
 
 static void m_state_init_entry (void)

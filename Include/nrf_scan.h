@@ -37,11 +37,25 @@
 
 #include "btle.h"
 
+#include "nrf_report.h"
+#include "nrf_soc.h"
+
 #include <stdbool.h>
 
-btle_status_codes_t btle_scan_init (void);
-btle_status_codes_t btle_scan_ev_get (btle_event_t *p_ev);
+/* Initialize the timeslot scanner. The irq passed to the function will be triggered when
+ * an advertising report is ready.
+ */
+btle_status_codes_t btle_scan_init (IRQn_Type irq);
+
+/* Get the next pending event. It is recommended that this function is called in a loop
+ * in the event that more than one event is pending when an interrupt is triggered.
+ */
+btle_status_codes_t btle_scan_ev_get (nrf_report_t *p_ev);
+
+/* Set the parameters for the scanner */
 btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters_t param);
+
+/* Enable or disable scanning */
 btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param);
 
 #endif /* __SCANNER_H__ */
