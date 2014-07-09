@@ -1,10 +1,10 @@
 arm/_build
-arm/ble_beacon.uvgui.*
-arm/ble_beacon.uvgui_trsn.bak
-arm/ble_beacon.uvopt
-arm/ble_beacon_uvopt.bak
-arm/ble_beacon_uvproj.bak
-arm/ble_beacon_nRF51822.dep
+arm/nrf_observer.uvgui.*
+arm/nrf_observer.uvgui_trsn.bak
+arm/nrf_observer.uvopt
+arm/nrf_observer_uvopt.bak
+arm/nrf_observer_uvproj.bak
+arm/nrf_observer_nRF51822.dep
 arm/JLinkLog.*
 arm/JLinkSettings.*
 docs/
