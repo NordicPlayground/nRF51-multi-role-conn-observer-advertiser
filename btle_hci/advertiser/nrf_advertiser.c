@@ -103,7 +103,7 @@ static nrf_radio_signal_callback_return_param_t* radio_signal_callback(uint8_t s
 * callback to handle timeslot specific events. Should never be called, 
 * as the advertiser never is to go idle or shut down 
 */
-void tsa_sd_evt_handler(uint32_t event)
+void btle_hci_adv_sd_evt_handler(uint32_t event)
 {
 	DEBUG_PIN_SET(15);
 	uint8_t radio_state = NRF_RADIO->STATE;
@@ -148,14 +148,14 @@ void tsa_sd_evt_handler(uint32_t event)
 }
 
 
-void tsa_init(IRQn_Type tsa_evt_irq)
+void btle_hci_adv_init(IRQn_Type btle_hci_adv_evt_irq)
 {
-	ASSERT(tsa_evt_irq >= SWI0_IRQn && tsa_evt_irq <= SWI5_IRQn);
+	ASSERT(btle_hci_adv_evt_irq >= SWI0_IRQn && btle_hci_adv_evt_irq <= SWI5_IRQn);
 	
 	uint8_t error_code;	
 	
 	/* init event dispatcher */
-	nrf_report_disp_init(tsa_evt_irq);
+	nrf_report_disp_init(btle_hci_adv_evt_irq);
 	
 	/* init controller layer */
 	ctrl_init();
@@ -166,7 +166,7 @@ void tsa_init(IRQn_Type tsa_evt_irq)
 
 }
 
-bool tsa_report_get(nrf_report_t* evt)
+bool btle_hci_adv_report_get(nrf_report_t* evt)
 {
 	return (NRF_SUCCESS == nrf_report_disp_get(evt));
 }
@@ -202,7 +202,7 @@ void btle_hci_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data)
 	ctrl_adv_data_set(adv_data);
 }
 
-void tsa_scan_rsp_data_set(btle_cmd_param_le_write_scan_response_data_t* scan_rsp)
+void btle_hci_adv_scan_rsp_data_set(btle_cmd_param_le_write_scan_response_data_t* scan_rsp)
 {
 	ctrl_scan_data_set(scan_rsp);
 }

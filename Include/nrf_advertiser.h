@@ -47,20 +47,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * the advertiser generates, the selected IRQ flag will be set, and the user
 * may get events from the queue using tsa_evt_get().
 */
-void tsa_init(IRQn_Type tsa_evt_irq);
+void btle_hci_adv_init(IRQn_Type btle_hci_adv_evt_irq);
 	
 /**
 * Function for getting pending tsa reports. It is recommended to repeat this 
 * function until it returns false, as there may be more than one pending report
 * in the queue.
 */
-bool tsa_report_get(nrf_report_t* evt);
+bool btle_hci_adv_report_get(nrf_report_t* evt);
 															
 /**
 * Softdevice event handler for the timeslot advertiser. Takes any timeslot event generated
 * by Softdevice function sd_evt_get(). 
 */
-void tsa_sd_evt_handler(uint32_t event);
+void btle_hci_adv_sd_evt_handler(uint32_t event);
 
 
 
@@ -94,7 +94,7 @@ void btle_hci_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data)
 * This does not include any headers or address, as this is controlled internally. 
 * To set the advertisement address, use the btle_hci_adv_params_set() function.
 */
-void tsa_scan_rsp_data_set(btle_cmd_param_le_write_scan_response_data_t* scan_rsp);
+void btle_hci_adv_scan_rsp_data_set(btle_cmd_param_le_write_scan_response_data_t* scan_rsp);
 
 /**
 * Add a scanner to the device whitelist. If the whitelist filter is enabled, only

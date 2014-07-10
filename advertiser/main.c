@@ -140,7 +140,7 @@ static void ble_setup(void);
 static void ble_setup(void)
 {
 	/* we use software interrupt 0 */
-	tsa_init(SWI0_IRQn);
+	btle_hci_adv_init(SWI0_IRQn);
 	
 	btle_cmd_param_le_write_advertising_parameters_t adv_params;
 	
@@ -179,7 +179,7 @@ static void ble_setup(void)
 	memcpy((void*) &scan_rsp_data.response_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
 	scan_rsp_data.data_length = sizeof(ble_adv_data);
 	
-	tsa_scan_rsp_data_set(&scan_rsp_data);
+	btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
 	
 	/* all parameters are set up, enable advertisement */
 	btle_hci_adv_enable(BTLE_ADV_ENABLE);
@@ -196,7 +196,7 @@ void SD_EVT_IRQHandler(void)
 	
 	while(sd_evt_get(&evt) == NRF_SUCCESS)
 	{
-		tsa_sd_evt_handler(evt);
+		btle_hci_adv_sd_evt_handler(evt);
 	}
 	
 	while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
@@ -272,7 +272,7 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
 void SWI0_IRQHandler(void)
 {
 	nrf_report_t report;
-	while(tsa_report_get(&report))
+	while(btle_hci_adv_report_get(&report))
 	{
 		char buf[128];
 		switch (report.event.event_code)
