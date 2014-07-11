@@ -7,8 +7,8 @@ scannable advertiser concurrently with the SoftDevice.
 This project also contains an example to run a concurrent multi-protocol 
 observer concurrently with the Softdevice.
 
-The Timeslot advertiser accepts a subset of the HCI command interface to
-control various parameters of its behaviour.
+The Timeslot advertiser and scanner accept a subset of the HCI command interface to
+control various parameters of their behaviour.
 
 Scan Requests that arrive at the advertiser are also sent to the application.
 The scan requests are sent with the address, RSSI, channel and an experimental
@@ -23,7 +23,7 @@ The link quality is returned by the observer and by the scannable advertiser.
 S110 v7.0 production Softdevice
 nRF51 SDK v6.0
 
-Copy the projects in this github repot to the s110 folder in the nRF51 SDK
+Copy the folders in this github repo to the s110 folder in the nRF51 SDK
 
 ## Example code
 
@@ -31,7 +31,7 @@ The project contains an example of usage, where the Timeslot advertiser runs
 with an advertisement interval of 100ms, along with a SoftDevice powered
 connectable advertiser with an advertisement interval of 150ms. 
 
-## Timeslot advertiser: Interface
+## Timeslot Advertiser: Interface
 
 The timeslot advertiser interface is based on the Bluetooth standard HCI
 interface, but only implements a small subset of the functionality. All
@@ -134,3 +134,11 @@ function above.  Note that this function does not disable the filter
 functionality.
  
 ***
+
+## Timeslot Observer: Interface
+
+The timeslot Observer interface is also based on the Bluetooth standard HCI
+interface, but only implements a small subset of the functionality. All
+interface functions are found in the nrf_scan.h file under include/.
+
+The interface documenation for the Observer will be added in the next release.
