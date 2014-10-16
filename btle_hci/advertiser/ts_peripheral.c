@@ -201,14 +201,14 @@ __INLINE void periph_ppi_set(uint8_t ppi_ch, volatile uint32_t* task, volatile u
 	
 	NRF_PPI->CH[ppi_ch].EEP = (uint32_t) (event);
 	NRF_PPI->CH[ppi_ch].TEP = (uint32_t) (task);
-	NRF_PPI->CHENSET 			 |= (1 << ppi_ch);
+	NRF_PPI->CHENSET 	    = (1 << ppi_ch);
 }
 
 __INLINE void periph_ppi_clear(uint8_t ppi_ch)
 {
 	ASSERT(ppi_ch < 16u);
 	
-	NRF_PPI->CHENCLR |= (1 << ppi_ch);
+	NRF_PPI->CHENCLR = (1 << ppi_ch);
 }
 
 __INLINE void periph_gpiote_config(uint8_t gpiote_slot, uint8_t gpio_pin,

@@ -1,250 +1,250 @@
 Dependencies for Project 'nrf_advertiser', Target 'nRF51822': (DO NOT MODIFY !)
-F (..\main.c)(0x53BE4390)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\main.o --omf_browse .\_build\main.crf --depend .\_build\main.d)
-I (..\Include\nrf_adv_conn.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
+F (..\main.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\main.o --omf_browse .\_build\main.crf --depend .\_build\main.d)
+I (..\Include\nrf_adv_conn.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\boards.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\boards/pca10001.h)(0x53B3BDA1)
-I (..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\boards.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\boards/pca10001.h)(0x53B3BDA1)
+I (..\..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\s110\nrf_sdm.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_sdm.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error_sdm.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\app_common\app_error.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
-I (..\..\Include\nrf_advertiser.h)(0x53BE43C4)
-I (..\..\Include\btle.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error_sdm.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\app_common\app_error.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
+I (..\..\Include\nrf_advertiser.h)(0x543F8E91)
+I (..\..\Include\btle.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C819B4)
-F (..\nrf_adv_conn.c)(0x53BD54B8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_adv_conn.o --omf_browse .\_build\nrf_adv_conn.crf --depend .\_build\nrf_adv_conn.d)
-I (..\Include\nrf_adv_conn.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
+F (..\nrf_adv_conn.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_adv_conn.o --omf_browse .\_build\nrf_adv_conn.crf --depend .\_build\nrf_adv_conn.d)
+I (..\Include\nrf_adv_conn.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\ble\ble_advdata.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\ble\ble_advdata.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\app_common\app_util.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\app_common\app_util.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C819B4)
-F (..\..\..\..\..\..\Source\templates\arm\arm_startup_nrf51.s)(0x53B3BDA3)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include--list .\_build\arm_startup_nrf51.lst --xref -o .\_build\arm_startup_nrf51.o --depend .\_build\arm_startup_nrf51.d)
-F (..\..\..\..\..\..\Source\templates\system_nrf51.c)(0x53B3BDA3)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\system_nrf51.o --omf_browse .\_build\system_nrf51.crf --depend .\_build\system_nrf51.d)
+F (..\..\..\..\..\..\..\Source\templates\system_nrf51.c)(0x53B3BDA3)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\system_nrf51.o --omf_browse .\_build\system_nrf51.crf --depend .\_build\system_nrf51.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
-F (..\..\..\..\..\..\Source\simple_uart\simple_uart.c)(0x53B3BDA3)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\simple_uart.o --omf_browse .\_build\simple_uart.crf --depend .\_build\simple_uart.d)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+F (..\..\..\..\..\..\..\Source\templates\arm\arm_startup_nrf51.s)(0x53B3BDA3)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include--list .\_build\arm_startup_nrf51.lst --xref -o .\_build\arm_startup_nrf51.o --depend .\_build\arm_startup_nrf51.d)
+F (..\..\..\..\..\..\..\Source\simple_uart\simple_uart.c)(0x53B3BDA3)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\simple_uart.o --omf_browse .\_build\simple_uart.crf --depend .\_build\simple_uart.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\nrf_delay.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
-F (..\..\..\..\..\..\Source\ble\ble_advdata.c)(0x53B3BDA3)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ble_advdata.o --omf_browse .\_build\ble_advdata.crf --depend .\_build\ble_advdata.d)
-I (..\..\..\..\..\..\Include\ble\ble_advdata.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf_delay.h)(0x5404724A)
+I (..\..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
+F (..\..\..\..\..\..\..\Source\ble\ble_advdata.c)(0x53B3BDA3)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ble_advdata.o --omf_browse .\_build\ble_advdata.crf --depend .\_build\ble_advdata.d)
+I (..\..\..\..\..\..\..\Include\ble\ble_advdata.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\app_common\app_util.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nordic_common.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\ble\ble_services\ble_srv_common.h)(0x53B3BDA1)
-F (..\..\btle_hci\fifo\nrf_report_disp.c)(0x53BD54B8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_report_disp.o --omf_browse .\_build\nrf_report_disp.crf --depend .\_build\nrf_report_disp.d)
-I (..\..\btle_hci\fifo\Include\nrf_report_disp.h)(0x53BD54B8)
-I (..\..\Include\btle.h)(0x53BD54B8)
+I (..\..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\app_common\app_util.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nordic_common.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\ble\ble_services\ble_srv_common.h)(0x53B3BDA1)
+F (..\..\btle_hci\fifo\nrf_report_disp.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_report_disp.o --omf_browse .\_build\nrf_report_disp.crf --depend .\_build\nrf_report_disp.d)
+I (..\..\btle_hci\fifo\Include\nrf_report_disp.h)(0x543F8E91)
+I (..\..\Include\btle.h)(0x543F8E91)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
-I (..\..\btle_hci\fifo\Include\nrf_report_fifo.h)(0x53BD54B8)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+I (..\..\btle_hci\fifo\Include\nrf_report_fifo.h)(0x543F8E91)
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C819B4)
-F (..\..\btle_hci\fifo\nrf_report_fifo.c)(0x53BD54B8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_report_fifo.o --omf_browse .\_build\nrf_report_fifo.crf --depend .\_build\nrf_report_fifo.d)
-I (..\..\btle_hci\fifo\Include\nrf_report_fifo.h)(0x53BD54B8)
-I (..\..\Include\btle.h)(0x53BD54B8)
+F (..\..\btle_hci\fifo\nrf_report_fifo.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_report_fifo.o --omf_browse .\_build\nrf_report_fifo.crf --depend .\_build\nrf_report_fifo.d)
+I (..\..\btle_hci\fifo\Include\nrf_report_fifo.h)(0x543F8E91)
+I (..\..\Include\btle.h)(0x543F8E91)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\app_common/app_util.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\app_common/app_util.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C819B4)
-F (..\..\btle_hci\advertiser\nrf_advertiser.c)(0x53BE4390)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_advertiser.o --omf_browse .\_build\nrf_advertiser.crf --depend .\_build\nrf_advertiser.d)
-I (..\..\Include\nrf_advertiser.h)(0x53BE43C4)
+F (..\..\btle_hci\advertiser\nrf_advertiser.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\nrf_advertiser.o --omf_browse .\_build\nrf_advertiser.crf --depend .\_build\nrf_advertiser.d)
+I (..\..\Include\nrf_advertiser.h)(0x543F8E91)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
-I (..\..\Include\btle.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\app_common\app_error.h)(0x53B3BDA0)
-I (..\..\btle_hci\advertiser\Include\ts_controller.h)(0x53BD54B8)
-I (..\..\btle_hci\advertiser\Include\ts_whitelist.h)(0x53BD54B8)
-I (..\..\btle_hci\advertiser\Include\ts_peripheral.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
-I (..\..\btle_hci\fifo\Include\nrf_report_disp.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\boards.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\boards/pca10001.h)(0x53B3BDA1)
-I (..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\s110\nrf_sdm.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error_sdm.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
-I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C819B4)
-I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C819B4)
-F (..\..\btle_hci\advertiser\ts_controller.c)(0x53BD54B8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_controller.o --omf_browse .\_build\ts_controller.crf --depend .\_build\ts_controller.d)
-I (..\..\btle_hci\advertiser\Include\ts_controller.h)(0x53BD54B8)
-I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
-I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
-I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
-I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
-I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
-I (..\..\Include\btle.h)(0x53BD54B8)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+I (..\..\Include\btle.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\app_common\app_error.h)(0x53B3BDA0)
+I (..\..\btle_hci\advertiser\Include\ts_controller.h)(0x543F8E91)
+I (..\..\btle_hci\advertiser\Include\ts_whitelist.h)(0x543F8E91)
+I (..\..\btle_hci\advertiser\Include\ts_peripheral.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+I (..\..\btle_hci\fifo\Include\nrf_report_disp.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\boards.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\boards/pca10001.h)(0x53B3BDA1)
+I (..\..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_sdm.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error_sdm.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_ranges.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_types.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_l2cap.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_err.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatt.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gattc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\ble_gatts.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C819B4)
-I (..\..\btle_hci\advertiser\Include\ts_rng.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\boards.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\boards/pca10001.h)(0x53B3BDA1)
-I (..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\app_common\app_error.h)(0x53B3BDA0)
-I (..\..\btle_hci\advertiser\Include\ts_peripheral.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
-I (..\..\Include\nrf_advertiser.h)(0x53BE43C4)
-I (..\..\btle_hci\fifo\Include\nrf_report_disp.h)(0x53BD54B8)
-I (..\..\btle_hci\advertiser\Include\ts_whitelist.h)(0x53BD54B8)
-F (..\..\btle_hci\advertiser\ts_peripheral.c)(0x53BD54B8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_peripheral.o --omf_browse .\_build\ts_peripheral.crf --depend .\_build\ts_peripheral.d)
+F (..\..\btle_hci\advertiser\ts_controller.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_controller.o --omf_browse .\_build\ts_controller.crf --depend .\_build\ts_controller.d)
+I (..\..\btle_hci\advertiser\Include\ts_controller.h)(0x543F8E91)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
+I (..\..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+I (..\..\Include\btle.h)(0x543F8E91)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C819B4)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C819B4)
+I (..\..\btle_hci\advertiser\Include\ts_rng.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\boards.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\boards/pca10001.h)(0x53B3BDA1)
+I (..\..\..\..\..\..\..\Include\simple_uart.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\app_common\app_error.h)(0x53B3BDA0)
+I (..\..\btle_hci\advertiser\Include\ts_peripheral.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+I (..\..\Include\nrf_advertiser.h)(0x543F8E91)
+I (..\..\btle_hci\fifo\Include\nrf_report_disp.h)(0x543F8E91)
+I (..\..\btle_hci\advertiser\Include\ts_whitelist.h)(0x543F8E91)
+F (..\..\btle_hci\advertiser\ts_peripheral.c)(0x543F917C)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_peripheral.o --omf_browse .\_build\ts_peripheral.crf --depend .\_build\ts_peripheral.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\nrf_delay.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf_delay.h)(0x5404724A)
+I (..\..\..\..\..\..\..\Include\nrf.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
-I (..\..\btle_hci\advertiser\Include\ts_adv_packet.h)(0x53BD54B8)
-I (..\..\btle_hci\advertiser\Include\ts_peripheral.h)(0x53BD54B8)
-I (..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
-F (..\..\btle_hci\advertiser\ts_rng.c)(0x53BD54B8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_rng.o --omf_browse .\_build\ts_rng.crf --depend .\_build\ts_rng.d)
-I (..\..\btle_hci\advertiser\Include\ts_rng.h)(0x53BD54B8)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_deprecated.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\compiler_abstraction.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
+I (..\..\btle_hci\advertiser\Include\ts_adv_packet.h)(0x543F8E91)
+I (..\..\btle_hci\advertiser\Include\ts_peripheral.h)(0x543F8E91)
+I (..\..\..\..\..\..\..\Include\nrf_assert.h)(0x53B3BDA0)
+F (..\..\btle_hci\advertiser\ts_rng.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_rng.o --omf_browse .\_build\ts_rng.crf --depend .\_build\ts_rng.d)
+I (..\..\btle_hci\advertiser\Include\ts_rng.h)(0x543F8E91)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf_gpio.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51.h)(0x53B3BDA0)
 I (C:\Keil\ARM\CMSIS\Include\core_cm0.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C5A32)
 I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C5A32)
-I (..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
-I (..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\system_nrf51.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\nrf51_bitfields.h)(0x53B3BDA0)
+I (..\..\..\..\..\..\..\Include\s110\nrf_soc.h)(0x53B3BDA2)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
-I (..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
-I (..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
-F (..\..\btle_hci\advertiser\ts_whitelist.c)(0x53BD54B8)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\Include -I..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_whitelist.o --omf_browse .\_build\ts_whitelist.crf --depend .\_build\ts_whitelist.d)
-I (..\..\btle_hci\advertiser\Include\ts_whitelist.h)(0x53BD54B8)
-I (..\..\Include\btle.h)(0x53BD54B8)
+I (..\..\..\..\..\..\..\Include\s110\nrf_svc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error_soc.h)(0x53B3BDA2)
+I (..\..\..\..\..\..\..\Include\s110\nrf_error.h)(0x53B3BDA2)
+F (..\..\btle_hci\advertiser\ts_whitelist.c)(0x543F8E91)(-c --cpu Cortex-M0 -D__EVAL --li -g -O0 --apcs=interwork -I..\Include -I..\..\Include -I..\..\btle_hci\Include -I..\..\btle_hci\fifo\Include -I..\..\btle_hci\advertiser\Include -I..\..\..\..\..\..\..\Include -I..\..\..\..\..\..\..\Include\app_common -I..\..\..\..\..\..\..\Include\ble -I..\..\..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\..\..\Include\s110 --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DBOARD_PCA10001 -DSETUPA -DDEBUG_NRF-o .\_build\ts_whitelist.o --omf_browse .\_build\ts_whitelist.crf --depend .\_build\ts_whitelist.d)
+I (..\..\btle_hci\advertiser\Include\ts_whitelist.h)(0x543F8E91)
+I (..\..\Include\btle.h)(0x543F8E91)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C819B4)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C819B4)
