@@ -1,0 +1,9 @@
+**/_build
+**/*.uvgui.*
+**/*.uvguix.*
+**/*.uvgui_trsn.bak
+**/*.uvoptx
+**/*.bak
+**/*.dep
+**/JLinkLog.*
+**/JLinkSettings.*
