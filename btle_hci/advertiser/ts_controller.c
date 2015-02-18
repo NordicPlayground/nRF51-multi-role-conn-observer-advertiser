@@ -72,7 +72,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /* Buffer for advertisement data */
-static uint8_t ble_adv_data[BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
+static uint8_t ble_adv_data[BLE_ADDR_OFFSET + BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
 
 #if TS_SEND_SCAN_RSP
 /* Buffer for scan response data, only available in scan request/response mode,
@@ -82,6 +82,12 @@ static uint8_t ble_scan_rsp_data[BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
 /* Buffer for any message receiving, only available in scan request/response mode,
 * see define at top */
 static uint8_t ble_rx_buf[BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
+
+/* Packet counter */
+static uint16_t packet_count_valid;
+
+/* Faulty packets counter */
+static uint16_t packet_count_invalid;
 #endif
 
 /* Store the radio channel */
@@ -111,11 +117,6 @@ static uint8_t rng_pool[255];
 /* A pointer into our pool. Will wrap around upon overflow */
 static uint8_t pool_index = 0;
 
-/* Packet counter */
-static uint16_t packet_count_valid;
-
-/* Faulty packets counter */
-static uint16_t packet_count_invalid;
 
 /*****************************************************************************
 * Globals
@@ -160,7 +161,21 @@ static __INLINE void channel_iterate(void)
 {
 	while (((channel_map & (1 << (++channel - 37))) == 0) && channel < 40);	
 }
+
+/**
+* Send initial time slot request to API. 
+*/
+static __INLINE void timeslot_req_initial(void)
+{	
+	DEBUG_PIN_POKE(7);
+	/* send to sd: */
+	uint8_t error_code = sd_radio_request(&g_timeslot_req_earliest);
+	APP_ERROR_CHECK(error_code);
+}
+
 			
+#if TS_SEND_SCAN_RSP
+
 /**
 * Extract the scanner address from the rx buffer
 */
@@ -176,7 +191,6 @@ static __INLINE void scan_addr_get(btle_address_type_t *addr_type, uint8_t* addr
 */
 static __INLINE void scan_req_evt_dispatch(void)
 {
-#if 1
 	/* prepare scan req report */
 	nrf_report_t scan_req_report;
 	
@@ -196,22 +210,7 @@ static __INLINE void scan_req_evt_dispatch(void)
 	
 	/* send scan req event to user space */
 	nrf_report_disp_dispatch(&scan_req_report);
-#endif
 }
-
-
-
-/**
-* Send initial time slot request to API. 
-*/
-static __INLINE void timeslot_req_initial(void)
-{	
-	DEBUG_PIN_POKE(7);
-	/* send to sd: */
-	uint8_t error_code = sd_radio_request(&g_timeslot_req_earliest);
-	APP_ERROR_CHECK(error_code);
-}
-
 
 /**
 * Short check to verify that the incomming 
@@ -245,6 +244,10 @@ static bool is_scan_req_for_me(void)
 	
 	return true;
 }
+
+#endif
+
+
 
 /**
 * Request a new timeslot for the next advertisement event
@@ -297,9 +300,14 @@ static void sm_enter_adv_send(void)
 	
 	periph_radio_packet_ptr_set(&ble_adv_data[0]);
 	
+#if TS_SEND_SCAN_RSP
 	periph_radio_shorts_set(	RADIO_SHORTS_READY_START_Msk | 
 														RADIO_SHORTS_END_DISABLE_Msk |
 														RADIO_SHORTS_DISABLED_RXEN_Msk);
+#else
+	periph_radio_shorts_set(	RADIO_SHORTS_READY_START_Msk | 
+														RADIO_SHORTS_END_DISABLE_Msk);
+#endif    
 	
 	periph_radio_intenset(RADIO_INTENSET_DISABLED_Msk);
 }
@@ -315,6 +323,7 @@ static void sm_exit_adv_send(void)
 /******************************************
 * Functions for start/end of SCAN_REQ_RSP
 ******************************************/
+#if TS_SEND_SCAN_RSP
 static void sm_enter_scan_req_rsp(void)
 {
 	sm_state = STATE_SCAN_REQ_RSP;
@@ -344,6 +353,7 @@ static void sm_exit_scan_req_rsp(void)
 	PERIPHERAL_EVENT_CLR(NRF_RADIO->EVENTS_DISABLED);
 	periph_ppi_clear(0);
 }
+#endif
 
 /*****************************************
 * Functions for start/end of WAIT_FOR_IDLE
@@ -358,6 +368,7 @@ static void sm_enter_wait_for_idle(bool req_rx_accepted)
 	received a scan request or not */
 	if (req_rx_accepted)
 	{
+#if TS_SEND_SCAN_RSP		
 		/* need to answer request, set scan_rsp packet and 
 		let radio continue to send */
 		periph_radio_packet_ptr_set(&ble_scan_rsp_data[0]);
@@ -368,6 +379,7 @@ static void sm_enter_wait_for_idle(bool req_rx_accepted)
 		
 		/* send scan req to user space */
 		scan_req_evt_dispatch();
+#endif		
 	}
 	else
 	{
@@ -400,17 +412,25 @@ void ctrl_init(void)
 	
 	/* erase package buffers */
 	memset(&ble_adv_data[0], 0, 40);
+#if TS_SEND_SCAN_RSP	
 	memset(&ble_scan_rsp_data[0], 0, 40);
+#endif 
 	
+#if TS_SEND_SCAN_RSP	
 	/* set message type to ADV_IND_DISC, RANDOM in type byte of adv data */
 	ble_adv_data[BLE_TYPE_OFFSET] = 0x46;
-
 	/* set message type to SCAN_RSP, RANDOM in type byte of scan rsp data */
 	ble_scan_rsp_data[BLE_TYPE_OFFSET] = 0x44;
+#else
+	/* set message type to ADV_IND_NONCONN, RANDOM in type byte of adv data */
+	ble_adv_data[BLE_TYPE_OFFSET] = 0x42;
+#endif
 	
 	/* set message length to only address */
 	ble_adv_data[BLE_SIZE_OFFSET] 			= 0x06;
+#if TS_SEND_SCAN_RSP
 	ble_scan_rsp_data[BLE_SIZE_OFFSET] 	= 0x06;
+#endif	
 	
 	/* generate rng sequence */
 	adv_rng_init(rng_pool);
@@ -447,10 +467,11 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						sm_enter_scan_req_rsp();
 #else 
 						sm_enter_wait_for_idle(false);
+						PERIPHERAL_TASK_TRIGGER(NRF_RADIO->TASKS_DISABLE);
 #endif
 					}
 					break;
-					
+#if TS_SEND_SCAN_RSP					
 				case STATE_SCAN_REQ_RSP:
 					if (RADIO_EVENT(EVENTS_DISABLED))
 					{
@@ -460,7 +481,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						sm_enter_wait_for_idle(is_scan_req_for_me());
 					}
 					break;
-					
+#endif
 				case STATE_WAIT_FOR_IDLE:
 					if (RADIO_EVENT(EVENTS_DISABLED))
 					{
@@ -486,9 +507,11 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 				}
 		}
 			break;
+		
+#if TS_SEND_SCAN_RSP		
 		case NRF_RADIO_CALLBACK_SIGNAL_TYPE_TIMER0:
 			DEBUG_PIN_POKE(5);
-			
+
 			sm_exit_scan_req_rsp();
 		
 			/* go to wait for idle, no packet was accepted */
@@ -497,6 +520,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 			PERIPHERAL_TASK_TRIGGER(NRF_RADIO->TASKS_DISABLE);
 		
 			break;
+#endif		
 		
 		default:
 			/* shouldn't happen in this advertiser. */
@@ -534,21 +558,25 @@ bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_pa
 	memcpy((void*) &ble_adv_data[BLE_ADDR_OFFSET], 
 					(void*) &adv_params->direct_address[0], BLE_ADDR_LEN);
 	
-	
+#if TS_SEND_SCAN_RSP
 	/* put address into scan response packet buffer */
 	memcpy((void*) &ble_scan_rsp_data[BLE_ADDR_OFFSET], 
 					(void*) &adv_params->direct_address[0], BLE_ADDR_LEN);
-	
+#endif
 	/* address type */
 	if (BTLE_ADDR_TYPE_PUBLIC == adv_params->own_address_type)
 	{
 		ble_adv_data[BLE_TYPE_OFFSET] 			&= ~(1 << BLE_TXADD_OFFSET);
+#if TS_SEND_SCAN_RSP		
 		ble_scan_rsp_data[BLE_TYPE_OFFSET] 	&= ~(1 << BLE_TXADD_OFFSET);
+#endif		
 	}
 	else /* address type is private */
 	{
 		ble_adv_data[BLE_TYPE_OFFSET] 			|= (1 << BLE_TXADD_OFFSET);
+#if TS_SEND_SCAN_RSP		
 		ble_scan_rsp_data[BLE_TYPE_OFFSET] 	|= (1 << BLE_TXADD_OFFSET);
+#endif		
 	}
 	
 	/* whitelist */
@@ -566,6 +594,7 @@ bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_pa
 	adv_int_min = adv_params->interval_min;
 	adv_int_max = adv_params->interval_max;
 	
+#if TS_SEND_SCAN_RSP	
 	/* adv type */
 	ble_adv_data[BLE_TYPE_OFFSET] &= ~BLE_TYPE_MASK;
 	ble_adv_data[BLE_TYPE_OFFSET] |= (ble_adv_type_raw[adv_params->type] & BLE_TYPE_MASK);
@@ -573,7 +602,11 @@ bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_pa
 	/* scan rsp type */
 	ble_scan_rsp_data[BLE_TYPE_OFFSET] &= ~BLE_TYPE_MASK;
 	ble_scan_rsp_data[BLE_TYPE_OFFSET] |= 0x04;
-	
+#else
+	/* adv type is locked to nonconn */
+	ble_adv_data[BLE_TYPE_OFFSET] &= ~BLE_TYPE_MASK;
+	ble_adv_data[BLE_TYPE_OFFSET] |= (ble_adv_type_raw[BTLE_ADV_TYPE_NONCONN_IND] & BLE_TYPE_MASK);
+#endif
 	return true;
 }
 
@@ -610,6 +643,7 @@ bool ctrl_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data)
 
 bool ctrl_scan_data_set(btle_cmd_param_le_write_scan_response_data_t* data)
 {
+#if TS_SEND_SCAN_RSP	
 	ASSERT(data != NULL);
 	
 	/* length cannot exceed 31 bytes */
@@ -624,6 +658,7 @@ bool ctrl_scan_data_set(btle_cmd_param_le_write_scan_response_data_t* data)
 	/* set length of packet in length byte. Account for 3 header bytes
 	* and 6 address bytes */
 	ble_scan_rsp_data[BLE_SIZE_OFFSET] = (BLE_ADDR_LEN + len);
+#endif	
 	
 	return true;
 }
