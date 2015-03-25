@@ -126,6 +126,8 @@ static uint8_t m_tx_buf[] =
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // AdvAddr LSByte first
 };
 
+static uint8_t channel = 37;
+
 /*****************************************************************************
 * Static Function prototypes
 *****************************************************************************/
@@ -169,7 +171,7 @@ static void m_state_receive_scan_rsp_exit (void);
 
 static void m_adv_report_generate (uint8_t * const pkt)
 {
-  bool has_data;
+  bool has_data = false;
   nrf_report_t report;
   btle_ev_param_le_advertising_report_t *adv_report = &report.event.params.le_advertising_report_event;
   
@@ -529,7 +531,10 @@ btle_status_codes_t ll_scan_start (void)
 
   m_state_idle_exit ();
   
-  radio_init (39);
+  if(channel == 40)
+	  channel = 37;
+  
+  radio_init (channel++);
   radio_rx_timeout_init ();
   
   m_state_receive_adv_entry ();
