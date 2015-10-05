@@ -40,7 +40,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ts_rng.h"
 #include "nrf_gpio.h"
 #include "boards.h"
-#include "simple_uart.h"
 #include "nrf_assert.h"
 #include "app_error.h"	
 

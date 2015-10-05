@@ -35,7 +35,7 @@
 #include "nrf_report_fifo.h"
 
 #include "btle.h"
-#include "app_common/app_util.h"
+#include "app_util.h"
 
 #include <string.h>
 

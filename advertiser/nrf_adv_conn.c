@@ -60,23 +60,22 @@ static uint8_t ble_adv_man_data[] = {0x01 /* PDU_ID */, 0xA0, 0xA1, 0xA2, 0xA3};
 
 /* BLE advertisement parameters */
 static ble_gap_adv_params_t ble_adv_params = {
-  BLE_GAP_ADV_TYPE_ADV_IND,  /* Use ADV_IND advertisements */
-  NULL,                      /* Not used for this type of advertisement */
-  BLE_GAP_ADV_FP_ANY,        /* Don't filter */
-  NULL,                      /* Whitelist not in use */
-  BLE_ADV_INTERVAL_150MS,    /* Advertising interval set to intentionally disrupt the timeslot example */
-  0                          /* Timeout in seconds */
+  .type = BLE_GAP_ADV_TYPE_ADV_IND,      /* Use ADV_IND advertisements */
+  .p_peer_addr = NULL,                   /* Not used for this type of advertisement */
+  .fp = BLE_GAP_ADV_FP_ANY,              /* Don't filter */
+  .p_whitelist = NULL,                   /* Whitelist not in use */
+  .interval    = BLE_ADV_INTERVAL_150MS, /* Advertising interval set to intentionally disrupt the timeslot example */
+  .timeout     = 0                       /* Timeout in seconds */
 };
 
 static ble_advdata_t ble_adv_data;
 static ble_gap_sec_params_t ble_gap_bond_params = {
-  30,                     /* Timeout in seconds */
-  0,                      /* Don't perform bonding */
-  0,                      /* Man-in-the-middle protection not required */
-  BLE_GAP_IO_CAPS_NONE,   /* No I/O capabilities */
-  0,                      /* Out-of-band data not available */
-  7,                      /* Minimum encryption key size */
-  16                      /* Maximum encryption key size */
+  .bond    = 0,                           /* Don't perform bonding */
+  .mitm    = 0,                           /* Man-in-the-middle protection not required */
+  .io_caps = BLE_GAP_IO_CAPS_NONE,        /* No I/O capabilities */
+  .oob     = 0,                           /* Out-of-band data not available */
+  .min_key_size = 7,                      /* Minimum encryption key size */
+  .max_key_size = 16                      /* Maximum encryption key size */
 };
 
 /*****************************************************************************
@@ -91,7 +90,7 @@ static void ble_gatts_event_handler(ble_evt_t* evt)
       break;
 
     case BLE_GATTS_EVT_SYS_ATTR_MISSING:
-      sd_ble_gatts_sys_attr_set(evt->evt.gatts_evt.conn_handle, NULL, 0);
+      sd_ble_gatts_sys_attr_set(evt->evt.gatts_evt.conn_handle, NULL, 0, 0);
       break;
 
     case BLE_GATTS_EVT_WRITE:
@@ -115,7 +114,7 @@ static void ble_gap_event_handler(ble_evt_t* evt)
     
     case BLE_GAP_EVT_SEC_PARAMS_REQUEST:
       sd_ble_gap_sec_params_reply(evt->evt.gap_evt.conn_handle,
-        BLE_GAP_SEC_STATUS_SUCCESS, &ble_gap_bond_params);
+        BLE_GAP_SEC_STATUS_SUCCESS, &ble_gap_bond_params, NULL);
       break;
     
     case BLE_GAP_EVT_CONN_SEC_UPDATE:
@@ -147,7 +146,6 @@ void nrf_adv_conn_init(void)
   ASSERT(error_code == NRF_SUCCESS);
 
   /* Fill advertisement data struct: */
-  uint8_t flags = BLE_GAP_ADV_FLAG_BR_EDR_NOT_SUPPORTED;
   ble_advdata_manuf_data_t man_data;
   man_data.company_identifier = 0x004C;
   man_data.data.p_data        = &ble_adv_man_data[0];
@@ -155,8 +153,7 @@ void nrf_adv_conn_init(void)
 
   memset(&ble_adv_data, 0, sizeof(ble_adv_data));
 
-  ble_adv_data.flags.size = 1;
-  ble_adv_data.flags.p_data = &flags;
+  ble_adv_data.flags = BLE_GAP_ADV_FLAG_BR_EDR_NOT_SUPPORTED;
   ble_adv_data.name_type    = BLE_ADVDATA_FULL_NAME;
   ble_adv_data.p_manuf_specific_data = &man_data;
 

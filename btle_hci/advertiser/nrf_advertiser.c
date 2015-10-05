@@ -48,7 +48,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ble.h"
 #include "nrf_assert.h"
 #include "app_error.h"	
-#include "simple_uart.h"
 
 #include <stdbool.h>
 #include <string.h>
@@ -106,7 +105,6 @@ static nrf_radio_signal_callback_return_param_t* radio_signal_callback(uint8_t s
 void btle_hci_adv_sd_evt_handler(uint32_t event)
 {
 	DEBUG_PIN_SET(15);
-	uint8_t radio_state = NRF_RADIO->STATE;
 	switch (event)
 	{
 		case NRF_EVT_RADIO_SESSION_IDLE:
