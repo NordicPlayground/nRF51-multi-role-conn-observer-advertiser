@@ -1,11 +1,11 @@
 # TIMESLOT ADVERTISER - OBSERVER
 
-This project utilizes the Concurrent Multi-protocol Timeslot API in the Nordic
-Semiconductor S110 v7.0 SoftDevice for the   nRF51-series micro-controllers to run a
+This project utilizes the Concurrent Multi-protocol Timeslot API in Nordic
+Semiconductor's S110 v8.0 SoftDevice for the  nRF51-series micro-controllers to run a
 scannable advertiser concurrently with the SoftDevice.
 
-This project also contains an example to run a concurrent multi-protocol 
-observer concurrently with the Softdevice.
+This project also contains an example of how to run a concurrent multi-protocol 
+observer concurrently with the SoftDevice.
 
 The Timeslot advertiser and scanner accept a subset of the HCI command interface to
 control various parameters of their behaviour.
@@ -20,10 +20,10 @@ This allows the application to have some awareness of the link quality.
 The link quality is returned by the observer and by the scannable advertiser.
 
 ## Required Software
-S110 v7.0 production Softdevice
-nRF51 SDK v6.0
+S110 v8.0 production SoftDevice
+nRF51 SDK v9.0
 
-Copy the folders in this github repo to the s110 folder in the nRF51 SDK
+Clone this GitHub repository to the examples/ folder in the nRF51 SDK.
 
 ## Example code
 
