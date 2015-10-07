@@ -128,8 +128,13 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
   
   sprintf(&buf[0], "ERROR: 0x%X, line: %d, file: %s\n", error_code, line_num, p_file_name); 
   uart_putstring((uint8_t* ) buf);
+#if defined(BOARD_PCA10028)
   nrf_gpio_pin_clear(LED_1);
   nrf_gpio_pin_clear(LED_2);
+#elif defined(BOARD_PCA10031)
+  nrf_gpio_pin_clear(LED_RGB_BLUE);
+#endif
+
   while(1);
 }
 
@@ -277,14 +282,10 @@ int main(void)
   uart_putstring((uint8_t*) &start_msg[0]);
 
   nrf_gpio_range_cfg_output(0, 30);
-#if defined(BOARD_PCA10028)
-  nrf_gpio_pin_set(LED_1);
-  nrf_gpio_pin_set(LED_2);
-  nrf_gpio_pin_set(LED_3);
-  nrf_gpio_pin_set(LED_4);
-#endif
+  for(int i = LED_START; i <= LED_STOP; ++i)
+    nrf_gpio_pin_set(i);
  
-    uint32_t error_code = sd_softdevice_enable((uint32_t)NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
+  uint32_t error_code = sd_softdevice_enable((uint32_t)NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
   APP_ERROR_CHECK(error_code);
  
  
@@ -310,8 +311,11 @@ void sd_assert_cb (uint32_t pc, uint16_t line_num, const uint8_t *file_name)
   memset ((void*)g_sd_assert_file_name, 0x00, sizeof(g_sd_assert_file_name));
   (void) strncpy ((char*) g_sd_assert_file_name, (const char*) file_name, sizeof(g_sd_assert_file_name) - 1);
 
+#if defined(BOARD_PCA10028)
   nrf_gpio_pin_clear(LED_1);
-  
+#elif defined(BOARD_PCA10031)
+  nrf_gpio_pin_clear(LED_RGB_RED);
+#endif 
    __LOG("%s: SOFTDEVICE ASSERT: line = %d file = %s", __FUNCTION__, g_sd_assert_line_num, g_sd_assert_file_name);
 
   while(1);
@@ -323,7 +327,11 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
   memset((void*)g_nrf_assert_file_name, 0x00, sizeof (g_nrf_assert_file_name));
   (void) strncpy ((char*) g_nrf_assert_file_name, (const char*) file_name, sizeof (g_nrf_assert_file_name) - 1);
 
+#if defined(BOARD_PCA10028)
   nrf_gpio_pin_clear(LED_2);
+#elif defined(BOARD_PCA10031)
+  nrf_gpio_pin_clear(LED_RGB_GREEN);
+#endif
 
    __LOG("%s: NRF ASSERT: line = %d file = %s", __FUNCTION__, g_nrf_assert_line_num, g_nrf_assert_file_name);
 
