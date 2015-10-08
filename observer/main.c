@@ -46,7 +46,8 @@
 #include "nrf_delay.h"
 #include "nrf_gpio.h"
 #include "nrf_sdm.h"
-#include "simple_uart.h"
+#include "nrf_delay.h"
+#include "app_uart.h"
 
 #include <stdarg.h>
 #include <stdbool.h>
@@ -54,6 +55,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define UART_RX_BUF_SIZE        2
+#define UART_TX_BUF_SIZE        256
 
 /*****************************************************************************
 * Local definitions
@@ -98,7 +102,7 @@ static uint32_t g_evt;
 
 /**@brief Global variables for the scanner
  */
- 
+
 /* These are the parameters for the scanner running in the timeslot */
 static btle_cmd_param_le_write_scan_parameters_t scan_param = {
   BTLE_SCAN_TYPE_ACTIVE,          /* Active scanning. SCAN_REQ packets may be sent */
@@ -127,23 +131,49 @@ static void sd_assert_cb(uint32_t pc, uint16_t line_num, const uint8_t *file_nam
  */
 static void test_logf(const char *fmt, ...);
 
+static void initialize_uart(void);
+void simple_uart_putstring(const uint8_t * str);
+
+void uart_error_handle(app_uart_evt_t * p_event)
+{
+  switch (p_event->evt_type)
+  {
+  case APP_UART_DATA_READY:
+    break;
+  case APP_UART_FIFO_ERROR:
+    break;
+  case APP_UART_COMMUNICATION_ERROR:
+    break;
+  case APP_UART_TX_EMPTY:
+    break;
+  case APP_UART_DATA:
+    break;
+  default:
+    break;
+  }
+  return;
+}
+
 int main(void)
 {
   uint8_t err_code = NRF_SUCCESS;
   nrf_report_t report;
   btle_status_codes_t btle_err_code = BTLE_STATUS_CODE_SUCCESS;
-  
+
   /* Silence the compiler */
   (void) g_sd_assert_pc;
   (void) g_evt;
-  
-  nrf_gpio_cfg_output (LED_0);
-  nrf_gpio_cfg_output (LED_1);
+  (void) err_code;
+  (void) btle_err_code;
+
+  nrf_gpio_cfg_output (BSP_LED_0);
+  nrf_gpio_cfg_output (BSP_LED_1);
   nrf_gpio_range_cfg_output (0, 7);
 
-  nrf_gpio_pin_set (LED_0);
+  nrf_gpio_pin_set (BSP_LED_0);
 
-  simple_uart_config (RTS_PIN_NUMBER, TX_PIN_NUMBER, CTS_PIN_NUMBER, RX_PIN_NUMBER, HWFC);
+  /* Setup UART */
+  initialize_uart();
 
   __LOG("Program init", __FUNCTION__);
 
@@ -159,17 +189,17 @@ int main(void)
 
   err_code = sd_nvic_EnableIRQ(SWI0_IRQn);
   ASSERT (err_code == NRF_SUCCESS);
-  
+
   __LOG ("Interrupts enabled");
-  
+
   btle_err_code = btle_scan_init (SWI0_IRQn);
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner initialized");
-  
+
   btle_err_code = btle_scan_param_set (scan_param);
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner parameters set");
-  
+
   btle_err_code = btle_scan_enable_set (scan_enable);
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner enabled");
@@ -192,9 +222,9 @@ int main(void)
           report.event.params.le_advertising_report_event.address[0],
           report.event.params.le_advertising_report_event.rssi);
       }
-      
+
       __LOG("Done");
-      
+
       sw_interrupt = false;
     }
   }
@@ -208,8 +238,8 @@ void sd_assert_cb (uint32_t pc, uint16_t line_num, const uint8_t *file_name)
   memset ((void*)g_sd_assert_file_name, 0x00, sizeof(g_sd_assert_file_name));
   (void) strncpy ((char*) g_sd_assert_file_name, (const char*) file_name, sizeof(g_sd_assert_file_name) - 1);
 
-  nrf_gpio_pin_set(LED_0);
-  
+  nrf_gpio_pin_set(BSP_LED_0);
+
    __LOG("%s: SOFTDEVICE ASSERT: line = %d file = %s", __FUNCTION__, g_sd_assert_line_num, g_sd_assert_file_name);
 
   while(1);
@@ -221,8 +251,8 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
   memset((void*)g_nrf_assert_file_name, 0x00, sizeof (g_nrf_assert_file_name));
   (void) strncpy ((char*) g_nrf_assert_file_name, (const char*) file_name, sizeof (g_nrf_assert_file_name) - 1);
 
-  nrf_gpio_pin_set(LED_1);
-  
+  nrf_gpio_pin_set(BSP_LED_1);
+
    __LOG("%s: NRF ASSERT: line = %d file = %s", __FUNCTION__, g_nrf_assert_line_num, g_nrf_assert_file_name);
 
   while (1);
@@ -236,7 +266,7 @@ void SD_EVT_IRQHandler (void)
   uint32_t evt;
   ble_evt_t ble_evt;
   uint16_t len;
-  
+
   while (sd_evt_get(&evt) == NRF_SUCCESS)
   {
     g_evt = evt;
@@ -251,7 +281,7 @@ void SD_EVT_IRQHandler (void)
 
       case NRF_EVT_RADIO_SESSION_CLOSED:
         break;
-      
+
       case NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN:
         ASSERT(false);
         break;
@@ -266,7 +296,7 @@ void SD_EVT_IRQHandler (void)
         ASSERT(false);
     }
   }
-  
+
   while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
   {
     nrf_adv_conn_evt_handler(&ble_evt);
@@ -287,14 +317,55 @@ void test_logf(const char *fmt, ...)
 {
   int16_t res = 0;
   static uint8_t buf[150];
-  
+
   va_list args;
   va_start(args, fmt);
-  
+
   res = vsnprintf((char*) buf, sizeof(buf), fmt,  args);
   ASSERT(res >= 0 && res <= (sizeof buf) - 1);
 
   simple_uart_putstring(buf);
-  
+
   va_end(args);
+}
+
+void simple_uart_putstring(const uint8_t * str)
+{
+  uint_fast8_t i  = 0;
+  uint8_t      ch = str[i++];
+  while (ch != '\0')
+  {
+    while(NRF_SUCCESS != app_uart_put(ch));
+    ch = str[i++];
+  }
+}
+
+/**@ Initialize UART
+ */
+static void initialize_uart(void)
+{
+  int status = NRF_SUCCESS;
+  const app_uart_comm_params_t uart_params = {
+    .rx_pin_no    = RX_PIN_NUMBER,
+    .tx_pin_no    = TX_PIN_NUMBER,
+    .rts_pin_no   = RTS_PIN_NUMBER,
+    .cts_pin_no   = CTS_PIN_NUMBER,
+    .flow_control = APP_UART_FLOW_CONTROL_DISABLED,
+    .use_parity   = false,
+    .baud_rate    = UART_BAUDRATE_BAUDRATE_Baud38400
+  };
+  APP_UART_FIFO_INIT(&uart_params,
+                     UART_RX_BUF_SIZE,
+                     UART_TX_BUF_SIZE,
+                     uart_error_handle,
+                     APP_IRQ_PRIORITY_LOW,
+                     status);
+  if (status != NRF_SUCCESS)
+  {
+    while (true)
+    {
+      LEDS_INVERT(1 << BSP_LED_1);
+      nrf_delay_ms(500);
+    }
+  }
 }
