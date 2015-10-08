@@ -364,9 +364,9 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--c99</MiscControls>
-              <Define>BLE_STACK_SUPPORT_REQD S110 BOARD_PCA10031 SOFTDEVICE_PRESENT NRF51 SWI_DISABLE0</Define>
+              <Define>BLE_STACK_SUPPORT_REQD S110 BOARD_PCA10031 SOFTDEVICE_PRESENT NRF51 BSP_DEFINES_ONLY</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Include;..\..\Include;..\..\btle_hci\Include;..\..\btle_hci\fifo\Include;..\..\btle_hci\scanner\Include;..\..\..\bsp;..\..\..\..\components\softdevice\s110\headers;..\..\..\..\components\drivers_nrf\hal;..\..\..\..\components\ble\common;..\..\..\..\components\device;..\..\..\..\components\libraries\util;..\..\..\..\components\toolchain;..\..\..\..\components\toolchain\arm</IncludePath>
+              <IncludePath>..\Include;..\..\..\..\components\libraries\util;..\..\..\..\components\libraries\fifo;..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\components\toolchain\arm;..\..\..\..\components\toolchain;..\..\..\..\components\ble\common;..\..\..\..\components\ble\device_manager\config;..\..\..\..\components\drivers_nrf\common;..\..\..\..\components\ble\ble_advertising;..\..\..\..\components\softdevice\s110\headers;..\..\..\..\components\drivers_nrf\config;..\..\..\..\components\drivers_nrf\pstorage\config;..\..\..\bsp;..\..\..\..\components\libraries\trace;..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\components\ble\device_manager;..\..\..\..\components\drivers_nrf\uart;..\..\..\..\components\device;..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\components\libraries\timer;..\..\..\..\components\drivers_nrf\hal;..\..\Include;..\..\btle_hci\scanner\Include;..\..\btle_hci\fifo\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -432,7 +432,7 @@
             <File>
               <FileName>system_nrf51.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\components\toolchain\arm\system_nrf51.c</FilePath>
+              <FilePath>..\..\..\..\components\toolchain\system_nrf51.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -440,14 +440,54 @@
           <GroupName>lib</GroupName>
           <Files>
             <File>
-              <FileName>simple_uart.c</FileName>
+              <FileName>retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\Source\simple_uart\simple_uart.c</FilePath>
+              <FilePath>..\..\..\..\components\libraries\uart\retarget.c</FilePath>
             </File>
+            <File>
+              <FileName>app_fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\libraries\fifo\app_fifo.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ble</GroupName>
+          <Files>
             <File>
               <FileName>ble_advdata.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\Source\ble\ble_advdata.c</FilePath>
+              <FilePath>..\..\..\..\components\ble\common\ble_advdata.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>app_uart_fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\drivers_nrf\uart\app_uart_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\drivers_nrf\hal\nrf_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\drivers_nrf\common\nrf_drv_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_gpiote.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\drivers_nrf\gpiote\nrf_drv_gpiote.c</FilePath>
+            </File>
+            <File>
+              <FileName>pstorage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\drivers_nrf\pstorage\pstorage.c</FilePath>
             </File>
           </Files>
         </Group>
