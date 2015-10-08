@@ -57,8 +57,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * if you want to study timing in the example using a logic analyzer.
  */
 #define USE_UART_LOGGING
-#define UART_RX_BUF_SIZE  2
-#define UART_TX_BUF_SIZE  64
+
+#define UART_RX_BUF_SIZE    2
+#define UART_TX_BUF_SIZE  256
 
 /**@brief Macro defined to output log data on the UART or not, based on the USE_UART_LOGGING flag.
  * If logging is disabled, it will just yield a NOP instruction.
