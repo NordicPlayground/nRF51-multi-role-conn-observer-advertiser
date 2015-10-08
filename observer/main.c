@@ -134,7 +134,7 @@ static void test_logf(const char *fmt, ...);
 static void initialize_uart(void);
 void simple_uart_putstring(const uint8_t * str);
 
-void uart_error_handle(app_uart_evt_t * p_event)
+void uart_event_handle(app_uart_evt_t * p_event)
 {
   switch (p_event->evt_type)
   {
@@ -357,7 +357,7 @@ static void initialize_uart(void)
   APP_UART_FIFO_INIT(&uart_params,
                      UART_RX_BUF_SIZE,
                      UART_TX_BUF_SIZE,
-                     uart_error_handle,
+                     uart_event_handle,
                      APP_IRQ_PRIORITY_LOW,
                      status);
   if (status != NRF_SUCCESS)
