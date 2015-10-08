@@ -245,7 +245,7 @@ static void uart_putstring(const uint8_t * string)
 {
 #ifdef USE_UART_LOGGING
   for(int i = 0; string[i] != 0; ++i)
-    while(app_uart_put(string[i]) != NRF_SUCCESS);
+    app_uart_put(string[i]);
 #endif
 }
 
