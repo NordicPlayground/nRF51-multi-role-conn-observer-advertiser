@@ -35,7 +35,7 @@
 #include "boards.h"
 
 #include "btle.h"
-#include "core_cminstr.h"
+#include "core_cmInstr.h"
 #include "nrf_adv_conn.h"
 #include "nrf_scan.h"
 
@@ -222,8 +222,6 @@ int main(void)
           report.event.params.le_advertising_report_event.address[0],
           report.event.params.le_advertising_report_event.rssi);
       }
-
-      __LOG("Done");
 
       sw_interrupt = false;
     }
