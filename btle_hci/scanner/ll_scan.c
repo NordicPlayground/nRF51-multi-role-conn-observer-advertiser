@@ -132,37 +132,17 @@ static uint8_t channel = 37;
 * Static Function prototypes
 *****************************************************************************/
 
-/**@brief Generate report */
 static void m_adv_report_generate (uint8_t * const pkt);
 
-/**@brief Entry function for SCANNER_STATE_INIT */
 static void m_state_init_entry (void);
-
-/**@brief Exit function for SCANNER_STATE_INIT */
 static void m_state_init_exit (void);
-
-/**@brief Entry function for SCANNER_STATE_IDLE */
 static void m_state_idle_entry (void);
-
-/**@brief Exit function for SCANNER_STATE_IDLE */
 static void m_state_idle_exit (void);
-
-/**@brief Entry function for SCANNER_STATE_RECEIVE_ADV */
 static void m_state_receive_adv_entry (void);
-
-/**@brief Exit function for SCANNER_STATE_RECEIVE_ADV */
 static void m_state_receive_adv_exit (void);
-
-/**@brief Entry function for SCANNER_STATE_SEND_REQ */
 static void m_state_send_scan_req_entry (void);
-
-/**@brief Exit function for SCANNER_STATE_SEND_REQ */
 static void m_state_send_scan_req_exit (void);
-
-/**@brief Entry function for SCANNER_STATE_RECEIVE_SCAN_RSP */
 static void m_state_receive_scan_rsp_entry (void);
-
-/**@brief Exit function for SCANNER_STATE_RECEIVE_SCAN_RSP */
 static void m_state_receive_scan_rsp_exit (void);
 
 /*****************************************************************************
