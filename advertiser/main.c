@@ -90,7 +90,7 @@ static uint8_t  g_nrf_assert_file_name[100];
 static uint32_t g_evt;
 
 /**@brief BLE on-air address. */
-static uint8_t ble_addr[] = {0x4e, 0x6f, 0x72, 0x64, 0x6a, 0x63};
+static uint8_t ble_addr[] = {0x4e, 0x6f, 0x72, 0x64, 0x69, 0x63};
 
 /**
  * Advertisement data for the Timeslot Advertiser.
