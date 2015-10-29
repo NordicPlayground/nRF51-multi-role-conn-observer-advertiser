@@ -72,7 +72,8 @@
  * If logging is disabled, it will just yield a NOP instruction.
  */
 #ifdef USE_UART_LOGGING
-#define __LOG(F, ...) (test_logf("TIMESLOT_TEST_LOG: %s: %d: " #F "\r\n", __FILE__, __LINE__, ##__VA_ARGS__))
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define __LOG(F, ...) (test_logf("TIMESLOT_TEST_LOG: %s: %d: " #F "\r\n", __FILENAME__, __LINE__, ##__VA_ARGS__))
 #else
   #define __LOG(F, ...) (void)__NOP()
 #endif
@@ -117,7 +118,7 @@ static btle_cmd_param_le_write_scan_enable_t scan_enable = {
   BTLE_SCAN_DUPLICATE_FILTER_DISABLE  /* Do not filter duplicates */
 };
 
-bool sw_interrupt = false;
+volatile bool sw_interrupt = false;
 
 /*****************************************************************************
 * Static Functions

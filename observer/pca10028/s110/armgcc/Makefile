@@ -37,38 +37,29 @@ remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-ou
 
 #source common to all targets
 C_SOURCE_FILES += \
-$(abspath ../../../../../../components/libraries/button/app_button.c) \
-$(abspath ../../../../../../components/libraries/util/app_error.c) \
-$(abspath ../../../../../../components/libraries/trace/app_trace.c) \
-$(abspath ../../../../../../components/libraries/util/nrf_assert.c) \
-$(abspath ../../../../../../components/libraries/uart/retarget.c) \
-$(abspath ../../../../../../components/drivers_nrf/uart/app_uart_fifo.c) \
-$(abspath ../../../../../../components/drivers_nrf/hal/nrf_delay.c) \
-$(abspath ../../../../../../components/drivers_nrf/common/nrf_drv_common.c) \
-$(abspath ../../../../../../components/drivers_nrf/gpiote/nrf_drv_gpiote.c) \
-$(abspath ../../../../../../components/drivers_nrf/pstorage/pstorage.c) \
-$(abspath ../../../../../bsp/bsp.c) \
-$(abspath ../../../../../bsp/bsp_btn_ble.c) \
-$(abspath ../../../../../../components/ble/common/ble_advdata.c) \
-$(abspath ../../../../../../components/ble/ble_advertising/ble_advertising.c) \
-$(abspath ../../../../../../components/ble/common/ble_conn_params.c) \
-$(abspath ../../../../../../components/ble/common/ble_srv_common.c) \
-$(abspath ../../../../../../components/ble/device_manager/device_manager_peripheral.c) \
-$(abspath ../../../../../../components/toolchain/system_nrf51.c) \
-$(abspath ../../../main.c) \
-$(abspath ../../../nrf_adv_conn.c) \
-$(abspath ../../../../btle_hci/observer/channel_resolver.c) \
-$(abspath ../../../../btle_hci/observer/ll_scan.c) \
-$(abspath ../../../../btle_hci/observer/nrf_scan.c) \
-$(abspath ../../../../btle_hci/observer/radio.c) \
-$(abspath ../../../../btle_hci/fifo/nrf_report_disp.c) \
-$(abspath ../../../../btle_hci/fifo/nrf_report_fifo.c)
+$(abspath ../../../main.c)\
+$(abspath ../../../nrf_adv_conn.c)\
+$(abspath ../../../../../../components/toolchain/system_nrf51.c)\
+$(abspath ../../../../../../components/libraries/uart/retarget.c)\
+$(abspath ../../../../../../components/libraries/fifo/app_fifo.c)\
+$(abspath ../../../../../../components/ble/common/ble_advdata.c)\
+$(abspath ../../../../../../components/drivers_nrf/uart/app_uart_fifo.c)\
+$(abspath ../../../../../../components/drivers_nrf/hal/nrf_delay.c)\
+$(abspath ../../../../../../components/drivers_nrf/common/nrf_drv_common.c)\
+$(abspath ../../../../../../components/drivers_nrf/gpiote/nrf_drv_gpiote.c)\
+$(abspath ../../../../../../components/drivers_nrf/pstorage/pstorage.c)\
+$(abspath ../../../../btle_hci/fifo/nrf_report_disp.c)\
+$(abspath ../../../../btle_hci/fifo/nrf_report_fifo.c)\
+$(abspath ../../../../btle_hci/scanner/channel_resolver.c)\
+$(abspath ../../../../btle_hci/scanner/ll_scan.c)\
+$(abspath ../../../../btle_hci/scanner/nrf_scan.c)\
+$(abspath ../../../../btle_hci/scanner/radio.c)
 
 #assembly files common to all targets
 ASM_SOURCE_FILES  = $(abspath ../../../../../../components/toolchain/gcc/gcc_startup_nrf51.s)
 
-#includes common to all targets
-INC_PATHS  = -I$(abspath ../../../config)
+# #includes common to all targets
+INC_PATHS  = -I$(abspath ../../../Include)
 INC_PATHS += -I$(abspath ../../../../../../components/libraries/util)
 INC_PATHS += -I$(abspath ../../../../../../components/libraries/fifo)
 INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/pstorage)
@@ -90,10 +81,8 @@ INC_PATHS += -I$(abspath ../../../../../../components/device)
 INC_PATHS += -I$(abspath ../../../../../../components/softdevice/common/softdevice_handler)
 INC_PATHS += -I$(abspath ../../../../../../components/libraries/timer)
 INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/hal)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/button)
-INC_PATHS += -I$(abspath ../../../Include)
 INC_PATHS += -I$(abspath ../../../../Include)
-INC_PATHS += -I$(abspath ../../../../btle_hci/advertiser/Include)
+INC_PATHS += -I$(abspath ../../../../btle_hci/scanner/Include)
 INC_PATHS += -I$(abspath ../../../../btle_hci/fifo/Include)
 
 OBJECT_DIRECTORY = _build
@@ -105,13 +94,12 @@ BUILD_DIRECTORIES := $(sort $(OBJECT_DIRECTORY) $(OUTPUT_BINARY_DIRECTORY) $(LIS
 
 #flags common to all targets
 CFLAGS  = -DBOARD_PCA10028
-CFLAGS += -DSWI_DISABLE0
+#CFLAGS += -DSWI_DISABLE0
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DNRF51
 CFLAGS += -DS110
 CFLAGS += -DBLE_STACK_SUPPORT_REQD
-CFLAGS += -DGPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS=1
-CFLAGS += -DGPIOTE_CONFIG_IRQ_PRIORITY=APP_IRQ_PRIORITY_LOW
+CFLAGS += -DBSP_DEFINES_ONLY
 CFLAGS += -mcpu=cortex-m0
 CFLAGS += -mthumb -mabi=aapcs --std=gnu99
 CFLAGS += -Wall -Werror -Wno-format -O3
@@ -133,7 +121,7 @@ LDFLAGS += --specs=nano.specs -lc -lnosys
 # Assembler flags
 ASMFLAGS += -x assembler-with-cpp
 ASMFLAGS += -DBOARD_PCA10028
-ASMFLAGS += -DSWI_DISABLE0
+# ASMFLAGS += -DSWI_DISABLE0
 ASMFLAGS += -DSOFTDEVICE_PRESENT
 ASMFLAGS += -DNRF51
 ASMFLAGS += -DS110
@@ -167,7 +155,7 @@ vpath %.s $(ASM_PATHS)
 OBJECTS = $(C_OBJECTS) $(ASM_OBJECTS)
 
 nrf51422_xxac_s110: OUTPUT_FILENAME := nrf51422_xxac_s110
-nrf51422_xxac_s110: LINKER_SCRIPT=advertiser_gcc_nrf51.ld
+nrf51422_xxac_s110: LINKER_SCRIPT=observer_gcc_nrf51.ld
 nrf51422_xxac_s110: $(BUILD_DIRECTORIES) $(OBJECTS)
 	@echo Linking target: $(OUTPUT_FILENAME).out
 	$(NO_ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out
