@@ -43,16 +43,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
-                            
+
 #define BLE_ADV_INTERVAL_150MS 0x00F0
 
 /*****************************************************************************
 * Static Globals
 *****************************************************************************/
-                              
+
 /* Address used in BLE advertisement */
 static const ble_gap_addr_t ble_addr = {
-  .addr_type   = BLE_GAP_ADDR_TYPE_RANDOM_STATIC, 
+  .addr_type   = BLE_GAP_ADDR_TYPE_RANDOM_STATIC,
   .addr       = {0xfc, 0xde, 0x48, 0xab, 0xce, 0xfb}};
 
 /* Advertisement data */
@@ -70,7 +70,6 @@ static ble_gap_adv_params_t ble_adv_params = {
 
 static ble_advdata_t ble_adv_data;
 static ble_gap_sec_params_t ble_gap_bond_params = {
-  30,                     /* Timeout in seconds */
   0,                      /* Don't perform bonding */
   0,                      /* Man-in-the-middle protection not required */
   BLE_GAP_IO_CAPS_NONE,   /* No I/O capabilities */
@@ -82,7 +81,7 @@ static ble_gap_sec_params_t ble_gap_bond_params = {
 /*****************************************************************************
 * Static Functions
 *****************************************************************************/
- 
+
 static void ble_gatts_event_handler(ble_evt_t* evt)
 {
   switch (evt->header.evt_id)
@@ -91,7 +90,7 @@ static void ble_gatts_event_handler(ble_evt_t* evt)
       break;
 
     case BLE_GATTS_EVT_SYS_ATTR_MISSING:
-      sd_ble_gatts_sys_attr_set(evt->evt.gatts_evt.conn_handle, NULL, 0);
+      sd_ble_gatts_sys_attr_set(evt->evt.gatts_evt.conn_handle, NULL, 0, 0);
       break;
 
     case BLE_GATTS_EVT_WRITE:
@@ -112,15 +111,15 @@ static void ble_gap_event_handler(ble_evt_t* evt)
     case BLE_GAP_EVT_DISCONNECTED:
       sd_ble_gap_adv_start(&ble_adv_params);
       break;
-    
+
     case BLE_GAP_EVT_SEC_PARAMS_REQUEST:
       sd_ble_gap_sec_params_reply(evt->evt.gap_evt.conn_handle,
-        BLE_GAP_SEC_STATUS_SUCCESS, &ble_gap_bond_params);
+        BLE_GAP_SEC_STATUS_SUCCESS, &ble_gap_bond_params, NULL);
       break;
-    
+
     case BLE_GAP_EVT_CONN_SEC_UPDATE:
       break;
-      
+
     case BLE_GAP_EVT_AUTH_STATUS:
       break;
 
@@ -136,6 +135,7 @@ static void ble_gap_event_handler(ble_evt_t* evt)
 void nrf_adv_conn_init(void)
 {
   uint32_t error_code;
+  (void) error_code; /* silence compiler */
   ble_enable_params_t enable_params;
 
   /* Enable BLE */
@@ -155,8 +155,7 @@ void nrf_adv_conn_init(void)
 
   memset(&ble_adv_data, 0, sizeof(ble_adv_data));
 
-  ble_adv_data.flags.size = 1;
-  ble_adv_data.flags.p_data = &flags;
+  ble_adv_data.flags        = flags;
   ble_adv_data.name_type    = BLE_ADVDATA_FULL_NAME;
   ble_adv_data.p_manuf_specific_data = &man_data;
 

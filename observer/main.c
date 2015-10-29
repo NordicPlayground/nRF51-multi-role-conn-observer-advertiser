@@ -314,6 +314,7 @@ void SWI0_IRQHandler(void)
 void test_logf(const char *fmt, ...)
 {
   int16_t res = 0;
+  (void)res; /* silence compiler */
   static uint8_t buf[150];
 
   va_list args;
