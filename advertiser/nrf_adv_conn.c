@@ -136,6 +136,7 @@ void nrf_adv_conn_init(void)
 {
   uint32_t error_code;
   ble_enable_params_t enable_params;
+	memset(&enable_params, 0, sizeof(ble_enable_params_t));
 
   /* Enable BLE */
   error_code = sd_ble_enable(&enable_params);
@@ -153,7 +154,7 @@ void nrf_adv_conn_init(void)
 
   memset(&ble_adv_data, 0, sizeof(ble_adv_data));
 
-  ble_adv_data.flags = BLE_GAP_ADV_FLAG_BR_EDR_NOT_SUPPORTED;
+  ble_adv_data.flags = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
   ble_adv_data.name_type    = BLE_ADVDATA_FULL_NAME;
   ble_adv_data.p_manuf_specific_data = &man_data;
 
