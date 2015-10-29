@@ -101,7 +101,7 @@ static uint8_t ble_addr[] = {0x4e, 0x6f, 0x72, 0x64, 0x69, 0x63};
  * in the GAP section. The values of the various fields is defined in the Bluetooth Core Specification
  * Supplement v6.
  *
- * This structure illustrates some of the possible contents for advertising packets.
+ * The below structure illustrates some of the possible contents for advertising packets.
  */
 static uint8_t ble_adv_data[] =
 {
@@ -112,7 +112,7 @@ static uint8_t ble_adv_data[] =
   /* Appearance: */
   0x03,                   /* length */
   0x19,                   /* type (Appearance) */
-  0x40, 0x00,             /* Generic phone */
+  0x00, 0x00,             /* Generic unspecified */
   /* Role: */
   0x02,                   /* length */
   0x1c,                   /* type (LE role) */
@@ -148,7 +148,7 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 {
   char buf[256];
   
-  sprintf(&buf[0], "ERROR: 0x%X, line: %d, file: %s\n", error_code, line_num, p_file_name); 
+  sprintf(&buf[0], "ERROR: 0x%X, line: %d, file: %s\r\n", error_code, line_num, p_file_name);
   uart_putstring((uint8_t* ) buf);
 #if defined(BOARD_PCA10028)
   nrf_gpio_pin_clear(LED_1);
@@ -201,13 +201,13 @@ static void ble_setup(void)
 {
   /* we use software interrupt 0 */
   btle_hci_adv_init(SWI0_IRQn);
-  
+
   btle_cmd_param_le_write_advertising_parameters_t adv_params;
-  
-  
+
+
   memcpy((void*) &adv_params.direct_address[0], (void*) &ble_addr[0], BTLE_DEVICE_ADDRESS__SIZE);
-  
-  
+
+
   /* want to maximize potential scan requests */
   adv_params.channel_map = BTLE_CHANNEL_MAP_ALL;
   adv_params.direct_address_type = BTLE_ADDR_TYPE_RANDOM;
@@ -216,29 +216,22 @@ static void ble_setup(void)
   adv_params.interval_max = BLE_ADV_INTERVAL_150MS;
   
   adv_params.own_address_type = BTLE_ADDR_TYPE_RANDOM;
-  
+
   /* Only want scan requests */
   adv_params.type = BTLE_ADV_TYPE_SCAN_IND;
 
   btle_hci_adv_params_set(&adv_params);
   
-  
-  
+  /* Set advertising data: */
   btle_cmd_param_le_write_advertising_data_t adv_data;
-  
-  /* Only advertising name of unit */
   memcpy((void*) &adv_data.advertising_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
   adv_data.data_length = sizeof(ble_adv_data);
-  
   btle_hci_adv_data_set(&adv_data);
-  
-  
-  
+
+  /* Set scan response data: */
   btle_cmd_param_le_write_scan_response_data_t scan_rsp_data;
-  
   memcpy((void*) &scan_rsp_data.response_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
   scan_rsp_data.data_length = sizeof(ble_adv_data);
-  
   btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
   
   /* all parameters are set up, enable advertisement */
@@ -300,7 +293,7 @@ int main(void)
   uart_init();
 
   char start_msg[128];
-  sprintf(&start_msg[0], "\n| %s |---------------------------------------------------\n\n", __TIME__);
+  sprintf(&start_msg[0], "\n| %s |---------------------------------------------------\r\n\n", __TIME__);
   uart_putstring((uint8_t*) &start_msg[0]);
 
   nrf_gpio_range_cfg_output(0, 30);
@@ -368,12 +361,11 @@ void SWI0_IRQHandler(void)
   nrf_report_t report;
   while(btle_hci_adv_report_get(&report))
   {
-    char buf[128];
+    char buf[256];
     switch (report.event.event_code)
     {
-      /* Send data about scan requests to terminal */
       case BTLE_VS_EVENT_NRF_LL_EVENT_SCAN_REQ_REPORT:
-        sprintf(buf, "Received scan req on ch. %i. Addr: %X:%X:%X:%X:%X:%X \tRSSI: -%i \t Packets (valid/invalid): %i/%i\n", 
+        snprintf(buf, 256, "Received scan req on ch. %i. Addr: %.02X:%.02X:%.02X:%.02X:%.02X:%.02X \tRSSI: -%i \t Packets (valid/invalid): %i/%i\r\n",
           report.event.params.nrf_scan_req_report_event.channel,
           report.event.params.nrf_scan_req_report_event.address[5],
           report.event.params.nrf_scan_req_report_event.address[4],
@@ -389,7 +381,7 @@ void SWI0_IRQHandler(void)
       
       /* For now, the only event we care about is the scan req event. */
       default:
-        uart_putstring((uint8_t*) "Unknown adv evt.\n");
+        uart_putstring((uint8_t*) "Unknown adv evt.\r\n");
     }
   }
 }
