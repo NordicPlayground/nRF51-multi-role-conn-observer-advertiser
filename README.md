@@ -15,7 +15,7 @@ The scan requests are sent with the address, RSSI, channel and an experimental
 link quality indicator.
 
 The experimental link quality indicator that counts the number of packets with
-CRC failures and the number packets with successful CRC has been addeed.
+CRC failures and the number packets with successful CRC has been added.
 This allows the application to have some awareness of the link quality.
 The link quality is returned by the observer and by the scannable advertiser.
 
@@ -27,15 +27,16 @@ Clone this GitHub repository to the examples/ folder in the nRF51 SDK.
 
 ## Example code
 
-The project contains an example of usage, where the Timeslot advertiser runs
-with an advertisement interval of 100ms, along with a SoftDevice powered
-connectable advertiser with an advertisement interval of 150ms. 
+The project contains an example of advertiser usage, where the Timeslot
+advertiser runs with an advertisement interval of 100ms, alongside a
+SoftDevice-powered connectable advertiser with an advertisement interval
+of 150ms. 
 
 ## Timeslot Advertiser: Interface
 
 The timeslot advertiser interface is based on the Bluetooth standard HCI
 interface, but only implements a small subset of the functionality. All
-interface functions are found in the ts_advertiser.h file under include/.
+interface functions are found in the Include/nrf_advertiser.h file.
 
 ### Report queue
 
@@ -43,12 +44,12 @@ The timeslot advertiser offers reports related to radio activity to the user.
 The software interrupt indicated by the user in the btle_hci_adv_init()
 function is triggered when there are available reports in the queue. The user
 may then use the btle_hci_adv_report_get() function to pull reports from the
-queue. The reports contains total valid/invalid packets received and an HCI
-btle_evt_t that indicates what kind of event triggered this report. 
+queue. The reports contain the total number of valid/invalid packets received and an HCI
+btle_evt_t structure that indicates what kind of event triggered the report.
 
 NOTE: The BLE specification does not define any scan report events, so a special event
 type was added for this: BTLE_VS_EVENT_NRF_SCAN_REQUEST_RECEIVED. It contains
-an address and address type of the scanner in addition to RSSI and channel.
+the address and address type of the scanner in addition to RSSI and channel.
 
 ### Available function calls:
 
@@ -137,8 +138,8 @@ functionality.
 
 ## Timeslot Observer: Interface
 
-The timeslot Observer interface is also based on the Bluetooth standard HCI
+The timeslot observer interface is also based on the Bluetooth standard HCI
 interface, but only implements a small subset of the functionality. All
-interface functions are found in the nrf_scan.h file under include/.
+interface functions are found in the Include/nrf_scan.h file.
 
 The interface documenation for the Observer will be added in the next release.
