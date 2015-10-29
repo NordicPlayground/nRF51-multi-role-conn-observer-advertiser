@@ -77,29 +77,49 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Static Globals
 *****************************************************************************/
 
-/**@brief Global variables used for storing assert information from the SoftDevice.
- */
+/**@brief Global variables used for storing assert information from the SoftDevice. */
 static uint32_t g_sd_assert_line_num;
 static uint32_t g_sd_assert_pc;
 static uint8_t  g_sd_assert_file_name[100];
 
-/**@brief Global variables used for storing assert information from the nRF51 SDK.
- */
+/**@brief Global variables used for storing assert information from the nRF51 SDK. */
 static uint32_t g_nrf_assert_line_num;
 static uint8_t  g_nrf_assert_file_name[100];
 
-/**@brief Global variables used for storing assert information from the timeslot event handler.
- */
+/**@brief Global variables used for storing assert information from the timeslot event handler. */
 static uint32_t g_evt;
 
-/* BLE on-air address */
-static uint8_t ble_addr[] = {0x5a, 0x0c, 0xbd, 0x6e, 0x2d, 0xdf};
+/**@brief BLE on-air address. */
+static uint8_t ble_addr[] = {0x4e, 0x6f, 0x72, 0x64, 0x69, 0x63};
 
-/* Advertisement data fed to the tsa. Keeps the complete local name of the device */
+/**
+ * Advertisement data for the Timeslot Advertiser.
+ *
+ * This data is included in advertising and scan response packets. The format of these packets is
+ * defined in the Bluetooth Core Specification 4.2, volume 3, part C, section 11. The definitions
+ * of the various types of fields in the packet is defined in the Bluetooth Assigned Numbers document,
+ * in the GAP section. The values of the various fields is defined in the Bluetooth Core Specification
+ * Supplement v6.
+ *
+ * This structure illustrates some of the possible contents for advertising packets.
+ */
 static uint8_t ble_adv_data[] =
 {
+  /* Flags: */
+  0x02,                   /* length */
+  0x01,                   /* type (flags) */
+  (1 << 1) | (1 << 2),    /* General discoverable mode | BR/EDR not supported */
+  /* Appearance: */
+  0x03,                   /* length */
+  0x19,                   /* type (Appearance) */
+  0x40, 0x00,             /* Generic phone */
+  /* Role: */
+  0x02,                   /* length */
+  0x1c,                   /* type (LE role) */
+  0x00,                   /* Only peripheral role supported */
+  /* Complete local name: */
   0x0D,                   /* length */
-  0x09,                   /* complete local name */
+  0x09,                   /* type (complete local name) */
   'T', 'i', 'm', 'e', 's', 'l', 'o', 't', ' ', 'a', 'd', 'v',
 };
 
@@ -111,6 +131,7 @@ static void uart_putstring(const uint8_t * string);
 
 /**@brief Callback handlers
  */
+
 /**
 * Assert callback for Softdevice. Sends message over USB UART (at baud38400, 8n1, RTS/CTS)
 * indicating file and line number. Is blocking, as the timeslot API probably would not be
@@ -234,7 +255,7 @@ static void uart_init(void)
     .rts_pin_no = RTS_PIN_NUMBER,
     .cts_pin_no = CTS_PIN_NUMBER,
     .flow_control = APP_UART_FLOW_CONTROL_ENABLED,
-    .use_parity = false,
+    .use_parity = HWFC,
     .baud_rate = UART_BAUDRATE_BAUDRATE_Baud38400
   };
   APP_UART_FIFO_INIT(&uart_params, UART_RX_BUF_SIZE, UART_TX_BUF_SIZE, uart_event_handler, APP_IRQ_PRIORITY_LOW, status);
@@ -263,7 +284,7 @@ void SD_EVT_IRQHandler(void)
   {
     btle_hci_adv_sd_evt_handler(evt);
   }
-  
+
   while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
   {
     nrf_adv_conn_evt_handler(&ble_evt);
