@@ -127,10 +127,12 @@ static uint8_t ble_adv_data[] =
 * Static Functions
 *****************************************************************************/
 
+/**
+ * Prints a string on the UART.
+ * @param string the string to print.
+ */
 static void uart_putstring(const uint8_t * string);
 
-/**@brief Callback handlers
- */
 
 /**
 * Assert callback for Softdevice. Sends message over USB UART (at baud38400, 8n1, RTS/CTS)
@@ -147,7 +149,7 @@ static void sd_assert_cb(uint32_t pc, uint16_t line_num, const uint8_t *file_nam
 void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 {
   char buf[256];
-  
+
   sprintf(&buf[0], "ERROR: 0x%X, line: %d, file: %s\r\n", error_code, line_num, p_file_name);
   uart_putstring((uint8_t* ) buf);
 #if defined(BOARD_PCA10028)
@@ -214,14 +216,14 @@ static void ble_setup(void)
   adv_params.filter_policy = BTLE_ADV_FILTER_ALLOW_ANY;
   adv_params.interval_min = BLE_ADV_INTERVAL_100MS;
   adv_params.interval_max = BLE_ADV_INTERVAL_150MS;
-  
+
   adv_params.own_address_type = BTLE_ADDR_TYPE_RANDOM;
 
   /* Only want scan requests */
   adv_params.type = BTLE_ADV_TYPE_SCAN_IND;
 
   btle_hci_adv_params_set(&adv_params);
-  
+
   /* Set advertising data: */
   btle_cmd_param_le_write_advertising_data_t adv_data;
   memcpy((void*) &adv_data.advertising_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
@@ -233,7 +235,7 @@ static void ble_setup(void)
   memcpy((void*) &scan_rsp_data.response_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
   scan_rsp_data.data_length = sizeof(ble_adv_data);
   btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
-  
+
   /* all parameters are set up, enable advertisement */
   btle_hci_adv_enable(BTLE_ADV_ENABLE);
 }
@@ -248,7 +250,7 @@ static void uart_init(void)
     .rts_pin_no = RTS_PIN_NUMBER,
     .cts_pin_no = CTS_PIN_NUMBER,
     .flow_control = APP_UART_FLOW_CONTROL_ENABLED,
-    .use_parity = HWFC,
+    .use_parity = false,
     .baud_rate = UART_BAUDRATE_BAUDRATE_Baud38400
   };
   APP_UART_FIFO_INIT(&uart_params, UART_RX_BUF_SIZE, UART_TX_BUF_SIZE, uart_event_handler, APP_IRQ_PRIORITY_LOW, status);
@@ -272,7 +274,7 @@ void SD_EVT_IRQHandler(void)
   uint32_t evt;
   ble_evt_t ble_evt;
   uint16_t len;
-  
+
   while(sd_evt_get(&evt) == NRF_SUCCESS)
   {
     btle_hci_adv_sd_evt_handler(evt);
@@ -299,16 +301,16 @@ int main(void)
   nrf_gpio_range_cfg_output(0, 30);
   for(int i = LED_START; i <= LED_STOP; ++i)
     nrf_gpio_pin_set(i);
- 
+
   uint32_t error_code = sd_softdevice_enable((uint32_t)NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
   APP_ERROR_CHECK(error_code);
- 
- 
+
+
   error_code = sd_nvic_EnableIRQ(SD_EVT_IRQn);
   APP_ERROR_CHECK(error_code);
 
   ble_setup();
- 
+
   /* Enable a generic SD advertiser to display concurrent operation */
   nrf_adv_conn_init();
 
