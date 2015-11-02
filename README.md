@@ -2,7 +2,9 @@
 
 This project utilizes the Concurrent Multi-protocol Timeslot API in Nordic
 Semiconductor's S110 v8.0 SoftDevice for the  nRF51-series micro-controllers to run a
-scannable advertiser concurrently with the SoftDevice.
+scannable advertiser concurrently with the SoftDevice. The provided build
+scripts and project files support both the PCA10028 and PCA10031 development
+boards.
 
 This project also contains an example of how to run a concurrent multi-protocol 
 observer concurrently with the SoftDevice.
@@ -22,8 +24,10 @@ The link quality is returned by the observer and by the scannable advertiser.
 ## Required Software
 S110 v8.0 production SoftDevice
 nRF51 SDK v9.0
+Keil uVision or an arm-none-eabi GCC toolchain
 
-Clone this GitHub repository to the examples/ folder in the nRF51 SDK.
+Clone this GitHub repository into the examples/ folder of the nRF51 SDK
+directory.
 
 ## Example code
 
