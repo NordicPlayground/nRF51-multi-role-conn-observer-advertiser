@@ -512,15 +512,15 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 			DEBUG_PIN_POKE(5);
 
 			sm_exit_scan_req_rsp();
-		
+	
 			/* go to wait for idle, no packet was accepted */
 			sm_enter_wait_for_idle(false);
-		
+	
 			PERIPHERAL_TASK_TRIGGER(NRF_RADIO->TASKS_DISABLE);
-		
+	
 			break;
 #endif		
-		
+
 		default:
 			/* shouldn't happen in this advertiser. */
 
@@ -536,27 +536,27 @@ bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_pa
 {
 	ASSERT(adv_params != NULL);
 	/* Checks for error */
-	
+
 	/* channel map */
 	if (0x00 == adv_params->channel_map || 0x07 < adv_params->channel_map)
 	{
 		return false;
 	}
-	
+
 	/* address */
 	if (NULL == adv_params->direct_address)
 	{
 		return false;
 	}
-	
+
 	/* set channel map */
 	channel_map = adv_params->channel_map;
-	
-	
+
+
 	/* put address into advertisement packet buffer */
 	memcpy((void*) &ble_adv_data[BLE_ADDR_OFFSET], 
 					(void*) &adv_params->direct_address[0], BLE_ADDR_LEN);
-	
+
 #if TS_SEND_SCAN_RSP
 	/* put address into scan response packet buffer */
 	memcpy((void*) &ble_scan_rsp_data[BLE_ADDR_OFFSET], 
@@ -577,7 +577,7 @@ bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_pa
 		ble_scan_rsp_data[BLE_TYPE_OFFSET] 	|= (1 << BLE_TXADD_OFFSET);
 #endif		
 	}
-	
+
 	/* whitelist */
 	if (BTLE_ADV_FILTER_ALLOW_ANY 		== adv_params->filter_policy || 
 			BTLE_ADV_FILTER_ALLOW_LEVEL2 	== adv_params->filter_policy)
@@ -588,16 +588,16 @@ bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_pa
 	{
 		wl_enable();
 	}
-	
+
 	/* Advertisement interval */
 	adv_int_min = adv_params->interval_min;
 	adv_int_max = adv_params->interval_max;
-	
+
 #if TS_SEND_SCAN_RSP	
 	/* adv type */
 	ble_adv_data[BLE_TYPE_OFFSET] &= ~BLE_TYPE_MASK;
 	ble_adv_data[BLE_TYPE_OFFSET] |= (ble_adv_type_raw[adv_params->type] & BLE_TYPE_MASK);
-	
+
 	/* scan rsp type */
 	ble_scan_rsp_data[BLE_TYPE_OFFSET] &= ~BLE_TYPE_MASK;
 	ble_scan_rsp_data[BLE_TYPE_OFFSET] |= 0x04;
@@ -620,7 +620,6 @@ void ctrl_timeslot_abort(void)
 	sm_adv_run = false;
 }
 
-
 bool ctrl_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data)
 {	
 	ASSERT(adv_data != NULL);
@@ -629,14 +628,14 @@ bool ctrl_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data)
 	uint8_t len = ((adv_data->data_length <= BLE_PAYLOAD_MAXLEN)? 
 									adv_data->data_length : 
 									BLE_PAYLOAD_MAXLEN);
-	
+
 	/* put into packet buffer */
 	memcpy((void*) &ble_adv_data[BLE_PAYLOAD_OFFSET], 
 					(void*) &adv_data->advertising_data[0], len);
-	
+
 	/* set length of packet in length byte. Account for 6 address bytes */
 	ble_adv_data[BLE_SIZE_OFFSET] = (BLE_ADDR_LEN + len);
-	
+
 	return true;
 }
 
@@ -644,20 +643,20 @@ bool ctrl_scan_data_set(btle_cmd_param_le_write_scan_response_data_t* data)
 {
 #if TS_SEND_SCAN_RSP	
 	ASSERT(data != NULL);
-	
+
 	/* length cannot exceed 31 bytes */
 	uint8_t len = ((data->data_length <= BLE_PAYLOAD_MAXLEN)? 
 									data->data_length : 
 									BLE_PAYLOAD_MAXLEN);
-	
+
 	/* put into packet buffer */
 	memcpy((void*) &ble_scan_rsp_data[BLE_PAYLOAD_OFFSET], 
 					(void*) &data->response_data[0], len);
-	
+
 	/* set length of packet in length byte. Account for 3 header bytes
 	* and 6 address bytes */
 	ble_scan_rsp_data[BLE_SIZE_OFFSET] = (BLE_ADDR_LEN + len);
 #endif	
-	
+
 	return true;
 }
