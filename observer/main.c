@@ -205,7 +205,7 @@ int main(void)
   ASSERT (btle_err_code == BTLE_STATUS_CODE_SUCCESS);
   __LOG ("Scanner enabled");
 
-  //nrf_adv_conn_init ();
+  nrf_adv_conn_init ();
 
   while (true)
   {
@@ -329,6 +329,8 @@ void test_logf(const char *fmt, ...)
   va_end(args);
 }
 
+/**@brief Writes null terminated string to the UART.
+ */
 void simple_uart_putstring(const uint8_t * str)
 {
   uint_fast8_t i  = 0;
@@ -340,7 +342,7 @@ void simple_uart_putstring(const uint8_t * str)
   }
 }
 
-/**@ Initialize UART
+/**@brief Initialize UART.
  */
 static void initialize_uart(void)
 {
