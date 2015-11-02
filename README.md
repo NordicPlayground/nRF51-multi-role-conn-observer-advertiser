@@ -22,9 +22,10 @@ This allows the application to have some awareness of the link quality.
 The link quality is returned by the observer and by the scannable advertiser.
 
 ## Required Software
-S110 v8.0 production SoftDevice
-nRF51 SDK v9.0
-Keil uVision or an arm-none-eabi GCC toolchain
+
+* S110 v8.0 production SoftDevice
+* nRF51 SDK v9.0
+* Keil uVision or an arm-none-eabi GCC toolchain
 
 Clone this GitHub repository into the examples/ folder of the nRF51 SDK
 directory.
