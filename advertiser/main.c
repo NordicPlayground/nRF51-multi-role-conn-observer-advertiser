@@ -108,7 +108,7 @@ static uint8_t ble_adv_data[] =
   /* Flags: */
   0x02,                   /* length */
   0x01,                   /* type (flags) */
-  (1 << 1) | (1 << 2),    /* General discoverable mode | BR/EDR not supported */
+  0x00,                   /* AD Flags*/
   /* Appearance: */
   0x03,                   /* length */
   0x19,                   /* type (Appearance) */

@@ -5,20 +5,20 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
 
-  1. Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
+	1. Redistributions of source code must retain the above copyright notice, this
+	list of conditions and the following disclaimer.
 
-  2. Redistributions in binary form must reproduce the above copyright notice, this
-  list of conditions and the following disclaimer in the documentation and/or
-  other materials provided with the distribution.
+	2. Redistributions in binary form must reproduce the above copyright notice, this
+	list of conditions and the following disclaimer in the documentation and/or
+	other materials provided with the distribution.
 
-  3. Neither the name of Nordic Semiconductor ASA nor the names of other
-  contributors to this software may be used to endorse or promote products
-  derived from this software without specific prior written permission.
+	3. Neither the name of Nordic Semiconductor ASA nor the names of other
+	contributors to this software may be used to endorse or promote products
+	derived from this software without specific prior written permission.
 
-  4. This software must only be used in a processor manufactured by Nordic
-  Semiconductor ASA, or in a processor manufactured by a third party that
-  is used in combination with a processor manufactured by Nordic Semiconductor.
+	4. This software must only be used in a processor manufactured by Nordic
+	Semiconductor ASA, or in a processor manufactured by a third party that
+	is used in combination with a processor manufactured by Nordic Semiconductor.
 
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -425,6 +425,11 @@ void ctrl_init(void)
 	ble_adv_data[BLE_TYPE_OFFSET] = 0x42;
 #endif
 	
+
+	ble_adv_data[BLE_ADFLAG_OFFSET]  = 0x00;
++ //ble_adv_data[BLE_ADFLAG_OFFSET] |= (1 << 1);  /* General discoverable mode */
++ ble_adv_data[BLE_ADFLAG_OFFSET] |= (1 << 2);    /* BR/EDR not supported      */
+
 	/* set message length to only address */
 	ble_adv_data[BLE_SIZE_OFFSET] 			= 0x06;
 #if TS_SEND_SCAN_RSP
@@ -554,30 +559,24 @@ bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_pa
 
 
 	/* put address into advertisement packet buffer */
-	memcpy((void*) &ble_adv_data[BLE_ADDR_OFFSET], 
-					(void*) &adv_params->direct_address[0], BLE_ADDR_LEN);
+	static uint8_t ble_addr[] = DEFAULT_DEVICE_ADDRESS;
+	memcpy((void*) &ble_adv_data[BLE_ADDR_OFFSET],
+				 (void*) &ble_addr[0], BLE_ADDR_LEN);
 
 #if TS_SEND_SCAN_RSP
 	/* put address into scan response packet buffer */
 	memcpy((void*) &ble_scan_rsp_data[BLE_ADDR_OFFSET], 
 					(void*) &adv_params->direct_address[0], BLE_ADDR_LEN);
 #endif
+	
 	/* address type */
-	if (BTLE_ADDR_TYPE_PUBLIC == adv_params->own_address_type)
-	{
-		ble_adv_data[BLE_TYPE_OFFSET] 			&= ~(1 << BLE_TXADD_OFFSET);
-#if TS_SEND_SCAN_RSP		
-		ble_scan_rsp_data[BLE_TYPE_OFFSET] 	&= ~(1 << BLE_TXADD_OFFSET);
-#endif		
-	}
-	else /* address type is private */
-	{
-		ble_adv_data[BLE_TYPE_OFFSET] 			|= (1 << BLE_TXADD_OFFSET);
-#if TS_SEND_SCAN_RSP		
-		ble_scan_rsp_data[BLE_TYPE_OFFSET] 	|= (1 << BLE_TXADD_OFFSET);
-#endif		
-	}
-
+	ble_adv_data[BLE_TYPE_OFFSET] &= BLE_ADDR_TYPE_MASK;
+	ble_adv_data[BLE_TYPE_OFFSET] |= (adv_params->own_address_type) << 6;
+#if TS_SEND_SCAN_RSP
+	ble_scan_rsp_data[BLE_TYPE_OFFSET] &= BLE_ADDR_TYPE_MASK;
+	ble_scan_rsp_data[BLE_TYPE_OFFSET] |= (adv_params->own_address_type) << 6;
+#endif
+	
 	/* whitelist */
 	if (BTLE_ADV_FILTER_ALLOW_ANY 		== adv_params->filter_policy || 
 			BTLE_ADV_FILTER_ALLOW_LEVEL2 	== adv_params->filter_policy)
@@ -634,6 +633,7 @@ bool ctrl_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data)
 					(void*) &adv_data->advertising_data[0], len);
 
 	/* set length of packet in length byte. Account for 6 address bytes */
+	ble_adv_data[BLE_SIZE_OFFSET] &= 0x00;
 	ble_adv_data[BLE_SIZE_OFFSET] = (BLE_ADDR_LEN + len);
 
 	return true;
