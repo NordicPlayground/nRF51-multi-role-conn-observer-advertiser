@@ -39,7 +39,7 @@ of 150ms.
 
 ## Conformance Testing
 
-Both the timeslot advertiser and timeslot observer have been tested for conformance with Bluetooth SIG Core Spec 4.0 for their specific functionality.  The logs for these tests are in /Conf_Logs along with a summary of testing. 
+Both the timeslot advertiser and timeslot observer have been tested for conformance with Bluetooth SIG Core Spec 4.0 for their specific functionality.  The logs for these tests are in https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/tree/Conformance_Testing/Conf_Logs along with a summary of testing. 
 
 
 ## Timeslot Advertiser: Interface
