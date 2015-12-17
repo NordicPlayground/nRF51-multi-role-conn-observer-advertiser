@@ -1,0 +1,101 @@
+-Bluetooth Low Energy-
+-Link Layer v1.0.15.0-
+
+1		Reset performs
+2		Start advertising...
+3		Compose ADV_SCAN_IND (7 bytes) in channel 37
+4		  TX ---> 5607068E
+5		Compose ADV_SCAN_IND (7 bytes) in channel 37
+6		  TX ---> 5607068E
+7		Compose ADV_SCAN_IND (7 bytes) in channel 37
+8		  TX ---> 5607068E
+9		Stop advertising...
+10		Reset performs
+11		Start advertising...
+12		Compose ADV_SCAN_IND (7 bytes) in channel 38
+13		  TX ---> 5607068E
+14		Compose ADV_SCAN_IND (7 bytes) in channel 38
+15		  TX ---> 5607068E
+16		Compose ADV_SCAN_IND (7 bytes) in channel 38
+17		  TX ---> 5607068E
+18		Compose ADV_SCAN_IND (7 bytes) in channel 38
+19		  TX ---> 5607068E
+20		Compose ADV_SCAN_IND (7 bytes) in channel 38
+21		  TX ---> 5607068E
+22		Compose ADV_SCAN_IND (7 bytes) in channel 38
+23		  TX ---> 5607068E
+24		Compose ADV_SCAN_IND (7 bytes) in channel 38
+25		  TX ---> 5607068E
+26		Compose ADV_SCAN_IND (7 bytes) in channel 38
+27		  TX ---> 5607068E
+28		Compose ADV_SCAN_IND (7 bytes) in channel 38
+29		  TX ---> 5607068E
+30		Compose ADV_SCAN_IND (7 bytes) in channel 38
+31		  TX ---> 5607068E
+32		Compose ADV_SCAN_IND (7 bytes) in channel 38
+33		  TX ---> 5607068E
+34		Compose ADV_SCAN_IND (7 bytes) in channel 38
+35		  TX ---> 5607068E
+36		Compose ADV_SCAN_IND (7 bytes) in channel 38
+37		  TX ---> 5607068E
+38		Compose ADV_SCAN_IND (7 bytes) in channel 38
+39		  TX ---> 5607068E
+40		Compose ADV_SCAN_IND (7 bytes) in channel 38
+41		  TX ---> 5607068E
+42		Compose ADV_SCAN_IND (7 bytes) in channel 38
+43		  TX ---> 5607068E
+44		Compose ADV_SCAN_IND (7 bytes) in channel 38
+45		  TX ---> 5607068E
+46		Compose ADV_SCAN_IND (7 bytes) in channel 38
+47		  TX ---> 5607068E
+48		Compose ADV_SCAN_IND (7 bytes) in channel 38
+49		  TX ---> 5607068E
+50		Compose ADV_SCAN_IND (7 bytes) in channel 38
+51		  TX ---> 5607068E
+52		Compose ADV_SCAN_IND (7 bytes) in channel 38
+53		  TX ---> 5607068E
+54		Compose ADV_SCAN_IND (7 bytes) in channel 38
+55		  TX ---> 5607068E
+56		Stop advertising...
+57		Reset performs
+58		Start advertising...
+59		Compose ADV_SCAN_IND (7 bytes) in channel 39
+60		  TX ---> 9907468E
+61		Compose ADV_SCAN_IND (7 bytes) in channel 39
+62		  TX ---> 9907468E
+63		Compose ADV_SCAN_IND (7 bytes) in channel 39
+64		  TX ---> 9907468E
+65		Compose ADV_SCAN_IND (7 bytes) in channel 39
+66		  TX ---> 9907468E
+67		Compose ADV_SCAN_IND (7 bytes) in channel 39
+68		  TX ---> 9907468E
+69		Compose ADV_SCAN_IND (7 bytes) in channel 39
+70		  TX ---> 9907468E
+71		Compose ADV_SCAN_IND (7 bytes) in channel 39
+72		  TX ---> 9907468E
+73		Compose ADV_SCAN_IND (7 bytes) in channel 39
+74		  TX ---> 9907468E
+75		Compose ADV_SCAN_IND (7 bytes) in channel 39
+76		  TX ---> 9907468E
+77		Compose ADV_SCAN_IND (7 bytes) in channel 39
+78		  TX ---> 9907468E
+79		Compose ADV_SCAN_IND (7 bytes) in channel 39
+80		  TX ---> 9907468E
+81		Stop advertising...
+
+Statistic PDUs
+==============
+Reception:
+ 0 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 0 	CRC Failed
+ 0 	TOTAL
+Transmission:
+ 36 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 36 	TOTAL
+

@@ -1,0 +1,377 @@
+-Bluetooth Low Energy-
+-Link Layer v1.0.15.0-
+
+1		Reset performs
+2		Start advertising...
+3		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+4		  TX ---> 5607028E
+5		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+6		  TX ---> 5607028E
+7		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+8		  TX ---> 5607028E
+9		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+10		  TX ---> 5607028E
+11		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+12		  TX ---> 5607028E
+13		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+14		  TX ---> 5607028E
+15		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+16		  TX ---> 5607028E
+17		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+18		  TX ---> 5607028E
+19		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+20		  TX ---> 5607028E
+21		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+22		  TX ---> 5607028E
+23		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+24		  TX ---> 5607028E
+25		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+26		  TX ---> 5607028E
+27		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+28		  TX ---> 5607028E
+29		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+30		  TX ---> 5607028E
+31		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+32		  TX ---> 5607028E
+33		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+34		  TX ---> 5607028E
+35		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+36		  TX ---> 5607028E
+37		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+38		  TX ---> 5607028E
+39		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+40		  TX ---> 5607028E
+41		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+42		  TX ---> 5607028E
+43		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+44		  TX ---> 5607028E
+45		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+46		  TX ---> 5607028E
+47		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+48		  TX ---> 5607028E
+49		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+50		  TX ---> 5607028E
+51		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+52		  TX ---> 5607028E
+53		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+54		  TX ---> 5607028E
+55		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+56		  TX ---> 5607028E
+57		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+58		  TX ---> 5607028E
+59		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+60		  TX ---> 5607028E
+61		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+62		  TX ---> 5607028E
+63		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+64		  TX ---> 5607028E
+65		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+66		  TX ---> 5607028E
+67		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+68		  TX ---> 5607028E
+69		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+70		  TX ---> 5607028E
+71		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+72		  TX ---> 5607028E
+73		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+74		  TX ---> 5607028E
+75		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+76		  TX ---> 5607028E
+77		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+78		  TX ---> 5607028E
+79		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+80		  TX ---> 5607028E
+81		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+82		  TX ---> 5607028E
+83		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+84		  TX ---> 5607028E
+85		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+86		  TX ---> 5607028E
+87		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+88		  TX ---> 5607028E
+89		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+90		  TX ---> 5607028E
+91		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+92		  TX ---> 5607028E
+93		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+94		  TX ---> 5607028E
+95		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+96		  TX ---> 5607028E
+97		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+98		  TX ---> 5607028E
+99		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+100		  TX ---> 5607028E
+101		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+102		  TX ---> 5607028E
+103		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+104		  TX ---> 5607028E
+105		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+106		  TX ---> 5607028E
+107		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+108		  TX ---> 5607028E
+109		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+110		  TX ---> 5607028E
+111		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+112		  TX ---> 5607028E
+113		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+114		  TX ---> 5607028E
+115		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+116		  TX ---> 5607028E
+117		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+118		  TX ---> 5607028E
+119		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+120		  TX ---> 5607028E
+121		Stop advertising...
+122		Start advertising...
+123		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+124		  TX ---> 5607028E
+125		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+126		  TX ---> 5607028E
+127		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+128		  TX ---> 5607028E
+129		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+130		  TX ---> 5607028E
+131		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+132		  TX ---> 5607028E
+133		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+134		  TX ---> 5607028E
+135		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+136		  TX ---> 5607028E
+137		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+138		  TX ---> 5607028E
+139		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+140		  TX ---> 5607028E
+141		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+142		  TX ---> 5607028E
+143		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+144		  TX ---> 5607028E
+145		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+146		  TX ---> 5607028E
+147		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+148		  TX ---> 5607028E
+149		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+150		  TX ---> 5607028E
+151		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+152		  TX ---> 5607028E
+153		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+154		  TX ---> 5607028E
+155		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+156		  TX ---> 5607028E
+157		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+158		  TX ---> 5607028E
+159		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+160		  TX ---> 5607028E
+161		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+162		  TX ---> 5607028E
+163		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+164		  TX ---> 5607028E
+165		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+166		  TX ---> 5607028E
+167		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+168		  TX ---> 5607028E
+169		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+170		  TX ---> 5607028E
+171		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+172		  TX ---> 5607028E
+173		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+174		  TX ---> 5607028E
+175		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+176		  TX ---> 5607028E
+177		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+178		  TX ---> 5607028E
+179		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+180		  TX ---> 5607028E
+181		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+182		  TX ---> 5607028E
+183		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+184		  TX ---> 5607028E
+185		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+186		  TX ---> 5607028E
+187		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+188		  TX ---> 5607028E
+189		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+190		  TX ---> 5607028E
+191		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+192		  TX ---> 5607028E
+193		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+194		  TX ---> 5607028E
+195		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+196		  TX ---> 5607028E
+197		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+198		  TX ---> 5607028E
+199		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+200		  TX ---> 5607028E
+201		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+202		  TX ---> 5607028E
+203		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+204		  TX ---> 5607028E
+205		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+206		  TX ---> 5607028E
+207		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+208		  TX ---> 5607028E
+209		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+210		  TX ---> 5607028E
+211		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+212		  TX ---> 5607028E
+213		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+214		  TX ---> 5607028E
+215		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+216		  TX ---> 5607028E
+217		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+218		  TX ---> 5607028E
+219		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+220		  TX ---> 5607028E
+221		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+222		  TX ---> 5607028E
+223		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+224		  TX ---> 5607028E
+225		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+226		  TX ---> 5607028E
+227		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+228		  TX ---> 5607028E
+229		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+230		  TX ---> 5607028E
+231		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+232		  TX ---> 5607028E
+233		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+234		  TX ---> 5607028E
+235		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+236		  TX ---> 5607028E
+237		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+238		  TX ---> 5607028E
+239		Stop advertising...
+240		Start advertising...
+241		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+242		  TX ---> 5607028E
+243		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+244		  TX ---> 5607028E
+245		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+246		  TX ---> 5607028E
+247		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+248		  TX ---> 5607028E
+249		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+250		  TX ---> 5607028E
+251		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+252		  TX ---> 5607028E
+253		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+254		  TX ---> 5607028E
+255		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+256		  TX ---> 5607028E
+257		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+258		  TX ---> 5607028E
+259		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+260		  TX ---> 5607028E
+261		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+262		  TX ---> 5607028E
+263		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+264		  TX ---> 5607028E
+265		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+266		  TX ---> 5607028E
+267		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+268		  TX ---> 5607028E
+269		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+270		  TX ---> 5607028E
+271		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+272		  TX ---> 5607028E
+273		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+274		  TX ---> 5607028E
+275		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+276		  TX ---> 5607028E
+277		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+278		  TX ---> 5607028E
+279		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+280		  TX ---> 5607028E
+281		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+282		  TX ---> 5607028E
+283		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+284		  TX ---> 5607028E
+285		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+286		  TX ---> 5607028E
+287		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+288		  TX ---> 5607028E
+289		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+290		  TX ---> 5607028E
+291		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+292		  TX ---> 5607028E
+293		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+294		  TX ---> 5607028E
+295		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+296		  TX ---> 5607028E
+297		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+298		  TX ---> 5607028E
+299		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+300		  TX ---> 5607028E
+301		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+302		  TX ---> 5607028E
+303		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+304		  TX ---> 5607028E
+305		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+306		  TX ---> 5607028E
+307		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+308		  TX ---> 5607028E
+309		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+310		  TX ---> 5607028E
+311		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+312		  TX ---> 5607028E
+313		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+314		  TX ---> 5607028E
+315		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+316		  TX ---> 5607028E
+317		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+318		  TX ---> 5607028E
+319		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+320		  TX ---> 5607028E
+321		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+322		  TX ---> 5607028E
+323		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+324		  TX ---> 5607028E
+325		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+326		  TX ---> 5607028E
+327		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+328		  TX ---> 5607028E
+329		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+330		  TX ---> 5607028E
+331		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+332		  TX ---> 5607028E
+333		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+334		  TX ---> 5607028E
+335		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+336		  TX ---> 5607028E
+337		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+338		  TX ---> 5607028E
+339		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+340		  TX ---> 5607028E
+341		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+342		  TX ---> 5607028E
+343		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+344		  TX ---> 5607028E
+345		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+346		  TX ---> 5607028E
+347		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+348		  TX ---> 5607028E
+349		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+350		  TX ---> 5607028E
+351		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+352		  TX ---> 5607028E
+353		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+354		  TX ---> 5607028E
+355		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+356		  TX ---> 5607028E
+357		Stop advertising...
+
+Statistic PDUs
+==============
+Reception:
+ 0 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 0 	CRC Failed
+ 0 	TOTAL
+Transmission:
+ 175 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 175 	TOTAL
+

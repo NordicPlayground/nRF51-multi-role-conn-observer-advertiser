@@ -1,0 +1,55 @@
+Starting start_tester...
+ConfigTest.cfg is located in: C:\Program Files\Test Manager System 2.0\Bluetooth LE\Projects\TS_adv_scan\LL\TC_DDI_SCN_BI_02\Session 2015-12-14 21.46.25\TestConfig.cfg
+Test case name: TC_DDI_SCN_BI_02
+Launching confchk.exe heapi 0 a s
+CreatePipesAndProcess - Initializing CreatePipeAndProcess
+CreatePipesAndProcess - The command_line is confchk.exe heapi 0 a s
+CreatePipesAndProcess - The current directory  is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0
+CreatePipesAndProcess - The global path is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0\confchk.exe heapi 0 a s
+CreatePipesAndProcess - About to create the process
+WaitForAbort - Before reading stdin
+CreatePipesAndProcess - Process created
+Launching win32sl -rlsa network
+CreatePipesAndProcess - Initializing CreatePipeAndProcess
+CreatePipesAndProcess - The command_line is win32sl -rlsa network
+CreatePipesAndProcess - The current directory  is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0
+CreatePipesAndProcess - The global path is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0\win32sl -rlsa network
+CreatePipesAndProcess - About to create the process
+CreatePipesAndProcess - Process created
+Starting HCTLSerialAdaptor
+Launching SerialAdaptor.exe TCP:PORT=6670:SPLIT=1 RS232:COMPORT=1:BAUDRATE=115200:PARITY=0:DATABITS=8:STOPBITS=1:HANDSHAKE=1
+CreatePipesAndProcess - Initializing CreatePipeAndProcess
+CreatePipesAndProcess - The command_line is SerialAdaptor.exe TCP:PORT=6670:SPLIT=1 RS232:COMPORT=1:BAUDRATE=115200:PARITY=0:DATABITS=8:STOPBITS=1:HANDSHAKE=1
+CreatePipesAndProcess - The current directory  is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0
+CreatePipesAndProcess - The global path is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0\SerialAdaptor.exe TCP:PORT=6670:SPLIT=1 RS232:COMPORT=1:BAUDRATE=115200:PARITY=0:DATABITS=8:STOPBITS=1:HANDSHAKE=1
+CreatePipesAndProcess - About to create the process
+CreatePipesAndProcess - Process created
+Launching HctlService.exe 6669 6671
+CreatePipesAndProcess - Initializing CreatePipeAndProcess
+CreatePipesAndProcess - The command_line is HctlService.exe 6669 6671
+CreatePipesAndProcess - The current directory  is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0
+CreatePipesAndProcess - The global path is C:\Program Files\Test Manager System 2.0\Bluetooth LE\Test Cases\1.0.16.0\HctlService.exe 6669 6671
+CreatePipesAndProcess - About to create the process
+CreatePipesAndProcess - Process created
+HCTLService launched with exit code 0 
+Starting main adaptor
+Creating log file
+ xml opened 
+ AdaptorDebug opened 
+Init TTCN-2 system
+Starting PA
+Starting SA
+Starting CD
+Starting Test Case
+Finalizing PA
+Finalizing SA
+Finalizing CD
+Finalizing LOG
+Finalizing TE
+TTCN closed sucessfully
+about to remove path
+path removed 
+Ended mainAdaptor
+INTERNAL:	Thread is actived. Trying to finish it...
+INTERNAL:	Thread is finished 
+INTERNAL:	Handle Thread is closed 

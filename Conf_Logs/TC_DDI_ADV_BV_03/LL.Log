@@ -1,0 +1,2043 @@
+-Bluetooth Low Energy-
+-Link Layer v1.0.15.0-
+
+1		Reset performs
+2		-Monitor- Listening in channel 37...
+3		  RX <--- 0742 (7 bytes)
+4		-Monitor- ADV_NON_CONN_IND received in channel 37
+5		-Monitor- Repetition left: 49
+6		-Monitor- Listening in channel 38...
+7		  RX <--- 0742 (7 bytes)
+8		-Monitor- ADV_NON_CONN_IND received in channel 38
+9		-Monitor- Listening in channel 39...
+10		  RX <--- 0742 (7 bytes)
+11		-Monitor- ADV_NON_CONN_IND received in channel 39
+12		-Monitor- Listening in channel 37...
+13		  RX <--- 0742 (7 bytes)
+14	Crc calculated (0x8B73AE) is wrong! with seedWhitening 37
+15		  RX <--- 0742 (7 bytes)
+16		-Monitor- ADV_NON_CONN_IND received in channel 37
+17		-Monitor- Repetition left: 48
+18		-Monitor- Listening in channel 38...
+19		  RX <--- 0742 (7 bytes)
+20		-Monitor- ADV_NON_CONN_IND received in channel 38
+21		-Monitor- Listening in channel 39...
+22		  RX <--- 0742 (7 bytes)
+23		-Monitor- ADV_NON_CONN_IND received in channel 39
+24		-Monitor- Listening in channel 37...
+25		  RX <--- 0742 (7 bytes)
+26		-Monitor- ADV_NON_CONN_IND received in channel 37
+27		-Monitor- Repetition left: 47
+28		-Monitor- Listening in channel 38...
+29		  RX <--- 0742 (7 bytes)
+30		-Monitor- ADV_NON_CONN_IND received in channel 38
+31		-Monitor- Listening in channel 39...
+32		  RX <--- 0742 (7 bytes)
+33	Crc calculated (0x3DE4BD) is wrong! with seedWhitening 39
+34		-Monitor- Timer Listening in channel 37...
+35		  RX <--- 0742 (7 bytes)
+36		-Monitor- ADV_NON_CONN_IND received in channel 37
+37		-Monitor- Repetition left: 46
+38		-Monitor- Listening in channel 38...
+39		  RX <--- 0742 (7 bytes)
+40		-Monitor- ADV_NON_CONN_IND received in channel 38
+41		-Monitor- Listening in channel 39...
+42		  RX <--- 0742 (7 bytes)
+43		-Monitor- ADV_NON_CONN_IND received in channel 39
+44		-Monitor- Listening in channel 37...
+45		  RX <--- 0742 (7 bytes)
+46		-Monitor- ADV_NON_CONN_IND received in channel 37
+47		-Monitor- Repetition left: 45
+48		-Monitor- Listening in channel 38...
+49		  RX <--- 0742 (7 bytes)
+50		-Monitor- ADV_NON_CONN_IND received in channel 38
+51		-Monitor- Listening in channel 39...
+52		  RX <--- 0742 (7 bytes)
+53		-Monitor- ADV_NON_CONN_IND received in channel 39
+54		-Monitor- Listening in channel 37...
+55		  RX <--- 0742 (7 bytes)
+56		-Monitor- ADV_NON_CONN_IND received in channel 37
+57		-Monitor- Repetition left: 44
+58		-Monitor- Listening in channel 38...
+59		  RX <--- 0742 (7 bytes)
+60		-Monitor- ADV_NON_CONN_IND received in channel 38
+61		-Monitor- Listening in channel 39...
+62		  RX <--- 0762 (7 bytes)
+63	Crc calculated (0xF1AEC8) is wrong! with seedWhitening 39
+64		-Monitor- Timer Listening in channel 37...
+65		  RX <--- 0742 (7 bytes)
+66		-Monitor- ADV_NON_CONN_IND received in channel 37
+67		-Monitor- Repetition left: 43
+68		-Monitor- Listening in channel 38...
+69		  RX <--- 0742 (7 bytes)
+70		-Monitor- ADV_NON_CONN_IND received in channel 38
+71		-Monitor- Listening in channel 39...
+72		  RX <--- 0742 (7 bytes)
+73		-Monitor- ADV_NON_CONN_IND received in channel 39
+74		-Monitor- Listening in channel 37...
+75		  RX <--- 0742 (7 bytes)
+76		-Monitor- ADV_NON_CONN_IND received in channel 37
+77		-Monitor- Repetition left: 42
+78		-Monitor- Listening in channel 38...
+79		  RX <--- 0742 (7 bytes)
+80		-Monitor- ADV_NON_CONN_IND received in channel 38
+81		-Monitor- Listening in channel 39...
+82		  RX <--- 0742 (7 bytes)
+83		-Monitor- ADV_NON_CONN_IND received in channel 39
+84		-Monitor- Listening in channel 37...
+85		  RX <--- 0742 (7 bytes)
+86		-Monitor- ADV_NON_CONN_IND received in channel 37
+87		-Monitor- Repetition left: 41
+88		-Monitor- Listening in channel 38...
+89		  RX <--- 0742 (7 bytes)
+90		-Monitor- ADV_NON_CONN_IND received in channel 38
+91		-Monitor- Listening in channel 39...
+92		  RX <--- 0742 (7 bytes)
+93		-Monitor- ADV_NON_CONN_IND received in channel 39
+94		-Monitor- Listening in channel 37...
+95		  RX <--- 0742 (7 bytes)
+96		-Monitor- ADV_NON_CONN_IND received in channel 37
+97		-Monitor- Repetition left: 40
+98		-Monitor- Listening in channel 38...
+99		  RX <--- 0742 (7 bytes)
+100		-Monitor- ADV_NON_CONN_IND received in channel 38
+101		-Monitor- Listening in channel 39...
+102		  RX <--- 0742 (7 bytes)
+103		-Monitor- ADV_NON_CONN_IND received in channel 39
+104		-Monitor- Listening in channel 37...
+105		  RX <--- 0742 (7 bytes)
+106		-Monitor- ADV_NON_CONN_IND received in channel 37
+107		-Monitor- Repetition left: 39
+108		-Monitor- Listening in channel 38...
+109		  RX <--- 0742 (7 bytes)
+110		-Monitor- ADV_NON_CONN_IND received in channel 38
+111		-Monitor- Listening in channel 39...
+112		  RX <--- 0742 (7 bytes)
+113		-Monitor- ADV_NON_CONN_IND received in channel 39
+114		-Monitor- Listening in channel 37...
+115		  RX <--- 0742 (7 bytes)
+116		-Monitor- ADV_NON_CONN_IND received in channel 37
+117		-Monitor- Repetition left: 38
+118		-Monitor- Listening in channel 38...
+119		  RX <--- 0742 (7 bytes)
+120		-Monitor- ADV_NON_CONN_IND received in channel 38
+121		-Monitor- Listening in channel 39...
+122		  RX <--- 0742 (7 bytes)
+123		-Monitor- ADV_NON_CONN_IND received in channel 39
+124		-Monitor- Listening in channel 37...
+125		  RX <--- 0742 (7 bytes)
+126		-Monitor- ADV_NON_CONN_IND received in channel 37
+127		-Monitor- Repetition left: 37
+128		-Monitor- Listening in channel 38...
+129		  RX <--- 0742 (7 bytes)
+130		-Monitor- ADV_NON_CONN_IND received in channel 38
+131		-Monitor- Listening in channel 39...
+132		  RX <--- 0742 (7 bytes)
+133		-Monitor- ADV_NON_CONN_IND received in channel 39
+134		-Monitor- Listening in channel 37...
+135		  RX <--- 0742 (7 bytes)
+136		-Monitor- ADV_NON_CONN_IND received in channel 37
+137		-Monitor- Repetition left: 36
+138		-Monitor- Listening in channel 38...
+139		  RX <--- 0742 (7 bytes)
+140		-Monitor- ADV_NON_CONN_IND received in channel 38
+141		-Monitor- Listening in channel 39...
+142		  RX <--- 0742 (7 bytes)
+143		-Monitor- ADV_NON_CONN_IND received in channel 39
+144		-Monitor- Listening in channel 37...
+145		  RX <--- 0742 (7 bytes)
+146		-Monitor- ADV_NON_CONN_IND received in channel 37
+147		-Monitor- Repetition left: 35
+148		-Monitor- Listening in channel 38...
+149		  RX <--- 0742 (7 bytes)
+150		-Monitor- ADV_NON_CONN_IND received in channel 38
+151		-Monitor- Listening in channel 39...
+152		  RX <--- 0742 (7 bytes)
+153		-Monitor- ADV_NON_CONN_IND received in channel 39
+154		-Monitor- Listening in channel 37...
+155		  RX <--- 0742 (7 bytes)
+156		-Monitor- ADV_NON_CONN_IND received in channel 37
+157		-Monitor- Repetition left: 34
+158		-Monitor- Listening in channel 38...
+159		  RX <--- 0742 (7 bytes)
+160		-Monitor- ADV_NON_CONN_IND received in channel 38
+161		-Monitor- Listening in channel 39...
+162		  RX <--- 0742 (7 bytes)
+163		-Monitor- ADV_NON_CONN_IND received in channel 39
+164		-Monitor- Listening in channel 37...
+165		  RX <--- 0742 (7 bytes)
+166		-Monitor- ADV_NON_CONN_IND received in channel 37
+167		-Monitor- Repetition left: 33
+168		-Monitor- Listening in channel 38...
+169		  RX <--- 0742 (7 bytes)
+170		-Monitor- ADV_NON_CONN_IND received in channel 38
+171		-Monitor- Listening in channel 39...
+172		  RX <--- 0742 (7 bytes)
+173		-Monitor- ADV_NON_CONN_IND received in channel 39
+174		-Monitor- Listening in channel 37...
+175		  RX <--- 0742 (7 bytes)
+176		-Monitor- ADV_NON_CONN_IND received in channel 37
+177		-Monitor- Repetition left: 32
+178		-Monitor- Listening in channel 38...
+179		  RX <--- 0742 (7 bytes)
+180		-Monitor- ADV_NON_CONN_IND received in channel 38
+181		-Monitor- Listening in channel 39...
+182		  RX <--- 0742 (7 bytes)
+183		-Monitor- ADV_NON_CONN_IND received in channel 39
+184		-Monitor- Listening in channel 37...
+185		  RX <--- 0742 (7 bytes)
+186		-Monitor- ADV_NON_CONN_IND received in channel 37
+187		-Monitor- Repetition left: 31
+188		-Monitor- Listening in channel 38...
+189		  RX <--- 0742 (7 bytes)
+190		-Monitor- ADV_NON_CONN_IND received in channel 38
+191		-Monitor- Listening in channel 39...
+192		  RX <--- 0742 (7 bytes)
+193		-Monitor- ADV_NON_CONN_IND received in channel 39
+194		-Monitor- Listening in channel 37...
+195		  RX <--- 0742 (7 bytes)
+196		-Monitor- ADV_NON_CONN_IND received in channel 37
+197		-Monitor- Repetition left: 30
+198		-Monitor- Listening in channel 38...
+199		  RX <--- 0742 (7 bytes)
+200		-Monitor- ADV_NON_CONN_IND received in channel 38
+201		-Monitor- Listening in channel 39...
+202		  RX <--- 0742 (7 bytes)
+203		-Monitor- ADV_NON_CONN_IND received in channel 39
+204		-Monitor- Listening in channel 37...
+205		  RX <--- 0742 (7 bytes)
+206		-Monitor- ADV_NON_CONN_IND received in channel 37
+207		-Monitor- Repetition left: 29
+208		-Monitor- Listening in channel 38...
+209		  RX <--- 0742 (7 bytes)
+210		-Monitor- ADV_NON_CONN_IND received in channel 38
+211		-Monitor- Listening in channel 39...
+212		  RX <--- 0742 (7 bytes)
+213		-Monitor- ADV_NON_CONN_IND received in channel 39
+214		-Monitor- Listening in channel 37...
+215		  RX <--- 0742 (7 bytes)
+216		-Monitor- ADV_NON_CONN_IND received in channel 37
+217		-Monitor- Repetition left: 28
+218		-Monitor- Listening in channel 38...
+219		  RX <--- 0742 (7 bytes)
+220		-Monitor- ADV_NON_CONN_IND received in channel 38
+221		-Monitor- Listening in channel 39...
+222		  RX <--- 0742 (7 bytes)
+223		-Monitor- ADV_NON_CONN_IND received in channel 39
+224		-Monitor- Listening in channel 37...
+225		  RX <--- 0742 (7 bytes)
+226		-Monitor- ADV_NON_CONN_IND received in channel 37
+227		-Monitor- Repetition left: 27
+228		-Monitor- Listening in channel 38...
+229		  RX <--- 0742 (7 bytes)
+230		-Monitor- ADV_NON_CONN_IND received in channel 38
+231		-Monitor- Listening in channel 39...
+232		  RX <--- 0742 (7 bytes)
+233		-Monitor- ADV_NON_CONN_IND received in channel 39
+234		-Monitor- Listening in channel 37...
+235		  RX <--- 0742 (7 bytes)
+236		-Monitor- ADV_NON_CONN_IND received in channel 37
+237		-Monitor- Repetition left: 26
+238		-Monitor- Listening in channel 38...
+239		  RX <--- 0742 (7 bytes)
+240		-Monitor- ADV_NON_CONN_IND received in channel 38
+241		-Monitor- Listening in channel 39...
+242		  RX <--- 0742 (7 bytes)
+243		-Monitor- ADV_NON_CONN_IND received in channel 39
+244		-Monitor- Listening in channel 37...
+245		  RX <--- 0742 (7 bytes)
+246		-Monitor- ADV_NON_CONN_IND received in channel 37
+247		-Monitor- Repetition left: 25
+248		-Monitor- Listening in channel 38...
+249		  RX <--- 0742 (7 bytes)
+250		-Monitor- ADV_NON_CONN_IND received in channel 38
+251		-Monitor- Listening in channel 39...
+252		  RX <--- 0742 (7 bytes)
+253		-Monitor- ADV_NON_CONN_IND received in channel 39
+254		-Monitor- Listening in channel 37...
+255		  RX <--- 0742 (7 bytes)
+256		-Monitor- ADV_NON_CONN_IND received in channel 37
+257		-Monitor- Repetition left: 24
+258		-Monitor- Listening in channel 38...
+259		  RX <--- 0742 (7 bytes)
+260		-Monitor- ADV_NON_CONN_IND received in channel 38
+261		-Monitor- Listening in channel 39...
+262		  RX <--- 0742 (7 bytes)
+263		-Monitor- ADV_NON_CONN_IND received in channel 39
+264		-Monitor- Listening in channel 37...
+265		  RX <--- 0742 (7 bytes)
+266		-Monitor- ADV_NON_CONN_IND received in channel 37
+267		-Monitor- Repetition left: 23
+268		-Monitor- Listening in channel 38...
+269		  RX <--- 0742 (7 bytes)
+270		-Monitor- ADV_NON_CONN_IND received in channel 38
+271		-Monitor- Listening in channel 39...
+272		  RX <--- 0742 (7 bytes)
+273		-Monitor- ADV_NON_CONN_IND received in channel 39
+274		-Monitor- Listening in channel 37...
+275		  RX <--- 0742 (7 bytes)
+276		-Monitor- ADV_NON_CONN_IND received in channel 37
+277		-Monitor- Repetition left: 22
+278		-Monitor- Listening in channel 38...
+279		  RX <--- 0742 (7 bytes)
+280		-Monitor- ADV_NON_CONN_IND received in channel 38
+281		-Monitor- Listening in channel 39...
+282		  RX <--- 0742 (7 bytes)
+283		-Monitor- ADV_NON_CONN_IND received in channel 39
+284		-Monitor- Listening in channel 37...
+285		  RX <--- 0742 (7 bytes)
+286		-Monitor- ADV_NON_CONN_IND received in channel 37
+287		-Monitor- Repetition left: 21
+288		-Monitor- Listening in channel 38...
+289		  RX <--- 0742 (7 bytes)
+290		-Monitor- ADV_NON_CONN_IND received in channel 38
+291		-Monitor- Listening in channel 39...
+292		  RX <--- 0742 (7 bytes)
+293		-Monitor- ADV_NON_CONN_IND received in channel 39
+294		-Monitor- Listening in channel 37...
+295		  RX <--- 0742 (7 bytes)
+296		-Monitor- ADV_NON_CONN_IND received in channel 37
+297		-Monitor- Repetition left: 20
+298		-Monitor- Listening in channel 38...
+299		  RX <--- 0742 (7 bytes)
+300		-Monitor- ADV_NON_CONN_IND received in channel 38
+301		-Monitor- Listening in channel 39...
+302		  RX <--- 0742 (7 bytes)
+303		-Monitor- ADV_NON_CONN_IND received in channel 39
+304		-Monitor- Listening in channel 37...
+305		  RX <--- 0742 (7 bytes)
+306		-Monitor- ADV_NON_CONN_IND received in channel 37
+307		-Monitor- Repetition left: 19
+308		-Monitor- Listening in channel 38...
+309		  RX <--- 0742 (7 bytes)
+310		-Monitor- ADV_NON_CONN_IND received in channel 38
+311		-Monitor- Listening in channel 39...
+312		  RX <--- 0742 (7 bytes)
+313		-Monitor- ADV_NON_CONN_IND received in channel 39
+314		-Monitor- Listening in channel 37...
+315		  RX <--- 0742 (7 bytes)
+316		-Monitor- ADV_NON_CONN_IND received in channel 37
+317		-Monitor- Repetition left: 18
+318		-Monitor- Listening in channel 38...
+319		  RX <--- 0742 (7 bytes)
+320		-Monitor- ADV_NON_CONN_IND received in channel 38
+321		-Monitor- Listening in channel 39...
+322		  RX <--- 0742 (7 bytes)
+323		-Monitor- ADV_NON_CONN_IND received in channel 39
+324		-Monitor- Listening in channel 37...
+325		  RX <--- 0742 (7 bytes)
+326		-Monitor- ADV_NON_CONN_IND received in channel 37
+327		-Monitor- Repetition left: 17
+328		-Monitor- Listening in channel 38...
+329		  RX <--- 0742 (7 bytes)
+330		-Monitor- ADV_NON_CONN_IND received in channel 38
+331		-Monitor- Listening in channel 39...
+332		  RX <--- 0742 (7 bytes)
+333		-Monitor- ADV_NON_CONN_IND received in channel 39
+334		-Monitor- Listening in channel 37...
+335		  RX <--- 0542 (5 bytes)
+336	Crc calculated (0x7A26BB) is wrong! with seedWhitening 37
+337		  RX <--- 0742 (7 bytes)
+338		-Monitor- ADV_NON_CONN_IND received in channel 37
+339		-Monitor- Repetition left: 16
+340		-Monitor- Listening in channel 38...
+341		  RX <--- 0742 (7 bytes)
+342		-Monitor- ADV_NON_CONN_IND received in channel 38
+343		-Monitor- Listening in channel 39...
+344		  RX <--- 0742 (7 bytes)
+345		-Monitor- ADV_NON_CONN_IND received in channel 39
+346		-Monitor- Listening in channel 37...
+347		  RX <--- 0742 (7 bytes)
+348		-Monitor- ADV_NON_CONN_IND received in channel 37
+349		-Monitor- Repetition left: 15
+350		-Monitor- Listening in channel 38...
+351		  RX <--- 0742 (7 bytes)
+352		-Monitor- ADV_NON_CONN_IND received in channel 38
+353		-Monitor- Listening in channel 39...
+354		  RX <--- 0742 (7 bytes)
+355		-Monitor- ADV_NON_CONN_IND received in channel 39
+356		-Monitor- Listening in channel 37...
+357		  RX <--- 0742 (7 bytes)
+358		-Monitor- ADV_NON_CONN_IND received in channel 37
+359		-Monitor- Repetition left: 14
+360		-Monitor- Listening in channel 38...
+361		  RX <--- 0742 (7 bytes)
+362		-Monitor- ADV_NON_CONN_IND received in channel 38
+363		-Monitor- Listening in channel 39...
+364		  RX <--- 0742 (7 bytes)
+365		-Monitor- ADV_NON_CONN_IND received in channel 39
+366		-Monitor- Listening in channel 37...
+367		  RX <--- 0742 (7 bytes)
+368		-Monitor- ADV_NON_CONN_IND received in channel 37
+369		-Monitor- Repetition left: 13
+370		-Monitor- Listening in channel 38...
+371		  RX <--- 0742 (7 bytes)
+372		-Monitor- ADV_NON_CONN_IND received in channel 38
+373		-Monitor- Listening in channel 39...
+374		  RX <--- 0742 (7 bytes)
+375		-Monitor- ADV_NON_CONN_IND received in channel 39
+376		-Monitor- Listening in channel 37...
+377		  RX <--- 0742 (7 bytes)
+378		-Monitor- ADV_NON_CONN_IND received in channel 37
+379		-Monitor- Repetition left: 12
+380		-Monitor- Listening in channel 38...
+381		  RX <--- 0742 (7 bytes)
+382		-Monitor- ADV_NON_CONN_IND received in channel 38
+383		-Monitor- Listening in channel 39...
+384		  RX <--- 0742 (7 bytes)
+385		-Monitor- ADV_NON_CONN_IND received in channel 39
+386		-Monitor- Listening in channel 37...
+387		  RX <--- 0742 (7 bytes)
+388		-Monitor- ADV_NON_CONN_IND received in channel 37
+389		-Monitor- Repetition left: 11
+390		-Monitor- Listening in channel 38...
+391		  RX <--- 0742 (7 bytes)
+392		-Monitor- ADV_NON_CONN_IND received in channel 38
+393		-Monitor- Listening in channel 39...
+394		  RX <--- 0742 (7 bytes)
+395		-Monitor- ADV_NON_CONN_IND received in channel 39
+396		-Monitor- Listening in channel 37...
+397		  RX <--- 0742 (7 bytes)
+398		-Monitor- ADV_NON_CONN_IND received in channel 37
+399		-Monitor- Repetition left: 10
+400		-Monitor- Listening in channel 38...
+401		  RX <--- 0742 (7 bytes)
+402		-Monitor- ADV_NON_CONN_IND received in channel 38
+403		-Monitor- Listening in channel 39...
+404		  RX <--- 0742 (7 bytes)
+405		-Monitor- ADV_NON_CONN_IND received in channel 39
+406		-Monitor- Listening in channel 37...
+407		  RX <--- 0742 (7 bytes)
+408		-Monitor- ADV_NON_CONN_IND received in channel 37
+409		-Monitor- Repetition left: 9
+410		-Monitor- Listening in channel 38...
+411		  RX <--- 0742 (7 bytes)
+412		-Monitor- ADV_NON_CONN_IND received in channel 38
+413		-Monitor- Listening in channel 39...
+414		  RX <--- 0742 (7 bytes)
+415		-Monitor- ADV_NON_CONN_IND received in channel 39
+416		-Monitor- Listening in channel 37...
+417		  RX <--- 0742 (7 bytes)
+418		-Monitor- ADV_NON_CONN_IND received in channel 37
+419		-Monitor- Repetition left: 8
+420		-Monitor- Listening in channel 38...
+421		  RX <--- 0742 (7 bytes)
+422		-Monitor- ADV_NON_CONN_IND received in channel 38
+423		-Monitor- Listening in channel 39...
+424		  RX <--- 0742 (7 bytes)
+425		-Monitor- ADV_NON_CONN_IND received in channel 39
+426		-Monitor- Listening in channel 37...
+427		  RX <--- 0742 (7 bytes)
+428		-Monitor- ADV_NON_CONN_IND received in channel 37
+429		-Monitor- Repetition left: 7
+430		-Monitor- Listening in channel 38...
+431		  RX <--- 0742 (7 bytes)
+432		-Monitor- ADV_NON_CONN_IND received in channel 38
+433		-Monitor- Listening in channel 39...
+434		  RX <--- 0742 (7 bytes)
+435		-Monitor- ADV_NON_CONN_IND received in channel 39
+436		-Monitor- Listening in channel 37...
+437		  RX <--- 0742 (7 bytes)
+438		-Monitor- ADV_NON_CONN_IND received in channel 37
+439		-Monitor- Repetition left: 6
+440		-Monitor- Listening in channel 38...
+441		  RX <--- 0742 (7 bytes)
+442		-Monitor- ADV_NON_CONN_IND received in channel 38
+443		-Monitor- Listening in channel 39...
+444		  RX <--- 0742 (7 bytes)
+445		-Monitor- ADV_NON_CONN_IND received in channel 39
+446		-Monitor- Listening in channel 37...
+447		  RX <--- 0742 (7 bytes)
+448		-Monitor- ADV_NON_CONN_IND received in channel 37
+449		-Monitor- Repetition left: 5
+450		-Monitor- Listening in channel 38...
+451		  RX <--- 0742 (7 bytes)
+452		-Monitor- ADV_NON_CONN_IND received in channel 38
+453		-Monitor- Listening in channel 39...
+454		  RX <--- 0742 (7 bytes)
+455		-Monitor- ADV_NON_CONN_IND received in channel 39
+456		-Monitor- Listening in channel 37...
+457		  RX <--- 0742 (7 bytes)
+458		-Monitor- ADV_NON_CONN_IND received in channel 37
+459		-Monitor- Repetition left: 4
+460		-Monitor- Listening in channel 38...
+461		  RX <--- 0742 (7 bytes)
+462		-Monitor- ADV_NON_CONN_IND received in channel 38
+463		-Monitor- Listening in channel 39...
+464		  RX <--- 0742 (7 bytes)
+465		-Monitor- ADV_NON_CONN_IND received in channel 39
+466		-Monitor- Listening in channel 37...
+467		  RX <--- 0742 (7 bytes)
+468		-Monitor- ADV_NON_CONN_IND received in channel 37
+469		-Monitor- Repetition left: 3
+470		-Monitor- Listening in channel 38...
+471		  RX <--- 0742 (7 bytes)
+472		-Monitor- ADV_NON_CONN_IND received in channel 38
+473		-Monitor- Listening in channel 39...
+474		  RX <--- 0742 (7 bytes)
+475		-Monitor- ADV_NON_CONN_IND received in channel 39
+476		-Monitor- Listening in channel 37...
+477		  RX <--- 2D42 (45 bytes)
+478	ERROR: Length field of header is wrong. Value: 48
+479		  RX <--- 0742 (7 bytes)
+480		-Monitor- ADV_NON_CONN_IND received in channel 37
+481		-Monitor- Repetition left: 2
+482		-Monitor- Listening in channel 38...
+483		  RX <--- 0742 (7 bytes)
+484		-Monitor- ADV_NON_CONN_IND received in channel 38
+485		-Monitor- Listening in channel 39...
+486		  RX <--- 0742 (7 bytes)
+487		-Monitor- ADV_NON_CONN_IND received in channel 39
+488		-Monitor- Listening in channel 37...
+489		  RX <--- 0742 (7 bytes)
+490		-Monitor- ADV_NON_CONN_IND received in channel 37
+491		-Monitor- Repetition left: 1
+492		-Monitor- Listening in channel 38...
+493		  RX <--- 0742 (7 bytes)
+494		-Monitor- ADV_NON_CONN_IND received in channel 38
+495		-Monitor- Listening in channel 39...
+496		  RX <--- 0742 (7 bytes)
+497		-Monitor- ADV_NON_CONN_IND received in channel 39
+498		-Monitor- Listening in channel 37...
+499		  RX <--- 0742 (7 bytes)
+500		-Monitor- ADV_NON_CONN_IND received in channel 37
+501		-Monitor- Repetition left: 0
+502		-Monitor- Listening in channel 38...
+503		  RX <--- 0742 (7 bytes)
+504		-Monitor- ADV_NON_CONN_IND received in channel 38
+505		-Monitor- Listening in channel 39...
+506		  RX <--- 0742 (7 bytes)
+507		-Monitor- ADV_NON_CONN_IND received in channel 39
+508		-Monitor- Listening in channel 37...
+509		  RX <--- 0742 (7 bytes)
+510		-Monitor- Monitor procedure is finished after numRep. Sending LL_LC_MONITOR_MODE_CFM...
+511		-Monitor- Listening in channel 37...
+512		  RX <--- 0642 (6 bytes)
+513		-Monitor- ADV_NON_CONN_IND received in channel 37
+514		-Monitor- Repetition left: 49
+515		-Monitor- Listening in channel 38...
+516		  RX <--- 0642 (6 bytes)
+517		-Monitor- ADV_NON_CONN_IND received in channel 38
+518		-Monitor- Listening in channel 39...
+519		  RX <--- 0642 (6 bytes)
+520		-Monitor- ADV_NON_CONN_IND received in channel 39
+521		-Monitor- Listening in channel 37...
+522		  RX <--- 0642 (6 bytes)
+523		-Monitor- ADV_NON_CONN_IND received in channel 37
+524		-Monitor- Repetition left: 48
+525		-Monitor- Listening in channel 38...
+526		  RX <--- 0642 (6 bytes)
+527		-Monitor- ADV_NON_CONN_IND received in channel 38
+528		-Monitor- Listening in channel 39...
+529		  RX <--- 0642 (6 bytes)
+530		-Monitor- ADV_NON_CONN_IND received in channel 39
+531		-Monitor- Listening in channel 37...
+532		  RX <--- 0642 (6 bytes)
+533		-Monitor- ADV_NON_CONN_IND received in channel 37
+534		-Monitor- Repetition left: 47
+535		-Monitor- Listening in channel 38...
+536		  RX <--- 0642 (6 bytes)
+537		-Monitor- ADV_NON_CONN_IND received in channel 38
+538		-Monitor- Listening in channel 39...
+539		  RX <--- 0642 (6 bytes)
+540		-Monitor- ADV_NON_CONN_IND received in channel 39
+541		-Monitor- Listening in channel 37...
+542		  RX <--- 0642 (6 bytes)
+543		-Monitor- ADV_NON_CONN_IND received in channel 37
+544		-Monitor- Repetition left: 46
+545		-Monitor- Listening in channel 38...
+546		  RX <--- 0642 (6 bytes)
+547		-Monitor- ADV_NON_CONN_IND received in channel 38
+548		-Monitor- Listening in channel 39...
+549		  RX <--- 0642 (6 bytes)
+550		-Monitor- ADV_NON_CONN_IND received in channel 39
+551		-Monitor- Listening in channel 37...
+552		  RX <--- 0642 (6 bytes)
+553		-Monitor- ADV_NON_CONN_IND received in channel 37
+554		-Monitor- Repetition left: 45
+555		-Monitor- Listening in channel 38...
+556		  RX <--- 0642 (6 bytes)
+557		-Monitor- ADV_NON_CONN_IND received in channel 38
+558		-Monitor- Listening in channel 39...
+559		  RX <--- 0642 (6 bytes)
+560		-Monitor- ADV_NON_CONN_IND received in channel 39
+561		-Monitor- Listening in channel 37...
+562		  RX <--- 0642 (6 bytes)
+563		-Monitor- ADV_NON_CONN_IND received in channel 37
+564		-Monitor- Repetition left: 44
+565		-Monitor- Listening in channel 38...
+566		  RX <--- 0642 (6 bytes)
+567		-Monitor- ADV_NON_CONN_IND received in channel 38
+568		-Monitor- Listening in channel 39...
+569		  RX <--- 0642 (6 bytes)
+570		-Monitor- ADV_NON_CONN_IND received in channel 39
+571		-Monitor- Listening in channel 37...
+572		  RX <--- 0642 (6 bytes)
+573		-Monitor- ADV_NON_CONN_IND received in channel 37
+574		-Monitor- Repetition left: 43
+575		-Monitor- Listening in channel 38...
+576		  RX <--- 0642 (6 bytes)
+577		-Monitor- ADV_NON_CONN_IND received in channel 38
+578		-Monitor- Listening in channel 39...
+579		  RX <--- 0642 (6 bytes)
+580		-Monitor- ADV_NON_CONN_IND received in channel 39
+581		-Monitor- Listening in channel 37...
+582		  RX <--- 0642 (6 bytes)
+583		-Monitor- ADV_NON_CONN_IND received in channel 37
+584		-Monitor- Repetition left: 42
+585		-Monitor- Listening in channel 38...
+586		  RX <--- 0642 (6 bytes)
+587		-Monitor- ADV_NON_CONN_IND received in channel 38
+588		-Monitor- Listening in channel 39...
+589		  RX <--- 0642 (6 bytes)
+590		-Monitor- ADV_NON_CONN_IND received in channel 39
+591		-Monitor- Listening in channel 37...
+592		  RX <--- 0642 (6 bytes)
+593		-Monitor- ADV_NON_CONN_IND received in channel 37
+594		-Monitor- Repetition left: 41
+595		-Monitor- Listening in channel 38...
+596		  RX <--- 0642 (6 bytes)
+597		-Monitor- ADV_NON_CONN_IND received in channel 38
+598		-Monitor- Listening in channel 39...
+599		  RX <--- 0642 (6 bytes)
+600		-Monitor- ADV_NON_CONN_IND received in channel 39
+601		-Monitor- Listening in channel 37...
+602		  RX <--- 0642 (6 bytes)
+603		-Monitor- ADV_NON_CONN_IND received in channel 37
+604		-Monitor- Repetition left: 40
+605		-Monitor- Listening in channel 38...
+606		  RX <--- 0642 (6 bytes)
+607		-Monitor- ADV_NON_CONN_IND received in channel 38
+608		-Monitor- Listening in channel 39...
+609		  RX <--- 0642 (6 bytes)
+610		-Monitor- ADV_NON_CONN_IND received in channel 39
+611		-Monitor- Listening in channel 37...
+612		  RX <--- 0642 (6 bytes)
+613		-Monitor- ADV_NON_CONN_IND received in channel 37
+614		-Monitor- Repetition left: 39
+615		-Monitor- Listening in channel 38...
+616		  RX <--- 0642 (6 bytes)
+617		-Monitor- ADV_NON_CONN_IND received in channel 38
+618		-Monitor- Listening in channel 39...
+619		  RX <--- 0642 (6 bytes)
+620		-Monitor- ADV_NON_CONN_IND received in channel 39
+621		-Monitor- Listening in channel 37...
+622		  RX <--- 0642 (6 bytes)
+623		-Monitor- ADV_NON_CONN_IND received in channel 37
+624		-Monitor- Repetition left: 38
+625		-Monitor- Listening in channel 38...
+626		  RX <--- 0642 (6 bytes)
+627		-Monitor- ADV_NON_CONN_IND received in channel 38
+628		-Monitor- Listening in channel 39...
+629		  RX <--- 0642 (6 bytes)
+630		-Monitor- ADV_NON_CONN_IND received in channel 39
+631		-Monitor- Listening in channel 37...
+632		  RX <--- 0642 (6 bytes)
+633		-Monitor- ADV_NON_CONN_IND received in channel 37
+634		-Monitor- Repetition left: 37
+635		-Monitor- Listening in channel 38...
+636		  RX <--- 0642 (6 bytes)
+637		-Monitor- ADV_NON_CONN_IND received in channel 38
+638		-Monitor- Listening in channel 39...
+639		  RX <--- 0642 (6 bytes)
+640		-Monitor- ADV_NON_CONN_IND received in channel 39
+641		-Monitor- Listening in channel 37...
+642		  RX <--- 0642 (6 bytes)
+643		-Monitor- ADV_NON_CONN_IND received in channel 37
+644		-Monitor- Repetition left: 36
+645		-Monitor- Listening in channel 38...
+646		  RX <--- 0642 (6 bytes)
+647		-Monitor- ADV_NON_CONN_IND received in channel 38
+648		-Monitor- Listening in channel 39...
+649		  RX <--- 0642 (6 bytes)
+650		-Monitor- ADV_NON_CONN_IND received in channel 39
+651		-Monitor- Listening in channel 37...
+652		  RX <--- 0642 (6 bytes)
+653		-Monitor- ADV_NON_CONN_IND received in channel 37
+654		-Monitor- Repetition left: 35
+655		-Monitor- Listening in channel 38...
+656		  RX <--- 0642 (6 bytes)
+657		-Monitor- ADV_NON_CONN_IND received in channel 38
+658		-Monitor- Listening in channel 39...
+659		  RX <--- 0642 (6 bytes)
+660		-Monitor- ADV_NON_CONN_IND received in channel 39
+661		-Monitor- Listening in channel 37...
+662		  RX <--- 0642 (6 bytes)
+663		-Monitor- ADV_NON_CONN_IND received in channel 37
+664		-Monitor- Repetition left: 34
+665		-Monitor- Listening in channel 38...
+666		  RX <--- 0642 (6 bytes)
+667		-Monitor- ADV_NON_CONN_IND received in channel 38
+668		-Monitor- Listening in channel 39...
+669		  RX <--- 0642 (6 bytes)
+670		-Monitor- ADV_NON_CONN_IND received in channel 39
+671		-Monitor- Listening in channel 37...
+672		  RX <--- 0642 (6 bytes)
+673		-Monitor- ADV_NON_CONN_IND received in channel 37
+674		-Monitor- Repetition left: 33
+675		-Monitor- Listening in channel 38...
+676		  RX <--- 0642 (6 bytes)
+677		-Monitor- ADV_NON_CONN_IND received in channel 38
+678		-Monitor- Listening in channel 39...
+679		  RX <--- 0642 (6 bytes)
+680		-Monitor- ADV_NON_CONN_IND received in channel 39
+681		-Monitor- Listening in channel 37...
+682		  RX <--- 0642 (6 bytes)
+683		-Monitor- ADV_NON_CONN_IND received in channel 37
+684		-Monitor- Repetition left: 32
+685		-Monitor- Listening in channel 38...
+686		  RX <--- 0642 (6 bytes)
+687		-Monitor- ADV_NON_CONN_IND received in channel 38
+688		-Monitor- Listening in channel 39...
+689		  RX <--- 0642 (6 bytes)
+690		-Monitor- ADV_NON_CONN_IND received in channel 39
+691		-Monitor- Listening in channel 37...
+692		  RX <--- 0642 (6 bytes)
+693		-Monitor- ADV_NON_CONN_IND received in channel 37
+694		-Monitor- Repetition left: 31
+695		-Monitor- Listening in channel 38...
+696		  RX <--- 0642 (6 bytes)
+697		-Monitor- ADV_NON_CONN_IND received in channel 38
+698		-Monitor- Listening in channel 39...
+699		  RX <--- 0642 (6 bytes)
+700		-Monitor- ADV_NON_CONN_IND received in channel 39
+701		-Monitor- Listening in channel 37...
+702		  RX <--- 0642 (6 bytes)
+703		-Monitor- ADV_NON_CONN_IND received in channel 37
+704		-Monitor- Repetition left: 30
+705		-Monitor- Listening in channel 38...
+706		  RX <--- 0642 (6 bytes)
+707		-Monitor- ADV_NON_CONN_IND received in channel 38
+708		-Monitor- Listening in channel 39...
+709		  RX <--- 0642 (6 bytes)
+710		-Monitor- ADV_NON_CONN_IND received in channel 39
+711		-Monitor- Listening in channel 37...
+712		  RX <--- 0642 (6 bytes)
+713		-Monitor- ADV_NON_CONN_IND received in channel 37
+714		-Monitor- Repetition left: 29
+715		-Monitor- Listening in channel 38...
+716		  RX <--- 0642 (6 bytes)
+717		-Monitor- ADV_NON_CONN_IND received in channel 38
+718		-Monitor- Listening in channel 39...
+719		  RX <--- 0642 (6 bytes)
+720		-Monitor- ADV_NON_CONN_IND received in channel 39
+721		-Monitor- Listening in channel 37...
+722		  RX <--- 0642 (6 bytes)
+723		-Monitor- ADV_NON_CONN_IND received in channel 37
+724		-Monitor- Repetition left: 28
+725		-Monitor- Listening in channel 38...
+726		  RX <--- 0642 (6 bytes)
+727		-Monitor- ADV_NON_CONN_IND received in channel 38
+728		-Monitor- Listening in channel 39...
+729		  RX <--- 0642 (6 bytes)
+730		-Monitor- ADV_NON_CONN_IND received in channel 39
+731		-Monitor- Listening in channel 37...
+732		  RX <--- 0642 (6 bytes)
+733		-Monitor- ADV_NON_CONN_IND received in channel 37
+734		-Monitor- Repetition left: 27
+735		-Monitor- Listening in channel 38...
+736		  RX <--- 0642 (6 bytes)
+737		-Monitor- ADV_NON_CONN_IND received in channel 38
+738		-Monitor- Listening in channel 39...
+739		  RX <--- 0642 (6 bytes)
+740		-Monitor- ADV_NON_CONN_IND received in channel 39
+741		-Monitor- Listening in channel 37...
+742		  RX <--- 0642 (6 bytes)
+743		-Monitor- ADV_NON_CONN_IND received in channel 37
+744		-Monitor- Repetition left: 26
+745		-Monitor- Listening in channel 38...
+746		  RX <--- 0642 (6 bytes)
+747		-Monitor- ADV_NON_CONN_IND received in channel 38
+748		-Monitor- Listening in channel 39...
+749		  RX <--- 0642 (6 bytes)
+750		-Monitor- ADV_NON_CONN_IND received in channel 39
+751		-Monitor- Listening in channel 37...
+752		  RX <--- 0642 (6 bytes)
+753		-Monitor- ADV_NON_CONN_IND received in channel 37
+754		-Monitor- Repetition left: 25
+755		-Monitor- Listening in channel 38...
+756		  RX <--- 0642 (6 bytes)
+757		-Monitor- ADV_NON_CONN_IND received in channel 38
+758		-Monitor- Listening in channel 39...
+759		  RX <--- 0642 (6 bytes)
+760		-Monitor- ADV_NON_CONN_IND received in channel 39
+761		-Monitor- Listening in channel 37...
+762		  RX <--- 0642 (6 bytes)
+763		-Monitor- ADV_NON_CONN_IND received in channel 37
+764		-Monitor- Repetition left: 24
+765		-Monitor- Listening in channel 38...
+766		  RX <--- 0642 (6 bytes)
+767		-Monitor- ADV_NON_CONN_IND received in channel 38
+768		-Monitor- Listening in channel 39...
+769		  RX <--- 0642 (6 bytes)
+770		-Monitor- ADV_NON_CONN_IND received in channel 39
+771		-Monitor- Listening in channel 37...
+772		  RX <--- 0642 (6 bytes)
+773		-Monitor- ADV_NON_CONN_IND received in channel 37
+774		-Monitor- Repetition left: 23
+775		-Monitor- Listening in channel 38...
+776		  RX <--- 0642 (6 bytes)
+777		-Monitor- ADV_NON_CONN_IND received in channel 38
+778		-Monitor- Listening in channel 39...
+779		  RX <--- 0642 (6 bytes)
+780		-Monitor- ADV_NON_CONN_IND received in channel 39
+781		-Monitor- Listening in channel 37...
+782		  RX <--- 0642 (6 bytes)
+783		-Monitor- ADV_NON_CONN_IND received in channel 37
+784		-Monitor- Repetition left: 22
+785		-Monitor- Listening in channel 38...
+786		  RX <--- 0642 (6 bytes)
+787		-Monitor- ADV_NON_CONN_IND received in channel 38
+788		-Monitor- Listening in channel 39...
+789		  RX <--- 0642 (6 bytes)
+790		-Monitor- ADV_NON_CONN_IND received in channel 39
+791		-Monitor- Listening in channel 37...
+792		  RX <--- 0642 (6 bytes)
+793		-Monitor- ADV_NON_CONN_IND received in channel 37
+794		-Monitor- Repetition left: 21
+795		-Monitor- Listening in channel 38...
+796		  RX <--- 0642 (6 bytes)
+797		-Monitor- ADV_NON_CONN_IND received in channel 38
+798		-Monitor- Listening in channel 39...
+799		  RX <--- 0642 (6 bytes)
+800		-Monitor- ADV_NON_CONN_IND received in channel 39
+801		-Monitor- Listening in channel 37...
+802		  RX <--- 0642 (6 bytes)
+803		-Monitor- ADV_NON_CONN_IND received in channel 37
+804		-Monitor- Repetition left: 20
+805		-Monitor- Listening in channel 38...
+806		  RX <--- 0642 (6 bytes)
+807		-Monitor- ADV_NON_CONN_IND received in channel 38
+808		-Monitor- Listening in channel 39...
+809		  RX <--- 0642 (6 bytes)
+810		-Monitor- ADV_NON_CONN_IND received in channel 39
+811		-Monitor- Listening in channel 37...
+812		  RX <--- 0642 (6 bytes)
+813		-Monitor- ADV_NON_CONN_IND received in channel 37
+814		-Monitor- Repetition left: 19
+815		-Monitor- Listening in channel 38...
+816		  RX <--- 0642 (6 bytes)
+817		-Monitor- ADV_NON_CONN_IND received in channel 38
+818		-Monitor- Listening in channel 39...
+819		  RX <--- 0642 (6 bytes)
+820		-Monitor- ADV_NON_CONN_IND received in channel 39
+821		-Monitor- Listening in channel 37...
+822		  RX <--- 0642 (6 bytes)
+823		-Monitor- ADV_NON_CONN_IND received in channel 37
+824		-Monitor- Repetition left: 18
+825		-Monitor- Listening in channel 38...
+826		  RX <--- 0642 (6 bytes)
+827		-Monitor- ADV_NON_CONN_IND received in channel 38
+828		-Monitor- Listening in channel 39...
+829		  RX <--- 0642 (6 bytes)
+830		-Monitor- ADV_NON_CONN_IND received in channel 39
+831		-Monitor- Listening in channel 37...
+832		  RX <--- 0642 (6 bytes)
+833		-Monitor- ADV_NON_CONN_IND received in channel 37
+834		-Monitor- Repetition left: 17
+835		-Monitor- Listening in channel 38...
+836		  RX <--- 0642 (6 bytes)
+837		-Monitor- ADV_NON_CONN_IND received in channel 38
+838		-Monitor- Listening in channel 39...
+839		  RX <--- 0642 (6 bytes)
+840		-Monitor- ADV_NON_CONN_IND received in channel 39
+841		-Monitor- Listening in channel 37...
+842		  RX <--- 0642 (6 bytes)
+843		-Monitor- ADV_NON_CONN_IND received in channel 37
+844		-Monitor- Repetition left: 16
+845		-Monitor- Listening in channel 38...
+846		  RX <--- 0642 (6 bytes)
+847		-Monitor- ADV_NON_CONN_IND received in channel 38
+848		-Monitor- Listening in channel 39...
+849		  RX <--- 0642 (6 bytes)
+850		-Monitor- ADV_NON_CONN_IND received in channel 39
+851		-Monitor- Listening in channel 37...
+852		  RX <--- 0642 (6 bytes)
+853		-Monitor- ADV_NON_CONN_IND received in channel 37
+854		-Monitor- Repetition left: 15
+855		-Monitor- Listening in channel 38...
+856		  RX <--- 0642 (6 bytes)
+857		-Monitor- ADV_NON_CONN_IND received in channel 38
+858		-Monitor- Listening in channel 39...
+859		  RX <--- 0642 (6 bytes)
+860		-Monitor- ADV_NON_CONN_IND received in channel 39
+861		-Monitor- Listening in channel 37...
+862		  RX <--- 0642 (6 bytes)
+863		-Monitor- ADV_NON_CONN_IND received in channel 37
+864		-Monitor- Repetition left: 14
+865		-Monitor- Listening in channel 38...
+866		  RX <--- 0642 (6 bytes)
+867		-Monitor- ADV_NON_CONN_IND received in channel 38
+868		-Monitor- Listening in channel 39...
+869		  RX <--- 0642 (6 bytes)
+870		-Monitor- ADV_NON_CONN_IND received in channel 39
+871		-Monitor- Listening in channel 37...
+872		  RX <--- 0642 (6 bytes)
+873		-Monitor- ADV_NON_CONN_IND received in channel 37
+874		-Monitor- Repetition left: 13
+875		-Monitor- Listening in channel 38...
+876		  RX <--- 0642 (6 bytes)
+877		-Monitor- ADV_NON_CONN_IND received in channel 38
+878		-Monitor- Listening in channel 39...
+879		  RX <--- 0642 (6 bytes)
+880		-Monitor- ADV_NON_CONN_IND received in channel 39
+881		-Monitor- Listening in channel 37...
+882		  RX <--- 0642 (6 bytes)
+883		-Monitor- ADV_NON_CONN_IND received in channel 37
+884		-Monitor- Repetition left: 12
+885		-Monitor- Listening in channel 38...
+886		  RX <--- 0642 (6 bytes)
+887		-Monitor- ADV_NON_CONN_IND received in channel 38
+888		-Monitor- Listening in channel 39...
+889		  RX <--- 0642 (6 bytes)
+890		-Monitor- ADV_NON_CONN_IND received in channel 39
+891		-Monitor- Listening in channel 37...
+892		  RX <--- 0642 (6 bytes)
+893		-Monitor- ADV_NON_CONN_IND received in channel 37
+894		-Monitor- Repetition left: 11
+895		-Monitor- Listening in channel 38...
+896		  RX <--- 0642 (6 bytes)
+897		-Monitor- ADV_NON_CONN_IND received in channel 38
+898		-Monitor- Listening in channel 39...
+899		  RX <--- 0642 (6 bytes)
+900		-Monitor- ADV_NON_CONN_IND received in channel 39
+901		-Monitor- Listening in channel 37...
+902		  RX <--- 0642 (6 bytes)
+903		-Monitor- ADV_NON_CONN_IND received in channel 37
+904		-Monitor- Repetition left: 10
+905		-Monitor- Listening in channel 38...
+906		  RX <--- 0642 (6 bytes)
+907		-Monitor- ADV_NON_CONN_IND received in channel 38
+908		-Monitor- Listening in channel 39...
+909		  RX <--- 0642 (6 bytes)
+910		-Monitor- ADV_NON_CONN_IND received in channel 39
+911		-Monitor- Listening in channel 37...
+912		  RX <--- 0642 (6 bytes)
+913		-Monitor- ADV_NON_CONN_IND received in channel 37
+914		-Monitor- Repetition left: 9
+915		-Monitor- Listening in channel 38...
+916		  RX <--- 0642 (6 bytes)
+917		-Monitor- ADV_NON_CONN_IND received in channel 38
+918		-Monitor- Listening in channel 39...
+919		  RX <--- 0642 (6 bytes)
+920		-Monitor- ADV_NON_CONN_IND received in channel 39
+921		-Monitor- Listening in channel 37...
+922		  RX <--- 0642 (6 bytes)
+923		-Monitor- ADV_NON_CONN_IND received in channel 37
+924		-Monitor- Repetition left: 8
+925		-Monitor- Listening in channel 38...
+926		  RX <--- 0642 (6 bytes)
+927		-Monitor- ADV_NON_CONN_IND received in channel 38
+928		-Monitor- Listening in channel 39...
+929		  RX <--- 0642 (6 bytes)
+930		-Monitor- ADV_NON_CONN_IND received in channel 39
+931		-Monitor- Listening in channel 37...
+932		  RX <--- 0642 (6 bytes)
+933		-Monitor- ADV_NON_CONN_IND received in channel 37
+934		-Monitor- Repetition left: 7
+935		-Monitor- Listening in channel 38...
+936		  RX <--- 0642 (6 bytes)
+937		-Monitor- ADV_NON_CONN_IND received in channel 38
+938		-Monitor- Listening in channel 39...
+939		  RX <--- 0642 (6 bytes)
+940		-Monitor- ADV_NON_CONN_IND received in channel 39
+941		-Monitor- Listening in channel 37...
+942		  RX <--- 0642 (6 bytes)
+943		-Monitor- ADV_NON_CONN_IND received in channel 37
+944		-Monitor- Repetition left: 6
+945		-Monitor- Listening in channel 38...
+946		  RX <--- 0642 (6 bytes)
+947		-Monitor- ADV_NON_CONN_IND received in channel 38
+948		-Monitor- Listening in channel 39...
+949		  RX <--- 0642 (6 bytes)
+950		-Monitor- ADV_NON_CONN_IND received in channel 39
+951		-Monitor- Listening in channel 37...
+952		  RX <--- 0642 (6 bytes)
+953		-Monitor- ADV_NON_CONN_IND received in channel 37
+954		-Monitor- Repetition left: 5
+955		-Monitor- Listening in channel 38...
+956		  RX <--- 0642 (6 bytes)
+957		-Monitor- ADV_NON_CONN_IND received in channel 38
+958		-Monitor- Listening in channel 39...
+959		  RX <--- 0642 (6 bytes)
+960		-Monitor- ADV_NON_CONN_IND received in channel 39
+961		-Monitor- Listening in channel 37...
+962		  RX <--- 0642 (6 bytes)
+963		-Monitor- ADV_NON_CONN_IND received in channel 37
+964		-Monitor- Repetition left: 4
+965		-Monitor- Listening in channel 38...
+966		  RX <--- 0642 (6 bytes)
+967		-Monitor- ADV_NON_CONN_IND received in channel 38
+968		-Monitor- Listening in channel 39...
+969		  RX <--- 0642 (6 bytes)
+970		-Monitor- ADV_NON_CONN_IND received in channel 39
+971		-Monitor- Listening in channel 37...
+972		  RX <--- 0642 (6 bytes)
+973		-Monitor- ADV_NON_CONN_IND received in channel 37
+974		-Monitor- Repetition left: 3
+975		-Monitor- Listening in channel 38...
+976		  RX <--- 0642 (6 bytes)
+977		-Monitor- ADV_NON_CONN_IND received in channel 38
+978		-Monitor- Listening in channel 39...
+979		  RX <--- 0642 (6 bytes)
+980		-Monitor- ADV_NON_CONN_IND received in channel 39
+981		-Monitor- Listening in channel 37...
+982		  RX <--- 0642 (6 bytes)
+983		-Monitor- ADV_NON_CONN_IND received in channel 37
+984		-Monitor- Repetition left: 2
+985		-Monitor- Listening in channel 38...
+986		  RX <--- 0642 (6 bytes)
+987		-Monitor- ADV_NON_CONN_IND received in channel 38
+988		-Monitor- Listening in channel 39...
+989		  RX <--- 0642 (6 bytes)
+990		-Monitor- ADV_NON_CONN_IND received in channel 39
+991		-Monitor- Listening in channel 37...
+992		  RX <--- 0642 (6 bytes)
+993		-Monitor- ADV_NON_CONN_IND received in channel 37
+994		-Monitor- Repetition left: 1
+995		-Monitor- Listening in channel 38...
+996		  RX <--- 0642 (6 bytes)
+997		-Monitor- ADV_NON_CONN_IND received in channel 38
+998		-Monitor- Listening in channel 39...
+999		  RX <--- 0642 (6 bytes)
+1000		-Monitor- ADV_NON_CONN_IND received in channel 39
+1001		-Monitor- Listening in channel 37...
+1002		  RX <--- 0642 (6 bytes)
+1003		-Monitor- ADV_NON_CONN_IND received in channel 37
+1004		-Monitor- Repetition left: 0
+1005		-Monitor- Listening in channel 38...
+1006		  RX <--- 0642 (6 bytes)
+1007		-Monitor- ADV_NON_CONN_IND received in channel 38
+1008		-Monitor- Listening in channel 39...
+1009		  RX <--- 0642 (6 bytes)
+1010		-Monitor- ADV_NON_CONN_IND received in channel 39
+1011		-Monitor- Listening in channel 37...
+1012		  RX <--- 0642 (6 bytes)
+1013		-Monitor- Monitor procedure is finished after numRep. Sending LL_LC_MONITOR_MODE_CFM...
+1014		-Monitor- Listening in channel 37...
+1015		  RX <--- 2542 (37 bytes)
+1016		-Monitor- ADV_NON_CONN_IND received in channel 37
+1017		-Monitor- Repetition left: 49
+1018		-Monitor- Listening in channel 38...
+1019		  RX <--- 2542 (37 bytes)
+1020		-Monitor- ADV_NON_CONN_IND received in channel 38
+1021		-Monitor- Listening in channel 39...
+1022		  RX <--- 2542 (37 bytes)
+1023		-Monitor- ADV_NON_CONN_IND received in channel 39
+1024		-Monitor- Listening in channel 37...
+1025		  RX <--- 2542 (37 bytes)
+1026		-Monitor- ADV_NON_CONN_IND received in channel 37
+1027		-Monitor- Repetition left: 48
+1028		-Monitor- Listening in channel 38...
+1029		  RX <--- 2542 (37 bytes)
+1030		-Monitor- ADV_NON_CONN_IND received in channel 38
+1031		-Monitor- Listening in channel 39...
+1032		  RX <--- 2542 (37 bytes)
+1033		-Monitor- ADV_NON_CONN_IND received in channel 39
+1034		-Monitor- Listening in channel 37...
+1035		  RX <--- 2542 (37 bytes)
+1036		-Monitor- ADV_NON_CONN_IND received in channel 37
+1037		-Monitor- Repetition left: 47
+1038		-Monitor- Listening in channel 38...
+1039		  RX <--- 2542 (37 bytes)
+1040		-Monitor- ADV_NON_CONN_IND received in channel 38
+1041		-Monitor- Listening in channel 39...
+1042		  RX <--- 2542 (37 bytes)
+1043		-Monitor- ADV_NON_CONN_IND received in channel 39
+1044		-Monitor- Listening in channel 37...
+1045		  RX <--- 2542 (37 bytes)
+1046		-Monitor- ADV_NON_CONN_IND received in channel 37
+1047		-Monitor- Repetition left: 46
+1048		-Monitor- Listening in channel 38...
+1049		  RX <--- 2542 (37 bytes)
+1050		-Monitor- ADV_NON_CONN_IND received in channel 38
+1051		-Monitor- Listening in channel 39...
+1052		  RX <--- 2542 (37 bytes)
+1053		-Monitor- ADV_NON_CONN_IND received in channel 39
+1054		-Monitor- Listening in channel 37...
+1055		  RX <--- FEB8 (62 bytes)
+1056	ERROR: Length field of header is wrong. Value: 65
+1057		  RX <--- 2542 (37 bytes)
+1058		-Monitor- ADV_NON_CONN_IND received in channel 37
+1059		-Monitor- Repetition left: 45
+1060		-Monitor- Listening in channel 38...
+1061		  RX <--- 2542 (37 bytes)
+1062		-Monitor- ADV_NON_CONN_IND received in channel 38
+1063		-Monitor- Listening in channel 39...
+1064		  RX <--- 2542 (37 bytes)
+1065		-Monitor- ADV_NON_CONN_IND received in channel 39
+1066		-Monitor- Listening in channel 37...
+1067		  RX <--- 2542 (37 bytes)
+1068		-Monitor- ADV_NON_CONN_IND received in channel 37
+1069		-Monitor- Repetition left: 44
+1070		-Monitor- Listening in channel 38...
+1071		  RX <--- 2542 (37 bytes)
+1072		-Monitor- ADV_NON_CONN_IND received in channel 38
+1073		-Monitor- Listening in channel 39...
+1074		  RX <--- 2542 (37 bytes)
+1075		-Monitor- ADV_NON_CONN_IND received in channel 39
+1076		-Monitor- Listening in channel 37...
+1077		  RX <--- 2542 (37 bytes)
+1078		-Monitor- ADV_NON_CONN_IND received in channel 37
+1079		-Monitor- Repetition left: 43
+1080		-Monitor- Listening in channel 38...
+1081		  RX <--- 2542 (37 bytes)
+1082		-Monitor- ADV_NON_CONN_IND received in channel 38
+1083		-Monitor- Listening in channel 39...
+1084		  RX <--- 2542 (37 bytes)
+1085		-Monitor- ADV_NON_CONN_IND received in channel 39
+1086		-Monitor- Listening in channel 37...
+1087		  RX <--- 2542 (37 bytes)
+1088		-Monitor- ADV_NON_CONN_IND received in channel 37
+1089		-Monitor- Repetition left: 42
+1090		-Monitor- Listening in channel 38...
+1091		  RX <--- 2542 (37 bytes)
+1092		-Monitor- ADV_NON_CONN_IND received in channel 38
+1093		-Monitor- Listening in channel 39...
+1094		  RX <--- 2542 (37 bytes)
+1095		-Monitor- ADV_NON_CONN_IND received in channel 39
+1096		-Monitor- Listening in channel 37...
+1097		  RX <--- 2542 (37 bytes)
+1098		-Monitor- ADV_NON_CONN_IND received in channel 37
+1099		-Monitor- Repetition left: 41
+1100		-Monitor- Listening in channel 38...
+1101		  RX <--- 2542 (37 bytes)
+1102		-Monitor- ADV_NON_CONN_IND received in channel 38
+1103		-Monitor- Listening in channel 39...
+1104		  RX <--- 2542 (37 bytes)
+1105		-Monitor- ADV_NON_CONN_IND received in channel 39
+1106		-Monitor- Listening in channel 37...
+1107		  RX <--- 2542 (37 bytes)
+1108		-Monitor- ADV_NON_CONN_IND received in channel 37
+1109		-Monitor- Repetition left: 40
+1110		-Monitor- Listening in channel 38...
+1111		  RX <--- 2542 (37 bytes)
+1112		-Monitor- ADV_NON_CONN_IND received in channel 38
+1113		-Monitor- Listening in channel 39...
+1114		  RX <--- 2542 (37 bytes)
+1115		-Monitor- ADV_NON_CONN_IND received in channel 39
+1116		-Monitor- Listening in channel 37...
+1117		  RX <--- 2542 (37 bytes)
+1118		-Monitor- ADV_NON_CONN_IND received in channel 37
+1119		-Monitor- Repetition left: 39
+1120		-Monitor- Listening in channel 38...
+1121		  RX <--- 2542 (37 bytes)
+1122		-Monitor- ADV_NON_CONN_IND received in channel 38
+1123		-Monitor- Listening in channel 39...
+1124		  RX <--- 2542 (37 bytes)
+1125		-Monitor- ADV_NON_CONN_IND received in channel 39
+1126		-Monitor- Listening in channel 37...
+1127		  RX <--- 2542 (37 bytes)
+1128		-Monitor- ADV_NON_CONN_IND received in channel 37
+1129		-Monitor- Repetition left: 38
+1130		-Monitor- Listening in channel 38...
+1131		  RX <--- 2542 (37 bytes)
+1132		-Monitor- ADV_NON_CONN_IND received in channel 38
+1133		-Monitor- Listening in channel 39...
+1134		  RX <--- 2542 (37 bytes)
+1135		-Monitor- ADV_NON_CONN_IND received in channel 39
+1136		-Monitor- Listening in channel 37...
+1137		  RX <--- 2542 (37 bytes)
+1138		-Monitor- ADV_NON_CONN_IND received in channel 37
+1139		-Monitor- Repetition left: 37
+1140		-Monitor- Listening in channel 38...
+1141		  RX <--- 2542 (37 bytes)
+1142		-Monitor- ADV_NON_CONN_IND received in channel 38
+1143		-Monitor- Listening in channel 39...
+1144		  RX <--- 2542 (37 bytes)
+1145		-Monitor- ADV_NON_CONN_IND received in channel 39
+1146		-Monitor- Listening in channel 37...
+1147		  RX <--- 2542 (37 bytes)
+1148		-Monitor- ADV_NON_CONN_IND received in channel 37
+1149		-Monitor- Repetition left: 36
+1150		-Monitor- Listening in channel 38...
+1151		  RX <--- 2542 (37 bytes)
+1152		-Monitor- ADV_NON_CONN_IND received in channel 38
+1153		-Monitor- Listening in channel 39...
+1154		  RX <--- 2542 (37 bytes)
+1155		-Monitor- ADV_NON_CONN_IND received in channel 39
+1156		-Monitor- Listening in channel 37...
+1157		  RX <--- 2542 (37 bytes)
+1158		-Monitor- ADV_NON_CONN_IND received in channel 37
+1159		-Monitor- Repetition left: 35
+1160		-Monitor- Listening in channel 38...
+1161		  RX <--- 2542 (37 bytes)
+1162		-Monitor- ADV_NON_CONN_IND received in channel 38
+1163		-Monitor- Listening in channel 39...
+1164		  RX <--- 2542 (37 bytes)
+1165		-Monitor- ADV_NON_CONN_IND received in channel 39
+1166		-Monitor- Listening in channel 37...
+1167		  RX <--- 2542 (37 bytes)
+1168		-Monitor- ADV_NON_CONN_IND received in channel 37
+1169		-Monitor- Repetition left: 34
+1170		-Monitor- Listening in channel 38...
+1171		  RX <--- 2542 (37 bytes)
+1172		-Monitor- ADV_NON_CONN_IND received in channel 38
+1173		-Monitor- Listening in channel 39...
+1174		  RX <--- 2542 (37 bytes)
+1175		-Monitor- ADV_NON_CONN_IND received in channel 39
+1176		-Monitor- Listening in channel 37...
+1177		  RX <--- 2542 (37 bytes)
+1178		-Monitor- ADV_NON_CONN_IND received in channel 37
+1179		-Monitor- Repetition left: 33
+1180		-Monitor- Listening in channel 38...
+1181		  RX <--- 2542 (37 bytes)
+1182		-Monitor- ADV_NON_CONN_IND received in channel 38
+1183		-Monitor- Listening in channel 39...
+1184		  RX <--- 2542 (37 bytes)
+1185		-Monitor- ADV_NON_CONN_IND received in channel 39
+1186		-Monitor- Listening in channel 37...
+1187		  RX <--- 2542 (37 bytes)
+1188		-Monitor- ADV_NON_CONN_IND received in channel 37
+1189		-Monitor- Repetition left: 32
+1190		-Monitor- Listening in channel 38...
+1191		  RX <--- 2542 (37 bytes)
+1192		-Monitor- ADV_NON_CONN_IND received in channel 38
+1193		-Monitor- Listening in channel 39...
+1194		  RX <--- 2542 (37 bytes)
+1195		-Monitor- ADV_NON_CONN_IND received in channel 39
+1196		-Monitor- Listening in channel 37...
+1197		  RX <--- 2542 (37 bytes)
+1198		-Monitor- ADV_NON_CONN_IND received in channel 37
+1199		-Monitor- Repetition left: 31
+1200		-Monitor- Listening in channel 38...
+1201		  RX <--- 2542 (37 bytes)
+1202		-Monitor- ADV_NON_CONN_IND received in channel 38
+1203		-Monitor- Listening in channel 39...
+1204		  RX <--- 2542 (37 bytes)
+1205		-Monitor- ADV_NON_CONN_IND received in channel 39
+1206		-Monitor- Listening in channel 37...
+1207		  RX <--- 2542 (37 bytes)
+1208		-Monitor- ADV_NON_CONN_IND received in channel 37
+1209		-Monitor- Repetition left: 30
+1210		-Monitor- Listening in channel 38...
+1211		  RX <--- 2542 (37 bytes)
+1212		-Monitor- ADV_NON_CONN_IND received in channel 38
+1213		-Monitor- Listening in channel 39...
+1214		  RX <--- 2542 (37 bytes)
+1215		-Monitor- ADV_NON_CONN_IND received in channel 39
+1216		-Monitor- Listening in channel 37...
+1217		  RX <--- 2542 (37 bytes)
+1218		-Monitor- ADV_NON_CONN_IND received in channel 37
+1219		-Monitor- Repetition left: 29
+1220		-Monitor- Listening in channel 38...
+1221		  RX <--- 2542 (37 bytes)
+1222		-Monitor- ADV_NON_CONN_IND received in channel 38
+1223		-Monitor- Listening in channel 39...
+1224		  RX <--- 2542 (37 bytes)
+1225		-Monitor- ADV_NON_CONN_IND received in channel 39
+1226		-Monitor- Listening in channel 37...
+1227		  RX <--- 2542 (37 bytes)
+1228		-Monitor- ADV_NON_CONN_IND received in channel 37
+1229		-Monitor- Repetition left: 28
+1230		-Monitor- Listening in channel 38...
+1231		  RX <--- 2542 (37 bytes)
+1232		-Monitor- ADV_NON_CONN_IND received in channel 38
+1233		-Monitor- Listening in channel 39...
+1234		  RX <--- 2542 (37 bytes)
+1235		-Monitor- ADV_NON_CONN_IND received in channel 39
+1236		-Monitor- Listening in channel 37...
+1237		  RX <--- 2542 (37 bytes)
+1238		-Monitor- ADV_NON_CONN_IND received in channel 37
+1239		-Monitor- Repetition left: 27
+1240		-Monitor- Listening in channel 38...
+1241		  RX <--- 2542 (37 bytes)
+1242		-Monitor- ADV_NON_CONN_IND received in channel 38
+1243		-Monitor- Listening in channel 39...
+1244		  RX <--- 2542 (37 bytes)
+1245		-Monitor- ADV_NON_CONN_IND received in channel 39
+1246		-Monitor- Listening in channel 37...
+1247		  RX <--- 2542 (37 bytes)
+1248		-Monitor- ADV_NON_CONN_IND received in channel 37
+1249		-Monitor- Repetition left: 26
+1250		-Monitor- Listening in channel 38...
+1251		  RX <--- 2542 (37 bytes)
+1252		-Monitor- ADV_NON_CONN_IND received in channel 38
+1253		-Monitor- Listening in channel 39...
+1254		  RX <--- 2542 (37 bytes)
+1255		-Monitor- ADV_NON_CONN_IND received in channel 39
+1256		-Monitor- Listening in channel 37...
+1257		  RX <--- 2542 (37 bytes)
+1258		-Monitor- ADV_NON_CONN_IND received in channel 37
+1259		-Monitor- Repetition left: 25
+1260		-Monitor- Listening in channel 38...
+1261		  RX <--- 2542 (37 bytes)
+1262		-Monitor- ADV_NON_CONN_IND received in channel 38
+1263		-Monitor- Listening in channel 39...
+1264		  RX <--- 2542 (37 bytes)
+1265		-Monitor- ADV_NON_CONN_IND received in channel 39
+1266		-Monitor- Listening in channel 37...
+1267		  RX <--- 2542 (37 bytes)
+1268		-Monitor- ADV_NON_CONN_IND received in channel 37
+1269		-Monitor- Repetition left: 24
+1270		-Monitor- Listening in channel 38...
+1271		  RX <--- 2542 (37 bytes)
+1272		-Monitor- ADV_NON_CONN_IND received in channel 38
+1273		-Monitor- Listening in channel 39...
+1274		  RX <--- 2542 (37 bytes)
+1275		-Monitor- ADV_NON_CONN_IND received in channel 39
+1276		-Monitor- Listening in channel 37...
+1277		  RX <--- 2542 (37 bytes)
+1278		-Monitor- ADV_NON_CONN_IND received in channel 37
+1279		-Monitor- Repetition left: 23
+1280		-Monitor- Listening in channel 38...
+1281		  RX <--- 2542 (37 bytes)
+1282		-Monitor- ADV_NON_CONN_IND received in channel 38
+1283		-Monitor- Listening in channel 39...
+1284		  RX <--- 2542 (37 bytes)
+1285		-Monitor- ADV_NON_CONN_IND received in channel 39
+1286		-Monitor- Listening in channel 37...
+1287		  RX <--- 2542 (37 bytes)
+1288		-Monitor- ADV_NON_CONN_IND received in channel 37
+1289		-Monitor- Repetition left: 22
+1290		-Monitor- Listening in channel 38...
+1291		  RX <--- 2542 (37 bytes)
+1292		-Monitor- ADV_NON_CONN_IND received in channel 38
+1293		-Monitor- Listening in channel 39...
+1294		  RX <--- 2542 (37 bytes)
+1295		-Monitor- ADV_NON_CONN_IND received in channel 39
+1296		-Monitor- Listening in channel 37...
+1297		  RX <--- 2542 (37 bytes)
+1298		-Monitor- ADV_NON_CONN_IND received in channel 37
+1299		-Monitor- Repetition left: 21
+1300		-Monitor- Listening in channel 38...
+1301		  RX <--- 2542 (37 bytes)
+1302		-Monitor- ADV_NON_CONN_IND received in channel 38
+1303		-Monitor- Listening in channel 39...
+1304		  RX <--- 2542 (37 bytes)
+1305		-Monitor- ADV_NON_CONN_IND received in channel 39
+1306		-Monitor- Listening in channel 37...
+1307		  RX <--- 2542 (37 bytes)
+1308		-Monitor- ADV_NON_CONN_IND received in channel 37
+1309		-Monitor- Repetition left: 20
+1310		-Monitor- Listening in channel 38...
+1311		  RX <--- 2542 (37 bytes)
+1312		-Monitor- ADV_NON_CONN_IND received in channel 38
+1313		-Monitor- Listening in channel 39...
+1314		  RX <--- 2542 (37 bytes)
+1315		-Monitor- ADV_NON_CONN_IND received in channel 39
+1316		-Monitor- Listening in channel 37...
+1317		  RX <--- 2542 (37 bytes)
+1318		-Monitor- ADV_NON_CONN_IND received in channel 37
+1319		-Monitor- Repetition left: 19
+1320		-Monitor- Listening in channel 38...
+1321		  RX <--- 2542 (37 bytes)
+1322		-Monitor- ADV_NON_CONN_IND received in channel 38
+1323		-Monitor- Listening in channel 39...
+1324		  RX <--- 2542 (37 bytes)
+1325		-Monitor- ADV_NON_CONN_IND received in channel 39
+1326		-Monitor- Listening in channel 37...
+1327		  RX <--- 2542 (37 bytes)
+1328		-Monitor- ADV_NON_CONN_IND received in channel 37
+1329		-Monitor- Repetition left: 18
+1330		-Monitor- Listening in channel 38...
+1331		  RX <--- 2542 (37 bytes)
+1332		-Monitor- ADV_NON_CONN_IND received in channel 38
+1333		-Monitor- Listening in channel 39...
+1334		  RX <--- 2542 (37 bytes)
+1335		-Monitor- ADV_NON_CONN_IND received in channel 39
+1336		-Monitor- Listening in channel 37...
+1337		  RX <--- 2542 (37 bytes)
+1338		-Monitor- ADV_NON_CONN_IND received in channel 37
+1339		-Monitor- Repetition left: 17
+1340		-Monitor- Listening in channel 38...
+1341		  RX <--- 2542 (37 bytes)
+1342		-Monitor- ADV_NON_CONN_IND received in channel 38
+1343		-Monitor- Listening in channel 39...
+1344		  RX <--- 2542 (37 bytes)
+1345		-Monitor- ADV_NON_CONN_IND received in channel 39
+1346		-Monitor- Listening in channel 37...
+1347		  RX <--- 2542 (37 bytes)
+1348		-Monitor- ADV_NON_CONN_IND received in channel 37
+1349		-Monitor- Repetition left: 16
+1350		-Monitor- Listening in channel 38...
+1351		  RX <--- 2542 (37 bytes)
+1352		-Monitor- ADV_NON_CONN_IND received in channel 38
+1353		-Monitor- Listening in channel 39...
+1354		  RX <--- 2542 (37 bytes)
+1355		-Monitor- ADV_NON_CONN_IND received in channel 39
+1356		-Monitor- Listening in channel 37...
+1357		  RX <--- 2542 (37 bytes)
+1358		-Monitor- ADV_NON_CONN_IND received in channel 37
+1359		-Monitor- Repetition left: 15
+1360		-Monitor- Listening in channel 38...
+1361		  RX <--- 2542 (37 bytes)
+1362		-Monitor- ADV_NON_CONN_IND received in channel 38
+1363		-Monitor- Listening in channel 39...
+1364		  RX <--- 2542 (37 bytes)
+1365		-Monitor- ADV_NON_CONN_IND received in channel 39
+1366		-Monitor- Listening in channel 37...
+1367		  RX <--- 2542 (37 bytes)
+1368		-Monitor- ADV_NON_CONN_IND received in channel 37
+1369		-Monitor- Repetition left: 14
+1370		-Monitor- Listening in channel 38...
+1371		  RX <--- 2542 (37 bytes)
+1372		-Monitor- ADV_NON_CONN_IND received in channel 38
+1373		-Monitor- Listening in channel 39...
+1374		  RX <--- 2542 (37 bytes)
+1375		-Monitor- ADV_NON_CONN_IND received in channel 39
+1376		-Monitor- Listening in channel 37...
+1377		  RX <--- 2542 (37 bytes)
+1378		-Monitor- ADV_NON_CONN_IND received in channel 37
+1379		-Monitor- Repetition left: 13
+1380		-Monitor- Listening in channel 38...
+1381		  RX <--- 2542 (37 bytes)
+1382		-Monitor- ADV_NON_CONN_IND received in channel 38
+1383		-Monitor- Listening in channel 39...
+1384		  RX <--- 2542 (37 bytes)
+1385		-Monitor- ADV_NON_CONN_IND received in channel 39
+1386		-Monitor- Listening in channel 37...
+1387		  RX <--- 9959 (25 bytes)
+1388	Crc calculated (0x467458) is wrong! with seedWhitening 37
+1389		  RX <--- 2542 (37 bytes)
+1390		-Monitor- ADV_NON_CONN_IND received in channel 37
+1391		-Monitor- Repetition left: 12
+1392		-Monitor- Listening in channel 38...
+1393		  RX <--- 2542 (37 bytes)
+1394		-Monitor- ADV_NON_CONN_IND received in channel 38
+1395		-Monitor- Listening in channel 39...
+1396		  RX <--- 2542 (37 bytes)
+1397		-Monitor- ADV_NON_CONN_IND received in channel 39
+1398		-Monitor- Listening in channel 37...
+1399		  RX <--- 2542 (37 bytes)
+1400		-Monitor- ADV_NON_CONN_IND received in channel 37
+1401		-Monitor- Repetition left: 11
+1402		-Monitor- Listening in channel 38...
+1403		  RX <--- 2542 (37 bytes)
+1404		-Monitor- ADV_NON_CONN_IND received in channel 38
+1405		-Monitor- Listening in channel 39...
+1406		  RX <--- 2542 (37 bytes)
+1407		-Monitor- ADV_NON_CONN_IND received in channel 39
+1408		-Monitor- Listening in channel 37...
+1409		  RX <--- 2542 (37 bytes)
+1410		-Monitor- ADV_NON_CONN_IND received in channel 37
+1411		-Monitor- Repetition left: 10
+1412		-Monitor- Listening in channel 38...
+1413		  RX <--- 2542 (37 bytes)
+1414		-Monitor- ADV_NON_CONN_IND received in channel 38
+1415		-Monitor- Listening in channel 39...
+1416		  RX <--- 2542 (37 bytes)
+1417		-Monitor- ADV_NON_CONN_IND received in channel 39
+1418		-Monitor- Listening in channel 37...
+1419		  RX <--- 2542 (37 bytes)
+1420		-Monitor- ADV_NON_CONN_IND received in channel 37
+1421		-Monitor- Repetition left: 9
+1422		-Monitor- Listening in channel 38...
+1423		  RX <--- 2542 (37 bytes)
+1424		-Monitor- ADV_NON_CONN_IND received in channel 38
+1425		-Monitor- Listening in channel 39...
+1426		  RX <--- 2542 (37 bytes)
+1427		-Monitor- ADV_NON_CONN_IND received in channel 39
+1428		-Monitor- Listening in channel 37...
+1429		  RX <--- 2542 (37 bytes)
+1430		-Monitor- ADV_NON_CONN_IND received in channel 37
+1431		-Monitor- Repetition left: 8
+1432		-Monitor- Listening in channel 38...
+1433		  RX <--- 2542 (37 bytes)
+1434		-Monitor- ADV_NON_CONN_IND received in channel 38
+1435		-Monitor- Listening in channel 39...
+1436		  RX <--- 2542 (37 bytes)
+1437		-Monitor- ADV_NON_CONN_IND received in channel 39
+1438		-Monitor- Listening in channel 37...
+1439		  RX <--- 2542 (37 bytes)
+1440		-Monitor- ADV_NON_CONN_IND received in channel 37
+1441		-Monitor- Repetition left: 7
+1442		-Monitor- Listening in channel 38...
+1443		  RX <--- 2542 (37 bytes)
+1444		-Monitor- ADV_NON_CONN_IND received in channel 38
+1445		-Monitor- Listening in channel 39...
+1446		  RX <--- 2542 (37 bytes)
+1447		-Monitor- ADV_NON_CONN_IND received in channel 39
+1448		-Monitor- Listening in channel 37...
+1449		  RX <--- 2542 (37 bytes)
+1450		-Monitor- ADV_NON_CONN_IND received in channel 37
+1451		-Monitor- Repetition left: 6
+1452		-Monitor- Listening in channel 38...
+1453		  RX <--- 2542 (37 bytes)
+1454		-Monitor- ADV_NON_CONN_IND received in channel 38
+1455		-Monitor- Listening in channel 39...
+1456		  RX <--- 2542 (37 bytes)
+1457		-Monitor- ADV_NON_CONN_IND received in channel 39
+1458		-Monitor- Listening in channel 37...
+1459		  RX <--- 2542 (37 bytes)
+1460		-Monitor- ADV_NON_CONN_IND received in channel 37
+1461		-Monitor- Repetition left: 5
+1462		-Monitor- Listening in channel 38...
+1463		  RX <--- 2542 (37 bytes)
+1464		-Monitor- ADV_NON_CONN_IND received in channel 38
+1465		-Monitor- Listening in channel 39...
+1466		  RX <--- 2542 (37 bytes)
+1467		-Monitor- ADV_NON_CONN_IND received in channel 39
+1468		-Monitor- Listening in channel 37...
+1469		  RX <--- 2542 (37 bytes)
+1470		-Monitor- ADV_NON_CONN_IND received in channel 37
+1471		-Monitor- Repetition left: 4
+1472		-Monitor- Listening in channel 38...
+1473		  RX <--- 2542 (37 bytes)
+1474		-Monitor- ADV_NON_CONN_IND received in channel 38
+1475		-Monitor- Listening in channel 39...
+1476		  RX <--- 2542 (37 bytes)
+1477		-Monitor- ADV_NON_CONN_IND received in channel 39
+1478		-Monitor- Listening in channel 37...
+1479		  RX <--- 2542 (37 bytes)
+1480		-Monitor- ADV_NON_CONN_IND received in channel 37
+1481		-Monitor- Repetition left: 3
+1482		-Monitor- Listening in channel 38...
+1483		  RX <--- 2542 (37 bytes)
+1484		-Monitor- ADV_NON_CONN_IND received in channel 38
+1485		-Monitor- Listening in channel 39...
+1486		  RX <--- 2542 (37 bytes)
+1487		-Monitor- ADV_NON_CONN_IND received in channel 39
+1488		-Monitor- Listening in channel 37...
+1489		  RX <--- 2542 (37 bytes)
+1490		-Monitor- ADV_NON_CONN_IND received in channel 37
+1491		-Monitor- Repetition left: 2
+1492		-Monitor- Listening in channel 38...
+1493		  RX <--- 2542 (37 bytes)
+1494		-Monitor- ADV_NON_CONN_IND received in channel 38
+1495		-Monitor- Listening in channel 39...
+1496		  RX <--- 2542 (37 bytes)
+1497		-Monitor- ADV_NON_CONN_IND received in channel 39
+1498		-Monitor- Listening in channel 37...
+1499		  RX <--- 2542 (37 bytes)
+1500		-Monitor- ADV_NON_CONN_IND received in channel 37
+1501		-Monitor- Repetition left: 1
+1502		-Monitor- Listening in channel 38...
+1503		  RX <--- 2542 (37 bytes)
+1504		-Monitor- ADV_NON_CONN_IND received in channel 38
+1505		-Monitor- Listening in channel 39...
+1506		  RX <--- 2542 (37 bytes)
+1507		-Monitor- ADV_NON_CONN_IND received in channel 39
+1508		-Monitor- Listening in channel 37...
+1509		  RX <--- 2542 (37 bytes)
+1510		-Monitor- ADV_NON_CONN_IND received in channel 37
+1511		-Monitor- Repetition left: 0
+1512		-Monitor- Listening in channel 38...
+1513		  RX <--- 2542 (37 bytes)
+1514		-Monitor- ADV_NON_CONN_IND received in channel 38
+1515		-Monitor- Listening in channel 39...
+1516		  RX <--- 2542 (37 bytes)
+1517		-Monitor- ADV_NON_CONN_IND received in channel 39
+1518		-Monitor- Listening in channel 37...
+1519		  RX <--- 2542 (37 bytes)
+1520		-Monitor- Monitor procedure is finished after numRep. Sending LL_LC_MONITOR_MODE_CFM...
+1521		-Monitor- Listening in channel 37...
+1522		  RX <--- 0642 (6 bytes)
+1523		-Monitor- ADV_NON_CONN_IND received in channel 37
+1524		-Monitor- Repetition left: 49
+1525		-Monitor- Listening in channel 38...
+1526		  RX <--- 0642 (6 bytes)
+1527		-Monitor- ADV_NON_CONN_IND received in channel 38
+1528		-Monitor- Listening in channel 39...
+1529		  RX <--- 0642 (6 bytes)
+1530		-Monitor- ADV_NON_CONN_IND received in channel 39
+1531		-Monitor- Listening in channel 37...
+1532		  RX <--- 0642 (6 bytes)
+1533		-Monitor- ADV_NON_CONN_IND received in channel 37
+1534		-Monitor- Repetition left: 48
+1535		-Monitor- Listening in channel 38...
+1536		  RX <--- 0642 (6 bytes)
+1537		-Monitor- ADV_NON_CONN_IND received in channel 38
+1538		-Monitor- Listening in channel 39...
+1539		  RX <--- 0642 (6 bytes)
+1540		-Monitor- ADV_NON_CONN_IND received in channel 39
+1541		-Monitor- Listening in channel 37...
+1542		  RX <--- 0642 (6 bytes)
+1543		-Monitor- ADV_NON_CONN_IND received in channel 37
+1544		-Monitor- Repetition left: 47
+1545		-Monitor- Listening in channel 38...
+1546		  RX <--- 0642 (6 bytes)
+1547		-Monitor- ADV_NON_CONN_IND received in channel 38
+1548		-Monitor- Listening in channel 39...
+1549		  RX <--- 0642 (6 bytes)
+1550		-Monitor- ADV_NON_CONN_IND received in channel 39
+1551		-Monitor- Listening in channel 37...
+1552		  RX <--- 0642 (6 bytes)
+1553		-Monitor- ADV_NON_CONN_IND received in channel 37
+1554		-Monitor- Repetition left: 46
+1555		-Monitor- Listening in channel 38...
+1556		  RX <--- 0642 (6 bytes)
+1557		-Monitor- ADV_NON_CONN_IND received in channel 38
+1558		-Monitor- Listening in channel 39...
+1559		  RX <--- 0642 (6 bytes)
+1560		-Monitor- ADV_NON_CONN_IND received in channel 39
+1561		-Monitor- Listening in channel 37...
+1562		  RX <--- 0642 (6 bytes)
+1563		-Monitor- ADV_NON_CONN_IND received in channel 37
+1564		-Monitor- Repetition left: 45
+1565		-Monitor- Listening in channel 38...
+1566		  RX <--- 0642 (6 bytes)
+1567		-Monitor- ADV_NON_CONN_IND received in channel 38
+1568		-Monitor- Listening in channel 39...
+1569		  RX <--- 0642 (6 bytes)
+1570		-Monitor- ADV_NON_CONN_IND received in channel 39
+1571		-Monitor- Listening in channel 37...
+1572		  RX <--- 0642 (6 bytes)
+1573		-Monitor- ADV_NON_CONN_IND received in channel 37
+1574		-Monitor- Repetition left: 44
+1575		-Monitor- Listening in channel 38...
+1576		  RX <--- 0642 (6 bytes)
+1577		-Monitor- ADV_NON_CONN_IND received in channel 38
+1578		-Monitor- Listening in channel 39...
+1579		  RX <--- 0642 (6 bytes)
+1580		-Monitor- ADV_NON_CONN_IND received in channel 39
+1581		-Monitor- Listening in channel 37...
+1582		  RX <--- 0642 (6 bytes)
+1583		-Monitor- ADV_NON_CONN_IND received in channel 37
+1584		-Monitor- Repetition left: 43
+1585		-Monitor- Listening in channel 38...
+1586		  RX <--- 0642 (6 bytes)
+1587		-Monitor- ADV_NON_CONN_IND received in channel 38
+1588		-Monitor- Listening in channel 39...
+1589		  RX <--- 0642 (6 bytes)
+1590		-Monitor- ADV_NON_CONN_IND received in channel 39
+1591		-Monitor- Listening in channel 37...
+1592		  RX <--- 0642 (6 bytes)
+1593		-Monitor- ADV_NON_CONN_IND received in channel 37
+1594		-Monitor- Repetition left: 42
+1595		-Monitor- Listening in channel 38...
+1596		  RX <--- 0642 (6 bytes)
+1597		-Monitor- ADV_NON_CONN_IND received in channel 38
+1598		-Monitor- Listening in channel 39...
+1599		  RX <--- 0642 (6 bytes)
+1600		-Monitor- ADV_NON_CONN_IND received in channel 39
+1601		-Monitor- Listening in channel 37...
+1602		  RX <--- 0642 (6 bytes)
+1603		-Monitor- ADV_NON_CONN_IND received in channel 37
+1604		-Monitor- Repetition left: 41
+1605		-Monitor- Listening in channel 38...
+1606		  RX <--- 0642 (6 bytes)
+1607		-Monitor- ADV_NON_CONN_IND received in channel 38
+1608		-Monitor- Listening in channel 39...
+1609		  RX <--- 0642 (6 bytes)
+1610		-Monitor- ADV_NON_CONN_IND received in channel 39
+1611		-Monitor- Listening in channel 37...
+1612		  RX <--- 0642 (6 bytes)
+1613		-Monitor- ADV_NON_CONN_IND received in channel 37
+1614		-Monitor- Repetition left: 40
+1615		-Monitor- Listening in channel 38...
+1616		  RX <--- 0642 (6 bytes)
+1617		-Monitor- ADV_NON_CONN_IND received in channel 38
+1618		-Monitor- Listening in channel 39...
+1619		  RX <--- 0642 (6 bytes)
+1620		-Monitor- ADV_NON_CONN_IND received in channel 39
+1621		-Monitor- Listening in channel 37...
+1622		  RX <--- 0642 (6 bytes)
+1623		-Monitor- ADV_NON_CONN_IND received in channel 37
+1624		-Monitor- Repetition left: 39
+1625		-Monitor- Listening in channel 38...
+1626		  RX <--- 0642 (6 bytes)
+1627		-Monitor- ADV_NON_CONN_IND received in channel 38
+1628		-Monitor- Listening in channel 39...
+1629		  RX <--- 0642 (6 bytes)
+1630		-Monitor- ADV_NON_CONN_IND received in channel 39
+1631		-Monitor- Listening in channel 37...
+1632		  RX <--- 0642 (6 bytes)
+1633		-Monitor- ADV_NON_CONN_IND received in channel 37
+1634		-Monitor- Repetition left: 38
+1635		-Monitor- Listening in channel 38...
+1636		  RX <--- 0642 (6 bytes)
+1637		-Monitor- ADV_NON_CONN_IND received in channel 38
+1638		-Monitor- Listening in channel 39...
+1639		  RX <--- 0642 (6 bytes)
+1640		-Monitor- ADV_NON_CONN_IND received in channel 39
+1641		-Monitor- Listening in channel 37...
+1642		  RX <--- 0642 (6 bytes)
+1643		-Monitor- ADV_NON_CONN_IND received in channel 37
+1644		-Monitor- Repetition left: 37
+1645		-Monitor- Listening in channel 38...
+1646		  RX <--- 0642 (6 bytes)
+1647		-Monitor- ADV_NON_CONN_IND received in channel 38
+1648		-Monitor- Listening in channel 39...
+1649		  RX <--- 0642 (6 bytes)
+1650		-Monitor- ADV_NON_CONN_IND received in channel 39
+1651		-Monitor- Listening in channel 37...
+1652		  RX <--- 0642 (6 bytes)
+1653		-Monitor- ADV_NON_CONN_IND received in channel 37
+1654		-Monitor- Repetition left: 36
+1655		-Monitor- Listening in channel 38...
+1656		  RX <--- 0642 (6 bytes)
+1657		-Monitor- ADV_NON_CONN_IND received in channel 38
+1658		-Monitor- Listening in channel 39...
+1659		  RX <--- 0642 (6 bytes)
+1660		-Monitor- ADV_NON_CONN_IND received in channel 39
+1661		-Monitor- Listening in channel 37...
+1662		  RX <--- 0642 (6 bytes)
+1663		-Monitor- ADV_NON_CONN_IND received in channel 37
+1664		-Monitor- Repetition left: 35
+1665		-Monitor- Listening in channel 38...
+1666		  RX <--- 0642 (6 bytes)
+1667		-Monitor- ADV_NON_CONN_IND received in channel 38
+1668		-Monitor- Listening in channel 39...
+1669		  RX <--- 0642 (6 bytes)
+1670		-Monitor- ADV_NON_CONN_IND received in channel 39
+1671		-Monitor- Listening in channel 37...
+1672		  RX <--- 0642 (6 bytes)
+1673		-Monitor- ADV_NON_CONN_IND received in channel 37
+1674		-Monitor- Repetition left: 34
+1675		-Monitor- Listening in channel 38...
+1676		  RX <--- 0642 (6 bytes)
+1677		-Monitor- ADV_NON_CONN_IND received in channel 38
+1678		-Monitor- Listening in channel 39...
+1679		  RX <--- 0642 (6 bytes)
+1680		-Monitor- ADV_NON_CONN_IND received in channel 39
+1681		-Monitor- Listening in channel 37...
+1682		  RX <--- 0642 (6 bytes)
+1683		-Monitor- ADV_NON_CONN_IND received in channel 37
+1684		-Monitor- Repetition left: 33
+1685		-Monitor- Listening in channel 38...
+1686		  RX <--- 0642 (6 bytes)
+1687		-Monitor- ADV_NON_CONN_IND received in channel 38
+1688		-Monitor- Listening in channel 39...
+1689		  RX <--- 0642 (6 bytes)
+1690		-Monitor- ADV_NON_CONN_IND received in channel 39
+1691		-Monitor- Listening in channel 37...
+1692		  RX <--- 0642 (6 bytes)
+1693		-Monitor- ADV_NON_CONN_IND received in channel 37
+1694		-Monitor- Repetition left: 32
+1695		-Monitor- Listening in channel 38...
+1696		  RX <--- 0642 (6 bytes)
+1697		-Monitor- ADV_NON_CONN_IND received in channel 38
+1698		-Monitor- Listening in channel 39...
+1699		  RX <--- 0642 (6 bytes)
+1700		-Monitor- ADV_NON_CONN_IND received in channel 39
+1701		-Monitor- Listening in channel 37...
+1702		  RX <--- 0642 (6 bytes)
+1703		-Monitor- ADV_NON_CONN_IND received in channel 37
+1704		-Monitor- Repetition left: 31
+1705		-Monitor- Listening in channel 38...
+1706		  RX <--- 0642 (6 bytes)
+1707		-Monitor- ADV_NON_CONN_IND received in channel 38
+1708		-Monitor- Listening in channel 39...
+1709		  RX <--- 0642 (6 bytes)
+1710		-Monitor- ADV_NON_CONN_IND received in channel 39
+1711		-Monitor- Listening in channel 37...
+1712		  RX <--- 0642 (6 bytes)
+1713		-Monitor- ADV_NON_CONN_IND received in channel 37
+1714		-Monitor- Repetition left: 30
+1715		-Monitor- Listening in channel 38...
+1716		  RX <--- 0642 (6 bytes)
+1717		-Monitor- ADV_NON_CONN_IND received in channel 38
+1718		-Monitor- Listening in channel 39...
+1719		  RX <--- 0642 (6 bytes)
+1720		-Monitor- ADV_NON_CONN_IND received in channel 39
+1721		-Monitor- Listening in channel 37...
+1722		  RX <--- 0642 (6 bytes)
+1723		-Monitor- ADV_NON_CONN_IND received in channel 37
+1724		-Monitor- Repetition left: 29
+1725		-Monitor- Listening in channel 38...
+1726		  RX <--- 0642 (6 bytes)
+1727		-Monitor- ADV_NON_CONN_IND received in channel 38
+1728		-Monitor- Listening in channel 39...
+1729		  RX <--- 0642 (6 bytes)
+1730		-Monitor- ADV_NON_CONN_IND received in channel 39
+1731		-Monitor- Listening in channel 37...
+1732		  RX <--- 0642 (6 bytes)
+1733		-Monitor- ADV_NON_CONN_IND received in channel 37
+1734		-Monitor- Repetition left: 28
+1735		-Monitor- Listening in channel 38...
+1736		  RX <--- 0642 (6 bytes)
+1737		-Monitor- ADV_NON_CONN_IND received in channel 38
+1738		-Monitor- Listening in channel 39...
+1739		  RX <--- 0642 (6 bytes)
+1740		-Monitor- ADV_NON_CONN_IND received in channel 39
+1741		-Monitor- Listening in channel 37...
+1742		  RX <--- 0642 (6 bytes)
+1743		-Monitor- ADV_NON_CONN_IND received in channel 37
+1744		-Monitor- Repetition left: 27
+1745		-Monitor- Listening in channel 38...
+1746		  RX <--- 0642 (6 bytes)
+1747		-Monitor- ADV_NON_CONN_IND received in channel 38
+1748		-Monitor- Listening in channel 39...
+1749		  RX <--- 0642 (6 bytes)
+1750		-Monitor- ADV_NON_CONN_IND received in channel 39
+1751		-Monitor- Listening in channel 37...
+1752		  RX <--- 0642 (6 bytes)
+1753		-Monitor- ADV_NON_CONN_IND received in channel 37
+1754		-Monitor- Repetition left: 26
+1755		-Monitor- Listening in channel 38...
+1756		  RX <--- 0642 (6 bytes)
+1757		-Monitor- ADV_NON_CONN_IND received in channel 38
+1758		-Monitor- Listening in channel 39...
+1759		  RX <--- 0642 (6 bytes)
+1760		-Monitor- ADV_NON_CONN_IND received in channel 39
+1761		-Monitor- Listening in channel 37...
+1762		  RX <--- 0642 (6 bytes)
+1763		-Monitor- ADV_NON_CONN_IND received in channel 37
+1764		-Monitor- Repetition left: 25
+1765		-Monitor- Listening in channel 38...
+1766		  RX <--- 0642 (6 bytes)
+1767		-Monitor- ADV_NON_CONN_IND received in channel 38
+1768		-Monitor- Listening in channel 39...
+1769		  RX <--- 0642 (6 bytes)
+1770		-Monitor- ADV_NON_CONN_IND received in channel 39
+1771		-Monitor- Listening in channel 37...
+1772		  RX <--- 0642 (6 bytes)
+1773		-Monitor- ADV_NON_CONN_IND received in channel 37
+1774		-Monitor- Repetition left: 24
+1775		-Monitor- Listening in channel 38...
+1776		  RX <--- 0642 (6 bytes)
+1777		-Monitor- ADV_NON_CONN_IND received in channel 38
+1778		-Monitor- Listening in channel 39...
+1779		  RX <--- 0642 (6 bytes)
+1780		-Monitor- ADV_NON_CONN_IND received in channel 39
+1781		-Monitor- Listening in channel 37...
+1782		  RX <--- 0642 (6 bytes)
+1783		-Monitor- ADV_NON_CONN_IND received in channel 37
+1784		-Monitor- Repetition left: 23
+1785		-Monitor- Listening in channel 38...
+1786		  RX <--- 0642 (6 bytes)
+1787		-Monitor- ADV_NON_CONN_IND received in channel 38
+1788		-Monitor- Listening in channel 39...
+1789		  RX <--- 0642 (6 bytes)
+1790		-Monitor- ADV_NON_CONN_IND received in channel 39
+1791		-Monitor- Listening in channel 37...
+1792		  RX <--- 0642 (6 bytes)
+1793		-Monitor- ADV_NON_CONN_IND received in channel 37
+1794		-Monitor- Repetition left: 22
+1795		-Monitor- Listening in channel 38...
+1796		  RX <--- 0642 (6 bytes)
+1797		-Monitor- ADV_NON_CONN_IND received in channel 38
+1798		-Monitor- Listening in channel 39...
+1799		  RX <--- 0642 (6 bytes)
+1800		-Monitor- ADV_NON_CONN_IND received in channel 39
+1801		-Monitor- Listening in channel 37...
+1802		  RX <--- 0642 (6 bytes)
+1803		-Monitor- ADV_NON_CONN_IND received in channel 37
+1804		-Monitor- Repetition left: 21
+1805		-Monitor- Listening in channel 38...
+1806		  RX <--- 0642 (6 bytes)
+1807		-Monitor- ADV_NON_CONN_IND received in channel 38
+1808		-Monitor- Listening in channel 39...
+1809		  RX <--- 0642 (6 bytes)
+1810		-Monitor- ADV_NON_CONN_IND received in channel 39
+1811		-Monitor- Listening in channel 37...
+1812		  RX <--- 0642 (6 bytes)
+1813		-Monitor- ADV_NON_CONN_IND received in channel 37
+1814		-Monitor- Repetition left: 20
+1815		-Monitor- Listening in channel 38...
+1816		  RX <--- 0642 (6 bytes)
+1817		-Monitor- ADV_NON_CONN_IND received in channel 38
+1818		-Monitor- Listening in channel 39...
+1819		  RX <--- 0642 (6 bytes)
+1820		-Monitor- ADV_NON_CONN_IND received in channel 39
+1821		-Monitor- Listening in channel 37...
+1822		  RX <--- 0642 (6 bytes)
+1823		-Monitor- ADV_NON_CONN_IND received in channel 37
+1824		-Monitor- Repetition left: 19
+1825		-Monitor- Listening in channel 38...
+1826		  RX <--- 0642 (6 bytes)
+1827		-Monitor- ADV_NON_CONN_IND received in channel 38
+1828		-Monitor- Listening in channel 39...
+1829		  RX <--- 0642 (6 bytes)
+1830		-Monitor- ADV_NON_CONN_IND received in channel 39
+1831		-Monitor- Listening in channel 37...
+1832		  RX <--- 0642 (6 bytes)
+1833		-Monitor- ADV_NON_CONN_IND received in channel 37
+1834		-Monitor- Repetition left: 18
+1835		-Monitor- Listening in channel 38...
+1836		  RX <--- 0642 (6 bytes)
+1837		-Monitor- ADV_NON_CONN_IND received in channel 38
+1838		-Monitor- Listening in channel 39...
+1839		  RX <--- 0642 (6 bytes)
+1840		-Monitor- ADV_NON_CONN_IND received in channel 39
+1841		-Monitor- Listening in channel 37...
+1842		  RX <--- 0642 (6 bytes)
+1843		-Monitor- ADV_NON_CONN_IND received in channel 37
+1844		-Monitor- Repetition left: 17
+1845		-Monitor- Listening in channel 38...
+1846		  RX <--- 0642 (6 bytes)
+1847		-Monitor- ADV_NON_CONN_IND received in channel 38
+1848		-Monitor- Listening in channel 39...
+1849		  RX <--- 0642 (6 bytes)
+1850		-Monitor- ADV_NON_CONN_IND received in channel 39
+1851		-Monitor- Listening in channel 37...
+1852		  RX <--- 0642 (6 bytes)
+1853		-Monitor- ADV_NON_CONN_IND received in channel 37
+1854		-Monitor- Repetition left: 16
+1855		-Monitor- Listening in channel 38...
+1856		  RX <--- 0642 (6 bytes)
+1857		-Monitor- ADV_NON_CONN_IND received in channel 38
+1858		-Monitor- Listening in channel 39...
+1859		  RX <--- 0642 (6 bytes)
+1860		-Monitor- ADV_NON_CONN_IND received in channel 39
+1861		-Monitor- Listening in channel 37...
+1862		  RX <--- 0642 (6 bytes)
+1863		-Monitor- ADV_NON_CONN_IND received in channel 37
+1864		-Monitor- Repetition left: 15
+1865		-Monitor- Listening in channel 38...
+1866		  RX <--- 0642 (6 bytes)
+1867		-Monitor- ADV_NON_CONN_IND received in channel 38
+1868		-Monitor- Listening in channel 39...
+1869		  RX <--- 0642 (6 bytes)
+1870		-Monitor- ADV_NON_CONN_IND received in channel 39
+1871		-Monitor- Listening in channel 37...
+1872		  RX <--- 0642 (6 bytes)
+1873		-Monitor- ADV_NON_CONN_IND received in channel 37
+1874		-Monitor- Repetition left: 14
+1875		-Monitor- Listening in channel 38...
+1876		  RX <--- 0642 (6 bytes)
+1877		-Monitor- ADV_NON_CONN_IND received in channel 38
+1878		-Monitor- Listening in channel 39...
+1879		  RX <--- 0642 (6 bytes)
+1880		-Monitor- ADV_NON_CONN_IND received in channel 39
+1881		-Monitor- Listening in channel 37...
+1882		  RX <--- 0642 (6 bytes)
+1883		-Monitor- ADV_NON_CONN_IND received in channel 37
+1884		-Monitor- Repetition left: 13
+1885		-Monitor- Listening in channel 38...
+1886		  RX <--- 0642 (6 bytes)
+1887		-Monitor- ADV_NON_CONN_IND received in channel 38
+1888		-Monitor- Listening in channel 39...
+1889		  RX <--- 0642 (6 bytes)
+1890		-Monitor- ADV_NON_CONN_IND received in channel 39
+1891		-Monitor- Listening in channel 37...
+1892		  RX <--- 0642 (6 bytes)
+1893		-Monitor- ADV_NON_CONN_IND received in channel 37
+1894		-Monitor- Repetition left: 12
+1895		-Monitor- Listening in channel 38...
+1896		  RX <--- 0642 (6 bytes)
+1897		-Monitor- ADV_NON_CONN_IND received in channel 38
+1898		-Monitor- Listening in channel 39...
+1899		  RX <--- 0642 (6 bytes)
+1900		-Monitor- ADV_NON_CONN_IND received in channel 39
+1901		-Monitor- Listening in channel 37...
+1902		  RX <--- 0642 (6 bytes)
+1903		-Monitor- ADV_NON_CONN_IND received in channel 37
+1904		-Monitor- Repetition left: 11
+1905		-Monitor- Listening in channel 38...
+1906		  RX <--- 0642 (6 bytes)
+1907		-Monitor- ADV_NON_CONN_IND received in channel 38
+1908		-Monitor- Listening in channel 39...
+1909		  RX <--- 0642 (6 bytes)
+1910		-Monitor- ADV_NON_CONN_IND received in channel 39
+1911		-Monitor- Listening in channel 37...
+1912		  RX <--- 0642 (6 bytes)
+1913		-Monitor- ADV_NON_CONN_IND received in channel 37
+1914		-Monitor- Repetition left: 10
+1915		-Monitor- Listening in channel 38...
+1916		  RX <--- 0642 (6 bytes)
+1917		-Monitor- ADV_NON_CONN_IND received in channel 38
+1918		-Monitor- Listening in channel 39...
+1919		  RX <--- 0642 (6 bytes)
+1920		-Monitor- ADV_NON_CONN_IND received in channel 39
+1921		-Monitor- Listening in channel 37...
+1922		  RX <--- 0642 (6 bytes)
+1923		-Monitor- ADV_NON_CONN_IND received in channel 37
+1924		-Monitor- Repetition left: 9
+1925		-Monitor- Listening in channel 38...
+1926		  RX <--- 0642 (6 bytes)
+1927		-Monitor- ADV_NON_CONN_IND received in channel 38
+1928		-Monitor- Listening in channel 39...
+1929		  RX <--- 0642 (6 bytes)
+1930		-Monitor- ADV_NON_CONN_IND received in channel 39
+1931		-Monitor- Listening in channel 37...
+1932		  RX <--- 0642 (6 bytes)
+1933		-Monitor- ADV_NON_CONN_IND received in channel 37
+1934		-Monitor- Repetition left: 8
+1935		-Monitor- Listening in channel 38...
+1936		  RX <--- 0642 (6 bytes)
+1937		-Monitor- ADV_NON_CONN_IND received in channel 38
+1938		-Monitor- Listening in channel 39...
+1939		  RX <--- 0642 (6 bytes)
+1940		-Monitor- ADV_NON_CONN_IND received in channel 39
+1941		-Monitor- Listening in channel 37...
+1942		  RX <--- 0642 (6 bytes)
+1943		-Monitor- ADV_NON_CONN_IND received in channel 37
+1944		-Monitor- Repetition left: 7
+1945		-Monitor- Listening in channel 38...
+1946		  RX <--- 0642 (6 bytes)
+1947		-Monitor- ADV_NON_CONN_IND received in channel 38
+1948		-Monitor- Listening in channel 39...
+1949		  RX <--- 0642 (6 bytes)
+1950		-Monitor- ADV_NON_CONN_IND received in channel 39
+1951		-Monitor- Listening in channel 37...
+1952		  RX <--- 0642 (6 bytes)
+1953		-Monitor- ADV_NON_CONN_IND received in channel 37
+1954		-Monitor- Repetition left: 6
+1955		-Monitor- Listening in channel 38...
+1956		  RX <--- 0642 (6 bytes)
+1957		-Monitor- ADV_NON_CONN_IND received in channel 38
+1958		-Monitor- Listening in channel 39...
+1959		  RX <--- 0642 (6 bytes)
+1960		-Monitor- ADV_NON_CONN_IND received in channel 39
+1961		-Monitor- Listening in channel 37...
+1962		  RX <--- 0642 (6 bytes)
+1963		-Monitor- ADV_NON_CONN_IND received in channel 37
+1964		-Monitor- Repetition left: 5
+1965		-Monitor- Listening in channel 38...
+1966		  RX <--- 0642 (6 bytes)
+1967		-Monitor- ADV_NON_CONN_IND received in channel 38
+1968		-Monitor- Listening in channel 39...
+1969		  RX <--- 0642 (6 bytes)
+1970		-Monitor- ADV_NON_CONN_IND received in channel 39
+1971		-Monitor- Listening in channel 37...
+1972		  RX <--- 0642 (6 bytes)
+1973		-Monitor- ADV_NON_CONN_IND received in channel 37
+1974		-Monitor- Repetition left: 4
+1975		-Monitor- Listening in channel 38...
+1976		  RX <--- 0642 (6 bytes)
+1977		-Monitor- ADV_NON_CONN_IND received in channel 38
+1978		-Monitor- Listening in channel 39...
+1979		  RX <--- 0642 (6 bytes)
+1980		-Monitor- ADV_NON_CONN_IND received in channel 39
+1981		-Monitor- Listening in channel 37...
+1982		  RX <--- 0642 (6 bytes)
+1983		-Monitor- ADV_NON_CONN_IND received in channel 37
+1984		-Monitor- Repetition left: 3
+1985		-Monitor- Listening in channel 38...
+1986		  RX <--- 0642 (6 bytes)
+1987		-Monitor- ADV_NON_CONN_IND received in channel 38
+1988		-Monitor- Listening in channel 39...
+1989		  RX <--- 0642 (6 bytes)
+1990		-Monitor- ADV_NON_CONN_IND received in channel 39
+1991		-Monitor- Listening in channel 37...
+1992		  RX <--- 0642 (6 bytes)
+1993		-Monitor- ADV_NON_CONN_IND received in channel 37
+1994		-Monitor- Repetition left: 2
+1995		-Monitor- Listening in channel 38...
+1996		  RX <--- 0642 (6 bytes)
+1997		-Monitor- ADV_NON_CONN_IND received in channel 38
+1998		-Monitor- Listening in channel 39...
+1999		  RX <--- 0642 (6 bytes)
+2000		-Monitor- ADV_NON_CONN_IND received in channel 39
+2001		-Monitor- Listening in channel 37...
+2002		  RX <--- 0642 (6 bytes)
+2003		-Monitor- ADV_NON_CONN_IND received in channel 37
+2004		-Monitor- Repetition left: 1
+2005		-Monitor- Listening in channel 38...
+2006		  RX <--- 0642 (6 bytes)
+2007		-Monitor- ADV_NON_CONN_IND received in channel 38
+2008		-Monitor- Listening in channel 39...
+2009		  RX <--- 0642 (6 bytes)
+2010		-Monitor- ADV_NON_CONN_IND received in channel 39
+2011		-Monitor- Listening in channel 37...
+2012		  RX <--- 0642 (6 bytes)
+2013		-Monitor- ADV_NON_CONN_IND received in channel 37
+2014		-Monitor- Repetition left: 0
+2015		-Monitor- Listening in channel 38...
+2016		  RX <--- 0642 (6 bytes)
+2017		-Monitor- ADV_NON_CONN_IND received in channel 38
+2018		-Monitor- Listening in channel 39...
+2019		  RX <--- 0642 (6 bytes)
+2020		-Monitor- ADV_NON_CONN_IND received in channel 39
+2021		-Monitor- Listening in channel 37...
+2022		  RX <--- 0642 (6 bytes)
+2023		-Monitor- Monitor procedure is finished after numRep. Sending LL_LC_MONITOR_MODE_CFM...
+
+Statistic PDUs
+==============
+Reception:
+ 602 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 7 	CRC Failed
+ 609 	TOTAL
+Transmission:
+ 0 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 0 	TOTAL
+

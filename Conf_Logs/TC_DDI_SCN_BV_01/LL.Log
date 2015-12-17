@@ -1,0 +1,69 @@
+-Bluetooth Low Energy-
+-Link Layer v1.0.15.0-
+
+1		Reset performs
+2		Start advertising...
+3		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+4		  TX ---> 5607028E
+5		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+6		  TX ---> 5607028E
+7		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+8		  TX ---> 5607028E
+9		Compose ADV_NONCONN_IND (7 bytes) in channel 37
+10		  TX ---> 5607028E
+11		Stop advertising...
+12		Reset performs
+13		Start advertising...
+14		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+15		  TX ---> 5607028E
+16		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+17		  TX ---> 5607028E
+18		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+19		  TX ---> 5607028E
+20		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+21		  TX ---> 5607028E
+22		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+23		  TX ---> 5607028E
+24		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+25		  TX ---> 5607028E
+26		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+27		  TX ---> 5607028E
+28		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+29		  TX ---> 5607028E
+30		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+31		  TX ---> 5607028E
+32		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+33		  TX ---> 5607028E
+34		Compose ADV_NONCONN_IND (7 bytes) in channel 38
+35		  TX ---> 5607028E
+36		Stop advertising...
+37		Reset performs
+38		Start advertising...
+39		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+40		  TX ---> 9907428E
+41		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+42		  TX ---> 9907428E
+43		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+44		  TX ---> 9907428E
+45		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+46		  TX ---> 9907428E
+47		Compose ADV_NONCONN_IND (7 bytes) in channel 39
+48		  TX ---> 9907428E
+49		Stop advertising...
+
+Statistic PDUs
+==============
+Reception:
+ 0 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 0 	CRC Failed
+ 0 	TOTAL
+Transmission:
+ 20 	Advertising
+ 0 	Empty
+ 0 	Data
+ 0 	Control
+ 20 	TOTAL
+

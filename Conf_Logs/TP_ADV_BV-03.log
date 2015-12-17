@@ -1,0 +1,681 @@
+Test Case Started: GAP v. 9.3.0.19, TC_ADV_BV_03_C started on Tuesday, December 15, 2015, 12:29:49
+
+PICS VALUES:
+
+TSPC_GAP_0_1 TRUE
+TSPC_GAP_0_2 TRUE
+TSPC_GAP_0_3 TRUE
+TSPC_GAP_0A_1 TRUE
+TSPC_GAP_0A_2 TRUE
+TSPC_GAP_0A_3 TRUE
+TSPC_GAP_0A_4 TRUE
+TSPC_GAP_1_1 TRUE
+TSPC_GAP_1_2 TRUE
+TSPC_GAP_1_3 TRUE
+TSPC_GAP_1_4 TRUE
+TSPC_GAP_1_5 TRUE
+TSPC_GAP_1_6 TRUE
+TSPC_GAP_1_7 TRUE
+TSPC_GAP_1_8 TRUE
+TSPC_GAP_1_9 TRUE
+TSPC_GAP_2_1 TRUE
+TSPC_GAP_2_2 TRUE
+TSPC_GAP_2_3 TRUE
+TSPC_GAP_2_4 TRUE
+TSPC_GAP_2_5 TRUE
+TSPC_GAP_2_6 TRUE
+TSPC_GAP_2_7 TRUE
+TSPC_GAP_2_8 TRUE
+TSPC_GAP_2_9 TRUE
+TSPC_GAP_2_10 TRUE
+TSPC_GAP_2_11 TRUE
+TSPC_GAP_3_1 TRUE
+TSPC_GAP_3_2 TRUE
+TSPC_GAP_3_3 TRUE
+TSPC_GAP_3_4 TRUE
+TSPC_GAP_3_5 TRUE
+TSPC_GAP_3_6 TRUE
+TSPC_GAP_4_1 TRUE
+TSPC_GAP_4_2 TRUE
+TSPC_GAP_4_3 TRUE
+TSPC_GAP_4_4 TRUE
+TSPC_GAP_4_5 TRUE
+TSPC_GAP_4_6 TRUE
+TSPC_GAP_4_7 TRUE
+TSPC_GAP_5_1 TRUE
+TSPC_GAP_5_2 TRUE
+TSPC_GAP_5_3 TRUE
+TSPC_GAP_5_4 TRUE
+TSPC_GAP_6_1 TRUE
+TSPC_GAP_6_2 TRUE
+TSPC_GAP_7_1 TRUE
+TSPC_GAP_7_2 TRUE
+TSPC_GAP_8_1 TRUE
+TSPC_GAP_8_2 TRUE
+TSPC_GAP_8A_1 TRUE
+TSPC_GAP_8A_2 TRUE
+TSPC_GAP_8A_3 TRUE
+TSPC_GAP_8A_4 TRUE
+TSPC_GAP_8A_5 TRUE
+TSPC_GAP_8A_6 TRUE
+TSPC_GAP_8A_7 TRUE
+TSPC_GAP_8A_8 TRUE
+TSPC_GAP_8A_9 TRUE
+TSPC_GAP_8A_10 TRUE
+TSPC_GAP_8A_11 TRUE
+TSPC_GAP_8A_12 TRUE
+TSPC_GAP_8A_13 TRUE
+TSPC_GAP_8A_14 TRUE
+TSPC_GAP_8A_15 TRUE
+TSPC_GAP_8A_16 TRUE
+TSPC_GAP_9_1 TRUE
+TSPC_GAP_10_1 TRUE
+TSPC_GAP_11_1 TRUE
+TSPC_GAP_11_1A TRUE
+TSPC_GAP_11_2 TRUE
+TSPC_GAP_11_3 TRUE
+TSPC_GAP_12_1 TRUE
+TSPC_GAP_12_2 TRUE
+TSPC_GAP_13_1 TRUE
+TSPC_GAP_13_2 TRUE
+TSPC_GAP_14_1 TRUE
+TSPC_GAP_14_2 TRUE
+TSPC_GAP_15_1 TRUE
+TSPC_GAP_16_1 TRUE
+TSPC_GAP_17_1 TRUE
+TSPC_GAP_17_1A TRUE
+TSPC_GAP_17_2 TRUE
+TSPC_GAP_17_3 TRUE
+TSPC_GAP_17_4 TRUE
+TSPC_GAP_18_1 TRUE
+TSPC_GAP_18_2 TRUE
+TSPC_GAP_19_1 TRUE
+TSPC_GAP_19_2 TRUE
+TSPC_GAP_19_3 TRUE
+TSPC_GAP_20_1 TRUE
+TSPC_GAP_20_2 TRUE
+TSPC_GAP_20_2A TRUE
+TSPC_GAP_20_3 TRUE
+TSPC_GAP_20_4 TRUE
+TSPC_GAP_20A_1 TRUE
+TSPC_GAP_20A_2 TRUE
+TSPC_GAP_20A_3 TRUE
+TSPC_GAP_20A_4 TRUE
+TSPC_GAP_20A_5 TRUE
+TSPC_GAP_20A_6 TRUE
+TSPC_GAP_20A_7 TRUE
+TSPC_GAP_20A_8 TRUE
+TSPC_GAP_20A_9 TRUE
+TSPC_GAP_20A_10 TRUE
+TSPC_GAP_20A_11 TRUE
+TSPC_GAP_20A_12 TRUE
+TSPC_GAP_20A_13 TRUE
+TSPC_GAP_20A_14 TRUE
+TSPC_GAP_20A_15 TRUE
+TSPC_GAP_20A_16 TRUE
+TSPC_GAP_21_1 TRUE
+TSPC_GAP_21_2 TRUE
+TSPC_GAP_21_3 TRUE
+TSPC_GAP_21_4 TRUE
+TSPC_GAP_21_5 TRUE
+TSPC_GAP_21_6 TRUE
+TSPC_GAP_21_7 TRUE
+TSPC_GAP_21_8 TRUE
+TSPC_GAP_21_9 TRUE
+TSPC_GAP_22_1 TRUE
+TSPC_GAP_22_2 TRUE
+TSPC_GAP_22_3 TRUE
+TSPC_GAP_22_4 TRUE
+TSPC_GAP_23_1 TRUE
+TSPC_GAP_23_2 TRUE
+TSPC_GAP_23_3 TRUE
+TSPC_GAP_23_4 TRUE
+TSPC_GAP_23_5 TRUE
+TSPC_GAP_24_1 TRUE
+TSPC_GAP_24_2 TRUE
+TSPC_GAP_24_3 TRUE
+TSPC_GAP_24_4 TRUE
+TSPC_GAP_25_1 TRUE
+TSPC_GAP_25_2 TRUE
+TSPC_GAP_25_3 TRUE
+TSPC_GAP_25_4 TRUE
+TSPC_GAP_25_5 TRUE
+TSPC_GAP_25_6 TRUE
+TSPC_GAP_25_7 TRUE
+TSPC_GAP_25_8 TRUE
+TSPC_GAP_26_1 TRUE
+TSPC_GAP_26_1A TRUE
+TSPC_GAP_26_2 TRUE
+TSPC_GAP_26_3 TRUE
+TSPC_GAP_26_4 TRUE
+TSPC_GAP_27_1 TRUE
+TSPC_GAP_27_2 TRUE
+TSPC_GAP_27_3 TRUE
+TSPC_GAP_27_4 TRUE
+TSPC_GAP_27_5 TRUE
+TSPC_GAP_27_6 TRUE
+TSPC_GAP_27_7 TRUE
+TSPC_GAP_27_8 TRUE
+TSPC_GAP_28_1 TRUE
+TSPC_GAP_28_2 TRUE
+TSPC_GAP_29_1 TRUE
+TSPC_GAP_29_2 TRUE
+TSPC_GAP_29_3 TRUE
+TSPC_GAP_29_4 TRUE
+TSPC_GAP_30_1 TRUE
+TSPC_GAP_30_2 TRUE
+TSPC_GAP_31_1 TRUE
+TSPC_GAP_31_2 TRUE
+TSPC_GAP_31_3 TRUE
+TSPC_GAP_31_4 TRUE
+TSPC_GAP_31_5 TRUE
+TSPC_GAP_31_6 TRUE
+TSPC_GAP_31_7 TRUE
+TSPC_GAP_31_8 TRUE
+TSPC_GAP_31_9 TRUE
+TSPC_GAP_32_1 TRUE
+TSPC_GAP_32_2 TRUE
+TSPC_GAP_32_3 TRUE
+TSPC_GAP_33_1 TRUE
+TSPC_GAP_33_2 TRUE
+TSPC_GAP_33_3 TRUE
+TSPC_GAP_33_4 TRUE
+TSPC_GAP_33_5 TRUE
+TSPC_GAP_33_6 TRUE
+TSPC_GAP_34_1 TRUE
+TSPC_GAP_34_2 TRUE
+TSPC_GAP_34_3 TRUE
+TSPC_GAP_35_1 TRUE
+TSPC_GAP_35_2 TRUE
+TSPC_GAP_35_3 TRUE
+TSPC_GAP_35_4 TRUE
+TSPC_GAP_35_5 TRUE
+TSPC_GAP_35_6 TRUE
+TSPC_GAP_35_7 TRUE
+TSPC_GAP_35_8 TRUE
+TSPC_GAP_36_1 TRUE
+TSPC_GAP_36_1A TRUE
+TSPC_GAP_36_2 TRUE
+TSPC_GAP_36_3 TRUE
+TSPC_GAP_36_4 TRUE
+TSPC_GAP_36_5 TRUE
+TSPC_GAP_37_1 TRUE
+TSPC_GAP_37_2 TRUE
+TSPC_GAP_38_1 TRUE
+TSPC_GAP_38_2 TRUE
+TSPC_GAP_38_3 TRUE
+TSPC_GAP_38_4 TRUE
+TSPC_GAP_39_1 TRUE
+TSPC_GAP_39_2 TRUE
+TSPC_GAP_39_3 TRUE
+TSPC_GAP_39_4 TRUE
+TSPC_GAP_39_5 TRUE
+TSPC_GAP_39_6 TRUE
+TSPC_GAP_40_1 TRUE
+TSPC_GAP_40_2 TRUE
+TSPC_GAP_40_3 TRUE
+TSPC_GAP_40_4 TRUE
+TSPC_GAP_40_5 TRUE
+TSPC_GAP_41_1 TRUE
+TSPC_GAP_44_1 TRUE
+TSPC_GAP_44_2 TRUE
+TSPC_GAP_42_1 TRUE
+TSPC_GAP_42_2 TRUE
+TSPC_GAP_42_3 TRUE
+TSPC_GAP_42_4 TRUE
+TSPC_GAP_42_5 TRUE
+TSPC_GAP_42_6 TRUE
+TSPC_GAP_43_1 TRUE
+TSPC_GAP_45_1 TRUE
+TSPC_GAP_45_2 TRUE
+TSPC_GATT_1_1 TRUE
+TSPC_GATT_1_2 TRUE
+TSPC_SM_1_1 TRUE
+TSPC_SM_1_2 TRUE
+TSPC_SM_2_4 TRUE
+TSPC_ALL FALSE
+
+PIXIT VALUES:
+
+TSPX_bd_addr_iut 29CD0099FF56
+TSPX_bd_addr_PTS C000DEADBEEF
+TSPX_broadcaster_class_of_device 100104
+TSPX_observer_class_of_device 100104
+TSPX_peripheral_class_of_device 100104
+TSPX_central_class_of_device 100104
+TSPX_security_enabled FALSE
+TSPX_delete_link_key FALSE
+TSPX_pin_code 0000
+TSPX_time_guard 300000
+TSPX_use_implicit_send TRUE
+TSPX_use_dynamic_pin FALSE
+TSPX_secure_simple_pairing_pass_key_confirmation FALSE
+TSPX_using_public_device_address TRUE
+TSPX_using_random_device_address FALSE
+TSPX_lim_adv_timeout 30720
+TSPX_gen_disc_adv_min 30720
+TSPX_lim_disc_scan_min 10240
+TSPX_gen_disc_scan_min 10240
+TSPX_database_file Database-GAP.sig
+TSPX_iut_rx_mtu 23
+TSPX_iut_private_address_interval 5000
+TSPX_iut_privacy_enabled FALSE
+TSPX_psm 1001
+TSPX_iut_valid_connection_interval_min 00C8
+TSPX_iut_valid_conneciton_interval_max 03C0
+TSPX_iut_valid_connection_latency 0006
+TSPX_iut_valid_timeout_multiplier 0962
+TSPX_iut_connection_parameter_timeout 30000
+TSPX_iut_invalid_connection_interval_min 0000
+TSPX_iut_invalid_conneciton_interval_max 0000
+TSPX_iut_invalid_connection_latency 0000
+TSPX_iut_invalid_timeout_multiplier 0000
+TSPX_LE_scan_interval 0010
+TSPX_LE_scan_window 0010
+TSPX_con_interval_min 0032
+TSPX_con_interval_max 0046
+TSPX_con_latency 0000
+TSPX_supervision_timeout 07D0
+TSPX_minimum_ce_length 0000
+TSPX_maximum_ce_length 0000
+TSPX_pairing_before_service_request FALSE
+TSPX_iut_mandates_mitm FALSE
+TSPX_encryption_before_service_request FALSE
+TSPX_tester_appearance 0000
+TSPX_iut_adverting_data_in_broadcasting_mode 02010603190000021C000D0954696D65736C6F7420616476
+TSPX_iut_device_name_in_adv_packet_for_random_address Timeslot adv
+
+
+
++3011 ms
+Start Test Case:         TC_ADV_BV_03_C
+
+
++3011 ms
+Message:                   PTS Log started on Tuesday, December 15, 2015, 12:29:52
+
+
++3011 ms
+Message:                   PTS: v6.3.0 Build 19
+
+
++3011 ms
+Message:                   OS: Microsoft Windows NT 6.1.7601 Service Pack 1
+
+
++3011 ms
+Send Event:              HCI!HCI_RESET
+
+
++3011 ms
+Send event:              :[2]HCI!HCI_RESET=PDU:{
+                           
+                         }
+
+
++3151 ms
+Receive event:           :[3]HCI?HCI_RESET_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3151 ms
+Send Event:              HCI!HCI_READ_LOCAL_SUPPORTED_FEATURES
+
+
++3151 ms
+Send event:              :[4]HCI!HCI_READ_LOCAL_SUPPORTED_FEATURES=PDU:{
+                           
+                         }
+
+
++3151 ms
+Receive event:           :[5]HCI?HCI_READ_LOCAL_SUPPORTED_FEATURES_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3151 ms
+Send Event:              HCI!HCI_SET_EVENT_MASK{
+                           eventMask=0x3FFFFFFFFFFFFFFF
+                         }
+
+
++3151 ms
+Send event:              :[6]HCI!HCI_SET_EVENT_MASK=PDU:{
+                           eventMask:'3FFFFFFFFFFFFFFF'O
+                         }
+
+
++3151 ms
+Receive event:           :[7]HCI?HCI_SET_EVENT_MASK_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3151 ms
+Send Event:              HCI!HCI_LE_SET_EVENT_MASK{
+                           leEventMask=0x000000000000001F
+                         }
+
+
++3151 ms
+Send event:              :[8]HCI!HCI_LE_SET_EVENT_MASK=PDU:{
+                           Event_Mask:'000000000000001F'O
+                         }
+
+
++3151 ms
+Receive event:           :[9]HCI?HCI_LE_SET_EVENT_MASK_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3151 ms
+Send Event:              HCI!HCI_LE_READ_BUFFER_SIZE
+
+
++3151 ms
+Send event:              :[10]HCI!HCI_LE_READ_BUFFER_SIZE=PDU:{
+                           
+                         }
+
+
++3151 ms
+Receive event:           :[11]HCI?HCI_LE_READ_BUFFER_SIZE_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK,
+                           HC_LE_ACL_Data_Packet_Length:'0000'O,
+                           HC_Total_Num_LE_ACL_Data_Packets:'00'O
+                         }
+
+
++3151 ms
+Send Event:              HCI!HCI_READ_BUFFER_SIZE
+
+
++3151 ms
+Send event:              :[12]HCI!HCI_READ_BUFFER_SIZE=PDU:{
+                           
+                         }
+
+
++3151 ms
+Receive event:           :[13]HCI?HCI_READ_BUFFER_SIZE_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3151 ms
+Send Event:              HCI!HCI_LE_READ_LOCAL_SUPPORTED_FEATURES
+
+
++3151 ms
+Send event:              :[14]HCI!HCI_LE_READ_LOCAL_SUPPORTED_FEATURES=PDU:{
+                           
+                         }
+
+
++3167 ms
+Receive event:           :[15]HCI?HCI_LE_READ_LOCAL_SUPPORTED_FEATURES_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3167 ms
+Send Event:              HCI!HCI_READ_BD_ADDR
+
+
++3167 ms
+Send event:              :[16]HCI!HCI_READ_BD_ADDR=PDU:{
+                           
+                         }
+
+
++3167 ms
+Receive event:           :[17]HCI?HCI_READ_BD_ADDR_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK,
+                           bd_addr:'001BDC054B9F'O
+                         }
+
+
++3183 ms
+Send Event:              HCI!HCI_LE_CLEAR_WHITE_LIST
+
+
++3183 ms
+Send event:              :[58]HCI!HCI_LE_CLEAR_WHITE_LIST_COMMAND=PDU:{
+                           
+                         }
+
+
++3198 ms
+Receive event:           :[189]HCI?HCI_LE_CLEAR_WHITE_LIST_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3198 ms
+Verdict Description:     MTC: Successfully received HCI_LE_CLEAR_WHITE_LIST_COMPLETE_EVENT.
+
+
++3198 ms
+Preliminary verdict:     : [1] (PASS)
+
+
++3198 ms
+Send Event:              HCI!HCI_LE_ADD_DEVICE_TO_WHITE_LIST{
+                           addressType=HCI_LE_PUBLIC_DEVICE_ADDRESS,
+                           address=0x29CD0099FF56
+                         }
+
+
++3198 ms
+Send event:              :[61]HCI!HCI_LE_ADD_DEVICE_TO_WHITE_LIST_COMMAND=PDU:{
+                           Address_Type:'00'O,
+                           bd_addr:'29CD0099FF56'O
+                         }
+
+
++3214 ms
+Receive event:           :[192]HCI?HCI_LE_ADD_DEVICE_TO_WHITE_LIST_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3214 ms
+Verdict Description:     MTC: Successfully received HCI_LE_ADD_DEVICE_TO_WHITE_LIST_COMPLETE_EVENT.
+
+
++3214 ms
+Preliminary verdict:     : [1] (PASS)
+
+
++3229 ms
+Send Event:              HCI!HCI_LE_SET_SCAN_PARAMETERS{
+                           leScanType=HCI_LE_ACTIVE_SCANNING,
+                           leScanInterval=0x0010,
+                           leScanWindow=0x0010,
+                           ownAddressType=HCI_LE_PUBLIC_DEVICE_ADDRESS,
+                           scanningFilterPolicy=HCI_LE_ACCEPT_WHITE_LIST_ADVERTISING_PACKETS
+                         }
+
+
++3229 ms
+Send event:              :[52]HCI!HCI_LE_SET_SCAN_PARAMETERS_COMMAND=PDU:{
+                           LE_Scan_Type:'01'O,
+                           LE_Scan_Interval:'0010'O,
+                           LE_Scan_Window:'0010'O,
+                           Own_Address_Type:'00'O,
+                           ScanFileterPolicy:'01'O
+                         }
+
+
++3229 ms
+Receive event:           :[183]HCI?HCI_LE_SET_SCAN_PARAMETERS_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3229 ms
+Verdict Description:     MTC: Successfully received HCI_LE_SET_SCAN_PARAMETERS_COMPLETE_EVENT.
+
+
++3229 ms
+Preliminary verdict:     : [1] (PASS)
+
+
++3245 ms
+Send Event:              HCI!HCI_LE_SET_SCAN_ENABLE{
+                           leScanEnable=HCI_LE_SCAN_ENABLE,
+                           filterDuplicates=HCI_LE_DUPLICATE_FILTERING_DISABLE
+                         }
+
+
++3245 ms
+Send event:              :[49]HCI!HCI_LE_SET_SCAN_ENABLE_COMMAND=PDU:{
+                           LE_Scan_Enable:'01'O,
+                           Filter_Duplicates:'00'O
+                         }
+
+
++3245 ms
+Receive event:           :[180]HCI?HCI_LE_SET_SCAN_ENABLE_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3261 ms
+Verdict Description:     MTC: Successfully received HCI_LE_SET_SCAN_ENABLE_COMPLETE_EVENT.
+
+
++3261 ms
+Preliminary verdict:     : [1] (PASS)
+
+
++3261 ms
+Send event:              :[44]MMI!MMI_MSGBOX_REQ=PDU:{
+                           caption:"{
+                             25,
+                             %s,
+                             GAP
+                           }PleaseprepareIUTtosendanadvertisingreportwithFlags.",
+                           style:MMI_Style_Ok_Cancel2
+                         }
+
+
++3307 ms
+Receive event:           :[177]HCI?HCI_LE_ADVERTISING_REPORT_EVENT=PDU:{
+                           num_of_reports:'01'O,
+                           parameter_list:[
+                             {
+                               eventType:'02'O,
+                               addressType:'00'O,
+                               address:'29CD0099FF56'O,
+                               length:'18'O,
+                               data:'02010603190000021C000D0954696D65736C6F7420616476'O,
+                               rssi:'BE'O
+                             }
+                           ]
+                         }
+
+
++3323 ms
+Receive event:           :[177]HCI?HCI_LE_ADVERTISING_REPORT_EVENT=PDU:{
+                           num_of_reports:'01'O,
+                           parameter_list:[
+                             {
+                               eventType:'04'O,
+                               addressType:'00'O,
+                               address:'29CD0099FF56'O,
+                               length:'18'O,
+                               data:'02010603190000021C000D0954696D65736C6F7420616476'O,
+                               rssi:'BE'O
+                             }
+                           ]
+                         }
+
+
++3323 ms
+Receive event:           :[13]MMI?MMI_MSGBOX_RSP=PDU:{
+                           status:MMI_OK
+                         }
+
+
++3323 ms
+Verdict Description:     MTC: Receive Advertising report successfully.
+
+
++3323 ms
+Preliminary verdict:     : [1] (PASS)
+
+
++3323 ms
+Verdict Description:     MTC: Flags type confirmed to be general discoverable.
+
+
++3323 ms
+Preliminary verdict:     : [1] (PASS)
+
+
++3339 ms
+Send Event:              HCI!HCI_LE_SET_SCAN_ENABLE{
+                           leScanEnable=HCI_LE_SCAN_DISABLE,
+                           filterDuplicates=HCI_LE_DUPLICATE_FILTERING_DISABLE
+                         }
+
+
++3339 ms
+Send event:              :[49]HCI!HCI_LE_SET_SCAN_ENABLE_COMMAND=PDU:{
+                           LE_Scan_Enable:'00'O,
+                           Filter_Duplicates:'00'O
+                         }
+
+
++3354 ms
+Receive event:           :[180]HCI?HCI_LE_SET_SCAN_ENABLE_COMPLETE_EVENT=PDU:{
+                           status:HCI_OK
+                         }
+
+
++3354 ms
+Verdict Description:     MTC: Successfully received HCI_LE_SET_SCAN_ENABLE_COMPLETE_EVENT.
+
+
++3354 ms
+Preliminary verdict:     : [1] (PASS)
+
+
++3869 ms
+Verdict Description:     CM_EXIT
+
+
++3869 ms
+Verdict Description:     CM_EXIT
+
+
++3885 ms
+Verdict Description:     CM_EXIT
+
+
++3885 ms
+Verdict Description:     CM_EXIT
+
+
++3885 ms
+Verdict Description:     MTC: Test case ended
+
+
++3885 ms
+Preliminary verdict:     : [13] (PASS)
+
+
++3900 ms
+Final verdict:           : [14] PASS
+
+
++3900 ms
+Encrypted Verdict:       A1#ZWY4MzQ5MDg3MmQwNTIxOGQzMzQ5YjY2ODA5M2MzNjQ5ZDY4NmY0Yjc2MzIzM2VkNTUyNTFhNGU4Mjg1MjI0NA==#S1PlWSv4toUoFsdmxEFQi1gZ4JaVdK8HXDzKjgeukY/32+9wsJ3DO3+ea4SC+u+n
+
+
++3900 ms
+Test Case ended:         TC_ADV_BV_03_C
