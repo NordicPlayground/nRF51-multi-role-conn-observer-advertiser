@@ -1,13 +1,14 @@
 = CONFORMANCE TESTING OF TIMESLOT ADVERTISER - OBSERVER
 
 
-== PROJECT FEATURES TO TEST
+== PROJECT FEATURES TO TEST (PICS)
 
-The project contains an example of advertiser usage, where the Timeslot
-advertiser runs with an advertisement interval of 100ms, alongside a
-SoftDevice-powered connectable advertiser with an advertisement interval
-of 150ms.
-
+. (LL.1.1) Advertising_State
+. (LL.1.2) Scanning_State
+. (LL.3.1) Non_Connectable_Undirected_Events
+. (LL.3.3) Advertising_Data
+. (LL.4.1) Passive Scanning
+. (LL.4.2) Receiving_Advertising_Data
 
 == Required Software/Hardware
 
@@ -38,14 +39,17 @@ setup and management commands were added to facilitate automated testing.
 
 === Tests Run
 
-. LINK LAYER TESTS             RESULT
-.. TC_DDI_ADV_BV_01            PASS
-.. TC_DDI_ADV_BV_03            PASS
+|===
+| LINK LAYER TESTS     | RESULT
+| TC_DDI_ADV_BV_01     | PASS
+| TC_DDI_ADV_BV_03     | PASS
+|===
 
-. HOST TESTS
-.. TP_ADV_BV-03                PASS
-.. TP_BROB_BCST_BV-01          PASS
-
+|===
+| HOST TESTS           | RESULT
+| TP_ADV_BV-03         | PASS
+| TP_BROB_BCST_BV-01   | PASS
+|===
 
 
 
@@ -63,15 +67,18 @@ management commands were added to facilitate automated testing.
 
 === Tests Run
 
-. LINK LAYER TESTS             RESULT
-.. TC_DDI_SCN_BV_01            PASS
-.. TC_DDI_SCN_BV_11            PASS
-.. TC_ENC_SCN_BI_01            PASS
-.. TC_DDI_SCN_BI_02            PASS
-.. TC_DDI_SCN_BV_10            PASS
-.. TC_DDI_SCN_BV_12            PASS
+|===
+| LINK LAYER TESTS      | RESULT
+| TC_DDI_SCN_BV_01      | PASS
+| TC_DDI_SCN_BV_11      | PASS
+| TC_ENC_SCN_BI_01      | PASS
+| TC_DDI_SCN_BI_02      | PASS
+| TC_DDI_SCN_BV_10      | PASS
+| TC_DDI_SCN_BV_12      | PASS
+|===
 
-. HOST TESTS
-.. TP_CONN_NCONN_BV-01         PASS
-.. TP_BROB_OBSV_BV-01          PASS
-
+|===
+| HOST TESTS            | RESULT
+| TP_CONN_NCONN_BV-01   | PASS
+| TP_BROB_OBSV_BV-01    | PASS
+|===
