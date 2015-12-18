@@ -1,30 +1,53 @@
 = CONFORMANCE TESTING OF TIMESLOT ADVERTISER - OBSERVER
 
 
-== PROJECT FEATURES TO TEST (PICS)
+== DOOCUMENTS PROVIDED
 
-. (LL.1.1) Advertising_State
-. (LL.1.2) Scanning_State
-. (LL.3.1) Non_Connectable_Undirected_Events
-. (LL.3.3) Advertising_Data
-. (LL.4.1) Passive Scanning
-. (LL.4.2) Receiving_Advertising_Data
+- This test Summary
+- Test Report.doc
+- PICS Report.doc
+- PIXIT Report.doc
+- Conf_Logs.zip
 
-== Required Software/Hardware
+== TEST DETAILS
+
+Date: 16.12.2015
+Operator name: thst
+Verdict: PASS
+Version tested:
+  repo: nRF51-multi-role-conn-observer-advertiser
+  branch: Conformance_Testing
+  commit: f97c45
+
+
+=== PROJECT FEATURES TO TEST
+
+- (LL.1.1) Advertising_State
+- (LL.1.2) Scanning_State
+- (LL.3.1) Non_Connectable_Undirected_Events
+- (LL.3.3) Advertising_Data
+- (LL.4.1) Passive Scanning
+- (LL.4.2) Receiving_Advertising_Data
+
+=== Required Software/Hardware
 
 . NRF51 Development Kit        (PCA10028)
 . Signalling Unit
 .. Keysight Technologies T1212 (formerly AT4 wireless)
 .. BITE Protocol Tester        (release 1.0.16.0)
 .. Test Manager                (version 2.0.142.230)
-
-== TEST SPECIFICATION
-
-. LL.TS.4.2.1
-. GAP.TS.4.2.1
+. Profile tuning Suite
+.. Version 6.3.0 Build 19
 
 
-== Timeslot Advertiser: Interface
+=== TEST SPECIFICATION
+
+- LL.TS.4.2.1
+- GAP.TS.4.2.1
+
+
+
+== Advertiser
 
 The timeslot advertiser interface is based on the Bluetooth standard HCI
 interface, but only implements a small subset of the functionality. All
@@ -33,12 +56,11 @@ setup and management commands were added to facilitate automated testing.
 
 === Changes
 
-. General discoverable flag was turned off to match testing spec.
-. Incorect sender Address field in Broadcast was fixed.
-. TX_Add flag bit location was fixed.
+- General discoverable flag was turned off to match testing spec.
+- Incorect sender Address field in Broadcast was fixed.
+- TX_Add flag bit location was fixed.
 
-=== Tests Run
-
+=== Results
 |===
 | LINK LAYER TESTS     | RESULT
 | TC_DDI_ADV_BV_01     | PASS
@@ -51,10 +73,7 @@ setup and management commands were added to facilitate automated testing.
 | TP_BROB_BCST_BV-01   | PASS
 |===
 
-
-
-
-== Timeslot Observer: Interface
+== Observer
 
 The timeslot observer interface is also based on the Bluetooth standard HCI
 interface, but only implements a small subset of the functionality. All
@@ -63,9 +82,9 @@ management commands were added to facilitate automated testing.
 
 === Changes
 
-. Advertising Report Data Length calculation fixed
+- Advertising Report Data Length calculation fixed
 
-=== Tests Run
+=== Results
 
 |===
 | LINK LAYER TESTS      | RESULT
