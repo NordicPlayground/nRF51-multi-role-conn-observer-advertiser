@@ -1,23 +1,23 @@
 = CONFORMANCE TESTING OF TIMESLOT ADVERTISER - OBSERVER
 
 
-== DOOCUMENTS PROVIDED
+== DOCUMENTS PROVIDED
 
-- This test Summary
-- Test Report.doc
-- PICS Report.doc
-- PIXIT Report.doc
-- Conf_Logs.zip
+- This test Summary (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/README.adoc)
+- Test Report.doc   (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/Test_Report.doc)
+- PICS Report.doc   (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/PICS_Report.doc)
+- PIXIT Report.doc  (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/PIXIT_Report.doc)
+- Conf_Logs.zip     (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/Conf_Logs.zip)
 
 == TEST DETAILS
 
-Date: 16.12.2015
-Operator name: thst
-Verdict: PASS
-Version tested:
-  repo: nRF51-multi-role-conn-observer-advertiser
-  branch: Conformance_Testing
-  commit: f97c45
+- Date: 16.12.2015
+- Operator name: thst
+- Verdict: PASS
+- Version tested:
+  -   repo: nRF51-multi-role-conn-observer-advertiser
+  -   branch: Conformance_Testing
+  -   commit: f97c45
 
 
 === PROJECT FEATURES TO TEST
