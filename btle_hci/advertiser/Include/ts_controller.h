@@ -42,29 +42,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "btle.h"
 #include "nrf51_bitfields.h"
 
-#define HFCLK 									NRF_RADIO_HFCLK_CFG_FORCE_XTAL
-#define TIMESLOT_LENGTH 				4300	
+#define HFCLK                   NRF_RADIO_HFCLK_CFG_FORCE_XTAL
+#define TIMESLOT_LENGTH         4300  
 #define TIMESLOT_INTERVAL_100MS 100000
 
-															
-#define BLE_TYPE_OFFSET			(0)
-#define BLE_SIZE_OFFSET 		(1)
-#define BLE_ADDR_OFFSET 		(3)
-#define BLE_PAYLOAD_OFFSET 	(9)
-#define BLE_TXADD_OFFSET		(1)
+                              
+#define BLE_TYPE_OFFSET     (0)
+#define BLE_SIZE_OFFSET     (1)
+#define BLE_ADFLAG_OFFSET     (2)
+#define BLE_ADDR_OFFSET     (3)
+#define BLE_PAYLOAD_OFFSET  (9)
+#define BLE_TXADD_OFFSET    (1)
 
-#define BLE_ADDR_TYPE_MASK	(0x40)
-#define BLE_TYPE_MASK				(0x3F)
-#define BLE_ADDR_LEN				(6)
-#define BLE_PAYLOAD_MAXLEN	(31)
+#define BLE_ADDR_TYPE_MASK  (0x40)
+#define BLE_TYPE_MASK       (0x3F)
+#define BLE_ADDR_LEN        (6)
+#define BLE_PAYLOAD_MAXLEN  (31)
 
 
 /* State machine states */
 typedef enum
 {
-	STATE_ADV_SEND,
-	STATE_SCAN_REQ_RSP,
-	STATE_WAIT_FOR_IDLE,
+  STATE_ADV_SEND,
+  STATE_SCAN_REQ_RSP,
+  STATE_WAIT_FOR_IDLE,
 } ts_state_t; 
 
 

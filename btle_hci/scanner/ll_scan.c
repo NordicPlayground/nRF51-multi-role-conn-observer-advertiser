@@ -172,6 +172,7 @@ static void m_adv_report_generate (uint8_t * const pkt)
       break;
 
     case PACKET_TYPE_ADV_SCAN_IND:
+      has_data = true;
       adv_report->event_type = BTLE_REPORT_TYPE_ADV_SCAN_IND;
       break;
 
@@ -198,15 +199,31 @@ static void m_adv_report_generate (uint8_t * const pkt)
   report.valid_packets = m_packets_valid;
   report.invalid_packets = m_packets_invalid;
   memcpy (adv_report->address, &pkt[3], BTLE_DEVICE_ADDRESS__SIZE);
-  adv_report->address_type = pkt[1] & 0x01 ? BTLE_ADDR_TYPE_RANDOM : BTLE_ADDR_TYPE_PUBLIC;
+  
+
+
+  #define BIT_6                               0x40 /**< The value of bit 6 */
+  #define UL_PDU_DD_HEADER_OFFSET             0
+  #define UL_PDU_DD_SENDER_PADD_OFFSET        UL_PDU_DD_HEADER_OFFSET   /* Called TxAdd in the spec */
+  #define UL_PDU_DD_SENDER_PADD_MASK          BIT_6
+  #define UL_PDU_DD_SENDER_PADD_SHIFT         6
+  
+  adv_report->address_type = (pkt[UL_PDU_DD_SENDER_PADD_OFFSET] & UL_PDU_DD_SENDER_PADD_MASK) >> UL_PDU_DD_SENDER_PADD_SHIFT;^M
   adv_report->rssi = m_rssi;
   
+  adv_report->length_data = (adv_report->length_data       ) - BTLE_DEVICE_ADDRESS__SIZE;
+  if (adv_report->length_data > 0x1F)
+    return;
+  adv_report->length_data  = 0;
+
   if (has_data)
   {
-    adv_report->length_data = (pkt[2] & 0xFC) - BTLE_DEVICE_ADDRESS__SIZE;
+    adv_report->length_data = (adv_report->length_data       ) - BTLE_DEVICE_ADDRESS__SIZE;
+    if (adv_report->length_data > 0x1F)
+      return;
     memcpy(adv_report->report_data, &pkt[9], BTLE_ADVERTISING_DATA__SIZE);
   }
-  
+  adv_report->num_reports = 1;
   nrf_report_disp_dispatch (&report);
 }
 
@@ -512,7 +529,7 @@ btle_status_codes_t ll_scan_start (void)
   m_state_idle_exit ();
   
   if(channel == 40)
-	  channel = 37;
+    channel = 37;
   
   radio_init (channel++);
   radio_rx_timeout_init ();

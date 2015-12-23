@@ -1,0 +1,103 @@
+= CONFORMANCE TESTING OF TIMESLOT ADVERTISER - OBSERVER
+
+
+== DOCUMENTS PROVIDED
+
+- This test Summary (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/README.adoc)
+- Test Report.doc   (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/Test_Report.doc)
+- PICS Report.doc   (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/PICS_Report.doc)
+- PIXIT Report.doc  (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/PIXIT_Report.doc)
+- Conf_Logs.zip     (https://github.com/NordicSemiconductor/nRF51-multi-role-conn-observer-advertiser/blob/Conformance_Testing/Conf_Logs/Conf_Logs.zip)
+
+== TEST DETAILS
+
+- Date: 16.12.2015
+- Operator name: thst
+- Verdict: PASS
+- Version tested:
+  -   repo: nRF51-multi-role-conn-observer-advertiser
+  -   branch: Conformance_Testing
+  -   commit: f97c45
+
+
+=== PROJECT FEATURES TO TEST
+
+- (LL.1.1) Advertising_State
+- (LL.1.2) Scanning_State
+- (LL.3.1) Non_Connectable_Undirected_Events
+- (LL.3.3) Advertising_Data
+- (LL.4.1) Passive Scanning
+- (LL.4.2) Receiving_Advertising_Data
+
+=== Required Software/Hardware
+
+. NRF51 Development Kit        (PCA10028)
+. Signalling Unit
+.. Keysight Technologies T1212 (formerly AT4 wireless)
+.. BITE Protocol Tester        (release 1.0.16.0)
+.. Test Manager                (version 2.0.142.230)
+. Profile tuning Suite
+.. Version 6.3.0 Build 19
+
+
+=== TEST SPECIFICATION
+
+- LL.TS.4.2.1
+- GAP.TS.4.2.1
+
+
+
+== Advertiser
+
+The timeslot advertiser interface is based on the Bluetooth standard HCI
+interface, but only implements a small subset of the functionality. All
+interface functions are found in the Include/nrf_advertiser.h file.  Test
+setup and management commands were added to facilitate automated testing.
+
+=== Changes
+
+- General discoverable flag was turned off to match testing spec.
+- Incorect sender Address field in Broadcast was fixed.
+- TX_Add flag bit location was fixed.
+
+=== Results
+|===
+| LINK LAYER TESTS     | RESULT
+| TC_DDI_ADV_BV_01     | PASS
+| TC_DDI_ADV_BV_03     | PASS
+|===
+
+|===
+| HOST TESTS           | RESULT
+| TP_ADV_BV-03         | PASS
+| TP_BROB_BCST_BV-01   | PASS
+|===
+
+== Observer
+
+The timeslot observer interface is also based on the Bluetooth standard HCI
+interface, but only implements a small subset of the functionality. All
+interface functions are found in the Include/nrf_scan.h file. Test setup and
+management commands were added to facilitate automated testing.
+
+=== Changes
+
+- Advertising Report Data Length calculation fixed
+
+=== Results
+
+|===
+| LINK LAYER TESTS      | RESULT
+| TC_DDI_SCN_BV_01      | PASS
+| TC_DDI_SCN_BV_11      | PASS
+| TC_ENC_SCN_BI_01      | PASS
+| TC_DDI_SCN_BI_02      | PASS
+| TC_DDI_SCN_BV_10      | PASS
+| TC_DDI_SCN_BV_12      | PASS
+|===
+
+|===
+| HOST TESTS            | RESULT
+| TP_CONN_NCONN_BV-01   | PASS
+| TP_BROB_OBSV_BV-01    | PASS
+|===
