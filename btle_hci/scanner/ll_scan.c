@@ -208,7 +208,7 @@ static void m_adv_report_generate (uint8_t * const pkt)
   #define UL_PDU_DD_SENDER_PADD_MASK          BIT_6
   #define UL_PDU_DD_SENDER_PADD_SHIFT         6
   
-  adv_report->address_type = (pkt[UL_PDU_DD_SENDER_PADD_OFFSET] & UL_PDU_DD_SENDER_PADD_MASK) >> UL_PDU_DD_SENDER_PADD_SHIFT;^M
+  adv_report->address_type = (pkt[UL_PDU_DD_SENDER_PADD_OFFSET] & UL_PDU_DD_SENDER_PADD_MASK) >> UL_PDU_DD_SENDER_PADD_SHIFT;
   adv_report->rssi = m_rssi;
   
   adv_report->length_data = (adv_report->length_data       ) - BTLE_DEVICE_ADDRESS__SIZE;
