@@ -57,31 +57,35 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Static Functions
 *****************************************************************************/
 
+#define softdevice (1)
+#define nosoftdevice (0)
 
 /**
 * Callback for timeslot signals. Is only called when in a timeslot.
 * All radio events during timeslot is redirected here
 */
+
+/*****************************************************************************************/
+#if softdevice
 static nrf_radio_signal_callback_return_param_t* radio_signal_callback(uint8_t sig)
 {	
-	DEBUG_PIN_SET(4);
-	DEBUG_PIN_SET(1);
+	 nrf_gpio_pin_toggle(17);
 	
-	/* default return value is none */
 	g_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_NONE;		
 	
 	
 	
-	/* Send signal to the state machine, and let it decide how the event affects the flow */
+	// Send signal to the state machine, and let it decide how the event affects the flow 
 	ctrl_signal_handler(sig);
 	
 	
-	
-	/* indicating that the timeslot ended */
-	if (NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END 	
-				== g_signal_callback_return_param.callback_action)
+	// indicating that the timeslot ended 
+	if ((NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END 	
+				== g_signal_callback_return_param.callback_action) || (NRF_RADIO_SIGNAL_CALLBACK_ACTION_END 	
+				== g_signal_callback_return_param.callback_action)|| (NRF_RADIO_SIGNAL_CALLBACK_ACTION_EXTEND	
+				== g_signal_callback_return_param.callback_action))
 	{
-		DEBUG_PIN_CLEAR(1);
+		 nrf_gpio_pin_toggle(18);
 	}
 	
 	DEBUG_PIN_CLEAR(4);
@@ -89,40 +93,34 @@ static nrf_radio_signal_callback_return_param_t* radio_signal_callback(uint8_t s
 	return &g_signal_callback_return_param;
 }
 
-
-
-
-
-/*****************************************************************************
-* Interface Functions
-*****************************************************************************/
-
-
 /**
 * callback to handle timeslot specific events. Should never be called, 
 * as the advertiser never is to go idle or shut down 
 */
+
+
 void btle_hci_adv_sd_evt_handler(uint32_t event)
 {
 	DEBUG_PIN_SET(15);
 	switch (event)
 	{
 		case NRF_EVT_RADIO_SESSION_IDLE:
-			/* Means the user stopped the advertiser. Do nothing. */
-
-			DEBUG_PIN_POKE(14);			
+			// Means the user stopped the advertiser. Do nothing. 
+			DEBUG_PIN_POKE(14);	
+     //  nrf_gpio_pin_toggle(24);		
 			break;
 		case NRF_EVT_RADIO_SESSION_CLOSED:
-			/* session close accepted, lets just sleep forever.
-			   shouldn't really happen. */
+			// session close accepted, lets just sleep forever.
+			// shouldn't really happen.
+	//	 nrf_gpio_pin_toggle(24);
 			ASSERT(false);
 		
 		case NRF_EVT_RADIO_BLOCKED:
-			/* The request was blocked by a softdevice event. 
-					Attempt to reschedule the timeslot for as soon as possible */
+			// The request was blocked by a softdevice event. 
+			// Attempt to reschedule the timeslot for as soon as possible 
 			DEBUG_PIN_POKE(0);
-			ctrl_timeslot_abort();
-			ctrl_timeslot_order();
+	//	nrf_gpio_pin_toggle(24);
+		  new_timeslot_order();
 			
 			break;
 		
@@ -131,26 +129,35 @@ void btle_hci_adv_sd_evt_handler(uint32_t event)
 			break;
 		
 		case NRF_EVT_RADIO_CANCELED:
-			/* The softdevice decided to cancel an ongoing timeslot. 
-					Attempt to reschedule the timeslot for as soon as possible */
+			// The softdevice decided to cancel an ongoing timeslot. 
+			//Attempt to reschedule the timeslot for as soon as possible 
 			DEBUG_PIN_POKE(5);
-			ctrl_timeslot_order();
+			//ctrl_timeslot_order();
+	//	nrf_gpio_pin_toggle(24);
+		  new_timeslot_order();
+		
 			break;
 		
 		default:
-			/* Invalid event type */
+			// Invalid event type 
 			ASSERT(false);
 			break;
 	}
 	DEBUG_PIN_CLEAR(15);
 }
 
+#endif
+/*****************************************************************************************/
 
+	
+	
 void btle_hci_adv_init(IRQn_Type btle_hci_adv_evt_irq)
 {
+	#if softdevice	
 	ASSERT(btle_hci_adv_evt_irq >= SWI0_IRQn && btle_hci_adv_evt_irq <= SWI5_IRQn);
 	
 	uint8_t error_code;	
+	#endif
 	
 	/* init event dispatcher */
 	nrf_report_disp_init(btle_hci_adv_evt_irq);
@@ -158,11 +165,12 @@ void btle_hci_adv_init(IRQn_Type btle_hci_adv_evt_irq)
 	/* init controller layer */
 	ctrl_init();
 	
-	/* initiate timeslot session: */
+#if softdevice	
 	error_code = sd_radio_session_open(&radio_signal_callback);
 	APP_ERROR_CHECK(error_code);
-
+#endif
 }
+
 
 bool btle_hci_adv_report_get(nrf_report_t* evt)
 {
@@ -174,25 +182,42 @@ void btle_hci_adv_params_set(btle_cmd_param_le_write_advertising_parameters_t* a
 	ctrl_adv_param_set(adv_params);
 }
 
+//****************************
+#if nosoftdevice
+void radio_1(void)
+{
+  radio_2();
+}
+
+void adv_1 (void)
+	{
+	  adv_2 ();
+		
+	}
+#endif
+	
+//*************************************
+
+#if softdevice
 void btle_hci_adv_enable(btle_adv_mode_t adv_enable)
 {
 	if (BTLE_ADV_ENABLE == adv_enable)
 	{
-		/* send first timeslot request to get the session started: */
-		ctrl_timeslot_order();
+		// send first timeslot request to get the session started: 
+		ctrl_timeslot_order_first();
 	}
 	else if (BTLE_ADV_DISABLE == adv_enable)
 	{
-		/* stop advertisement after next advertisement event */
+		// stop advertisement after next advertisement event 
 		ctrl_timeslot_abort();
 	}
 	else
 	{
-		/* invalid parameter */
+		// invalid parameter 
 		ASSERT(false);
 	}
 }
-
+#endif
 
 
 void btle_hci_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data)
@@ -208,7 +233,7 @@ void btle_hci_adv_scan_rsp_data_set(btle_cmd_param_le_write_scan_response_data_t
 
 
 
-
+#if softdevice
 
 void btle_hci_adv_whitelist_add(btle_cmd_param_le_add_device_to_whitelist_t* whitelist_device)
 {
@@ -224,3 +249,5 @@ void btle_hci_adv_whitelist_flush(void)
 {
 	wl_flush();
 }
+
+#endif

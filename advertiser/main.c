@@ -40,14 +40,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "boards.h"
 #include "nrf_sdm.h"
 #include "app_error.h"  
+
 #include "app_uart.h"
+
 #include "nrf_advertiser.h"
 #include "nrf_assert.h"
+#include "ts_controller.h"
+#include "ts_peripheral.h"
+#include "nrf51.h"
+#include "nrf_delay.h"
+#include "nrf_gpio.h"
 
 #include <stdarg.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+
+
 
 /*****************************************************************************
 * Local definitions
@@ -70,12 +79,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define __LOG(F, ...) (void)__NOP()
 #endif
 
-#define BLE_ADV_INTERVAL_100MS 0x00A0
-#define BLE_ADV_INTERVAL_150MS 0x00F0
+#define softdevice (1)
+#define nosoftdevice (0)
+
+
+	
+#define BLE_ADV_INTERVAL_100MS 120//0x00A0  //time slot
+#define BLE_ADV_INTERVAL_150MS 0x00F0 //softdevice
 
 /*****************************************************************************
 * Static Globals
 *****************************************************************************/
+
 
 /**@brief Global variables used for storing assert information from the SoftDevice. */
 static uint32_t g_sd_assert_line_num;
@@ -120,7 +135,7 @@ static uint8_t ble_adv_data[] =
   /* Complete local name: */
   0x0D,                   /* length */
   0x09,                   /* type (complete local name) */
-  'T', 'i', 'm', 'e', 's', 'l', 'o', 't', ' ', 'a', 'd', 'v',
+  'A', 'n', 'o', 'm', 'a', 'd', 'a', 'r', 's', 'h', 'i',' ',
 };
 
 /*****************************************************************************
@@ -131,7 +146,7 @@ static uint8_t ble_adv_data[] =
  * Prints a string on the UART.
  * @param string the string to print.
  */
-static void uart_putstring(const uint8_t * string);
+//static void uart_putstring(const uint8_t * string);
 
 
 /**
@@ -146,6 +161,13 @@ static void sd_assert_cb(uint32_t pc, uint16_t line_num, const uint8_t *file_nam
 * App error check callback. Something went wrong, and we go into a blocking state, as continued 
 * executing may lead to undefined behavoiur.
 */
+
+
+static void uart_putstring(const uint8_t * string);
+
+
+/**********************************************************************************************/
+	
 void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 {
   char buf[256];
@@ -162,9 +184,40 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
   while(1);
 }
 
+#if softdevice
 /**
- * UART event handler function.
- */
+* Interrupt handler for Softdevice events
+*/
+void SD_EVT_IRQHandler(void)
+{
+  uint32_t evt;
+  ble_evt_t ble_evt;
+  uint16_t len;
+
+  while(sd_evt_get(&evt) == NRF_SUCCESS)
+  {
+    btle_hci_adv_sd_evt_handler(evt);
+  }
+
+  while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
+  {
+    nrf_adv_conn_evt_handler(&ble_evt);
+  }
+}
+
+#endif
+/**********************************************************************************************/
+
+
+
+static void uart_putstring(const uint8_t * string)
+{
+#ifdef USE_UART_LOGGING
+  for(int i = 0; string[i] != 0; ++i)
+    app_uart_put(string[i]);
+#endif
+}
+
 static void uart_event_handler(app_uart_evt_t * uart_event)
 {
 #ifdef USE_UART_LOGGING
@@ -191,55 +244,6 @@ static void uart_event_handler(app_uart_evt_t * uart_event)
 #endif
 }
 
-/**@brief Local function prototypes.
- */
-static void test_logf(const char *fmt, ...);
-static void ble_setup(void);
-
-/**
-* Set up all advertiser parameters and data before the advertisement start
-*/
-static void ble_setup(void)
-{
-  /* we use software interrupt 0 */
-  btle_hci_adv_init(SWI0_IRQn);
-
-  btle_cmd_param_le_write_advertising_parameters_t adv_params;
-
-
-  memcpy((void*) &adv_params.direct_address[0], (void*) &ble_addr[0], BTLE_DEVICE_ADDRESS__SIZE);
-
-
-  /* want to maximize potential scan requests */
-  adv_params.channel_map = BTLE_CHANNEL_MAP_ALL;
-  adv_params.direct_address_type = BTLE_ADDR_TYPE_RANDOM;
-  adv_params.filter_policy = BTLE_ADV_FILTER_ALLOW_ANY;
-  adv_params.interval_min = BLE_ADV_INTERVAL_100MS;
-  adv_params.interval_max = BLE_ADV_INTERVAL_150MS;
-
-  adv_params.own_address_type = BTLE_ADDR_TYPE_RANDOM;
-
-  /* Only want scan requests */
-  adv_params.type = BTLE_ADV_TYPE_SCAN_IND;
-
-  btle_hci_adv_params_set(&adv_params);
-
-  /* Set advertising data: */
-  btle_cmd_param_le_write_advertising_data_t adv_data;
-  memcpy((void*) &adv_data.advertising_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
-  adv_data.data_length = sizeof(ble_adv_data);
-  btle_hci_adv_data_set(&adv_data);
-
-  /* Set scan response data: */
-  btle_cmd_param_le_write_scan_response_data_t scan_rsp_data;
-  memcpy((void*) &scan_rsp_data.response_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
-  scan_rsp_data.data_length = sizeof(ble_adv_data);
-  btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
-
-  /* all parameters are set up, enable advertisement */
-  btle_hci_adv_enable(BTLE_ADV_ENABLE);
-}
-
 static void uart_init(void)
 {
 #ifdef USE_UART_LOGGING
@@ -258,67 +262,161 @@ static void uart_init(void)
 #endif
 }
 
-static void uart_putstring(const uint8_t * string)
-{
-#ifdef USE_UART_LOGGING
-  for(int i = 0; string[i] != 0; ++i)
-    app_uart_put(string[i]);
-#endif
-}
 
+static void test_logf(const char *fmt, ...);
+static void ble_setup(void);
 /**
-* Interrupt handler for Softdevice events
+* Set up all advertiser parameters and data before the advertisement start
 */
-void SD_EVT_IRQHandler(void)
+
+static void ble_setup(void)
 {
-  uint32_t evt;
-  ble_evt_t ble_evt;
-  uint16_t len;
+  /* we use software interrupt 0 */
+  btle_hci_adv_init(SWI0_IRQn);  // PDU type is set in here , discoverable mode is set in here 
 
-  while(sd_evt_get(&evt) == NRF_SUCCESS)
-  {
-    btle_hci_adv_sd_evt_handler(evt);
-  }
+  btle_cmd_param_le_write_advertising_parameters_t adv_params;
 
-  while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
-  {
-    nrf_adv_conn_evt_handler(&ble_evt);
-  }
+
+  memcpy((void*) &adv_params.direct_address[0], (void*) &ble_addr[0], BTLE_DEVICE_ADDRESS__SIZE);
+
+
+  /* want to maximize potential scan requests */
+  adv_params.channel_map = BTLE_CHANNEL_MAP_ALL;
+  adv_params.direct_address_type = BTLE_ADDR_TYPE_RANDOM;
+  adv_params.filter_policy = BTLE_ADV_FILTER_ALLOW_ANY;
+	
+  adv_params.interval_min = BLE_ADV_INTERVAL_100MS;
+  adv_params.interval_max = BLE_ADV_INTERVAL_150MS;
+
+  adv_params.own_address_type = BTLE_ADDR_TYPE_RANDOM;
+
+  /* Only want scan requests */
+  adv_params.type =BTLE_ADV_TYPE_ADV_IND;//BTLE_ADV_TYPE_SCAN_IND;////BTLE_ADV_TYPE_SCAN_IND; //BTLE_ADV_TYPE_ADV_IND; BTLE_ADV_TYPE_SCAN_IND;
+
+  btle_hci_adv_params_set(&adv_params);
+
+  /* Set advertising data: */
+  btle_cmd_param_le_write_advertising_data_t adv_data; // ADV DATA length and data content 
+  memcpy((void*) &adv_data.advertising_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
+  adv_data.data_length = sizeof(ble_adv_data);
+ 
+ btle_hci_adv_data_set(&adv_data);
+  
+	
+	
+  /* Set scan response data: */
+  btle_cmd_param_le_write_scan_response_data_t scan_rsp_data; //// SCAN RSP DATA length and data content 
+  memcpy((void*) &scan_rsp_data.response_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
+
+ scan_rsp_data.data_length = sizeof(ble_adv_data);
+  btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
+
+  /* all parameters are set up, enable advertisement */
+	#if softdevice
+     btle_hci_adv_enable(BTLE_ADV_ENABLE);
+	#endif
+ 
+	
 }
+
+
+void clock_initialization()
+{
+    /* Start 16 MHz crystal oscillator */
+    NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
+    NRF_CLOCK->TASKS_HFCLKSTART    = 1;
+
+    /* Wait for the external oscillator to start up */
+    while (NRF_CLOCK->EVENTS_HFCLKSTARTED == 0)
+    {
+     
+    }		
+}
+
+
+
+
 
 int main(void)
 {
+	
+	
+	nrf_gpio_range_cfg_output(17, 24);
+	
+  for(int i = 17; i <= 24; i++)
+    nrf_gpio_pin_set(i);
+	
+	
+	/**************************************************************************************************/
+#if softdevice
   /* Silence the compiler */
   (void) g_sd_assert_pc;
   (void) g_evt;
-
-  uart_init();
-
-  char start_msg[128];
-  sprintf(&start_msg[0], "\n| %s |---------------------------------------------------\r\n\n", __TIME__);
-  uart_putstring((uint8_t*) &start_msg[0]);
-
+	
   nrf_gpio_range_cfg_output(0, 30);
+	
   for(int i = LED_START; i <= LED_STOP; ++i)
     nrf_gpio_pin_set(i);
 
+	
   uint32_t error_code = sd_softdevice_enable((uint32_t)NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
   APP_ERROR_CHECK(error_code);
 
-
-  error_code = sd_nvic_EnableIRQ(SD_EVT_IRQn);
+  error_code = sd_nvic_EnableIRQ(SD_EVT_IRQn); //SWI2
   APP_ERROR_CHECK(error_code);
-
   ble_setup();
+  
+  nrf_adv_conn_init(); /* Enable a generic SD advertiser to display concurrent operation */
+/****************************************************************************************************/
+#endif
+	
 
-  /* Enable a generic SD advertiser to display concurrent operation */
-  nrf_adv_conn_init();
+  uart_init();
+	char start_msg[128];
+  sprintf(&start_msg[0], "\n| %s |---------------------------------------------------\r\n\n", __TIME__);
+  uart_putstring((uint8_t*) &start_msg[0]);
+	
+	#if nosoftdevice
+	
+  clock_initialization();
+		
+  nrf_gpio_cfg_output(LED_1);
+  nrf_gpio_cfg_output(LED_2);
+	nrf_gpio_cfg_output(LED_3);
+  nrf_gpio_cfg_output(LED_4);
+	
+	nrf_gpio_pin_set(LED_1);
+  nrf_gpio_pin_set(LED_2);
+	nrf_gpio_pin_set(LED_3);
+  nrf_gpio_pin_set(LED_4);
+	
+	radio_1(); //radio setup and channel setup
+  ble_setup(); // adv and response packet setup
+	adv_1();
+#endif
+
+	/*for (i=0;i<3;i++)
+	{
+	nrf_gpio_pin_clear(LED_1);
+  nrf_gpio_pin_clear(LED_2);
+  nrf_delay_ms(500);
+  nrf_gpio_pin_set(LED_1);
+  nrf_gpio_pin_set(LED_2);
+  nrf_delay_ms(500);
+	}	*/	
+
 
   while (true)
   {
-    sd_app_evt_wait();
+		#if softdevice
+	  sd_app_evt_wait();
+		#endif
   }
 }
+
+/**********************************************************************************************/
+
+#if softdevice
 
 /**@brief Assert callback handler for SoftDevice asserts. */
 void sd_assert_cb (uint32_t pc, uint16_t line_num, const uint8_t *file_name)
@@ -355,8 +453,10 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
   while (1);
 }
 
-/**
-* Interrupt handler for advertiser reports
+#endif
+/******************************************************************************************************************/
+
+/* Interrupt handler for advertiser reports
 */
 void SWI0_IRQHandler(void)
 {
@@ -387,7 +487,6 @@ void SWI0_IRQHandler(void)
     }
   }
 }
-
 /**@brief Logging function, used for formated output on the UART.
  */
 void test_logf(const char *fmt, ...)
@@ -405,3 +504,4 @@ void test_logf(const char *fmt, ...)
   
   va_end(args);
 }
+

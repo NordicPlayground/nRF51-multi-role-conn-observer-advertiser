@@ -43,7 +43,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "nrf_assert.h"
 
 
-
+#define softdevice (1)
+#define nosoftdevice (0)
 /*****************************************************************************
 * Static Globals
 *****************************************************************************/
@@ -68,7 +69,8 @@ static __INLINE void radio_init(void)
   /* Set radio configuration parameters */
   NRF_RADIO->TXPOWER = (RADIO_TXPOWER_TXPOWER_0dBm << RADIO_TXPOWER_TXPOWER_Pos);
   NRF_RADIO->MODE 	 = (RADIO_MODE_MODE_Ble_1Mbit << RADIO_MODE_MODE_Pos);
-
+ // NRF_RADIO->FREQUENCY = 2;  // Frequency 2402MHz
+	
   NRF_RADIO->FREQUENCY 	 = 2;					// Frequency bin 80, 2480MHz, channel 39.
   NRF_RADIO->DATAWHITEIV = 37;					// NOTE: This value needs to correspond to the frequency being used
 	
@@ -81,11 +83,11 @@ static __INLINE void radio_init(void)
   
 	/* PCNF-> Packet Configuration. Now we need to configure the sizes S0, S1 and length field to match the datapacket format of the advertisement packets. */
   NRF_RADIO->PCNF0 =  (
-                          (((1UL) << RADIO_PCNF0_S0LEN_Pos) & RADIO_PCNF0_S0LEN_Msk)    // length of S0 field in bytes 0-1.
-                        | (((2UL) << RADIO_PCNF0_S1LEN_Pos) & RADIO_PCNF0_S1LEN_Msk)    // length of S1 field in bits 0-8.
-                        | (((6UL) << RADIO_PCNF0_LFLEN_Pos) & RADIO_PCNF0_LFLEN_Msk)    // length of length field in bits 0-8.
+                          (((1UL) << RADIO_PCNF0_S0LEN_Pos) & RADIO_PCNF0_S0LEN_Msk)    // length of S0 field in bytes 0-1. // 8UL and 1UL 
+                        | (((2UL) << RADIO_PCNF0_S1LEN_Pos) & RADIO_PCNF0_S1LEN_Msk)    // length of S1 field in bits 0-8. // 16UL and FUL
+                        | (((6UL) << RADIO_PCNF0_LFLEN_Pos) & RADIO_PCNF0_LFLEN_Msk)    // length of length field in bits 0-8. // 0UL and FUL
                       );
-
+ 
 	/* Packet configuration */
   NRF_RADIO->PCNF1 =  (
                           (((37UL)                      << RADIO_PCNF1_MAXLEN_Pos)  & RADIO_PCNF1_MAXLEN_Msk)   // maximum length of payload in bytes [0-255]
@@ -111,13 +113,22 @@ static __INLINE void radio_init(void)
 
 bool periph_radio_setup(void)
 {
+	
 	/* Reset all states in the radio peripheral */
 	NRF_RADIO->POWER = 1;
 	
-	NRF_RADIO->EVENTS_DISABLED = 0; 
+	NRF_RADIO->EVENTS_DISABLED = 0;
+	NRF_RADIO->EVENTS_READY = 0;
 	
 	/* Timer: 1us resolution, disable peripheral */
-	NRF_TIMER0->PRESCALER = 4;
+	#if softdevice 
+	NRF_TIMER0->PRESCALER = 4;  
+	#endif
+	
+	#if nosoftdevice 
+	NRF_TIMER0->PRESCALER = 4; /* Timer: 1.02ms resolution, disable peripheral */
+	#endif
+	
 	NRF_TIMER0->TASKS_STOP = 1;
 	
 	/* Do BLE specific radio setup */
@@ -143,7 +154,7 @@ __INLINE void periph_radio_ch_set(uint8_t ch)
 	
 	NRF_RADIO->FREQUENCY = freq_bins[ch - 37]; 
 	NRF_RADIO->DATAWHITEIV = ch;
-	DEBUG_PIN_POKE(0);
+	//DEBUG_PIN_POKE(0);
 }
 
 
@@ -224,10 +235,10 @@ __INLINE void periph_gpiote_config(uint8_t gpiote_slot, uint8_t gpio_pin,
 																			gpiote_config_outinit		<< GPIOTE_CONFIG_OUTINIT_Pos;
 }
 
-__INLINE void periph_timer_start(uint8_t timer, uint16_t value, bool interrupt)
+__INLINE void periph_timer_start(uint8_t timer, uint32_t value, bool interrupt)
 {	
 	ASSERT(timer < 4);
-	
+	NRF_TIMER0->BITMODE=TIMER_BITMODE_BITMODE_32Bit;
 	NRF_TIMER0->TASKS_START = 1;
 	NRF_TIMER0->TASKS_CLEAR = 1;
 	NRF_TIMER0->EVENTS_COMPARE[timer] = 0; 

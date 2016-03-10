@@ -40,6 +40,7 @@
 #include "nrf_report_disp.h"
 #include "nrf_soc.h"
 #include "nrf_gpio.h"
+#include "nrf_delay.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -53,6 +54,9 @@
  */
 #define TIMESLOT_TIMEOUT_US 10000
 #define TIMESLOT_RNG_LEN 10
+
+#define softdevice (1)
+#define nosoftdevice (0)
 
 /*****************************************************************************
 * Static Globals
@@ -81,6 +85,111 @@ static nrf_radio_request_t m_timeslot_req_normal = {
 /*****************************************************************************
 * Static Functions
 *****************************************************************************/
+
+
+
+//	 NVIC_EnableIRQ(TIMER0_IRQn);
+
+//  m_state_idle_exit ();
+//  
+//  if(channel == 40)
+//    channel = 37;
+//   NRF_RADIO->INTENSET = RADIO_INTENSET_ADDRESS_Msk | RADIO_INTENSET_DISABLED_Msk;
+//  
+//  /* Enable RADIO interrupts */
+//  NVIC_ClearPendingIRQ(RADIO_IRQn);
+//  NVIC_EnableIRQ(RADIO_IRQn);
+//  
+//  m_radio_dir = RADIO_DIR_NONE;
+	
+//  radio_init (channel++);
+//  radio_rx_timeout_init ();
+  
+//	packetpointer set to receive
+//	NRF_RADIO->TASKS_RXEN = 1;
+//  NRF_RADIO->SHORTS = RADIO_SHORTS_READY_START_Msk | RADIO_SHORTS_END_DISABLE_Msk;
+//  if (start_immediately)
+//  {
+//    NRF_RADIO->TIFS = 0;
+//  }
+// 
+//  m_radio_dir = RADIO_DIR_RX;
+	
+//  radio_rx_prepare (true);
+//  radio_rssi_enable (); //NRF_RADIO->SHORTS |= RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
+ 
+//  /* Only go directly to TX if we're doing active scanning */
+//  if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
+//  {
+//    radio_tx_mode_on_receipt (); //NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
+//  }
+//  
+//  m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
+//	
+//  m_state_receive_adv_entry ();
+
+    //  NRF_TIMER0-> PRESCALER = 4;
+		 
+		 //NVIC_SetPriority(RADIO_IRQn, 0);
+		 //NVIC_SetPriority(TIMER0_IRQn, 1);
+	
+#if nosoftdevice	
+void ll_scan_start_1 (void)
+{		 
+		  NRF_TIMER0->TASKS_START = 1;
+			NRF_TIMER0->TASKS_CLEAR = 1;
+      NRF_TIMER0->EVENTS_COMPARE[0] = 0;
+      NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
+      NRF_TIMER0->CC[0] = 15000;//m_timeslot_req_normal.params.normal.length_us - 500;
+			
+      NVIC_EnableIRQ(TIMER0_IRQn);
+			
+			ll_scan_start ();					
+}
+
+void RADIO_IRQHandler(void)
+{
+   radio_event_cb ();
+	
+}
+
+void TIMER0_IRQHandler (void)
+{
+			
+   if (NRF_TIMER0->EVENTS_COMPARE[0] != 0)
+      {
+        ll_scan_stop ();
+        
+        NRF_TIMER0->EVENTS_COMPARE[0] = 0;
+        NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE0_Msk;
+        NVIC_DisableIRQ(TIMER0_IRQn);
+        NRF_TIMER0->TASKS_STOP = 1;
+			
+				NRF_RADIO->EVENTS_DISABLED = 0;
+				/* Set shorts */
+				NRF_RADIO->SHORTS = 0;
+
+				/* Abort TX */
+				NRF_RADIO->TASKS_DISABLE = 1;
+				
+				ll_scan_start_1();
+				
+      }
+      
+      /* Check the timeout counter */
+      if (NRF_TIMER0->EVENTS_COMPARE[1] != 0)
+      {
+        NRF_TIMER0->EVENTS_COMPARE[1] = 0;
+        NRF_TIMER0->INTENCLR = TIMER_INTENCLR_COMPARE1_Msk;
+        
+        radio_timeout_cb ();
+			}
+}
+
+#endif
+
+/****************************************************************************************/
+#if softdevice
 
 nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
 {
@@ -135,9 +244,9 @@ nrf_radio_signal_callback_return_param_t *radio_cb (uint8_t sig)
   return &m_signal_callback_return_param;
 }
 
-/*****************************************************************************
-* Interface Functions
-*****************************************************************************/
+#endif
+
+/****************************************************************************************/
 
 btle_status_codes_t btle_scan_init (IRQn_Type irq)
 {
@@ -145,15 +254,17 @@ btle_status_codes_t btle_scan_init (IRQn_Type irq)
   btle_status_codes_t status = BTLE_STATUS_CODE_SUCCESS;
 
   nrf_report_disp_init (irq);
-  
+	
+#if softdevice  
   err_code = sd_radio_session_open (radio_cb);
   if (err_code != NRF_SUCCESS)
   {
     status = BTLE_STATUS_CODE_COMMAND_DISALLOWED;
   }
-  
+#endif
   return status;
 }
+
 
 btle_status_codes_t btle_scan_ev_get (nrf_report_t *p_ev)
 {
@@ -171,15 +282,19 @@ btle_status_codes_t btle_scan_param_set (btle_cmd_param_le_write_scan_parameters
 {
   btle_status_codes_t status;
   
+#if softdevice
   m_timeslot_req_earliest.params.earliest.length_us = param.scan_window;
   m_timeslot_req_normal.params.normal.length_us = param.scan_window;
   m_timeslot_req_normal.params.normal.distance_us = param.scan_interval;
-  
+#endif
+	
   ll_scan_init();
   status = ll_scan_config (param.scan_type, param.own_address_type, param.scanning_filter_policy);
   
   return status;
 }
+
+#if softdevice 
 
 btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t param)
 {
@@ -207,3 +322,5 @@ btle_status_codes_t btle_scan_enable_set (btle_cmd_param_le_write_scan_enable_t 
 
   return status;
 }
+
+#endif

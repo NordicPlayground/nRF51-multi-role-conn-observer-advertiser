@@ -42,8 +42,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "btle.h"
 #include "nrf51_bitfields.h"
 
+#include "app_uart.h"
+
+
 #define HFCLK                   NRF_RADIO_HFCLK_CFG_FORCE_XTAL
-#define TIMESLOT_LENGTH         4300  
+#define TIMESLOT_LENGTH         10000  
 #define TIMESLOT_INTERVAL_100MS 100000
 
                               
@@ -66,6 +69,21 @@ typedef enum
   STATE_ADV_SEND,
   STATE_SCAN_REQ_RSP,
   STATE_WAIT_FOR_IDLE,
+	 STATE_WAIT_FOR_IDLE_1,
+	STATE_CONN_REQ,
+	STATE_REQ,
+	STATE_MASTER_TO_SLAVE_RECEIVE,
+	STATE_MASTER_TO_SLAVE_RECEIVE_TIMER,
+	STATE_SLAVE_TO_MASTER_TRANSMIT,
+	STATE_MASTER_TO_SLAVE_RECEIVE_2,
+	STATE_SLAVE_TO_MASTER_TRANSMIT_2,
+	STATE_MASTER_TO_SLAVE_RECEIVE_3,
+	STATE_SLAVE_TO_MASTER_TRANSMIT_3,
+	STATE_SLAVE_TO_MASTER_TRANSMIT_4,
+	STATE_SUPERVISON_TIMEOUT,
+	STATE_START_FROM_INITIAL,
+	STATE_FIRST_ORDER_TIMESLOT,
+	STATE_SLAVE_TO_MASTER_TRANSMIT_END
 } ts_state_t; 
 
 
@@ -79,6 +97,20 @@ extern nrf_radio_signal_callback_return_param_t g_signal_callback_return_param;
 /*****************************************************************************
 * Interface Functions
 *****************************************************************************/
+
+void adv_2 (void);    //***************//
+void radio_2(void);
+void rcv_2(void);
+void uart_setup_2(void);
+void uart_display_2(void); 
+void intrpt_2(void);
+
+void sm_enter_adv_send_1(void);
+void sm_exit_adv_send_1(void);
+bool sm_exit_wait_for_idle_1(void);
+void sm_enter_wait_for_idle_1(bool req_rx_accepted);
+
+void ctrl_timeslot_order_first(void);
 
 void ctrl_init(void);
 
@@ -94,6 +126,7 @@ bool ctrl_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data);
 
 bool ctrl_scan_data_set(btle_cmd_param_le_write_scan_response_data_t* data);
 
-
+void capture_timer_1 (void);
+void new_timeslot_order(void);
 
 #endif /* _TS_CONTROLLER_H__ */

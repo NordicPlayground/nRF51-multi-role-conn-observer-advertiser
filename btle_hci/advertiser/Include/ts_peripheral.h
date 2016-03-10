@@ -95,7 +95,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Use the interrupt flag to set whether an interrupt for the compare should be 
 * propagated to application space
 */
-void periph_timer_start(uint8_t timer, uint16_t value, bool interrupt);
+void periph_timer_start(uint8_t timer, uint32_t value, bool interrupt);
 
 /**
 * Abort timer with given index in NRF_TIMER0. Stops the timer counter

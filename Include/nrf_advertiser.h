@@ -41,6 +41,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "btle.h"
 #include "app_error.h"
 
+void intrpt_1(void);
+void adv_1 (void) ;
+void rcv_1(void);
+void radio_1(void);
+void uart_setup_1(void);
+void uart_display_1(void); 
+
 /**
 * Initialize the timeslot advertiser. The IRQ parameter decides which 
 * software interrupt to use for the generated events. For each event

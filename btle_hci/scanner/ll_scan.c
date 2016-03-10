@@ -37,7 +37,7 @@
 #include "btle.h"
 #include "nrf_report_disp.h"
 #include "radio.h"
-
+#include "nrf_gpio.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
@@ -208,23 +208,24 @@ static void m_adv_report_generate (uint8_t * const pkt)
   #define UL_PDU_DD_SENDER_PADD_MASK          BIT_6
   #define UL_PDU_DD_SENDER_PADD_SHIFT         6
   
-  adv_report->address_type = (pkt[UL_PDU_DD_SENDER_PADD_OFFSET] & UL_PDU_DD_SENDER_PADD_MASK) >> UL_PDU_DD_SENDER_PADD_SHIFT;
+  adv_report->address_type = (pkt[UL_PDU_DD_SENDER_PADD_OFFSET] & UL_PDU_DD_SENDER_PADD_MASK) >> UL_PDU_DD_SENDER_PADD_SHIFT;//^M
   adv_report->rssi = m_rssi;
   
   adv_report->length_data = (adv_report->length_data       ) - BTLE_DEVICE_ADDRESS__SIZE;
-  if (adv_report->length_data > 0x1F)
-    return;
+//  if (adv_report->length_data > 0x1F)
+//    return;
   adv_report->length_data  = 0;
 
   if (has_data)
   {
     adv_report->length_data = (adv_report->length_data       ) - BTLE_DEVICE_ADDRESS__SIZE;
-    if (adv_report->length_data > 0x1F)
-      return;
+//    if (adv_report->length_data > 0x1F)
+//      return;
     memcpy(adv_report->report_data, &pkt[9], BTLE_ADVERTISING_DATA__SIZE);
   }
   adv_report->num_reports = 1;
   nrf_report_disp_dispatch (&report);
+	
 }
 
 static void m_state_init_entry (void)
@@ -250,14 +251,24 @@ static void m_state_idle_exit (void)
 static void m_state_receive_adv_entry (void)
 {
   memset ((void *) m_rx_buf, '\0', RX_BUF_SIZE);
-  radio_buffer_configure (&m_rx_buf[0]);
+  radio_buffer_configure (&m_rx_buf[0]); //packetpointer set to receive
+	
+//	NRF_RADIO->TASKS_RXEN = 1;
+//  NRF_RADIO->SHORTS = RADIO_SHORTS_READY_START_Msk | RADIO_SHORTS_END_DISABLE_Msk;
+//  if (start_immediately)
+//  {
+//    NRF_RADIO->TIFS = 0;
+//  }
+// 
+//  m_radio_dir = RADIO_DIR_RX;
+	
   radio_rx_prepare (true);
-  radio_rssi_enable ();
+  radio_rssi_enable (); //NRF_RADIO->SHORTS |= RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
  
   /* Only go directly to TX if we're doing active scanning */
   if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
   {
-    radio_tx_mode_on_receipt ();
+    radio_tx_mode_on_receipt (); //NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
   }
   
   m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
@@ -313,7 +324,7 @@ void ll_scan_rx_cb (bool crc_valid)
         m_packets_invalid++;
       
         m_state_receive_adv_exit ();
-        radio_disable ();
+     //   radio_disable ();
         m_state_receive_adv_entry ();
         break;
 
@@ -321,7 +332,7 @@ void ll_scan_rx_cb (bool crc_valid)
         m_packets_invalid++;
       
         m_state_receive_scan_rsp_exit ();
-        radio_disable ();
+       // radio_disable ();
         m_state_receive_adv_entry ();
         break;
 
@@ -534,6 +545,27 @@ btle_status_codes_t ll_scan_start (void)
   radio_init (channel++);
   radio_rx_timeout_init ();
   
+//	packetpointer set to receive
+//	NRF_RADIO->TASKS_RXEN = 1;
+//  NRF_RADIO->SHORTS = RADIO_SHORTS_READY_START_Msk | RADIO_SHORTS_END_DISABLE_Msk;
+//  if (start_immediately)
+//  {
+//    NRF_RADIO->TIFS = 0;
+//  }
+// 
+//  m_radio_dir = RADIO_DIR_RX;
+	
+//  radio_rx_prepare (true);
+//  radio_rssi_enable (); //NRF_RADIO->SHORTS |= RADIO_SHORTS_ADDRESS_RSSISTART_Msk;
+ 
+//  /* Only go directly to TX if we're doing active scanning */
+//  if (m_scanner.params.scan_type == BTLE_SCAN_TYPE_ACTIVE)
+//  {
+//    radio_tx_mode_on_receipt (); //NRF_RADIO->SHORTS |= RADIO_SHORTS_DISABLED_TXEN_Msk;
+//  }
+//  
+//  m_scanner.state = SCANNER_STATE_RECEIVE_ADV;
+//	
   m_state_receive_adv_entry ();
 
   return BTLE_STATUS_CODE_SUCCESS;

@@ -41,6 +41,9 @@
 
 #include <stdbool.h>
 
+
+void ll_scan_start_1(void);
+
 /* Initialize the timeslot scanner. The irq passed to the function will be triggered when
  * an advertising report is ready.
  */

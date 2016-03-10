@@ -44,7 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 
-#define BLE_ADV_INTERVAL_150MS 0x00F0
+#define BLE_ADV_INTERVAL_150MS 0x01E0 //0x00F0
 
 /*****************************************************************************
 * Static Globals
