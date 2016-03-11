@@ -13,7 +13,7 @@ The advertiser handles the following packets to advertise ,scan and connect :
 (c) Data Channel Control packets : LL_CONNECTION_UPDATE_REQ , LL_CHANNEL_MAP_REQ,LL_TERMINATE_IND ,LL_FEATURE_REQ ,  LL_FEATURE_RSP,LL_VERSION_IND
 
 
-An algorithom has been implemented to find data channel index from the channel map provided by the CONN_REQ PDU and LL_CHANNEL_MAP_REQ PDU .The timeslot and non timeslot version of the advertiser only uses the TIMER0 for all of its application.
+An algorithm has been implemented to find data channel index from the channel map provided by the CONN_REQ PDU and LL_CHANNEL_MAP_REQ PDU .The timeslot and non timeslot version of the advertiser only uses the TIMER0 for all of its application.
 
 The timeslot version of the advertiser has a feature to handle the clock drift .This clock drift should be handled in timelsot version because the packets should be received and transmitted within the allowed timeslot span . Otherwise the packets would be missed frequently which would result in connection loss . The timeslot is requested in every ( connection interval + drift time ) interval instead of only connection interval to compensate the time for crystal drift of the peer device .The drift time has been calculated by using TIMER0 inside the advertiser .
 
