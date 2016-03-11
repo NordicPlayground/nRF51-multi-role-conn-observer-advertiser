@@ -24,7 +24,7 @@ Required Software
 
 Clone this GitHub repository into the examples/ folder of the nRF51 SDK directory.The copying path is important and a tutorial related to this can be found in the following link  https://devzone.nordicsemi.com/tutorials/19/.
 
-Connection established with : Master control Panel version 3.10.0.14 on PC  , nrf master control panel version 4.0.5 on Android (version 5.1.1) phone 
+Connection established with : Master control Panel version 3.10.0.14 on PC  , nrf master control panel version 4.0.5 on Android (version 5.1.1) phone and Light Blue on iPhone (IOS 9.2.1) . 
 
 Example code
 
