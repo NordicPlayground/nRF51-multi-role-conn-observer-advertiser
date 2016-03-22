@@ -63,8 +63,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * next advertisement 
 */
 #define TS_SEND_SCAN_RSP (1)
-#define softdevice (1)
-#define nosoftdevice (0)
+//#define softdevice (1)
+//#define nosoftdevice (0)
 
 #define BLE_ADV_INTERVAL_100MS 0x00A0  //160=100/0.625
 #define BLE_ADV_INTERVAL_150MS 0x00F0  //240=150/0.625
@@ -89,61 +89,6 @@ static uint8_t ble_scan_rsp_data[BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
 static uint8_t ble_linklayer_data[BLE_DATA_PAYLOAD_OFFSET + BLE_DATA_PAYLOAD_MAXLEN];
 static uint8_t MD_bit;
 
-//static uint8_t ble_adv_data[] =
-//{
-//	0x00,                               // BLE Header (PDU_TYPE: ADV_IND, TXadd: 0 (public address), RFU: 0)
-//	0x1E,                               // Length of payload: 30
-//	0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
-//	0x00, 0xCE, 0xAB, 0x48, 0xDE, 0xAC, // AdvAddress LSByte first, AC-DE-48-AB-CE-00 
-//  /* Flags: */ // payload 24
-//  0x02,                   /* length */
-//  0x01,                   /* type (flags) */
-//  0x06,                   /* AD Flags*/
-//  /* Appearance: */
-//  0x03,                   /* length */
-//  0x19,                   /* type (Appearance) */
-//  0x00, 0x00,             /* Generic unspecified */
-//  /* Role: */
-//  0x02,                   /* length */
-//  0x1c,                   /* type (LE role) */
-//  0x00,                   /* Only peripheral role supported */
-//  /* Complete local name: */
-//  0x0D,                   /* length */
-//  0x09,                   /* type (complete local name) */
-//  'A', 'n', 'o', 'm', 'a', 'd', 'a', 'r', 's', 'h', 'i',' ',
-//};
-
-
-//static uint8_t ble_scan_rsp_data[] =
-//{
-//	0x04,                               // BLE Header (PDU_TYPE: SCAN_RSP, TXadd: 0 (public address), RFU: 0)
-//	0x1E,                               // Length of payload: 30
-//	0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
-//	0x00, 0xCE, 0xAB, 0x48, 0xDE, 0xAC, // AdvAddress LSByte first, AC-DE-48-AB-CE-00 
-//  /* Flags: */ //payload 24 byte
-//  0x02,                   /* length */
-//  0x01,                   /* type (flags) */
-//  0x06,                   /* AD Flags*/
-//  /* Appearance: */
-//  0x03,                   /* length */
-//  0x19,                   /* type (Appearance) */
-//  0x00, 0x00,             /* Generic unspecified */
-//  /* Role: */
-//  0x02,                   /* length */
-//  0x1c,                   /* type (LE role) */
-//  0x00,                   /* Only peripheral role supported */
-//  /* Complete local name: */
-//  0x0D,                   /* length */
-//  0x09,                   /* type (complete local name) */
-//  'A', 'a', 'a', 'a', 'a', 'd', 'a', 'r', 's', 'h', 'i',' ',
-//};
-
-//static uint8_t ble_linklayer_data[] =
-//{
-//	0x11,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
-//	0x00,                               // Length of payload: 00
-//	0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
-//};
 
 static  uint8_t ble_acknow_data[] =
 														{
@@ -162,18 +107,7 @@ static uint8_t ble_terminate_data[] =
 													
 												};
 												
-// static  uint8_t ble_version_data[] =
-//														{
-//															0x03,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
-//															0x06,                               // Length of payload: 00
-//															0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
-//															0x0C,                               // opcode of LL_VERSION_END
-//															0x06,                               //  LLVersNr
-//															0x4C,                               //  CompId
-//															0x00,                               //  ComId
-//															0x01,                               // SubVersNr
-//															0x00                                // SubVersNr
-//														}; 		
+		
  static  uint8_t ble_version_data[] =
 														{
 															0x03,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
@@ -353,8 +287,8 @@ static nrf_radio_request_t g_timeslot_req_normal =
 */		
 			
 /**********************************************************************/			
-#if softdevice
-
+//#if softdevice
+ #if defined(WITH_SOFTDEVICE)
 /**
 * Send initial time slot request to API. 
 */
@@ -1182,7 +1116,8 @@ void get_new_channel_map_perameter (void)
 
 
 
-#if nosoftdevice
+//#if nosoftdevice
+#if defined(NO_SOFTDEVICE)
 
 
 void TIMER0_IRQHandler(void)
@@ -1855,7 +1790,8 @@ static bool sm_exit_wait_for_idle(void)
 }
 
 
-#if nosoftdevice
+//#if nosoftdevice
+#if defined(NO_SOFTDEVICE)
 void radio_2(void)
 {
 			adv_evt_setup();
@@ -1968,7 +1904,8 @@ void start_master_to_slave_receive (void)
 
 }
 
-#if softdevice
+//#if softdevice
+ #if defined(WITH_SOFTDEVICE)
 __INLINE void ctrl_signal_handler(uint8_t sig)
 { 
 	switch (sig)
@@ -2780,7 +2717,8 @@ void ctrl_init(void)
 #endif	
 	
 	/* generate rng sequence */
-	#if softdevice
+	//#if softdevice
+	 #if defined(WITH_SOFTDEVICE)
 	    //adv_rng_init(rng_pool); ///  ?+??
 	#endif
 }

@@ -371,7 +371,7 @@
             <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls>--c99</MiscControls>
-              <Define>BLE_STACK_SUPPORT_REQD S110 BOARD_PCA10028 SOFTDEVICE_PRESENT NRF51 BSP_DEFINES_ONLY</Define>
+              <Define>BLE_STACK_SUPPORT_REQD S110 WITH_SOFTDEVICE BOARD_PCA10028 SOFTDEVICE_PRESENT NRF51 BSP_DEFINES_ONLY</Define>
               <Undefine></Undefine>
               <IncludePath>..\Include;..\..\..\..\components\libraries\util;..\..\..\..\components\libraries\fifo;..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\components\toolchain\arm;..\..\..\..\components\toolchain;..\..\..\..\components\ble\common;..\..\..\..\components\ble\device_manager\config;..\..\..\..\components\drivers_nrf\common;..\..\..\..\components\ble\ble_advertising;..\..\..\..\components\softdevice\s110\headers;..\..\..\..\components\drivers_nrf\pstorage\config;..\..\..\bsp;..\..\..\..\components\libraries\trace;..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\components\ble\device_manager;..\..\..\..\components\drivers_nrf\uart;..\..\..\..\components\device;..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\components\libraries\timer;..\..\..\..\components\drivers_nrf\hal;..\..\Include;..\..\btle_hci\advertiser\Include;..\..\btle_hci\fifo\Include</IncludePath>
             </VariousControls>

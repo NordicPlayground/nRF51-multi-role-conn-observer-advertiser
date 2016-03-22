@@ -81,7 +81,7 @@ void btle_hci_feature_rsp_data_set(btle_control_packet_feature_rsp_data_t* featu
 */
 void btle_hci_disconnect_connection_event_set(uint16_t disconnect, bool enable); 
 /**
-* Set the data channel data parameters for the timeslot advertiser. See btle.h for details about
+* Set the data packet types  for the timeslot advertiser. See btle.h for details about
 * the struct parameter
 */
 

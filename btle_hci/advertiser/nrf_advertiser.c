@@ -57,8 +57,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Static Functions
 *****************************************************************************/
 
-#define softdevice (1)
-#define nosoftdevice (0)
+//#define softdevice (1)
+//#define nosoftdevice (0)
 
 /**
 * Callback for timeslot signals. Is only called when in a timeslot.
@@ -66,7 +66,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*****************************************************************************************/
-#if softdevice
+//#if softdevice
+ #if defined(WITH_SOFTDEVICE)
 static nrf_radio_signal_callback_return_param_t* radio_signal_callback(uint8_t sig)
 {	
 	 nrf_gpio_pin_toggle(17);
@@ -153,7 +154,8 @@ void btle_hci_adv_sd_evt_handler(uint32_t event)
 	
 void btle_hci_adv_init(IRQn_Type btle_hci_adv_evt_irq)
 {
-	#if softdevice	
+	//#if softdevice	
+	 #if defined(WITH_SOFTDEVICE)
 	ASSERT(btle_hci_adv_evt_irq >= SWI0_IRQn && btle_hci_adv_evt_irq <= SWI5_IRQn);
 	
 	uint8_t error_code;	
@@ -165,7 +167,8 @@ void btle_hci_adv_init(IRQn_Type btle_hci_adv_evt_irq)
 	/* init controller layer */
 	ctrl_init();
 	
-#if softdevice	
+//#if softdevice	
+	 #if defined(WITH_SOFTDEVICE)
 	error_code = sd_radio_session_open(&radio_signal_callback);
 	APP_ERROR_CHECK(error_code);
 #endif
@@ -214,7 +217,8 @@ void btle_hci_disconnect_connection_event_set(uint16_t disconnect, bool enable)
 
 }
 //****************************
-#if nosoftdevice
+//#if nosoftdevice
+#if defined(NO_SOFTDEVICE)
 void radio_1(void)
 {
   radio_2();
@@ -229,7 +233,8 @@ void adv_1 (void)
 	
 //*************************************
 
-#if softdevice
+//#if softdevice
+ #if defined(WITH_SOFTDEVICE)	
 void btle_hci_adv_enable(btle_adv_mode_t adv_enable)
 {
 	if (BTLE_ADV_ENABLE == adv_enable)
@@ -264,7 +269,8 @@ void btle_hci_adv_scan_rsp_data_set(btle_cmd_param_le_write_scan_response_data_t
 
 
 
-#if softdevice
+//#if softdevice 
+#if defined(WITH_SOFTDEVICE)
 
 void btle_hci_adv_whitelist_add(btle_cmd_param_le_add_device_to_whitelist_t* whitelist_device)
 {

@@ -43,7 +43,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "nrf_assert.h"
 
 
-#define softdevice (1)
+//#define softdevice (1)
 #define nosoftdevice (1)
 /*****************************************************************************
 * Static Globals

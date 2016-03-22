@@ -75,8 +75,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BLE_ADV_INTERVAL_100MS 0x00A0
 #define BLE_ADV_INTERVAL_150MS 0x00F0
 	
-#define softdevice (1)
-#define nosoftdevice (0)
+//#define softdevice (1)
+//#define nosoftdevice (0)
+	
 
 /*****************************************************************************
 * Static Globals
@@ -274,7 +275,8 @@ static void ble_setup(void)
   btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
 
   /* all parameters are set up, enable advertisement */
-	#if softdevice
+//	#if softdevice
+	 #if defined(WITH_SOFTDEVICE)
   btle_hci_adv_enable(BTLE_ADV_ENABLE);
   #endif
 }
@@ -309,7 +311,7 @@ static void uart_putstring(const uint8_t * string)
 * Interrupt handler for Softdevice events
 */
 
-	#if softdevice
+	#if defined(WITH_SOFTDEVICE)
 void SD_EVT_IRQHandler(void)
 {
   uint32_t evt;
@@ -358,7 +360,8 @@ int main(void)
   for(int i = LED_START; i <= LED_STOP; ++i)
     nrf_gpio_pin_set(i);
 
-	#if softdevice
+	//#if softdevice
+	#if defined(WITH_SOFTDEVICE)
   uint32_t error_code = sd_softdevice_enable((uint32_t)NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
   APP_ERROR_CHECK(error_code);
 
@@ -374,20 +377,12 @@ int main(void)
 
 
 
-#if nosoftdevice
+//#if nosoftdevice
+#if defined(NO_SOFTDEVICE)
 	
   clock_initialization();
 		
-//  nrf_gpio_cfg_output(LED_1);
-//  nrf_gpio_cfg_output(LED_2);
-//	nrf_gpio_cfg_output(LED_3);
-//  nrf_gpio_cfg_output(LED_4);
-//	
-//	nrf_gpio_pin_set(LED_1);
-//  nrf_gpio_pin_set(LED_2);
-//	nrf_gpio_pin_set(LED_3);
-//  nrf_gpio_pin_set(LED_4);
-	
+
 	radio_1(); //radio setup and channel setup
   ble_setup(); // adv and response packet setup
 	adv_1();
@@ -398,7 +393,8 @@ int main(void)
 
   while (true)
   {
-		#if softdevice
+		#if defined(WITH_SOFTDEVICE)
+	//	#if softdevice
     sd_app_evt_wait();
 		#endif
   }
