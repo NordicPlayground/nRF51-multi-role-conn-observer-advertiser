@@ -8,9 +8,9 @@ This project utilizes the Concurrent Multi-protocol Timeslot API in Nordic Semic
 
 The advertiser handles the following packets to advertise ,scan and connect :
 
-*(a) Advertising channel packets : ADV_IND , ADV_DIRECT_IND, ADV_NONCONN_IND, ADV_SCAN_IND, SCAN_REQ,SCAN_RSP
-*(b) Data Channel packets : Data (unencrypted)
-*(c) Data Channel Control packets : LL_CONNECTION_UPDATE_REQ , LL_CHANNEL_MAP_REQ,LL_TERMINATE_IND ,LL_FEATURE_REQ ,  LL_FEATURE_RSP,LL_VERSION_IND
+######(a) Advertising channel packets : ADV_IND , ADV_DIRECT_IND, ADV_NONCONN_IND, ADV_SCAN_IND, SCAN_REQ,SCAN_RSP
+######(b) Data Channel packets : Data (unencrypted)
+######(c) Data Channel Control packets : LL_CONNECTION_UPDATE_REQ , LL_CHANNEL_MAP_REQ,LL_TERMINATE_IND ,LL_FEATURE_REQ ,  LL_FEATURE_RSP,LL_VERSION_IND
 
 
 An algorithm has been implemented to find data channel index from the channel map provided by the CONN_REQ PDU and LL_CHANNEL_MAP_REQ PDU .The timeslot and non timeslot version of the advertiser only uses the TIMER0 for all of its applications.
@@ -18,9 +18,9 @@ An algorithm has been implemented to find data channel index from the channel ma
 The timeslot version of the advertiser has a feature to handle the clock drift .This clock drift should be handled in timelsot version because the packets should be received and transmitted within the allowed timeslot span . Otherwise the packets would be missed frequently which would result in connection loss . The timeslot is requested in every ( connection interval + drift time ) interval instead of only connection interval to compensate the time for crystal drift of the peer device .The drift time has been calculated by using TIMER0 inside the advertiser .
 
 ###Required Software
-*•S110 v8.0 production SoftDevice
-*•nRF51 SDK v9.0
-*•Keil uVision 4/5 or an arm-none-eabi GCC toolchain
+######•S110 v8.0 production SoftDevice
+######•nRF51 SDK v9.0
+######•Keil uVision 4/5 or an arm-none-eabi GCC toolchain
 
 Clone this GitHub repository into the examples/ folder of the nRF51 SDK directory.The copying path is important and a tutorial related to this can be found in the following link  https://devzone.nordicsemi.com/tutorials/19/.
 
@@ -37,13 +37,13 @@ The timeslot advertiser interface is based on the Bluetooth standard HCI interfa
 ### Event queue
 
 The timeslot advertiser offers  following functions to put all the following events into the queue :
-*(a) conn_req_evt_dispatch();
-*(b)	scan_req_evt_dispatch();
-*(c) disconnected_evt_dispatch();
-*(d) conn_update_req_evt_dispatch();
-*(e) channel_map_update_req_evt_dispatch();
-*(f) version_evt_dispatch();	
-*(g)	feature_req_evt_dispatch();
+######(a) conn_req_evt_dispatch();
+######(b)	scan_req_evt_dispatch();
+######(c) disconnected_evt_dispatch();
+######(d) conn_update_req_evt_dispatch();
+######(e) channel_map_update_req_evt_dispatch();
+######(f) version_evt_dispatch();	
+######(g)	feature_req_evt_dispatch();
 
  The software interrupt indicated by the user in the btle_hci_adv_init() function is triggered when there are available reports in the queue. The user may then use the btle_hci_adv_report_get() function to pull reports from the queue. The reports contain the total number of valid/invalid packets received and an HCI btle_evt_t structure that indicates what kind of event triggered the report.
 
@@ -104,7 +104,7 @@ Remove all scanners from the device whitelist. If the whitelist filter is enable
 
 The filter can be enabled or disabled with the btle_hci_adv_params_set() function above. Note that this function does not disable the filter functionality
 
-The following interface functions are added to handle the connection events :
+The following interface functions are added to set various connection  packets :
 
 ######void btle_hci_data_params_set(btle_data_channel_data_packet_parameters_t* data_params);
  
