@@ -1,7 +1,7 @@
 #Advertiser With and Without Timeslot API
 
 This project is an example of using timeslot API to built an scannable and connectable advertiser . The advertiser can run with two modes : with and without timeslot API but it is not selectable in the run time .
-The mode in which one would wish to run this advertiser should be set before compilation by using preprocessor directive at the start of the main.c file , ts_controller.c file and nrf_advertiser.c file of the advertiser project .
+The mode in which one would wish to run this advertiser should be set before compilation by using preprocessor symbols i.e. WITH_SOFTDEVICE and NO_SOFTDEVICE.
 
 This project utilizes the Concurrent Multi-protocol Timeslot API in Nordic Semiconductor's S110 v8.0 SoftDevice for the nRF51-series micro-controllers to run a scannable and connectable advertiser concurrently with the SoftDevice. The provided build scripts and project files support both the PCA10028 and PCA10031 development boards.
 
