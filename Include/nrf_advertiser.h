@@ -70,13 +70,36 @@ bool btle_hci_adv_report_get(nrf_report_t* evt);
 void btle_hci_adv_sd_evt_handler(uint32_t event);
 
 
+/**
+* Set the feature response data parameters for the timeslot advertiser. See btle.h for details about
+* the struct parameter
+*/
+void btle_hci_feature_rsp_data_set(btle_control_packet_feature_rsp_data_t* feature_rsp_data);
+
+/**
+* Set the coonection event counter at which point the conection is going to be disconnected 
+*/
+void btle_hci_disconnect_connection_event_set(uint16_t disconnect, bool enable); 
+/**
+* Set the data channel data parameters for the timeslot advertiser. See btle.h for details about
+* the struct parameter
+*/
+
+void btle_hci_data_params_set(btle_data_channel_data_packet_parameters_t* data_params);
+/**
+* Set the content of the timeslot data channel data packets. This does not include
+* any headers , as this is controlled internally. To set the headers, use the btle_hci_data_params_set() function.
+*/
+void btle_hci_data_data_payload_set(btle_data_channel_data_packet_data_t* data_payload);
+
+/**
+* Set the content of the timeslot version data  packets. This does not include
+* any headers , as this is controlled internally. 
+*/
+void btle_hci_version_data_set(btle_control_packet_version_data_t* version_data);
 
 
 
-
-
-
-															
 /**
 * Set the advertisement parameters for the timeslot advertiser. See btle.h for details about
 * the struct parameter

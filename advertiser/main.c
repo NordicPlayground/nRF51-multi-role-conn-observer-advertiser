@@ -1,3 +1,5 @@
+
+
 /***********************************************************************************
 Copyright (c) Nordic Semiconductor ASA
 All rights reserved.
@@ -40,28 +42,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "boards.h"
 #include "nrf_sdm.h"
 #include "app_error.h"  
-
 #include "app_uart.h"
-
 #include "nrf_advertiser.h"
 #include "nrf_assert.h"
-#include "ts_controller.h"
-#include "ts_peripheral.h"
-#include "nrf51.h"
-#include "nrf_delay.h"
-#include "nrf_gpio.h"
 
 #include <stdarg.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
 
-
-
 /*****************************************************************************
 * Local definitions
 *****************************************************************************/
-
+#define disconnect_conn_event_counter_type_t uint16_t  
 /**@brief Disable logging to UART by commenting out this line. It is recomended to do this if
  * if you want to study timing in the example using a logic analyzer.
  */
@@ -79,18 +72,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define __LOG(F, ...) (void)__NOP()
 #endif
 
+#define BLE_ADV_INTERVAL_100MS 0x00A0
+#define BLE_ADV_INTERVAL_150MS 0x00F0
+	
 #define softdevice (1)
 #define nosoftdevice (0)
-
-
-	
-#define BLE_ADV_INTERVAL_100MS 120//0x00A0  //time slot
-#define BLE_ADV_INTERVAL_150MS 0x00F0 //softdevice
 
 /*****************************************************************************
 * Static Globals
 *****************************************************************************/
-
 
 /**@brief Global variables used for storing assert information from the SoftDevice. */
 static uint32_t g_sd_assert_line_num;
@@ -135,8 +125,16 @@ static uint8_t ble_adv_data[] =
   /* Complete local name: */
   0x0D,                   /* length */
   0x09,                   /* type (complete local name) */
-  'A', 'n', 'o', 'm', 'a', 'd', 'a', 'r', 's', 'h', 'i',' ',
+  'T', 'i', 'm', 'e', 's', 'l', 'o', 't', ' ', 'a', 'd', 'v',
 };
+
+ static uint8_t ble_linklayer_data_1[] =
+{
+	NULL//empty PDU                          
+};
+
+	
+
 
 /*****************************************************************************
 * Static Functions
@@ -146,7 +144,7 @@ static uint8_t ble_adv_data[] =
  * Prints a string on the UART.
  * @param string the string to print.
  */
-//static void uart_putstring(const uint8_t * string);
+static void uart_putstring(const uint8_t * string);
 
 
 /**
@@ -161,13 +159,6 @@ static void sd_assert_cb(uint32_t pc, uint16_t line_num, const uint8_t *file_nam
 * App error check callback. Something went wrong, and we go into a blocking state, as continued 
 * executing may lead to undefined behavoiur.
 */
-
-
-static void uart_putstring(const uint8_t * string);
-
-
-/**********************************************************************************************/
-	
 void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 {
   char buf[256];
@@ -184,40 +175,9 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
   while(1);
 }
 
-#if softdevice
 /**
-* Interrupt handler for Softdevice events
-*/
-void SD_EVT_IRQHandler(void)
-{
-  uint32_t evt;
-  ble_evt_t ble_evt;
-  uint16_t len;
-
-  while(sd_evt_get(&evt) == NRF_SUCCESS)
-  {
-    btle_hci_adv_sd_evt_handler(evt);
-  }
-
-  while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
-  {
-    nrf_adv_conn_evt_handler(&ble_evt);
-  }
-}
-
-#endif
-/**********************************************************************************************/
-
-
-
-static void uart_putstring(const uint8_t * string)
-{
-#ifdef USE_UART_LOGGING
-  for(int i = 0; string[i] != 0; ++i)
-    app_uart_put(string[i]);
-#endif
-}
-
+ * UART event handler function.
+ */
 static void uart_event_handler(app_uart_evt_t * uart_event)
 {
 #ifdef USE_UART_LOGGING
@@ -244,6 +204,81 @@ static void uart_event_handler(app_uart_evt_t * uart_event)
 #endif
 }
 
+/**@brief Local function prototypes.
+ */
+static void test_logf(const char *fmt, ...);
+static void ble_setup(void);
+
+/**
+* Set up all advertiser parameters and data before the advertisement start
+*/
+static void ble_setup(void)
+{
+  /* we use software interrupt 0 */
+  btle_hci_adv_init(SWI0_IRQn);
+
+  btle_cmd_param_le_write_advertising_parameters_t adv_params;
+	btle_data_channel_data_packet_parameters_t data_params ;
+  
+	data_params.LLID = CONTINUATION_L2CAP_OR_EMPTY_PACKET;
+	data_params.MD = 0;
+	btle_hci_data_params_set(&data_params);
+	//ble_linklayer_data[0]=0x01;
+	
+	btle_data_channel_data_packet_data_t data_payload;
+	memcpy((void*) &data_payload.data_packet_data[0], (void*) &ble_linklayer_data_1[0], sizeof(ble_linklayer_data_1));
+  data_payload.data_length = sizeof(ble_linklayer_data_1)-1;
+  btle_hci_data_data_payload_set(&data_payload);
+	
+	btle_control_packet_version_data_t version_data;
+	version_data.CompId =0x004C ;
+	version_data.LLVersNr = Bluetooth_Core_Specification_4_0;
+	version_data.SubVersNr = 0x0001;
+	btle_hci_version_data_set(&version_data);
+	
+	btle_control_packet_feature_rsp_data_t feature_rsp_data;
+	feature_rsp_data.FeatureSet =LL_Receiver_Transmitter_Encryption ;// LL_Encryption;
+	btle_hci_feature_rsp_data_set(&feature_rsp_data);
+	
+	uint16_t disconnect = 0x0085;
+	bool activate = false;
+  btle_hci_disconnect_connection_event_set(disconnect, activate); 
+	
+  memcpy((void*) &adv_params.direct_address[0], (void*) &ble_addr[0], BTLE_DEVICE_ADDRESS__SIZE);
+
+
+  /* want to maximize potential scan requests */
+  adv_params.channel_map = BTLE_CHANNEL_MAP_ALL;
+  adv_params.direct_address_type = BTLE_ADDR_TYPE_RANDOM;
+  adv_params.filter_policy = BTLE_ADV_FILTER_ALLOW_ANY;
+  adv_params.interval_min = BLE_ADV_INTERVAL_100MS;
+  adv_params.interval_max = BLE_ADV_INTERVAL_150MS;
+
+  adv_params.own_address_type = BTLE_ADDR_TYPE_RANDOM;
+
+  /* Only want scan requests */
+  adv_params.type = BTLE_ADV_TYPE_ADV_IND;//BTLE_ADV_TYPE_SCAN_IND;
+
+  btle_hci_adv_params_set(&adv_params);
+
+  /* Set advertising data: */
+  btle_cmd_param_le_write_advertising_data_t adv_data;
+  memcpy((void*) &adv_data.advertising_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
+  adv_data.data_length = sizeof(ble_adv_data);
+  btle_hci_adv_data_set(&adv_data);
+
+  /* Set scan response data: */
+  btle_cmd_param_le_write_scan_response_data_t scan_rsp_data;
+  memcpy((void*) &scan_rsp_data.response_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
+  scan_rsp_data.data_length = sizeof(ble_adv_data);
+  btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
+
+  /* all parameters are set up, enable advertisement */
+	#if softdevice
+  btle_hci_adv_enable(BTLE_ADV_ENABLE);
+  #endif
+}
+
 static void uart_init(void)
 {
 #ifdef USE_UART_LOGGING
@@ -262,63 +297,37 @@ static void uart_init(void)
 #endif
 }
 
-
-static void test_logf(const char *fmt, ...);
-static void ble_setup(void);
-/**
-* Set up all advertiser parameters and data before the advertisement start
-*/
-
-static void ble_setup(void)
+static void uart_putstring(const uint8_t * string)
 {
-  /* we use software interrupt 0 */
-  btle_hci_adv_init(SWI0_IRQn);  // PDU type is set in here , discoverable mode is set in here 
-
-  btle_cmd_param_le_write_advertising_parameters_t adv_params;
-
-
-  memcpy((void*) &adv_params.direct_address[0], (void*) &ble_addr[0], BTLE_DEVICE_ADDRESS__SIZE);
-
-
-  /* want to maximize potential scan requests */
-  adv_params.channel_map = BTLE_CHANNEL_MAP_ALL;
-  adv_params.direct_address_type = BTLE_ADDR_TYPE_RANDOM;
-  adv_params.filter_policy = BTLE_ADV_FILTER_ALLOW_ANY;
-	
-  adv_params.interval_min = BLE_ADV_INTERVAL_100MS;
-  adv_params.interval_max = BLE_ADV_INTERVAL_150MS;
-
-  adv_params.own_address_type = BTLE_ADDR_TYPE_RANDOM;
-
-  /* Only want scan requests */
-  adv_params.type =BTLE_ADV_TYPE_ADV_IND;//BTLE_ADV_TYPE_SCAN_IND;////BTLE_ADV_TYPE_SCAN_IND; //BTLE_ADV_TYPE_ADV_IND; BTLE_ADV_TYPE_SCAN_IND;
-
-  btle_hci_adv_params_set(&adv_params);
-
-  /* Set advertising data: */
-  btle_cmd_param_le_write_advertising_data_t adv_data; // ADV DATA length and data content 
-  memcpy((void*) &adv_data.advertising_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
-  adv_data.data_length = sizeof(ble_adv_data);
- 
- btle_hci_adv_data_set(&adv_data);
-  
-	
-	
-  /* Set scan response data: */
-  btle_cmd_param_le_write_scan_response_data_t scan_rsp_data; //// SCAN RSP DATA length and data content 
-  memcpy((void*) &scan_rsp_data.response_data[0], (void*) &ble_adv_data[0], sizeof(ble_adv_data));
-
- scan_rsp_data.data_length = sizeof(ble_adv_data);
-  btle_hci_adv_scan_rsp_data_set(&scan_rsp_data);
-
-  /* all parameters are set up, enable advertisement */
-	#if softdevice
-     btle_hci_adv_enable(BTLE_ADV_ENABLE);
-	#endif
- 
-	
+#ifdef USE_UART_LOGGING
+  for(int i = 0; string[i] != 0; ++i)
+    app_uart_put(string[i]);
+#endif
 }
 
+/**
+* Interrupt handler for Softdevice events
+*/
+
+	#if softdevice
+void SD_EVT_IRQHandler(void)
+{
+  uint32_t evt;
+  ble_evt_t ble_evt;
+  uint16_t len;
+
+  while(sd_evt_get(&evt) == NRF_SUCCESS)
+  {
+    btle_hci_adv_sd_evt_handler(evt);
+  }
+
+  while (sd_ble_evt_get((uint8_t *) &evt, &len) == NRF_SUCCESS)
+  {
+    nrf_adv_conn_evt_handler(&ble_evt);
+  }
+}
+
+#endif
 
 void clock_initialization()
 {
@@ -333,90 +342,67 @@ void clock_initialization()
     }		
 }
 
-
-
-
-
 int main(void)
 {
-	
-	
-	nrf_gpio_range_cfg_output(17, 24);
-	
-  for(int i = 17; i <= 24; i++)
-    nrf_gpio_pin_set(i);
-	
-	
-	/**************************************************************************************************/
-#if softdevice
   /* Silence the compiler */
   (void) g_sd_assert_pc;
   (void) g_evt;
-	
+
+  uart_init();
+
+  char start_msg[128];
+  sprintf(&start_msg[0], "\n| %s |---------------------------------------------------\r\n\n", __TIME__);
+  uart_putstring((uint8_t*) &start_msg[0]);
+
   nrf_gpio_range_cfg_output(0, 30);
-	
   for(int i = LED_START; i <= LED_STOP; ++i)
     nrf_gpio_pin_set(i);
 
-	
+	#if softdevice
   uint32_t error_code = sd_softdevice_enable((uint32_t)NRF_CLOCK_LFCLKSRC_XTAL_75_PPM, sd_assert_cb);
   APP_ERROR_CHECK(error_code);
 
-  error_code = sd_nvic_EnableIRQ(SD_EVT_IRQn); //SWI2
-  APP_ERROR_CHECK(error_code);
-  ble_setup();
-  
-  nrf_adv_conn_init(); /* Enable a generic SD advertiser to display concurrent operation */
-/****************************************************************************************************/
-#endif
-	
 
-  uart_init();
-	char start_msg[128];
-  sprintf(&start_msg[0], "\n| %s |---------------------------------------------------\r\n\n", __TIME__);
-  uart_putstring((uint8_t*) &start_msg[0]);
-	
-	#if nosoftdevice
+  error_code = sd_nvic_EnableIRQ(SD_EVT_IRQn);
+  APP_ERROR_CHECK(error_code);
+
+  ble_setup();
+
+  /* Enable a generic SD advertiser to display concurrent operation */
+  nrf_adv_conn_init();
+#endif
+
+
+
+#if nosoftdevice
 	
   clock_initialization();
 		
-  nrf_gpio_cfg_output(LED_1);
-  nrf_gpio_cfg_output(LED_2);
-	nrf_gpio_cfg_output(LED_3);
-  nrf_gpio_cfg_output(LED_4);
-	
-	nrf_gpio_pin_set(LED_1);
-  nrf_gpio_pin_set(LED_2);
-	nrf_gpio_pin_set(LED_3);
-  nrf_gpio_pin_set(LED_4);
+//  nrf_gpio_cfg_output(LED_1);
+//  nrf_gpio_cfg_output(LED_2);
+//	nrf_gpio_cfg_output(LED_3);
+//  nrf_gpio_cfg_output(LED_4);
+//	
+//	nrf_gpio_pin_set(LED_1);
+//  nrf_gpio_pin_set(LED_2);
+//	nrf_gpio_pin_set(LED_3);
+//  nrf_gpio_pin_set(LED_4);
 	
 	radio_1(); //radio setup and channel setup
   ble_setup(); // adv and response packet setup
 	adv_1();
 #endif
 
-	/*for (i=0;i<3;i++)
-	{
-	nrf_gpio_pin_clear(LED_1);
-  nrf_gpio_pin_clear(LED_2);
-  nrf_delay_ms(500);
-  nrf_gpio_pin_set(LED_1);
-  nrf_gpio_pin_set(LED_2);
-  nrf_delay_ms(500);
-	}	*/	
+
 
 
   while (true)
   {
 		#if softdevice
-	  sd_app_evt_wait();
+    sd_app_evt_wait();
 		#endif
   }
 }
-
-/**********************************************************************************************/
-
-#if softdevice
 
 /**@brief Assert callback handler for SoftDevice asserts. */
 void sd_assert_cb (uint32_t pc, uint16_t line_num, const uint8_t *file_name)
@@ -453,10 +439,8 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
   while (1);
 }
 
-#endif
-/******************************************************************************************************************/
-
-/* Interrupt handler for advertiser reports
+/**
+* Interrupt handler for advertiser reports
 */
 void SWI0_IRQHandler(void)
 {
@@ -467,7 +451,7 @@ void SWI0_IRQHandler(void)
     switch (report.event.event_code)
     {
       case BTLE_VS_EVENT_NRF_LL_EVENT_SCAN_REQ_REPORT:
-        snprintf(buf, 256, "Received scan req on ch. %i. Addr: %.02X:%.02X:%.02X:%.02X:%.02X:%.02X \tRSSI: -%i \t Packets (valid/invalid): %i/%i\r\n",
+        snprintf(buf, 256, "\nReceived scan req on ch. %i. Addr: %.02X:%.02X:%.02X:%.02X:%.02X:%.02X \tRSSI: -%i \t Packets (valid/invalid): %i/%i\r\n",
           report.event.params.nrf_scan_req_report_event.channel,
           report.event.params.nrf_scan_req_report_event.address[5],
           report.event.params.nrf_scan_req_report_event.address[4],
@@ -481,12 +465,115 @@ void SWI0_IRQHandler(void)
         uart_putstring((uint8_t*) buf);
         break;
       
+			case BTLE_VS_EVENT_NRF_LL_EVENT_DISCONNECTED_REPORT:
+        snprintf(buf, 256, "\nReceived LL_DISCONNECT_IND on ch. %i.\tEvent counter.0x%.02X%.02X \r\n",
+          report.event.params.nrf_disconnected_report_event.channel,
+          report.event.params.nrf_disconnected_report_event.event_counter[1],
+			    report.event.params.nrf_disconnected_report_event.event_counter[0]);
+          uart_putstring((uint8_t*) buf);
+        break;
+			case BTLE_VS_EVENT_NRF_LL_EVENT_VERSION_REPORT_RECEIVED:
+        snprintf(buf, 256, "\nReceived LL_VERSION_IND on ch. %i.\tEvent counter.0x%.02X%.02X\tLLVersNr:%.02X\tCompId.0x%.02X%.02X \tSubVersNr.0x%.02X%.02X  \r\n",
+          report.event.params.nrf_version_report_received_event.channel,
+          report.event.params.nrf_version_report_received_event.event_counter[1],
+			    report.event.params.nrf_version_report_received_event.event_counter[0],
+			    report.event.params.nrf_version_report_received_event.LLVersNr,
+			    report.event.params.nrf_version_report_received_event.CompId[1],
+			    report.event.params.nrf_version_report_received_event.CompId[0],
+			    report.event.params.nrf_version_report_received_event.SubVersNr[1],
+			    report.event.params.nrf_version_report_received_event.SubVersNr[0]);
+          uart_putstring((uint8_t*) buf);
+        break;
+			case BTLE_VS_EVENT_NRF_LL_EVENT_FEATURE_REQ_REPORT_RECEIVED:
+        snprintf(buf, 256, "\nReceived LL_FEATURE_REQ_IND on ch. %i.\tEvent counter.0x%.02X%.02X\tFeature set:0x%.02X%.02X%.02X%.02X%.02X%.02X%.02X%.02X \r\n",
+          report.event.params.nrf_feature_req_report_received_event.channel,
+          report.event.params.nrf_feature_req_report_received_event.event_counter[1],
+			    report.event.params.nrf_feature_req_report_received_event.event_counter[0],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[7],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[6],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[5],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[4],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[3],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[2],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[1],
+			    report.event.params.nrf_feature_req_report_received_event.feature_set[0]);
+			    
+          uart_putstring((uint8_t*) buf);
+        break;
+			case BTLE_VS_EVENT_NRF_LL_EVENT_CHANNEL_MAP_UPDATE_REQ_REPORT_RECEIVED:
+        snprintf(buf, 256, "\nReceived LL_CHANNEL_MAP_REQ_IND on ch. %i.\tEvent counter.0x%.02X%.02X\tChannel Map:0x%.02X%.02X%.02X%.02X%.02X\t Instant :0x%.02X%.02X \r\n",
+          report.event.params.nrf_channel_map_update_req_report_received_event.channel,
+          report.event.params.nrf_channel_map_update_req_report_received_event.event_counter[1],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.event_counter[0],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.channel_map[4],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.channel_map[3],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.channel_map[2],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.channel_map[1],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.channel_map[0],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.instant[1],
+			    report.event.params.nrf_channel_map_update_req_report_received_event.instant[0]);
+			    
+			    
+          uart_putstring((uint8_t*) buf);
+        break;
+			case BTLE_VS_EVENT_NRF_LL_EVENT_CONN_REQ_REPORT:
+        snprintf(buf,256, "\nReceived CONN_REQ_IND on ch. %i.  Initiator address;0x%.02X%.02X%.02X%.02X%.02X%.02X  Access address;0x%.02X%.02X%.02X%.02X  CRC_init:0x%.02X%.02X%.02X  WIn_size:%i  Win_offset:%i us  Conn_interval:%i us  Latency:0x%.02X%.02X  Timeout:0x%.02X%.02X   Channel Map:0x%.02X%.02X%.02X%.02X%.02X  Hop:%i \r\n",
+          report.event.params.nrf_conn_req_report_event.channel,
+			    
+          report.event.params.nrf_conn_req_report_event.initiator_address[5],
+			    report.event.params.nrf_conn_req_report_event.initiator_address[4],
+			    report.event.params.nrf_conn_req_report_event.initiator_address[3],
+			    report.event.params.nrf_conn_req_report_event.initiator_address[2],
+			    report.event.params.nrf_conn_req_report_event.initiator_address[1],
+			    report.event.params.nrf_conn_req_report_event.initiator_address[0],
+			    report.event.params.nrf_conn_req_report_event.acess_address[3],
+			    report.event.params.nrf_conn_req_report_event.acess_address[2],
+			    report.event.params.nrf_conn_req_report_event.acess_address[1],
+			    report.event.params.nrf_conn_req_report_event.acess_address[0],
+					report.event.params.nrf_conn_req_report_event.crc_init[2],
+					report.event.params.nrf_conn_req_report_event.crc_init[1],
+					report.event.params.nrf_conn_req_report_event.crc_init[0],
+			    report.event.params.nrf_conn_req_report_event.win_size,
+					report.event.params.nrf_conn_req_report_event.win_offset,	
+					report.event.params.nrf_conn_req_report_event.conn_interval,
+					report.event.params.nrf_conn_req_report_event.latency[1],
+					report.event.params.nrf_conn_req_report_event.latency[0],
+					report.event.params.nrf_conn_req_report_event.timeout[1],
+					report.event.params.nrf_conn_req_report_event.timeout[0],
+			    report.event.params.nrf_conn_req_report_event.channel_map[4],
+			    report.event.params.nrf_conn_req_report_event.channel_map[3],
+			    report.event.params.nrf_conn_req_report_event.channel_map[2],
+			    report.event.params.nrf_conn_req_report_event.channel_map[1],
+			    report.event.params.nrf_conn_req_report_event.channel_map[0],
+			    report.event.params.nrf_conn_req_report_event.hop);
+
+          uart_putstring((uint8_t*) buf);
+        break;
+				
+				case BTLE_VS_EVENT_NRF_LL_EVENT_CONNECTION_UPDATE_REQ_REPORT_RECEIVED:
+        snprintf(buf,256, "\nReceived CONN_UPDATE_REQ on ch. %i.\tWIn_size:%i\tWin_offset:%i us \tConn_interval:%i us\tLatency:0x%.02X%.02X\tTimeout:0x%.02X%.02X \tInstant :0x%.02X%.02X  \r\n",
+          report.event.params.nrf_conn_req_report_event.channel,
+			    
+			    report.event.params.nrf_connecion_update_req_report_received_event.win_size,
+					report.event.params.nrf_connecion_update_req_report_received_event.win_offset,	
+					report.event.params.nrf_connecion_update_req_report_received_event.conn_interval,
+					report.event.params.nrf_connecion_update_req_report_received_event.latency[1],
+					report.event.params.nrf_connecion_update_req_report_received_event.latency[0],
+					report.event.params.nrf_connecion_update_req_report_received_event.timeout[1],
+					report.event.params.nrf_connecion_update_req_report_received_event.timeout[0],
+			    report.event.params.nrf_connecion_update_req_report_received_event.instant[1],
+			    report.event.params.nrf_connecion_update_req_report_received_event.instant[0]);
+
+          uart_putstring((uint8_t*) buf);
+        break;
+			
       /* For now, the only event we care about is the scan req event. */
       default:
         uart_putstring((uint8_t*) "Unknown adv evt.\r\n");
     }
   }
 }
+
 /**@brief Logging function, used for formated output on the UART.
  */
 void test_logf(const char *fmt, ...)
@@ -504,4 +591,3 @@ void test_logf(const char *fmt, ...)
   
   va_end(args);
 }
-

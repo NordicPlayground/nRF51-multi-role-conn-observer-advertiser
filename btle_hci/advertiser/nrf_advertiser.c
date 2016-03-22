@@ -182,6 +182,37 @@ void btle_hci_adv_params_set(btle_cmd_param_le_write_advertising_parameters_t* a
 	ctrl_adv_param_set(adv_params);
 }
 
+void btle_hci_data_params_set(btle_data_channel_data_packet_parameters_t* data_params)
+{
+	ctrl_data_param_set(data_params);
+}
+
+void btle_hci_data_data_payload_set(btle_data_channel_data_packet_data_t* data_payload)
+{
+  ctrl_data_datapayload_set(data_payload);
+}
+
+void btle_hci_version_data_set(btle_control_packet_version_data_t* version_data)
+{
+	
+ctrl_data_version_data_set(version_data);
+
+}
+
+void btle_hci_feature_rsp_data_set(btle_control_packet_feature_rsp_data_t* feature_rsp_data)
+
+{
+ 
+ctrl_data_feature_rsp_data_set(feature_rsp_data);
+
+}
+
+void btle_hci_disconnect_connection_event_set(uint16_t disconnect, bool enable)
+{
+
+	ctrl_disconnect_connection_event_set(disconnect, enable) ;
+
+}
 //****************************
 #if nosoftdevice
 void radio_1(void)

@@ -53,6 +53,8 @@
 #define BTLE_ENC_SKD_SIZE                         (16)
 #define BTLE_ENC_IV_SIZE                          (8)
 
+#define BTLE_DATA_PACKET_DATA__SIZE               (27)
+
 /* UNUSED */
 /// @brief The maximum length (in octets) of an BTLE message.
 //#define BTLE_MSG_BUFFER_MAX_SIZE    (50)
@@ -220,6 +222,9 @@ typedef enum
   BTLE_ADV_TYPE_SCAN_IND,
   BTLE_ADV_TYPE_NONCONN_IND
 } btle_adv_types_t;
+
+
+
 
 /** @brief BTLE connection role type (_SHALL_ be fully compatible with the type in the HCI). */
 typedef enum
@@ -402,6 +407,12 @@ typedef enum
   BTLE_VS_EVENT_NRF_LL_EVENT_RSSI_CHANGED,
   BTLE_VS_EVENT_NRF_LL_EVENT_CONNECTION_COMPLETE,
   BTLE_VS_EVENT_NRF_LL_EVENT_SCAN_REQ_REPORT,
+	BTLE_VS_EVENT_NRF_LL_EVENT_CONN_REQ_REPORT,
+	BTLE_VS_EVENT_NRF_LL_EVENT_DISCONNECTED_REPORT,
+	BTLE_VS_EVENT_NRF_LL_EVENT_VERSION_REPORT_RECEIVED,
+	BTLE_VS_EVENT_NRF_LL_EVENT_FEATURE_REQ_REPORT_RECEIVED,
+	BTLE_VS_EVENT_NRF_LL_EVENT_CHANNEL_MAP_UPDATE_REQ_REPORT_RECEIVED,
+	BTLE_VS_EVENT_NRF_LL_EVENT_CONNECTION_UPDATE_REQ_REPORT_RECEIVED
 /* End - Vendor Specific Events. */
 } btle_event_code_t;
 
@@ -814,6 +825,73 @@ typedef struct
   uint8_t                   rssi;
 } nrf_ev_param_le_scan_req_report_t;
 
+typedef struct
+{
+
+  uint8_t                   channel;
+  uint8_t                   initiator_address[6];
+	uint8_t                   acess_address[4];
+	uint8_t                   crc_init[3];
+	uint8_t                   win_size;
+	uint32_t                  win_offset;
+	uint32_t                  conn_interval;
+	uint8_t                   latency[2];
+	uint8_t                   timeout[2];
+	uint8_t                   channel_map[5];
+	uint8_t                   hop;
+} nrf_ev_param_le_conn_req_report_t;
+
+typedef struct
+{
+  
+  uint8_t                   channel;
+  uint8_t                   event_counter[2]; 
+ 
+}nrf_ev_param_le_disconnected_report_t ;
+
+typedef struct
+{
+  
+  uint8_t                   channel;
+  uint8_t                   event_counter[2]; 
+	uint8_t                   LLVersNr;
+  uint8_t                   CompId[2];
+  uint8_t                   SubVersNr[2];
+ 
+}nrf_ev_param_le_version_report_received_t ;
+
+typedef struct
+{
+  
+  uint8_t                   channel;
+  uint8_t                   event_counter[2]; 
+	uint8_t                   feature_set[8];
+ 
+}nrf_ev_param_le_feature_req_report_received_t ;
+
+typedef struct
+{
+  
+  uint8_t                   channel;
+  uint8_t                   event_counter[2]; 
+	uint8_t                   channel_map[5];
+	uint8_t                   instant[2];
+ 
+}nrf_ev_param_le_channel_map_update_req_report_received_t ;
+
+typedef struct
+{
+  
+  uint8_t                   channel;
+  uint8_t                   event_counter[2]; 
+	uint8_t                   win_size;
+	uint32_t                  win_offset;
+	uint32_t                  conn_interval;
+	uint8_t                   latency[2];
+	uint8_t                   timeout[2];
+	uint8_t                   instant[2];
+ 
+}nrf_ev_param_le_connection_update_req_report_received_t ;
 /*
   End - Return parameters to be used by events.
  */
@@ -913,6 +991,35 @@ typedef enum
   NRF_RSSI_ENABLE = 1
 } nrf_rssi_mode_t;
 
+
+typedef enum
+{ 
+	RESERVED = 0,
+  CONTINUATION_L2CAP_OR_EMPTY_PACKET = 1,
+	START_OF_L2CAP_OR_NO_FRAGMENTATION = 2
+}btle_data_packet_type_t;
+
+typedef enum
+{ 
+	Bluetooth_Core_Specification_4_0 = 6,
+  Bluetooth_Core_Specification_4_1 = 7,
+	Bluetooth_Core_Specification_4_2 = 8
+}btle_version_type_t;
+
+
+typedef enum
+{ 
+	LL_Encryption = 1,
+	LL_Transmitter = 2,
+	LL_Encryption_Transmitter=3,
+	LL_Receiver = 4,
+	LL_Receiver_Encryption = 5,
+	LL_Receiver_Transmitter = 6,
+	LL_Receiver_Transmitter_Encryption = 7,
+  
+}btle_feature_rsp_type_t;
+
+
 typedef enum
 {
   NRF_EVENT_SLEEP_CFG_DISABLED = 0,
@@ -1004,6 +1111,36 @@ typedef struct
   uint8_t data_length;
   uint8_t advertising_data[BTLE_ADVERTISING_DATA__SIZE];
 } btle_cmd_param_le_write_advertising_data_t;
+
+typedef struct
+{
+	btle_data_packet_type_t LLID ;
+	uint8_t SN ;
+	uint8_t NESN ;
+	uint8_t MD ;
+}btle_data_channel_data_packet_parameters_t;
+
+typedef struct
+{
+  uint8_t data_length;
+  uint8_t data_packet_data[BTLE_DATA_PACKET_DATA__SIZE];
+} btle_data_channel_data_packet_data_t;
+
+typedef struct
+{
+  btle_version_type_t LLVersNr;
+	uint16_t CompId;
+	uint16_t SubVersNr;
+}btle_control_packet_version_data_t;
+
+
+typedef struct
+{
+  btle_feature_rsp_type_t FeatureSet;
+
+}btle_control_packet_feature_rsp_data_t;
+
+
 
 typedef struct
 {
@@ -1184,12 +1321,18 @@ typedef struct
     btle_ev_param_encryption_key_refresh_complete_t            encryption_key_refresh_complete_event;
 /* Begin - Vendor Specific Events. */
     nrf_ev_param_event_buffer_overflow_t                       nrf_buffer_overflow_event;
-    nrf_ev_param_version_info_t                                nrf_version_info_event;
+   // nrf_ev_param_version_info_t                                nrf_version_info_event;
     nrf_ev_param_winlim_auto_off_occurred_t                    nrf_winlim_auto_off_occurred_event;
     nrf_ev_param_rssi_changed_t                                nrf_rssi_changed_event;
     nrf_ev_param_connection_complete_t                         nrf_connection_complete_event;
     nrf_ev_param_config_local_conn_latency_t                   nrf_config_local_conn_latency;
     nrf_ev_param_le_scan_req_report_t                          nrf_scan_req_report_event;
+		nrf_ev_param_le_conn_req_report_t                          nrf_conn_req_report_event;
+		nrf_ev_param_le_disconnected_report_t                      nrf_disconnected_report_event;
+		nrf_ev_param_le_version_report_received_t                  nrf_version_report_received_event;
+		nrf_ev_param_le_feature_req_report_received_t              nrf_feature_req_report_received_event;
+		nrf_ev_param_le_channel_map_update_req_report_received_t   nrf_channel_map_update_req_report_received_event;
+		nrf_ev_param_le_connection_update_req_report_received_t    nrf_connecion_update_req_report_received_event;
 /* End - Vendor Specific Events. */
   } params;
 } btle_event_t;

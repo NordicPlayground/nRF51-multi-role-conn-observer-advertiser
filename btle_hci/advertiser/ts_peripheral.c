@@ -44,7 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #define softdevice (1)
-#define nosoftdevice (0)
+#define nosoftdevice (1)
 /*****************************************************************************
 * Static Globals
 *****************************************************************************/

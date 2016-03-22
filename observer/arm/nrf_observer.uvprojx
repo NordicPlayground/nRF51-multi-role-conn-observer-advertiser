@@ -15,8 +15,8 @@
         <TargetCommonOption>
           <Device>nRF51422_xxAC</Device>
           <Vendor>Nordic Semiconductor</Vendor>
-          <PackID>NordicSemiconductor.nRF_DeviceFamilyPack.8.5.0</PackID>
-          <PackURL>http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/</PackURL>
+          <PackID>NordicSemiconductor.nRF_DeviceFamilyPack.8.3.2</PackID>
+          <PackURL>http://developer.nordicsemi.com/nRF51_SDK/pieces/nRF_DeviceFamilyPack/</PackURL>
           <Cpu>IROM(0x00000000,0x40000) IRAM(0x20000000,0x8000) CPUTYPE("Cortex-M0") CLOCK(16000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -48,7 +48,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\_build\</OutputDirectory>
-          <OutputName>ts_advertiser</OutputName>
+          <OutputName>ts_scanner</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -373,7 +373,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>BLE_STACK_SUPPORT_REQD S110 BOARD_PCA10028 SOFTDEVICE_PRESENT NRF51 BSP_DEFINES_ONLY</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Include;..\..\..\..\components\libraries\util;..\..\..\..\components\libraries\fifo;..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\components\toolchain\arm;..\..\..\..\components\toolchain;..\..\..\..\components\ble\common;..\..\..\..\components\ble\device_manager\config;..\..\..\..\components\drivers_nrf\common;..\..\..\..\components\ble\ble_advertising;..\..\..\..\components\softdevice\s110\headers;..\..\..\..\components\drivers_nrf\pstorage\config;..\..\..\bsp;..\..\..\..\components\libraries\trace;..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\components\ble\device_manager;..\..\..\..\components\drivers_nrf\uart;..\..\..\..\components\device;..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\components\libraries\timer;..\..\..\..\components\drivers_nrf\hal;..\..\Include;..\..\btle_hci\advertiser\Include;..\..\btle_hci\fifo\Include</IncludePath>
+              <IncludePath>..\Include;..\..\..\..\components\libraries\util;..\..\..\..\components\libraries\fifo;..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\components\toolchain\arm;..\..\..\..\components\toolchain;..\..\..\..\components\ble\common;..\..\..\..\components\ble\device_manager\config;..\..\..\..\components\drivers_nrf\common;..\..\..\..\components\ble\ble_advertising;..\..\..\..\components\softdevice\s110\headers;..\..\..\..\components\drivers_nrf\config;..\..\..\..\components\drivers_nrf\pstorage\config;..\..\..\bsp;..\..\..\..\components\libraries\trace;..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\components\ble\device_manager;..\..\..\..\components\drivers_nrf\uart;..\..\..\..\components\device;..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\components\libraries\timer;..\..\..\..\components\drivers_nrf\hal;..\..\Include;..\..\btle_hci\scanner\Include;..\..\btle_hci\fifo\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -487,14 +487,14 @@
               <FilePath>..\..\..\..\components\drivers_nrf\common\nrf_drv_common.c</FilePath>
             </File>
             <File>
-              <FileName>pstorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\components\drivers_nrf\pstorage\pstorage.c</FilePath>
-            </File>
-            <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\components\drivers_nrf\gpiote\nrf_drv_gpiote.c</FilePath>
+            </File>
+            <File>
+              <FileName>pstorage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\drivers_nrf\pstorage\pstorage.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -512,29 +512,24 @@
               <FilePath>..\..\btle_hci\fifo\nrf_report_fifo.c</FilePath>
             </File>
             <File>
-              <FileName>nrf_advertiser.c</FileName>
+              <FileName>channel_resolver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\nrf_advertiser.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\channel_resolver.c</FilePath>
             </File>
             <File>
-              <FileName>ts_controller.c</FileName>
+              <FileName>ll_scan.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_controller.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\ll_scan.c</FilePath>
             </File>
             <File>
-              <FileName>ts_peripheral.c</FileName>
+              <FileName>nrf_scan.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_peripheral.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\nrf_scan.c</FilePath>
             </File>
             <File>
-              <FileName>ts_rng.c</FileName>
+              <FileName>radio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_rng.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_whitelist.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_whitelist.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\radio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -551,8 +546,8 @@
         <TargetCommonOption>
           <Device>nRF51422_xxAC</Device>
           <Vendor>Nordic Semiconductor</Vendor>
-          <PackID>NordicSemiconductor.nRF_DeviceFamilyPack.8.5.0</PackID>
-          <PackURL>http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/</PackURL>
+          <PackID>NordicSemiconductor.nRF_DeviceFamilyPack.8.3.2</PackID>
+          <PackURL>http://developer.nordicsemi.com/nRF51_SDK/pieces/nRF_DeviceFamilyPack/</PackURL>
           <Cpu>IROM(0x00000000,0x40000) IRAM(0x20000000,0x8000) CPUTYPE("Cortex-M0") CLOCK(16000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -584,7 +579,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\_build\</OutputDirectory>
-          <OutputName>ts_advertiser</OutputName>
+          <OutputName>ts_scanner</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -909,7 +904,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>BLE_STACK_SUPPORT_REQD S110 BOARD_PCA10031 SOFTDEVICE_PRESENT NRF51 BSP_DEFINES_ONLY</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Include;..\..\..\..\components\libraries\util;..\..\..\..\components\libraries\fifo;..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\components\toolchain\arm;..\..\..\..\components\toolchain;..\..\..\..\components\ble\common;..\..\..\..\components\ble\device_manager\config;..\..\..\..\components\drivers_nrf\common;..\..\..\..\components\ble\ble_advertising;..\..\..\..\components\softdevice\s110\headers;..\..\..\..\components\drivers_nrf\pstorage\config;..\..\..\bsp;..\..\..\..\components\libraries\trace;..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\components\ble\device_manager;..\..\..\..\components\drivers_nrf\uart;..\..\..\..\components\device;..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\components\libraries\timer;..\..\..\..\components\drivers_nrf\hal;..\..\Include;..\..\btle_hci\advertiser\Include;..\..\btle_hci\fifo\Include</IncludePath>
+              <IncludePath>..\Include;..\..\..\..\components\libraries\util;..\..\..\..\components\libraries\fifo;..\..\..\..\components\drivers_nrf\pstorage;..\..\..\..\components\toolchain\arm;..\..\..\..\components\toolchain;..\..\..\..\components\ble\common;..\..\..\..\components\ble\device_manager\config;..\..\..\..\components\drivers_nrf\common;..\..\..\..\components\ble\ble_advertising;..\..\..\..\components\softdevice\s110\headers;..\..\..\..\components\drivers_nrf\config;..\..\..\..\components\drivers_nrf\pstorage\config;..\..\..\bsp;..\..\..\..\components\libraries\trace;..\..\..\..\components\drivers_nrf\gpiote;..\..\..\..\components\ble\device_manager;..\..\..\..\components\drivers_nrf\uart;..\..\..\..\components\device;..\..\..\..\components\softdevice\common\softdevice_handler;..\..\..\..\components\libraries\timer;..\..\..\..\components\drivers_nrf\hal;..\..\Include;..\..\btle_hci\scanner\Include;..\..\btle_hci\fifo\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1023,14 +1018,14 @@
               <FilePath>..\..\..\..\components\drivers_nrf\common\nrf_drv_common.c</FilePath>
             </File>
             <File>
-              <FileName>pstorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\components\drivers_nrf\pstorage\pstorage.c</FilePath>
-            </File>
-            <File>
               <FileName>nrf_drv_gpiote.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\components\drivers_nrf\gpiote\nrf_drv_gpiote.c</FilePath>
+            </File>
+            <File>
+              <FileName>pstorage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\components\drivers_nrf\pstorage\pstorage.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1048,29 +1043,24 @@
               <FilePath>..\..\btle_hci\fifo\nrf_report_fifo.c</FilePath>
             </File>
             <File>
-              <FileName>nrf_advertiser.c</FileName>
+              <FileName>channel_resolver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\nrf_advertiser.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\channel_resolver.c</FilePath>
             </File>
             <File>
-              <FileName>ts_controller.c</FileName>
+              <FileName>ll_scan.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_controller.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\ll_scan.c</FilePath>
             </File>
             <File>
-              <FileName>ts_peripheral.c</FileName>
+              <FileName>nrf_scan.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_peripheral.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\nrf_scan.c</FilePath>
             </File>
             <File>
-              <FileName>ts_rng.c</FileName>
+              <FileName>radio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_rng.c</FilePath>
-            </File>
-            <File>
-              <FileName>ts_whitelist.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\btle_hci\advertiser\ts_whitelist.c</FilePath>
+              <FilePath>..\..\btle_hci\scanner\radio.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -86,6 +86,8 @@ void sm_enter_req(void);
 static uint8_t ble_adv_data[BLE_ADDR_OFFSET + BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
 static uint8_t ble_scan_rsp_data[BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
 
+static uint8_t ble_linklayer_data[BLE_DATA_PAYLOAD_OFFSET + BLE_DATA_PAYLOAD_MAXLEN];
+static uint8_t MD_bit;
 
 //static uint8_t ble_adv_data[] =
 //{
@@ -136,12 +138,12 @@ static uint8_t ble_scan_rsp_data[BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN];
 //  'A', 'a', 'a', 'a', 'a', 'd', 'a', 'r', 's', 'h', 'i',' ',
 //};
 
-static uint8_t ble_linklayer_data[] =
-{
-	0x11,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
-	0x00,                               // Length of payload: 00
-	0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
-};
+//static uint8_t ble_linklayer_data[] =
+//{
+//	0x11,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
+//	0x00,                               // Length of payload: 00
+//	0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
+//};
 
 static  uint8_t ble_acknow_data[] =
 														{
@@ -152,7 +154,7 @@ static  uint8_t ble_acknow_data[] =
 														
 static uint8_t ble_terminate_data[] =
 												{
-													0x00,                               // LL Header (LLID :11 and length : 0  RFU: 0  MD :0) acknowledge bit set 
+													0x03,                               // LL Header (LLID :11 and length : 0  RFU: 0  MD :0) acknowledge bit set 
 													0x02,                               // Length of payload: 02
 													0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
 													0x02,                               // opcode of termination 
@@ -160,30 +162,44 @@ static uint8_t ble_terminate_data[] =
 													
 												};
 												
+// static  uint8_t ble_version_data[] =
+//														{
+//															0x03,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
+//															0x06,                               // Length of payload: 00
+//															0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
+//															0x0C,                               // opcode of LL_VERSION_END
+//															0x06,                               //  LLVersNr
+//															0x4C,                               //  CompId
+//															0x00,                               //  ComId
+//															0x01,                               // SubVersNr
+//															0x00                                // SubVersNr
+//														}; 		
  static  uint8_t ble_version_data[] =
 														{
 															0x03,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
 															0x06,                               // Length of payload: 00
 															0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
 															0x0C,                               // opcode of LL_VERSION_END
-															0x06,                               //  LLVersNr
-															0x4C,                               //  CompId
+															0x00,                               //  LLVersNr
+															0x00,                               //  CompId
 															0x00,                               //  ComId
-															0x01,                               // SubVersNr
+															0x00,                               // SubVersNr
 															0x00                                // SubVersNr
-														}; 											
+														}; 		
+
+												
 
 static  uint8_t ble_feature_rsp_data[] =
 														{
 															0x03,                               // LL Header (LLID :01 and length : 0  RFU: 0  MD :1)
 															0x09,                               // Length of payload: 00
 															0x00,                               // Padding bits for S1 (REF: the  nRF51 reference manual 16.1.2)
-															0x09,                               // opcode of LL_VERSION_END
-															0x1F,                               //  LLVersNr
-															0x00,                               //  CompId
-															0x00,                               //  ComId
-															0x00,                               // SubVersNr
-															0x00,                                // SubVersNr
+															0x09,                               
+															0x00,                               
+															0x00,                              
+															0x00,                               
+															0x00,                               
+															0x00,                                
 															0x00,
 															0x00,
 															0x00
@@ -196,6 +212,10 @@ static  uint8_t ble_feature_rsp_data[] =
 
 /* Buffer for any message receiving, only available in scan request/response mode,
 * see define at top */
+														
+static uint16_t disconnect_event_counter;
+static bool disconnect_activate  ;
+														
 static uint8_t ble_rx_buf[BLE_ADDR_LEN + BLE_PAYLOAD_MAXLEN]; //BLE_PAYLOAD_MAXLEN =31 byte 0248 bits BLE_ADDR_LEN = 6 
 
 /* Packet counter */
@@ -231,14 +251,14 @@ static const uint8_t ble_adv_type_raw[] = {0, 1, 6, 2};
 
 /* A pointer into our pool. Will wrap around upon overflow */
 
-static uint8_t pool_index = 0;
+
 static const uint8_t data_freq_bins[] = {4, 6,8,10,12,14,16,18,20,22,24,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78};
 
 //static uint8_t InitA[BLE_ADDR_LEN];
 static uint8_t AdvA[BLE_ADDR_LEN];
 static uint8_t AcessA[4];
 static uint8_t CRCinit[3];
-static char WinSize[1];
+
 static uint8_t WinOffset[2];
 static uint8_t ConnInterval[2];
 static uint8_t ChMapp[5];
@@ -250,7 +270,7 @@ static uint8_t missed_counter ;
 static uint32_t x1,a;
 static uint16_t connection_event_counter ;
 	
-static uint32_t wsize ;
+
 static uint32_t woffset ;
 static uint32_t cointerval ;
 static uint8_t num_used_channel=0;
@@ -273,20 +293,20 @@ static uint8_t new_num_used_channel=0;
 static uint8_t new_used_channel_map[40];
 static uint8_t new_chmapp [40]; 
 
-static uint8_t next= 0 ;
-static uint8_t flag= 0 ;
+
+
 
 static uint8_t last_unmapped_channel =0 ;
 static uint8_t unmapped_channel  ;
 static uint8_t data_channel  ;
 
 
-static void sm_exit_scan_req_rsp(void);
-static void sm_enter_scan_req_rsp(void);
-static void sm_enter_wait_for_idle(bool req_rx_accepted);
+
+
+
 static bool sm_exit_wait_for_idle(void);
 
-static void sm_enter_conn_req_rsp(void);
+
 
 static void set_channel_connection (void);
 void sm_enter_conn_req(void);
@@ -307,7 +327,7 @@ static nrf_radio_request_t g_timeslot_req_earliest =
 			.params.earliest = {
 						HFCLK, 
 						NRF_RADIO_PRIORITY_NORMAL, 
-						50000, 		//4300 /**< The radio timeslot length (in the range 100 to 100,000] microseconds). */
+						5000, 		//4300 /**< The radio timeslot length (in the range 100 to 100,000] microseconds). */
 						10000}    /**< Longest acceptable delay until the start of the requested timeslot*/
 			};
 
@@ -358,7 +378,7 @@ static __INLINE void next_timeslot_schedule(void)
 		
 		g_timeslot_req_normal.params.normal.distance_us =adv_int_min*1000;// 120000;//ADV_INTERVAL_TRANSLATE(adv_int_min) 
 																										//+ 1000 * ((rng_pool[pool_index++]) % (ADV_INTERVAL_TRANSLATE(adv_int_max - adv_int_min)));
-		g_timeslot_req_normal.params.normal.length_us = 55000 ;
+		g_timeslot_req_normal.params.normal.length_us = 5000 ;
 		g_signal_callback_return_param.params.request.p_next = &g_timeslot_req_normal;
 		g_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END;
 
@@ -371,13 +391,36 @@ static __INLINE void next_timeslot_schedule(void)
 
 //this timeslot request will be called when TIMER0 will be timed out because of no reception of any master to slave empty PDU data packet in connection state
 
+static __INLINE void next_timeslot_schedule_connection_woffset(void)
+{
+	if (sm_adv_run)
+	{ 
+	
+		a = (woffset + 1000-200 ) ;
+  
+		
+		g_timeslot_req_normal.params.normal.distance_us = a ;
+		g_timeslot_req_normal.params.normal.length_us = 12000 ;
+		g_signal_callback_return_param.params.request.p_next = &g_timeslot_req_normal;
+		g_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END;
+	
+
+	}
+	else
+	{
+		g_signal_callback_return_param.callback_action = NRF_RADIO_SIGNAL_CALLBACK_ACTION_END;
+	}
+}
+
+
 static __INLINE void next_timeslot_schedule_connection(void)
 {
 	if (sm_adv_run)
 	{ 
 	
-		a = (cointerval-200+ woffset + 1000 ) ;
-	
+		//a = (cointerval-200+ woffset + 1000 ) ;
+    a = (cointerval-300+x1 ) ;
+		
 		g_timeslot_req_normal.params.normal.distance_us = a ;
 		g_timeslot_req_normal.params.normal.length_us = 12000 ;
 		g_signal_callback_return_param.params.request.p_next = &g_timeslot_req_normal;
@@ -439,7 +482,7 @@ static __INLINE void next_timeslot_schedule_advertisement(void)
 	{ 
 		
 		g_timeslot_req_normal.params.normal.distance_us = 20000 ;
-		g_timeslot_req_normal.params.normal.length_us = 55000 ;
+		g_timeslot_req_normal.params.normal.length_us = 5000 ;
 		g_signal_callback_return_param.params.request.p_next = &g_timeslot_req_normal;
 		uint8_t error_code = sd_radio_request(&g_timeslot_req_normal);
 	
@@ -481,6 +524,17 @@ void  new_timeslot_order(void)
 {   nrf_gpio_pin_toggle(23);
 	  switch (sm_state)
 			{
+				case STATE_MASTER_TO_SLAVE_RECEIVE:
+					
+				      sm_adv_run = true;
+				      sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_2;
+				      set_channel_connection();                  //find data_channel
+				      connection_event_counter = 0 ;
+				      next_timeslot_schedule_block(); 
+				
+				break;
+				
+				
 				case STATE_SLAVE_TO_MASTER_TRANSMIT_2:
 					
 				    sm_adv_run = true;
@@ -589,7 +643,7 @@ void find_channel_map(void);
 	
 	//find_channel_map();
 	
-	uint8_t i,j,k;
+	uint8_t i,j;
 	
 	memset(&ChMapp,0, 5);
  memcpy( (void*) ChMapp, (void*) &ble_rx_buf[31], 5);
@@ -668,6 +722,12 @@ void set_channel_connection(void)
 
 static bool is_conn_req_for_me(void)
 {	
+	/* check CRC. Add to number of CRC faults if wrong */
+	if (0 == NRF_RADIO->CRCSTATUS) 
+	{
+		++packet_count_invalid;
+		return false;
+	}
 	
 	/* check PDU as CONN_REQ */
 	if (0x05 != (ble_rx_buf[0] & 0x0F)) // check whether it is CONNECT_REQ PDU type
@@ -726,6 +786,160 @@ static __INLINE void scan_req_evt_dispatch(void)
 	/* send scan req event to user space */
 	nrf_report_disp_dispatch(&scan_req_report);
 }
+
+static __INLINE void conn_req_evt_dispatch(void)
+{
+	/* prepare scan req report */
+	nrf_report_t conn_req_report;
+	
+	/* packet counters */
+	conn_req_report.valid_packets = packet_count_valid;
+	conn_req_report.invalid_packets = packet_count_invalid;
+	 
+	/* event details */
+	conn_req_report.event.event_code = BTLE_VS_EVENT_NRF_LL_EVENT_CONN_REQ_REPORT;
+	conn_req_report.event.opcode			= BTLE_CMD_NONE;
+	
+	memcpy((void*) &(conn_req_report.event.params.nrf_conn_req_report_event.initiator_address[0]), (void*) &ble_rx_buf[3],6);
+	memcpy((void*) &(conn_req_report.event.params.nrf_conn_req_report_event.acess_address[0]), (void*) &AcessA,4);
+	memcpy((void*) &(conn_req_report.event.params.nrf_conn_req_report_event.crc_init[0]), (void*) &CRCinit,3);
+	conn_req_report.event.params.nrf_conn_req_report_event.win_size = ble_rx_buf[22]; 
+	conn_req_report.event.params.nrf_conn_req_report_event.win_offset = woffset;
+	conn_req_report.event.params.nrf_conn_req_report_event.conn_interval= cointerval+300;
+	memcpy((void*) &(conn_req_report.event.params.nrf_conn_req_report_event.latency[0]), (void*) &ble_rx_buf[27],2);
+	memcpy((void*) &(conn_req_report.event.params.nrf_conn_req_report_event.timeout[0]), (void*) &ble_rx_buf[29],2);
+	memcpy((void*) &(conn_req_report.event.params.nrf_conn_req_report_event.channel_map[0]), (void*) &ble_rx_buf[31], 5);
+	conn_req_report.event.params.nrf_conn_req_report_event.hop = hopping;
+	
+	periph_radio_channel_get(&(conn_req_report.event.params. nrf_conn_req_report_event.channel));
+	
+	/* send scan req event to user space */
+	nrf_report_disp_dispatch(&conn_req_report);
+}
+
+
+static __INLINE void disconnected_evt_dispatch(void)
+{
+	/* prepare scan req report */
+	nrf_report_t disconnected_report;
+	uint16_t event_counter_;
+	/* packet counters */
+	 
+	/* event details */
+	disconnected_report.event.event_code = BTLE_VS_EVENT_NRF_LL_EVENT_DISCONNECTED_REPORT;
+	disconnected_report.event.opcode			= BTLE_CMD_NONE;
+	event_counter_= connection_event_counter+1;
+	disconnected_report.event.params.nrf_disconnected_report_event.event_counter[0] = event_counter_ & (0x00FF);
+	disconnected_report.event.params.nrf_disconnected_report_event.event_counter[1] = (event_counter_ >> 8) & (0x00FF);
+	
+	periph_radio_channel_get(&(disconnected_report.event.params.nrf_disconnected_report_event.channel));
+	
+	
+	/* send scan req event to user space */
+	nrf_report_disp_dispatch(&disconnected_report);
+}	
+
+static __INLINE void version_evt_dispatch(void)
+{
+	/* prepare scan req report */
+	nrf_report_t version_report;
+	uint16_t event_counter_;
+	/* packet counters */
+	 
+	/* event details */
+	version_report.event.event_code = BTLE_VS_EVENT_NRF_LL_EVENT_VERSION_REPORT_RECEIVED;
+	version_report.event.opcode			= BTLE_CMD_NONE;
+	event_counter_= connection_event_counter+1;
+	
+	version_report.event.params.nrf_version_report_received_event.event_counter[0] = event_counter_ & (0x00FF);
+	version_report.event.params.nrf_version_report_received_event.event_counter[1] = (event_counter_ >> 8) & (0x00FF);
+	
+	periph_radio_channel_get(&(version_report.event.params.nrf_version_report_received_event.channel));
+	version_report.event.params.nrf_version_report_received_event.LLVersNr = ble_rx_buf[4];
+	version_report.event.params.nrf_version_report_received_event.CompId[0] = ble_rx_buf[5];
+	version_report.event.params.nrf_version_report_received_event.CompId[1] = ble_rx_buf[6];
+	version_report.event.params.nrf_version_report_received_event.SubVersNr[0] = ble_rx_buf[7];
+	version_report.event.params.nrf_version_report_received_event.SubVersNr[1] = ble_rx_buf[8];
+	
+	/* send scan req event to user space */
+	nrf_report_disp_dispatch(&version_report);
+}	
+
+static __INLINE void feature_req_evt_dispatch(void)
+{
+	/* prepare scan req report */
+	nrf_report_t feature_req_report;
+	uint16_t event_counter_;
+	/* packet counters */
+	 
+	/* event details */
+	feature_req_report.event.event_code = BTLE_VS_EVENT_NRF_LL_EVENT_FEATURE_REQ_REPORT_RECEIVED;
+	feature_req_report.event.opcode			= BTLE_CMD_NONE;
+	event_counter_= connection_event_counter+1;
+	
+	feature_req_report.event.params.nrf_feature_req_report_received_event.event_counter[0] = event_counter_ & (0x00FF);
+	feature_req_report.event.params.nrf_feature_req_report_received_event.event_counter[1] = (event_counter_ >> 8) & (0x00FF);
+	
+	periph_radio_channel_get(&(feature_req_report.event.params.nrf_feature_req_report_received_event.channel));
+	
+	memcpy((void*) &(feature_req_report.event.params.nrf_feature_req_report_received_event.feature_set[0]), (void*) &ble_rx_buf[4],8);	
+		
+	/* send scan req event to user space */
+	nrf_report_disp_dispatch(&feature_req_report);
+}	
+
+
+static __INLINE void channel_map_update_req_evt_dispatch(void)
+{
+	/* prepare scan req report */
+	nrf_report_t channel_map_update_req_report;
+	uint16_t event_counter_;
+	/* packet counters */
+	 
+	/* event details */
+	channel_map_update_req_report.event.event_code = BTLE_VS_EVENT_NRF_LL_EVENT_CHANNEL_MAP_UPDATE_REQ_REPORT_RECEIVED;
+	channel_map_update_req_report.event.opcode			= BTLE_CMD_NONE;
+	event_counter_= connection_event_counter+1;
+	
+	channel_map_update_req_report.event.params.nrf_channel_map_update_req_report_received_event.event_counter[0] = event_counter_ & (0x00FF);
+	channel_map_update_req_report.event.params.nrf_channel_map_update_req_report_received_event.event_counter[1] = (event_counter_ >> 8) & (0x00FF);
+	
+	periph_radio_channel_get(&(channel_map_update_req_report.event.params.nrf_channel_map_update_req_report_received_event.channel));
+	
+	memcpy((void*) &(channel_map_update_req_report.event.params.nrf_channel_map_update_req_report_received_event.channel_map[0]), (void*) &ble_rx_buf[4],5);	
+	memcpy((void*) &(channel_map_update_req_report.event.params.nrf_channel_map_update_req_report_received_event.instant[0]), (void*) &ble_rx_buf[9],2);	
+	/* send channel mapupdate req event to user space */
+	nrf_report_disp_dispatch(&channel_map_update_req_report);
+}	
+
+static __INLINE void conn_update_req_evt_dispatch(void)
+{
+	/* prepare scan req report */
+	nrf_report_t conn_update_req_report;
+	uint16_t event_counter_;
+	/* packet counters */
+	 
+	/* event details */
+	conn_update_req_report.event.event_code = BTLE_VS_EVENT_NRF_LL_EVENT_CONNECTION_UPDATE_REQ_REPORT_RECEIVED;
+	conn_update_req_report.event.opcode			= BTLE_CMD_NONE;
+	event_counter_= connection_event_counter+1;
+	
+	conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.event_counter[0] = event_counter_ & (0x00FF);
+	conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.event_counter[1] = (event_counter_ >> 8) & (0x00FF);
+	
+	periph_radio_channel_get(&(conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.channel));
+	
+	conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.win_size = ble_rx_buf[4]; 
+	conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.win_offset = new_woffset;
+	conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.conn_interval= new_cointerval+300;
+	memcpy((void*) &(conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.latency[0]), (void*) &ble_rx_buf[9],2);
+	memcpy((void*) &(conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.timeout[0]), (void*) &ble_rx_buf[11],2);
+	
+		
+	memcpy((void*) &(conn_update_req_report.event.params.nrf_connecion_update_req_report_received_event.instant[0]), (void*) &ble_rx_buf[13],2);	
+	/* send channel mapupdate req event to user space */
+	nrf_report_disp_dispatch(&conn_update_req_report);
+}	
 
 
 /**
@@ -815,21 +1029,6 @@ static void sm_enter_adv_send(void)
 
 
 
-
-static void sm_exit_adv_send(void)
-{
-	/* wipe events and interrupts triggered by this state */
-	periph_radio_intenclr(RADIO_INTENCLR_DISABLED_Msk);
-	PERIPHERAL_EVENT_CLR(NRF_RADIO->EVENTS_DISABLED);
-}
-
-
-
-
-
-
-	
-	
 	
 void sm_enter_master_to_slave_receive (void)
 {
@@ -859,7 +1058,7 @@ void sm_enter_master_to_slave_receive (void)
 							periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);
 							
 							/* change the tifs in order to be able to capture all packets */
-							periph_radio_tifs_set(148);
+							periph_radio_tifs_set(152);
 							
 }
 
@@ -952,7 +1151,7 @@ void get_new_channel_map_perameter (void)
 								   memcpy( (void*) New_ChMapp, (void*) &ble_rx_buf[4], 5);
 
 
-                  uint8_t i,j,k;
+                  uint8_t i,j;
 									char an= 0x01;	
 								
 									j=0;
@@ -998,7 +1197,7 @@ void TIMER0_IRQHandler(void)
 							
 							instant = 0 ;
 						  missed_counter = 0 ;
-						  flag=0 ;
+						 
 							
 							adv_evt_setup();
 							sm_enter_adv_send();
@@ -1051,7 +1250,7 @@ void TIMER0_IRQHandler(void)
 							reconfigure_radio_for_connection () ;
 							start_master_to_slave_receive ();
 							
-							periph_timer_start(0, 10000, true);
+							periph_timer_start(0, 5000, true);
 						
 							
 							
@@ -1099,7 +1298,7 @@ void TIMER0_IRQHandler(void)
 
 											}
 											
-                        periph_timer_start(0, cointerval-10400, true);
+                        periph_timer_start(0, cointerval-5400, true);
 											
 						            
 										}
@@ -1179,6 +1378,7 @@ void RADIO_IRQHandler(void)
 										
 										 NRF_RADIO->TASKS_DISABLE = 1; // to clear TX state from sm_enter_req() 
 										 NRF_RADIO->SHORTS = 0;
+										 conn_req_evt_dispatch();
 										
 					    	}
 								else if (is_scan_req_for_me())
@@ -1198,7 +1398,7 @@ void RADIO_IRQHandler(void)
 									periph_radio_shorts_set(RADIO_SHORTS_READY_START_Msk | RADIO_SHORTS_END_DISABLE_Msk);
 									
 									periph_radio_tifs_set(150);
-									
+									scan_req_evt_dispatch();
 
 								
 								}	
@@ -1256,7 +1456,9 @@ void RADIO_IRQHandler(void)
 																						//RADIO_SHORTS_DISABLED_TXEN_Msk);
 											periph_radio_intenset(	RADIO_INTENSET_DISABLED_Msk);
 											periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);///////address mask
-											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_END;				
+											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_END;	
+											
+                      disconnected_evt_dispatch();												
 										
 							 }
 							 
@@ -1284,7 +1486,7 @@ void RADIO_IRQHandler(void)
 											periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);
 										
 											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;		
-										
+										  conn_update_req_evt_dispatch();
 							 
 							 }
 							 
@@ -1308,7 +1510,8 @@ void RADIO_IRQHandler(void)
 												
 											periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);
 										
-											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;		
+											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;	
+                      channel_map_update_req_evt_dispatch();											
 										
 								 
 								 
@@ -1334,6 +1537,8 @@ void RADIO_IRQHandler(void)
 										
 										sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;	
 								 
+								    version_evt_dispatch();	
+								 
 							 }
 							 
 							 else if(((ble_rx_buf[0] &(0x03)) == 0x03) && (ble_rx_buf[3]==0x08)/*&& (ble_rx_buf[1]== 0x08)*/)   // check for LL_FEATURE_REQ
@@ -1356,19 +1561,50 @@ void RADIO_IRQHandler(void)
 										
 										sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;	
 								 
+								    feature_req_evt_dispatch();
+								 
 							 }
 							 
 						  else
 							{
 
-							 if((ble_rx_buf[0] & (0x0C)) == 0x00)
-								ble_linklayer_data[0]=0x15;
-						  else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
-								ble_linklayer_data[0]=0x19;
+//							 if((ble_rx_buf[0] & (0x0C)) == 0x00)
+//								ble_linklayer_data[0]=0x15;
+//						  else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
+//								ble_linklayer_data[0]=0x19;
+//							
+//							 ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+//	             ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
 							
+							if ((connection_event_counter >= disconnect_event_counter) && ( disconnect_activate ==true)) 
+							{   
+								  	if((ble_rx_buf[0] & (0x0C)) == 0x00)
+													 ble_terminate_data[0]=0x07;
+											else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
+													ble_terminate_data[0]=0x0B;
+											
+								  periph_radio_packet_ptr_set(&ble_terminate_data[0]);
+							    sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_END;
+											
+									disconnected_evt_dispatch();
+							}   
+							else 
+							{  
+								
+							if((ble_rx_buf[0] & (0x0C)) == 0x00)
+								  ble_linklayer_data[0]=0x05;
+						  else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
+								  ble_linklayer_data[0]=0x09;
+							
+						 	    ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+	                ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
+								  periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
+							    sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;
+							
+							}
 						
 							/* configure radio for master to slave data receive*/
-							periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
+						//	periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
 					
 							periph_radio_shorts_set(	RADIO_SHORTS_READY_START_Msk | 
 																			RADIO_SHORTS_END_DISABLE_Msk );
@@ -1377,7 +1613,7 @@ void RADIO_IRQHandler(void)
 	
 							periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);///////address mask
 							
-						  sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;
+						 // sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;
 							
 				
 							}
@@ -1444,7 +1680,7 @@ void RADIO_IRQHandler(void)
 
 													}
 													
-									periph_timer_start(0, (cointerval-300), true);
+									periph_timer_start(0, (cointerval-400), true);
 													
 								 
 							}
@@ -1474,9 +1710,15 @@ void RADIO_IRQHandler(void)
 								PERIPHERAL_EVENT_CLR(NRF_RADIO->EVENTS_DISABLED);
 							
 								
-								if((ble_rx_buf[0] & (0x0F))== 0x01) ble_linklayer_data[0]=0x05;
-								else if ((ble_rx_buf[0] & (0x0F))== 0x0D) ble_linklayer_data[0]=0x09;
+//								if((ble_rx_buf[0] & (0x0F))== 0x01) ble_linklayer_data[0]=0x05;
+//								else if ((ble_rx_buf[0] & (0x0F))== 0x0D) ble_linklayer_data[0]=0x09;
+							
+							    if((ble_rx_buf[0] & (0x0C))== 0x00) ble_linklayer_data[0]=0x05;
+								else if ((ble_rx_buf[0] & (0x0C))== 0x0C) ble_linklayer_data[0]=0x09;
 								
+							 ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+	              ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
+							
 								/* configure radio for master to slave data receive*/
 								 periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
 						
@@ -1511,7 +1753,7 @@ void RADIO_IRQHandler(void)
 	          PERIPHERAL_EVENT_CLR(NRF_RADIO->EVENTS_DISABLED);
 						NRF_RADIO->SHORTS = 0;		
 
-						periph_timer_start(0, (cointerval-100) , true);      //anchor point 
+						periph_timer_start(0, (cointerval-400) , true);      //anchor point 
             						
 					}
 					break;
@@ -1550,7 +1792,7 @@ void RADIO_IRQHandler(void)
 						
 						instant = 0 ;
 						missed_counter = 0 ;
-						flag=0 ;
+				
 						
 						adv_evt_setup();
 						sm_enter_adv_send();
@@ -1632,43 +1874,6 @@ void adv_2 ()
 
 
 
-void ctrl_init(void)
-{
-	/* set the contents of advertisement and scan response to something
-	that is in line with BLE spec */
-	
-	/* erase package buffers */
-	memset(&ble_adv_data[0], 0, 40);  
-#if TS_SEND_SCAN_RSP	
-	memset(&ble_scan_rsp_data[0], 0, 40);
-#endif 
-	
-#if TS_SEND_SCAN_RSP	
-	/* set message type to ADV_IND_DISC, RANDOM in type byte of adv data */
-	ble_adv_data[BLE_TYPE_OFFSET] = 0x46;
-	/* set message type to SCAN_RSP, RANDOM in type byte of scan rsp data */
-	ble_scan_rsp_data[BLE_TYPE_OFFSET] = 0x44;
-#else
-	/* set message type to ADV_IND_NONCONN, RANDOM in type byte of adv data */
-	ble_adv_data[BLE_TYPE_OFFSET] = 0x42;
-#endif
-	
-
-	ble_adv_data[BLE_ADFLAG_OFFSET]  = 0x00;
-  ble_adv_data[BLE_ADFLAG_OFFSET] |= (1 << 1);  /* General discoverable mode */
-  ble_adv_data[BLE_ADFLAG_OFFSET] |= (1 << 2);    /* BR/EDR not supported      */
-
-	/* set message length to only address */
-	ble_adv_data[BLE_SIZE_OFFSET] 			= 0x06;
-#if TS_SEND_SCAN_RSP
-	ble_scan_rsp_data[BLE_SIZE_OFFSET] 	= 0x06;
-#endif	
-	
-	/* generate rng sequence */
-	#if softdevice
-	    //adv_rng_init(rng_pool); ///  ?+??
-	#endif
-}
 
 
 
@@ -1785,9 +1990,41 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						          
 						          instant = 0 ;
 						          missed_counter = 0 ;
-						          flag=0 ;
+						          
 						
 			        		break;
+						
+						case STATE_MASTER_TO_SLAVE_RECEIVE:
+									     
+						           NRF_TIMER0->POWER = 1;
+                       reconfigure_radio_for_connection () ;
+						
+						
+											//set_base_prefix_crc_with_new_perameter_from_conn_req ();
+											
+//											NRF_RADIO->CRCINIT = CRCinit[2];
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[1];
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[0];				
+//					
+//											NRF_RADIO->PREFIX0	 = AcessA[3]; //0x8e;
+//											NRF_RADIO->BASE0 = AcessA[2];
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[1];
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[0];
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
+//																
+//											NRF_RADIO->TXADDRESS = 0x00;					// Use logical address 0 (prefix0 + base0)  when transmitting
+//											NRF_RADIO->RXADDRESSES = 0x01;        // Use logical address 0 (prefix0 + base0)  when receiving
+											
+											 sm_enter_master_to_slave_receive();
+										   periph_timer_start(0, 6000, true);///////////////////////////////////////////////
+										 
+    									 x1=0;
+										
+									 break;	
 						
 						case STATE_SLAVE_TO_MASTER_TRANSMIT_2:
 									  
@@ -1817,7 +2054,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 
 							        // start TIMER0 to calculate the distance from timeslot start to slave to master reception and store the time in x1 to use it for next timeslot order 
 						          // this x1 value is used to compensate the time drift
-						          periph_timer_start(0, 8000, true);
+						          periph_timer_start(0, 6000, true);///////////////////////////////////////////////
 										 
     									x1=0;
 						
@@ -1882,28 +2119,38 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						
 						if(is_conn_req_for_me())
 						 {  
-							 
-							 a=0;
+							  NRF_RADIO->TASKS_DISABLE = 1; // to clear TX state from sm_enter_req() 
+	              NRF_RADIO->SHORTS = 0;
+							  a=0;
 							 
 							 nrf_gpio_pin_toggle(22);
 							 sm_state = STATE_MASTER_TO_SLAVE_RECEIVE; // NEXT state
               
+							 //sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_2; // NEXT state
+							 
 							 get_connection_param(); // get connection parameter from CONN_REQ PDU from master 
-							
+							 
+							 NRF_TIMER0->CC[0] = 0;
 						   periph_timer_abort(0);
-		           
-               NRF_TIMER0->INTENSET = (1 << (TIMER_INTENSET_COMPARE2_Pos));
-							 NVIC_EnableIRQ(TIMER0_IRQn);
-               NRF_TIMER0->PRESCALER = 4;
-               NRF_TIMER0->BITMODE=TIMER_BITMODE_BITMODE_32Bit;
-											
 							 NRF_TIMER0->TASKS_CLEAR = 1;
-							 NRF_TIMER0->EVENTS_COMPARE[2] = 0; 
-							 NRF_TIMER0->CC[2] = 800+woffset; /* timeout for RX abort */
-							 NRF_TIMER0->TASKS_START = 1;
+		           
+//               NRF_TIMER0->INTENSET = (1 << (TIMER_INTENSET_COMPARE2_Pos));
+//							 NVIC_EnableIRQ(TIMER0_IRQn);
+//               NRF_TIMER0->PRESCALER = 4;
+//               NRF_TIMER0->BITMODE=TIMER_BITMODE_BITMODE_32Bit;
+//											
+//							 NRF_TIMER0->TASKS_CLEAR = 1;
+//							 NRF_TIMER0->EVENTS_COMPARE[2] = 0; 
+//							 NRF_TIMER0->CC[2] = 800+woffset; /* timeout for RX abort */
+//							 NRF_TIMER0->TASKS_START = 1;
 												
-							 NRF_RADIO->TASKS_DISABLE = 1; // to clear TX state from sm_enter_req() 
-	             NRF_RADIO->SHORTS = 0;
+//							 NRF_RADIO->TASKS_DISABLE = 1; // to clear TX state from sm_enter_req() 
+//	             NRF_RADIO->SHORTS = 0;
+							 
+							  conn_req_evt_dispatch();
+							 
+							 next_timeslot_schedule_connection_woffset();
+							 
 					 
 						}
 						
@@ -1926,6 +2173,9 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 							
 		         	/* wait exactly 150us to send response. NOTE: the Reference manual is wrong */
 							 periph_radio_tifs_set(150);
+							 
+							/* send scan req to user space */
+	           	scan_req_evt_dispatch();
 							
 						}	
 						
@@ -1986,7 +2236,9 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 										
 											periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);
 										
-											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_END;				
+											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_END;	
+											
+                      disconnected_evt_dispatch();											
 										
 							 }
 							 
@@ -2009,8 +2261,9 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 										
 											periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);
 										
-											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;		
-										
+											sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;	
+											
+										  conn_update_req_evt_dispatch();
 							 
 							 }
 							 
@@ -2035,6 +2288,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 										
 										sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;		
 									
+										channel_map_update_req_evt_dispatch();	
 								 
 								 
 							 }
@@ -2047,7 +2301,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						     else if ((ble_rx_buf[0] & (0x0F)) == 0x0F) 
 								    ble_version_data[0]=0x0B;  
 								 
-								 
+								    	//periph_radio_packet_ptr_set(&ble_terminate_data[0]);
 								    periph_radio_packet_ptr_set(&ble_version_data[0]);
 
 										periph_radio_shorts_set(	RADIO_SHORTS_READY_START_Msk | 
@@ -2057,7 +2311,9 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 
 										periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);
 										
-										sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;	
+										sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;
+                    	
+                    version_evt_dispatch();								 
 								 
 							 }
 							 
@@ -2080,21 +2336,53 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 										
 									 sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;	
 								 
+								   feature_req_evt_dispatch();
+								 
 							 }
 						  else
 							{
 								
 
 							
-							 if((ble_rx_buf[0] & (0x0C)) == 0x00)
-								ble_linklayer_data[0]=0x15;
-						  else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
-								ble_linklayer_data[0]=0x19;
+//							 if((ble_rx_buf[0] & (0x0C)) == 0x00)
+//								ble_linklayer_data[0]=0x05;
+//						  else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
+//								ble_linklayer_data[0]=0x09;
+//							
+//						 	ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+//	            ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
 							
-						
 							/* configure radio for master to slave data receive*/
-							 periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
-					
+							 
+							//disconnect_event_counter = disconnect;
+              //disconnect_activate = enable ;
+							
+					    if ((connection_event_counter >= disconnect_event_counter) && ( disconnect_activate ==true)) 
+							{   
+								  	if((ble_rx_buf[0] & (0x0C)) == 0x00)
+													 ble_terminate_data[0]=0x07;
+											else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
+													ble_terminate_data[0]=0x0B;
+											
+								  periph_radio_packet_ptr_set(&ble_terminate_data[0]);
+							    sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_END;
+											
+									disconnected_evt_dispatch();
+							}   
+							else 
+							{  
+								
+							if((ble_rx_buf[0] & (0x0C)) == 0x00)
+								  ble_linklayer_data[0]=0x05;
+						  else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
+								  ble_linklayer_data[0]=0x09;
+							
+						 	    ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+	                ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
+								  periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
+							    sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;
+							
+							}
 						   periph_radio_shorts_set(	RADIO_SHORTS_READY_START_Msk | 
 																			RADIO_SHORTS_END_DISABLE_Msk );
 																			//RADIO_SHORTS_DISABLED_TXEN_Msk);
@@ -2102,7 +2390,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 
 							 periph_radio_intenset(	RADIO_INTENSET_ADDRESS_Msk);///////address mask
 							
-						   sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;
+						  // sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_3;
 							
 							}
 							
@@ -2190,11 +2478,11 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 					{    
 						   connection_event_counter= 0 ;
 						
-						   periph_timer_abort(0);
-						
-						   NRF_TIMER0->INTENCLR = (1 << (TIMER_INTENCLR_COMPARE1_Pos ));
-						
-							 NRF_TIMER0->TASKS_CLEAR = 1;
+//						   periph_timer_abort(0);
+//						
+//						   NRF_TIMER0->INTENCLR = (1 << (TIMER_INTENCLR_COMPARE1_Pos ));
+//						
+//							 NRF_TIMER0->TASKS_CLEAR = 1;
 						
 							
 							periph_radio_intenclr(RADIO_INTENCLR_DISABLED_Msk);
@@ -2202,9 +2490,15 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						
 							
 						  
-						  if((ble_rx_buf[0] & (0x0F))== 0x01) ble_linklayer_data[0]=0x05;
-						  else if ((ble_rx_buf[0] & (0x0F))== 0x0D) ble_linklayer_data[0]=0x09;
+//						  if((ble_rx_buf[0] & (0x0F))== 0x01) ble_linklayer_data[0]=0x05;
+//						  else if ((ble_rx_buf[0] & (0x0F))== 0x0D) ble_linklayer_data[0]=0x09;
 						
+						    if((ble_rx_buf[0] & (0x0C))== 0x00) ble_linklayer_data[0]=0x05;
+								else if ((ble_rx_buf[0] & (0x0C))== 0x0C) ble_linklayer_data[0]=0x09;
+						
+						    ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+	              ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
+	
 							/* configure radio for master to slave data receive*/
 							 periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
 					
@@ -2239,7 +2533,14 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						periph_radio_intenclr(RADIO_INTENCLR_DISABLED_Msk);
 	          PERIPHERAL_EVENT_CLR(NRF_RADIO->EVENTS_DISABLED);
 						NRF_RADIO->SHORTS = 0;		
-
+            
+						NRF_TIMER0->TASKS_CAPTURE[1] = 1;
+						x1 = NRF_TIMER0->CC[1] ;	
+						NRF_TIMER0->TASKS_STOP = 1;		
+						missed_counter = 0 ;
+						
+						connection_event_counter= 0 ;
+						
 						next_timeslot_schedule_connection();
 						
             				
@@ -2325,34 +2626,55 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 													}  
 								break;
 								
-						  case STATE_MASTER_TO_SLAVE_RECEIVE:
-									 if (NRF_TIMER0->EVENTS_COMPARE[2] != 0)
-										{  
+//						  case STATE_MASTER_TO_SLAVE_RECEIVE:
+//									 if (NRF_TIMER0->EVENTS_COMPARE[2] != 0)
+//										{  
 
-											//set_base_prefix_crc_with_new_perameter_from_conn_req ();
+//											//set_base_prefix_crc_with_new_perameter_from_conn_req ();
+//											
+//											NRF_RADIO->CRCINIT = CRCinit[2];
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[1];
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
+//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[0];				
+//					
+//											NRF_RADIO->PREFIX0	 = AcessA[3]; //0x8e;
+//											NRF_RADIO->BASE0 = AcessA[2];
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[1];
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[0];
+//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
+//																
+//											NRF_RADIO->TXADDRESS = 0x00;					// Use logical address 0 (prefix0 + base0)  when transmitting
+//											NRF_RADIO->RXADDRESSES = 0x01;        // Use logical address 0 (prefix0 + base0)  when receiving
+//											
+//											sm_enter_master_to_slave_receive();
+//										
+//										}  
+//									 break;	
+								case STATE_MASTER_TO_SLAVE_RECEIVE_2:
+									 if (NRF_TIMER0->EVENTS_COMPARE[0] != 0)
+										{ 
+											 sm_state = STATE_SLAVE_TO_MASTER_TRANSMIT_2;	
 											
-											NRF_RADIO->CRCINIT = CRCinit[2];
-											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
-											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[1];
-											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
-											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[0];				
-					
-											NRF_RADIO->PREFIX0	 = AcessA[3]; //0x8e;
-											NRF_RADIO->BASE0 = AcessA[2];
-											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[1];
-											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[0];
-											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-																
-											NRF_RADIO->TXADDRESS = 0x00;					// Use logical address 0 (prefix0 + base0)  when transmitting
-											NRF_RADIO->RXADDRESSES = 0x01;        // Use logical address 0 (prefix0 + base0)  when receiving
+											 periph_timer_abort(0);
+											 NRF_TIMER0->TASKS_CLEAR = 1;
+											 x1=0;
+
+											 missed_counter =0 ;
 											
-											sm_enter_master_to_slave_receive();
+
+
+											 connection_event_counter =0 ;
+
+
+
+											
+						                next_timeslot_schedule_connection_timer();/****************************************************************/
+										}
+								   break;
 										
-										}  
-									 break;	
-								
                case STATE_MASTER_TO_SLAVE_RECEIVE_3:
 									 if (NRF_TIMER0->EVENTS_COMPARE[0] != 0)
 										{ 
@@ -2421,6 +2743,93 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 #endif
 
 /***************************************************************************/
+
+
+void ctrl_init(void)
+{
+	/* set the contents of advertisement and scan response to something
+	that is in line with BLE spec */
+	
+	/* erase package buffers */
+	memset(&ble_adv_data[0], 0, 40);  
+#if TS_SEND_SCAN_RSP	
+	memset(&ble_scan_rsp_data[0], 0, 40);
+#endif 
+	memset(&ble_linklayer_data[0], 0, (BLE_DATA_PAYLOAD_OFFSET + BLE_DATA_PAYLOAD_MAXLEN));
+	
+	
+#if TS_SEND_SCAN_RSP	
+	/* set message type to ADV_IND_DISC, RANDOM in type byte of adv data */
+	ble_adv_data[BLE_TYPE_OFFSET] = 0x46;
+	/* set message type to SCAN_RSP, RANDOM in type byte of scan rsp data */
+	ble_scan_rsp_data[BLE_TYPE_OFFSET] = 0x44;
+#else
+	/* set message type to ADV_IND_NONCONN, RANDOM in type byte of adv data */
+	ble_adv_data[BLE_TYPE_OFFSET] = 0x42;
+#endif
+	
+
+	ble_adv_data[BLE_ADFLAG_OFFSET]  = 0x00;
+  ble_adv_data[BLE_ADFLAG_OFFSET] |= (1 << 1);  /* General discoverable mode */
+  ble_adv_data[BLE_ADFLAG_OFFSET] |= (1 << 2);    /* BR/EDR not supported      */
+
+	/* set message length to only address */
+	ble_adv_data[BLE_SIZE_OFFSET] 			= 0x06;
+#if TS_SEND_SCAN_RSP
+	ble_scan_rsp_data[BLE_SIZE_OFFSET] 	= 0x06;
+#endif	
+	
+	/* generate rng sequence */
+	#if softdevice
+	    //adv_rng_init(rng_pool); ///  ?+??
+	#endif
+}
+
+bool ctrl_data_param_set(btle_data_channel_data_packet_parameters_t* data_params)
+{
+	
+	ble_linklayer_data [0] = ble_linklayer_data [0] & 0xFC;//(0b11111100);
+	ble_linklayer_data [0] = ble_linklayer_data [0] | data_params->LLID;
+	ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+	ble_linklayer_data [0] = ble_linklayer_data [0] | (data_params->MD << 4 );
+	MD_bit = data_params->MD;
+	return true;
+
+}
+
+bool ctrl_data_datapayload_set(btle_data_channel_data_packet_data_t* data_payload)
+{
+  ble_linklayer_data [1] = data_payload->data_length;
+  memcpy((void*) &ble_linklayer_data[3],(void*) &data_payload->data_packet_data[0],data_payload->data_length);
+	return true;
+}
+
+bool ctrl_data_version_data_set(btle_control_packet_version_data_t* version_data)
+{
+													
+		 ble_version_data[4]	= version_data->LLVersNr;		
+	   ble_version_data[5]	= (0x00FF) & version_data->CompId;														
+     ble_version_data[6]	= (0xFF00) & version_data->CompId;		
+		 ble_version_data[7]	= (0x00FF) & version_data->SubVersNr;														
+     ble_version_data[8]	= (0xFF00) & version_data->SubVersNr;	
+     return true;	
+
+}
+
+bool ctrl_data_feature_rsp_data_set(btle_control_packet_feature_rsp_data_t* feature_rsp_data)
+{
+
+   ble_feature_rsp_data[4] = feature_rsp_data->FeatureSet ;
+   return true;
+}
+
+bool ctrl_disconnect_connection_event_set(uint16_t disconnect, bool enable) 
+{
+
+disconnect_event_counter = disconnect;
+disconnect_activate = enable ;	
+return true;
+}
 
 
 bool ctrl_adv_param_set(btle_cmd_param_le_write_advertising_parameters_t* adv_params)

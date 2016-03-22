@@ -61,7 +61,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BLE_TYPE_MASK       (0x3F)
 #define BLE_ADDR_LEN        (6)
 #define BLE_PAYLOAD_MAXLEN  (31)
-
+#define BLE_DATA_PAYLOAD_OFFSET (3)
+#define BLE_DATA_PAYLOAD_MAXLEN (27)
 
 /* State machine states */
 typedef enum
@@ -125,6 +126,12 @@ void ctrl_timeslot_abort(void);
 bool ctrl_adv_data_set(btle_cmd_param_le_write_advertising_data_t* adv_data);
 
 bool ctrl_scan_data_set(btle_cmd_param_le_write_scan_response_data_t* data);
+
+bool ctrl_data_param_set(btle_data_channel_data_packet_parameters_t* data_params);
+bool ctrl_data_datapayload_set(btle_data_channel_data_packet_data_t* data_payload);
+bool ctrl_data_version_data_set(btle_control_packet_version_data_t* version_data);
+bool ctrl_data_feature_rsp_data_set(btle_control_packet_feature_rsp_data_t* feature_rsp_data);
+bool ctrl_disconnect_connection_event_set(uint16_t disconnect, bool enable) ;
 
 void capture_timer_1 (void);
 void new_timeslot_order(void);

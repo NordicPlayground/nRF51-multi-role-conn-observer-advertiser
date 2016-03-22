@@ -47,7 +47,7 @@
  * to accommodate for 3 scan requests per advertising event.
  * Must also be power of two.
  */
-#define EVENT_DISPATCHER_FIFO_SIZE (8)
+#define EVENT_DISPATCHER_FIFO_SIZE (16)
 
 /*****************************************************************************
 * Static Globals
