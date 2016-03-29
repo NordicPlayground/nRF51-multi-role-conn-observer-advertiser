@@ -44,6 +44,7 @@ The timeslot advertiser offers  following functions to put all the following eve
 ######(e) channel_map_update_req_evt_dispatch();
 ######(f) version_evt_dispatch();	
 ######(g)	feature_req_evt_dispatch();
+######(h)	num_completed_events_evt_dispatch();
 
  The software interrupt indicated by the user in the btle_hci_adv_init() function is triggered when there are available reports in the queue. The user may then use the btle_hci_adv_report_get() function to pull reports from the queue. The reports contain the total number of valid/invalid packets received and an HCI btle_evt_t structure that indicates what kind of event triggered the report.
 
