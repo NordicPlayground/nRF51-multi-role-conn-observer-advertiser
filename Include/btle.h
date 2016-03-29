@@ -412,7 +412,8 @@ typedef enum
 	BTLE_VS_EVENT_NRF_LL_EVENT_VERSION_REPORT_RECEIVED,
 	BTLE_VS_EVENT_NRF_LL_EVENT_FEATURE_REQ_REPORT_RECEIVED,
 	BTLE_VS_EVENT_NRF_LL_EVENT_CHANNEL_MAP_UPDATE_REQ_REPORT_RECEIVED,
-	BTLE_VS_EVENT_NRF_LL_EVENT_CONNECTION_UPDATE_REQ_REPORT_RECEIVED
+	BTLE_VS_EVENT_NRF_LL_EVENT_CONNECTION_UPDATE_REQ_REPORT_RECEIVED,
+	BTLE_VS_EVENT_NRF_LL_EVENT_NUM_COMPLETED_EVENTS ,
 /* End - Vendor Specific Events. */
 } btle_event_code_t;
 
@@ -848,6 +849,15 @@ typedef struct
   uint8_t                   event_counter[2]; 
  
 }nrf_ev_param_le_disconnected_report_t ;
+
+typedef struct
+{
+  
+  uint8_t                   channel;
+  uint8_t                   event_counter[2]; 
+	uint8_t                   num_completed_event_counter[2];
+ 
+}nrf_ev_param_le_num_completed_events_report_t ;
 
 typedef struct
 {
@@ -1333,6 +1343,7 @@ typedef struct
 		nrf_ev_param_le_feature_req_report_received_t              nrf_feature_req_report_received_event;
 		nrf_ev_param_le_channel_map_update_req_report_received_t   nrf_channel_map_update_req_report_received_event;
 		nrf_ev_param_le_connection_update_req_report_received_t    nrf_connecion_update_req_report_received_event;
+		nrf_ev_param_le_num_completed_events_report_t              nrf_num_completed_events_report_event;
 /* End - Vendor Specific Events. */
   } params;
 } btle_event_t;

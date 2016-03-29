@@ -203,7 +203,7 @@ static uint8_t missed_counter ;
 	
 static uint32_t x1,a;
 static uint16_t connection_event_counter ;
-	
+static uint16_t num_completed_event_counter = 0 ;	
 
 static uint32_t woffset ;
 static uint32_t cointerval ;
@@ -875,6 +875,34 @@ static __INLINE void conn_update_req_evt_dispatch(void)
 	nrf_report_disp_dispatch(&conn_update_req_report);
 }	
 
+
+static __INLINE void num_completed_events_evt_dispatch(void)
+{
+/* prepare scan req report */
+	nrf_report_t num_completed_events_report;
+	uint16_t num_completed_event_counter_;
+  uint16_t event_counter_;	
+	/* packet counters */
+	 
+	/* event details */
+	num_completed_events_report.event.event_code = BTLE_VS_EVENT_NRF_LL_EVENT_NUM_COMPLETED_EVENTS ;
+	num_completed_events_report.event.opcode			= BTLE_CMD_NONE;
+	num_completed_event_counter_= num_completed_event_counter;
+	event_counter_ = connection_event_counter;
+	num_completed_events_report.event.params.nrf_num_completed_events_report_event.num_completed_event_counter[0] = num_completed_event_counter_ & (0x00FF);
+	num_completed_events_report.event.params.nrf_num_completed_events_report_event.num_completed_event_counter[1] = (num_completed_event_counter_>> 8) & (0x00FF);
+	num_completed_events_report.event.params.nrf_num_completed_events_report_event.event_counter[0] = event_counter_ & (0x00FF);
+	num_completed_events_report.event.params.nrf_num_completed_events_report_event.event_counter[1] = (event_counter_>> 8) & (0x00FF);
+	
+	periph_radio_channel_get(&(num_completed_events_report.event.params.nrf_num_completed_events_report_event.channel));
+	
+	/* send scan req event to user space */
+	nrf_report_disp_dispatch(&num_completed_events_report);
+
+
+
+
+}
 
 /**
 * Short check to verify that the incomming 
@@ -1606,6 +1634,7 @@ void RADIO_IRQHandler(void)
 								missed_counter = 0 ;
 								
 								connection_event_counter ++ ;
+								num_completed_event_counter ++;
 								
 								if ((instant > 0)&&(connection_event_counter == instant ))
 													{
@@ -1614,8 +1643,10 @@ void RADIO_IRQHandler(void)
 																	 cointerval = new_cointerval ;
 
 													}
+									num_completed_events_evt_dispatch();
 													
 									periph_timer_start(0, (cointerval-400), true);
+													
 													
 								 
 							}
@@ -1637,7 +1668,7 @@ void RADIO_IRQHandler(void)
 						{    
 								 
 								 connection_event_counter= 0;
-							
+							   num_completed_event_counter =0;
 								 periph_timer_abort(0);
 								 NRF_TIMER0->TASKS_CLEAR = 1;
 
@@ -1687,7 +1718,9 @@ void RADIO_IRQHandler(void)
 						periph_radio_intenclr(RADIO_INTENCLR_DISABLED_Msk);
 	          PERIPHERAL_EVENT_CLR(NRF_RADIO->EVENTS_DISABLED);
 						NRF_RADIO->SHORTS = 0;		
-
+            
+						num_completed_events_evt_dispatch();
+						
 						periph_timer_start(0, (cointerval-400) , true);      //anchor point 
             						
 					}
@@ -1935,27 +1968,6 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 									     
 						           NRF_TIMER0->POWER = 1;
                        reconfigure_radio_for_connection () ;
-						
-						
-											//set_base_prefix_crc_with_new_perameter_from_conn_req ();
-											
-//											NRF_RADIO->CRCINIT = CRCinit[2];
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[1];
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[0];				
-//					
-//											NRF_RADIO->PREFIX0	 = AcessA[3]; //0x8e;
-//											NRF_RADIO->BASE0 = AcessA[2];
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[1];
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[0];
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-//																
-//											NRF_RADIO->TXADDRESS = 0x00;					// Use logical address 0 (prefix0 + base0)  when transmitting
-//											NRF_RADIO->RXADDRESSES = 0x01;        // Use logical address 0 (prefix0 + base0)  when receiving
-											
 											 sm_enter_master_to_slave_receive();
 										   periph_timer_start(0, 6000, true);///////////////////////////////////////////////
 										 
@@ -2070,21 +2082,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 							 NRF_TIMER0->CC[0] = 0;
 						   periph_timer_abort(0);
 							 NRF_TIMER0->TASKS_CLEAR = 1;
-		           
-//               NRF_TIMER0->INTENSET = (1 << (TIMER_INTENSET_COMPARE2_Pos));
-//							 NVIC_EnableIRQ(TIMER0_IRQn);
-//               NRF_TIMER0->PRESCALER = 4;
-//               NRF_TIMER0->BITMODE=TIMER_BITMODE_BITMODE_32Bit;
-//											
-//							 NRF_TIMER0->TASKS_CLEAR = 1;
-//							 NRF_TIMER0->EVENTS_COMPARE[2] = 0; 
-//							 NRF_TIMER0->CC[2] = 800+woffset; /* timeout for RX abort */
-//							 NRF_TIMER0->TASKS_START = 1;
-												
-//							 NRF_RADIO->TASKS_DISABLE = 1; // to clear TX state from sm_enter_req() 
-//	             NRF_RADIO->SHORTS = 0;
-							 
-							  conn_req_evt_dispatch();
+							 conn_req_evt_dispatch();
 							 
 							 next_timeslot_schedule_connection_woffset();
 							 
@@ -2279,20 +2277,6 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						  else
 							{
 								
-
-							
-//							 if((ble_rx_buf[0] & (0x0C)) == 0x00)
-//								ble_linklayer_data[0]=0x05;
-//						  else if ((ble_rx_buf[0] & (0x0C))== 0x0C) 
-//								ble_linklayer_data[0]=0x09;
-//							
-//						 	ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
-//	            ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
-							
-							/* configure radio for master to slave data receive*/
-							 
-							//disconnect_event_counter = disconnect;
-              //disconnect_activate = enable ;
 							
 					    if ((connection_event_counter >= disconnect_event_counter) && ( disconnect_activate ==true)) 
 							{   
@@ -2385,7 +2369,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						missed_counter = 0 ;
 						
 						connection_event_counter ++ ;
-						
+						num_completed_event_counter ++;
 						 
 						if ((instant > 0)&&(connection_event_counter == instant ))
 											{
@@ -2394,8 +2378,9 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 												       cointerval = new_cointerval ;
 
 											}
-
-						  next_timeslot_schedule_connection_2();
+            num_completed_events_evt_dispatch();
+											
+						next_timeslot_schedule_connection_2();
 					}
 					
 				}
@@ -2414,30 +2399,19 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 					if (RADIO_EVENT(EVENTS_DISABLED)) 
 					{    
 						   connection_event_counter= 0 ;
-						
-//						   periph_timer_abort(0);
-//						
-//						   NRF_TIMER0->INTENCLR = (1 << (TIMER_INTENCLR_COMPARE1_Pos ));
-//						
-//							 NRF_TIMER0->TASKS_CLEAR = 1;
-						
-							
+						   num_completed_event_counter =0;
+
 							periph_radio_intenclr(RADIO_INTENCLR_DISABLED_Msk);
 	            PERIPHERAL_EVENT_CLR(NRF_RADIO->EVENTS_DISABLED);
+
+						  if((ble_rx_buf[0] & (0x0C))== 0x00) ble_linklayer_data[0]=0x05;
+							else if ((ble_rx_buf[0] & (0x0C))== 0x0C) ble_linklayer_data[0]=0x09;
 						
-							
-						  
-//						  if((ble_rx_buf[0] & (0x0F))== 0x01) ble_linklayer_data[0]=0x05;
-//						  else if ((ble_rx_buf[0] & (0x0F))== 0x0D) ble_linklayer_data[0]=0x09;
-						
-						    if((ble_rx_buf[0] & (0x0C))== 0x00) ble_linklayer_data[0]=0x05;
-								else if ((ble_rx_buf[0] & (0x0C))== 0x0C) ble_linklayer_data[0]=0x09;
-						
-						    ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
-	              ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
+						  ble_linklayer_data [0] = ble_linklayer_data [0] & 0xEF;//(0b11101111);
+	            ble_linklayer_data [0] = ble_linklayer_data [0] | (MD_bit << 4 );
 	
 							/* configure radio for master to slave data receive*/
-							 periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
+							periph_radio_packet_ptr_set(&ble_linklayer_data[0]);
 					
 							periph_radio_shorts_set(	RADIO_SHORTS_READY_START_Msk | 
 																			RADIO_SHORTS_END_DISABLE_Msk );
@@ -2477,6 +2451,9 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 						missed_counter = 0 ;
 						
 						connection_event_counter= 0 ;
+						num_completed_event_counter =0;
+						
+						num_completed_events_evt_dispatch();
 						
 						next_timeslot_schedule_connection();
 						
@@ -2563,33 +2540,7 @@ __INLINE void ctrl_signal_handler(uint8_t sig)
 													}  
 								break;
 								
-//						  case STATE_MASTER_TO_SLAVE_RECEIVE:
-//									 if (NRF_TIMER0->EVENTS_COMPARE[2] != 0)
-//										{  
 
-//											//set_base_prefix_crc_with_new_perameter_from_conn_req ();
-//											
-//											NRF_RADIO->CRCINIT = CRCinit[2];
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[1];
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT)<<8;
-//											NRF_RADIO->CRCINIT = (NRF_RADIO->CRCINIT) | CRCinit[0];				
-//					
-//											NRF_RADIO->PREFIX0	 = AcessA[3]; //0x8e;
-//											NRF_RADIO->BASE0 = AcessA[2];
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[1];
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0) | AcessA[0];
-//											NRF_RADIO->BASE0 = (NRF_RADIO->BASE0)<<8;
-//																
-//											NRF_RADIO->TXADDRESS = 0x00;					// Use logical address 0 (prefix0 + base0)  when transmitting
-//											NRF_RADIO->RXADDRESSES = 0x01;        // Use logical address 0 (prefix0 + base0)  when receiving
-//											
-//											sm_enter_master_to_slave_receive();
-//										
-//										}  
-//									 break;	
 								case STATE_MASTER_TO_SLAVE_RECEIVE_2:
 									 if (NRF_TIMER0->EVENTS_COMPARE[0] != 0)
 										{ 

@@ -160,6 +160,8 @@ static void sd_assert_cb(uint32_t pc, uint16_t line_num, const uint8_t *file_nam
 * App error check callback. Something went wrong, and we go into a blocking state, as continued 
 * executing may lead to undefined behavoiur.
 */
+
+
 void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 {
   char buf[256];
@@ -175,6 +177,9 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 
   while(1);
 }
+
+
+
 
 /**
  * UART event handler function.
@@ -400,6 +405,8 @@ int main(void)
   }
 }
 
+#if defined(WITH_SOFTDEVICE)
+
 /**@brief Assert callback handler for SoftDevice asserts. */
 void sd_assert_cb (uint32_t pc, uint16_t line_num, const uint8_t *file_name)
 {
@@ -434,6 +441,9 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
 
   while (1);
 }
+
+#endif
+
 
 /**
 * Interrupt handler for advertiser reports
@@ -562,6 +572,16 @@ void SWI0_IRQHandler(void)
 
           uart_putstring((uint8_t*) buf);
         break;
+				
+				case BTLE_VS_EVENT_NRF_LL_EVENT_NUM_COMPLETED_EVENTS:
+          snprintf(buf, 256, "\nLast completed events occur on ch. %i.\tCompleted Event number.0x%.02X%.02X\tEvent counter.0x%.02X%.02X\r\n",
+          report.event.params.nrf_num_completed_events_report_event.channel,
+          report.event.params.nrf_num_completed_events_report_event.num_completed_event_counter[1],
+			    report.event.params.nrf_num_completed_events_report_event.num_completed_event_counter[0],
+			   	report.event.params.nrf_num_completed_events_report_event.event_counter[1],
+			    report.event.params.nrf_num_completed_events_report_event.event_counter[0]);
+          uart_putstring((uint8_t*) buf);
+        break;
 			
       /* For now, the only event we care about is the scan req event. */
       default:
@@ -569,6 +589,8 @@ void SWI0_IRQHandler(void)
     }
   }
 }
+
+#if defined(WITH_SOFTDEVICE)
 
 /**@brief Logging function, used for formated output on the UART.
  */
@@ -587,3 +609,4 @@ void test_logf(const char *fmt, ...)
   
   va_end(args);
 }
+#endif
